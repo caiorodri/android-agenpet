@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:backgroundTint="@color/branco"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/image_view_pet_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_pet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="Ícone de animal" />
+
+        <TextView
+            android:id="@+id/text_view_animal_nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/image_view_pet_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Beethoven" />
+
+        <TextView
+            android:id="@+id/text_view_raca_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Raça:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/text_view_animal_nome"
+            app:layout_constraintTop_toBottomOf="@id/text_view_animal_nome" />
+
+        <TextView
+            android:id="@+id/text_view_raca"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            app:layout_constraintBaseline_toBaselineOf="@id/text_view_raca_label"
+            app:layout_constraintStart_toEndOf="@id/text_view_raca_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="São Bernardo" />
+
+        <TextView
+            android:id="@+id/text_view_sexo_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Sexo:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/text_view_raca_label"
+            app:layout_constraintTop_toBottomOf="@id/text_view_raca_label" />
+
+        <TextView
+            android:id="@+id/text_view_sexo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            app:layout_constraintBaseline_toBaselineOf="@id/text_view_sexo_label"
+            app:layout_constraintStart_toEndOf="@id/text_view_sexo_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Macho" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

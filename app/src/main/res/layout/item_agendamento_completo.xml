@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:backgroundTint="@color/branco"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/placeholder_circle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_pet_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_pet"
+                android:contentDescription="Ícone do pet" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/textViewAnimalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pet:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/placeholder_circle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewAnimalNome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewAnimalLabel"
+            app:layout_constraintStart_toEndOf="@id/textViewAnimalLabel"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDataLabel"
+            tools:text="Beethoven" />
+
+        <TextView
+            android:id="@+id/textViewVetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Veterinário:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/textViewAnimalLabel"
+            app:layout_constraintTop_toBottomOf="@id/textViewAnimalLabel" />
+
+        <TextView
+            android:id="@+id/textViewVetNome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewVetLabel"
+            app:layout_constraintStart_toEndOf="@id/textViewVetLabel"
+            app:layout_constraintEnd_toStartOf="@+id/textViewHorarioLabel"
+            tools:text="Dr. House" />
+
+        <TextView
+            android:id="@+id/textViewServicoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Serviço:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/textViewVetLabel"
+            app:layout_constraintTop_toBottomOf="@id/textViewVetLabel"/>
+
+        <TextView
+            android:id="@+id/textViewServicoNome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewServicoLabel"
+            app:layout_constraintStart_toEndOf="@id/textViewServicoLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Consulta"/>
+
+        <TextView
+            android:id="@+id/textViewDataLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/textViewDataAgendamento"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewDataAgendamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewDataLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="20/04/2025" />
+
+        <TextView
+            android:id="@+id/textViewHorarioLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/textViewHorarioAgendamento"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewVetLabel"/>
+
+        <TextView
+            android:id="@+id/textViewHorarioAgendamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewHorarioLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="10:30" />
+
+        <TextView
+            android:id="@+id/textViewStatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status:"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/textViewStatus"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewServicoNome"/>
+
+        <TextView
+            android:id="@+id/textViewStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewStatusLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Confirmado"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

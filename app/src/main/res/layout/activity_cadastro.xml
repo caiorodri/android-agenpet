@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.inicio.CadastroActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <View
+            android:id="@+id/fundoCadastro"
+            android:layout_width="439dp"
+            android:layout_height="756dp"
+            android:background="@color/principal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.87" />
+
+        <ImageView
+            android:id="@+id/imageViewVoltar"
+            android:layout_width="64dp"
+            android:layout_height="67dp"
+            android:layout_marginBottom="1dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foregroundTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_left"
+            app:tint="#FFFFFF" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="538dp"
+            android:layout_height="817dp"
+            android:layout_marginTop="125dp"
+            android:background="@drawable/rounded_view"
+            android:backgroundTint="@color/branco"
+            android:radius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.297" />
+
+        <TextView
+            android:id="@+id/textViewCadastreSe"
+            android:layout_width="294dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/cadastro"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/preto"
+            android:textSize="48sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <ImageView
+            android:id="@+id/imageViewIconPerfil"
+            android:layout_width="113dp"
+            android:layout_height="87dp"
+            android:layout_marginTop="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewCadastreSe"
+            app:srcCompat="@drawable/ic_profile" />
+
+        <EditText
+            android:id="@+id/editTextNome"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/nome"
+            android:inputType="text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewIconPerfil" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNome" />
+
+        <EditText
+            android:id="@+id/editTextCpf"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/cpf"
+            android:inputType="text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+
+        <EditText
+            android:id="@+id/editTextTelefone"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/telefone"
+            android:inputType="phone"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCpf" />
+
+        <EditText
+            android:id="@+id/editTextDataNascimento"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/data_nascimento"
+            android:inputType="date"
+            android:maxLength="10"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTelefone" />
+
+        <EditText
+            android:id="@+id/editTextCep"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/cep"
+            android:inputType="text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewIconPerfil" />
+
+        <EditText
+            android:id="@+id/editTextLogradouro"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/logradouro"
+            android:inputType="text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCep" />
+
+        <EditText
+            android:id="@+id/editTextNumero"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/numero"
+            android:inputType="number"
+            android:maxLength="10"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextLogradouro" />
+
+        <EditText
+            android:id="@+id/editTextComplemento"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/complemento"
+            android:inputType="text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNumero" />
+
+        <EditText
+            android:id="@+id/editTextCidade"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/cidade"
+            android:inputType="text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextComplemento" />
+
+        <EditText
+            android:id="@+id/editTextEstado"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/estado"
+            android:inputType="text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCidade" />
+
+        <EditText
+            android:id="@+id/editTextSenha"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/senha"
+            android:inputType="textPassword"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewIconPerfil" />
+
+        <EditText
+            android:id="@+id/editTextConfirmarSenha"
+            android:layout_width="258dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/confirmar_senha"
+            android:inputType="textPassword"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextSenha" />
+
+
+        <ImageView
+            android:id="@+id/imageViewProximo"
+            android:layout_width="64dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:rotationY="180"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDataNascimento"
+            app:srcCompat="@drawable/ic_arrow_left" />
+
+        <Button
+            android:id="@+id/buttonCadastrar"
+            android:layout_width="173dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/cadastrar"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:backgroundTint="@color/principal"
+            android:textColor="@color/branco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarSenha" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        tools:visibility="visible">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+    </FrameLayout>
+
+</FrameLayout>

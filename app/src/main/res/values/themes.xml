@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AgenPet" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/principal</item>
+        <item name="toolbarStyle">@style/MyToolbarStyle</item>
+        <item name="android:colorBackground">@color/cinza</item>
+    </style>
+
+    <style name="MyToolbarStyle" parent="Widget.Material3.Toolbar">
+        <item name="android:theme">@style/MyToolbarTheme</item>
+    </style>
+
+    <style name="MyToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar.Primary">
+        <item name="android:textColorPrimary">@color/branco</item>
+        <item name="android:textColorSecondary">@color/branco</item>
+        <item name="colorControlNormal">@color/branco</item>
+    </style>
+
+    <style name="Theme.AgenPet" parent="Base.Theme.AgenPet" />
+
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/white</item>
+    </style>
+
+</resources>
