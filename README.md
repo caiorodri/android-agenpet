@@ -70,8 +70,14 @@ O projeto foi desenvolvido seguindo as melhores práticas e arquiteturas moderna
     * Selecione "Open an existing Project" e navegue até a pasta do projeto clonado.
     * Aguarde o Gradle sincronizar todas as dependências.
 
-3.  **Configure a API (Opcional):**
-    * O projeto está configurado para apontar para a URL da API no arquivo `app/build.gradle.kts`. Se necessário, altere o valor de `API_URL`.
+3.  **Configure as Variáveis de Ambiente:**
+    * Por segurança, as chaves da API não são armazenadas no repositório. Você precisa criá-las localmente.
+    * Na pasta raiz do projeto, crie um arquivo chamado `local.properties` (se ele ainda não existir).
+    * Adicione as seguintes duas variáveis a este arquivo, substituindo com os valores corretos da sua API:
+        ```properties
+        API_URL="API_URL"
+        API_NAME="API_NAME"
+        ```
 
 4.  **Execute o aplicativo:**
     * Selecione um emulador ou conecte um dispositivo físico.
