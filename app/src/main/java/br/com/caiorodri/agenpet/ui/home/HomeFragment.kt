@@ -39,6 +39,12 @@ class HomeFragment : Fragment() {
         setupRecyclerView();
         setupObservers();
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            Log.d("HomeFragment", "Iniciando atualização (pull-to-refresh)...")
+
+            (activity as? HomeActivity)?.carregarDadosDoUsuario();
+        }
+
     }
 
     private fun setupRecyclerView() {
@@ -51,8 +57,11 @@ class HomeFragment : Fragment() {
 
     private fun setupObservers() {
         sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
-            setupInitialUI(usuario);
-            viewModel.carregarAgendamentos(usuario.id!!);
+            viewModel.setAgendamentosIniciais(usuario.agendamentos ?: emptyList());
+        }
+
+        sharedViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.swipeRefreshLayout.isRefreshing = isLoading;
         }
 
         viewModel.agendamentos.observe(viewLifecycleOwner) { listaDeAgendamentos ->
@@ -62,12 +71,14 @@ class HomeFragment : Fragment() {
 
             val ultimoAgendamento = listaDeAgendamentos.firstOrNull();
             updateUltimoAgendamentoCard(ultimoAgendamento);
+
         }
 
         viewModel.erro.observe(viewLifecycleOwner) { mensagemDeErro ->
             if (mensagemDeErro != null) {
                 Toast.makeText(context, mensagemDeErro, Toast.LENGTH_LONG).show();
             }
+
         }
     }
 

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="principal">#063970</color>-->
     <color name="principal">#003366</color>
-    <color name="secundaria">#FF5D2B</color>
     <color name="branco">#FFFFFFFF</color>
     <color name="preto">#FF000000</color>
     <color name="cinza">#E0E0E0</color>

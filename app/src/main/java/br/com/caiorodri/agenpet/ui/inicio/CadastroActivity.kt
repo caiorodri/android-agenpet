@@ -70,7 +70,7 @@ class CadastroActivity : AppCompatActivity() {
             insets
         }
 
-        usuarioController = UsuarioController();
+        usuarioController = UsuarioController(this);
 
         val callback = object : OnBackPressedCallback(true) {
 

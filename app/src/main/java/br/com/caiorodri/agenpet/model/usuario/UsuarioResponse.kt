@@ -22,4 +22,5 @@ data class UsuarioResponse(
     val senha: String,
     val agendamentos: MutableList<AgendamentoResponse>,
     val animais: MutableList<AnimalResponse>,
+    val receberEmail: Boolean
 )

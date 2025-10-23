@@ -86,7 +86,7 @@ dependencies {
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.swiperefreshlayout)
-
+    implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)

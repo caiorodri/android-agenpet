@@ -1,12 +1,13 @@
 package br.com.caiorodri.agenpet.api.controller
 
+import android.content.Context
 import android.util.Log
 import br.com.caiorodri.agenpet.api.client.ApiClient
 import br.com.caiorodri.agenpet.model.animal.AnimalResponse
 
-class AnimalController {
+class AnimalController(private val context: Context) {
 
-    private val animalService = ApiClient.animalService
+    private val animalService = ApiClient.getAnimalService(context);
 
     suspend fun listarAnimaisByDonoId(idDono: Long): List<AnimalResponse> {
 

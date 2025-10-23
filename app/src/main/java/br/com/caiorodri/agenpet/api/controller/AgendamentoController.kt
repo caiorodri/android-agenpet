@@ -1,12 +1,13 @@
 package br.com.caiorodri.agenpet.api.controller
 
+import android.content.Context
 import android.util.Log
 import br.com.caiorodri.agenpet.api.client.ApiClient
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoResponse
 
-class AgendamentoController {
+class AgendamentoController(private val context: Context) {
 
-    private val agendamentoService = ApiClient.agendamentoService
+    private val agendamentoService = ApiClient.getAgendamentoService(context);
 
     suspend fun listarAgendamentosByUsuarioId(idUsuario: Long): List<AgendamentoResponse> {
 

@@ -1,8 +1,9 @@
 package br.com.caiorodri.agenpet.ui.agendamento
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.caiorodri.agenpet.api.controller.AgendamentoController
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
@@ -12,16 +13,16 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class AgendamentoViewModel : ViewModel() {
+class AgendamentoViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val agendamentoController = AgendamentoController()
-    private var listaCompleta: List<Agendamento> = emptyList()
+    private val agendamentoController = AgendamentoController(application);
+    private var listaCompleta: List<Agendamento> = emptyList();
 
-    private val _agendamentos = MutableLiveData<List<Agendamento>>()
-    val agendamentos: LiveData<List<Agendamento>> = _agendamentos
+    private val _agendamentos = MutableLiveData<List<Agendamento>>();
+    val agendamentos: LiveData<List<Agendamento>> = _agendamentos;
 
-    private val _erro = MutableLiveData<String?>()
-    val erro: LiveData<String?> = _erro
+    private val _erro = MutableLiveData<String?>();
+    val erro: LiveData<String?> = _erro;
 
     private val _isLoading = MutableLiveData<Boolean>();
     val isLoading: LiveData<Boolean> = _isLoading;

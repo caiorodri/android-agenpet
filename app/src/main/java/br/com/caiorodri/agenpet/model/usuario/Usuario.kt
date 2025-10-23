@@ -21,7 +21,8 @@ data class Usuario(
     val status: Status?,
     val senha: String?,
     var agendamentos: List<Agendamento>?,
-    var animais: List<Animal>?
+    var animais: List<Animal>?,
+    val receberEmail: Boolean?,
 
     ): Parcelable {
 
@@ -39,8 +40,9 @@ data class Usuario(
         usuarioResponse.perfil,
         usuarioResponse.status,
         usuarioResponse.senha,
-        listOf(),
-        listOf()
+        agendamentos = usuarioResponse.agendamentos?.map { Agendamento(it) } ?: listOf(),
+        animais = usuarioResponse.animais?.map { Animal(it) } ?: listOf(),
+        usuarioResponse.receberEmail
         )
 
 }

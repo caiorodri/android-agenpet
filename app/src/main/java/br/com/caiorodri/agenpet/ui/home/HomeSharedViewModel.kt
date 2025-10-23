@@ -7,10 +7,17 @@ import br.com.caiorodri.agenpet.model.usuario.Usuario
 
 class HomeSharedViewModel : ViewModel() {
 
-    private val _usuarioLogado = MutableLiveData<Usuario>()
-    val usuarioLogado: LiveData<Usuario> = _usuarioLogado
+    private val _usuarioLogado = MutableLiveData<Usuario>();
+    val usuarioLogado: LiveData<Usuario> = _usuarioLogado;
+
+    private val _isLoading = MutableLiveData<Boolean>();
+    val isLoading: LiveData<Boolean> = _isLoading;
+
+    fun setLoading(loading: Boolean) {
+        _isLoading.value = loading;
+    }
 
     fun setUsuario(usuario: Usuario) {
-        _usuarioLogado.value = usuario
+        _usuarioLogado.value = usuario;
     }
 }

@@ -1,5 +1,7 @@
 package br.com.caiorodri.agenpet.ui.animal
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,9 +10,9 @@ import br.com.caiorodri.agenpet.api.controller.AnimalController
 import br.com.caiorodri.agenpet.model.animal.Animal
 import kotlinx.coroutines.launch
 
-class AnimalViewModel : ViewModel() {
+class AnimalViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val animalController = AnimalController()
+    private val animalController = AnimalController(application);
     private var listaCompleta: List<Animal> = emptyList()
 
     private val _animais = MutableLiveData<List<Animal>>()

@@ -76,6 +76,7 @@ class AnimalFragment : Fragment() {
     private fun setupObservers() {
 
         sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
+            viewModel.setAnimaisIniciais(usuario.animais ?: emptyList())
             viewModel.carregarAnimais(usuario.id!!);
         }
 

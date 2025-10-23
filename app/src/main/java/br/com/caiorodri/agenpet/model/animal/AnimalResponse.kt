@@ -3,11 +3,12 @@ package br.com.caiorodri.agenpet.model.animal
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import br.com.caiorodri.agenpet.model.animal.Sexo
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
+import java.util.Date
 
 data class AnimalResponse(
     val altura: Double,
     val castrado: Boolean,
-    val dataNascimento: String,
+    val dataNascimento: Date?,
     val descricao: String,
     val dono: UsuarioResponse,
     val id: Long?,

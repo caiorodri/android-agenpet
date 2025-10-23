@@ -67,6 +67,7 @@ class AgendamentoFragment : Fragment() {
 
     private fun setupObservers() {
         sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
+            viewModel.setAgendamentosIniciais(usuario.agendamentos ?: emptyList())
             viewModel.carregarAgendamentos(usuario.id!!)
         }
 

@@ -30,6 +30,7 @@ class AnimalCadastroViewModel : ViewModel() {
     }
 
     private fun carregarDadosIniciais() {
+        
         val especieCao = Especie(1, "Cão")
         val especieGato = Especie(2, "Gato")
 

@@ -1,34 +1,32 @@
 package br.com.caiorodri.agenpet.api.controller
 
+import android.content.Context
 import android.util.Log
 import br.com.caiorodri.agenpet.api.client.ApiClient
-import br.com.caiorodri.agenpet.model.usuario.UsuarioLogin
+import br.com.caiorodri.agenpet.model.usuario.LoginRequest
+import br.com.caiorodri.agenpet.model.usuario.LoginResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 
-public class UsuarioController {
+public class UsuarioController(private val context: Context) {
 
-    val usuarioService = ApiClient.usuarioService;
+    private val usuarioService = ApiClient.getUsuarioService(context)
 
-    suspend fun findByEmailAndSenha(email: String, senha: String): UsuarioResponse? {
+    suspend fun autenticar(loginRequest: LoginRequest): LoginResponse? {
 
         Log.i("Api", "[Inicio] - findByEmailAndSenha")
 
-        var usuario: UsuarioResponse? = null;
-
-        val response = usuarioService.findByEmailAndSenha(UsuarioLogin(email, senha));
-
-        Log.d("Api", "Resposta: $response")
-
-        if(response.isSuccessful){
-
-            usuario = response.body();
-
+        try {
+            val response = usuarioService.autenticar(loginRequest)
+            if (response.isSuccessful) {
+                return response.body()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
         Log.i("Api", "[Fim] - findByEmailAndSenha")
 
-        return usuario;
+        return null;
 
     }
 
@@ -57,6 +55,18 @@ public class UsuarioController {
 
         return usuarioSalvo;
 
+    }
+
+    suspend fun getMeuPerfil(): UsuarioResponse? {
+        try {
+            val response = usuarioService.getMeuPerfil()
+            if (response.isSuccessful) {
+                return response.body()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
     }
 
 }

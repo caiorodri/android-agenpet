@@ -14,15 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgenPet">
         <activity
+            android:name=".ui.inicio.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.inicio.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.inicio.LoginActivity"
-            android:exported="true">
+            android:name=".ui.inicio.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

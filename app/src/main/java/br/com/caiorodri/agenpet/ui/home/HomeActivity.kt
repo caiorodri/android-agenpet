@@ -16,6 +16,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,37 +24,46 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import br.com.caiorodri.agenpet.R
+import br.com.caiorodri.agenpet.api.controller.UsuarioController
 import br.com.caiorodri.agenpet.model.usuario.Usuario
+import br.com.caiorodri.agenpet.security.SessionManager
 import br.com.caiorodri.agenpet.ui.inicio.LoginActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeActivity : AppCompatActivity() {
 
-    private val sharedViewModel: HomeSharedViewModel by viewModels()
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val sharedViewModel: HomeSharedViewModel by viewModels();
+    private lateinit var drawerLayout: DrawerLayout;
+    private lateinit var appBarConfiguration: AppBarConfiguration;
+    private lateinit var usuarioController: UsuarioController;
+    private lateinit var sessionManager: SessionManager;
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_home)
+        super.onCreate(savedInstanceState);
+        enableEdgeToEdge();
+        setContentView(R.layout.activity_home);
 
-        val usuarioRecebido = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        usuarioController = UsuarioController(this);
+        sessionManager = SessionManager(this);
+
+        val usuarioLogadoIntent: Usuario? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("usuarioLogado", Usuario::class.java)
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra("usuarioLogado")
         }
 
-        if (usuarioRecebido == null) {
-            Log.e("HomeActivity", "Usuário não encontrado")
-            finish()
-            return;
+        if (usuarioLogadoIntent != null) {
+            Log.d("HomeActivity", "Usuário recebido via Intent.")
+            sharedViewModel.setUsuario(usuarioLogadoIntent)
         } else {
-            sharedViewModel.setUsuario(usuarioRecebido)
-            Log.i("HomeActivity", "Usuário encontrado: ${sharedViewModel.usuarioLogado.value}")
+            Log.d("HomeActivity", "Usuário não recebido via Intent. Buscando perfil na rede.")
+            carregarDadosDoUsuario()
         }
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -132,10 +142,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.popup_logout -> {
 
-                    Toast.makeText(this, "Saindo...", Toast.LENGTH_SHORT).show()
-                     val intentLogin = Intent(this, LoginActivity::class.java)
-                     startActivity(intentLogin)
-                     finish()
+                    deslogarEVoltarParaLogin();
                     true
                 }
                 else -> false
@@ -143,6 +150,39 @@ class HomeActivity : AppCompatActivity() {
         }
 
         popup.show()
+    }
+
+    fun carregarDadosDoUsuario() {
+
+        sharedViewModel.setLoading(true);
+
+        lifecycleScope.launch {
+
+            val usuarioResponse = withContext(Dispatchers.IO) {
+                usuarioController.getMeuPerfil();
+            }
+
+            if (usuarioResponse != null) {
+                val usuarioLogado = Usuario(usuarioResponse);
+                sharedViewModel.setUsuario(usuarioLogado);
+            } else {
+                Toast.makeText(this@HomeActivity, "Sua sessão expirou. Por favor, faça login novamente.", Toast.LENGTH_LONG).show()
+                deslogarEVoltarParaLogin();
+            }
+
+            sharedViewModel.setLoading(false);
+
+        }
+    }
+
+    private fun deslogarEVoltarParaLogin() {
+        sessionManager.clearAuthToken()
+
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        finish()
     }
 
 }
