@@ -1,362 +1,282 @@
-package br.com.caiorodri.agenpet.ui.inicio
+package br.com.caiorodri.agenpet.ui.inicio;
 
-import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import androidx.transition.TransitionManager
-import br.com.caiorodri.agenpet.R
-import br.com.caiorodri.agenpet.api.controller.UsuarioController
-import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher
-import br.com.caiorodri.agenpet.model.usuario.Endereco
-import br.com.caiorodri.agenpet.model.usuario.Estado
-import br.com.caiorodri.agenpet.model.usuario.Perfil
-import br.com.caiorodri.agenpet.model.usuario.PerfilEnum
-import br.com.caiorodri.agenpet.model.usuario.Status
-import br.com.caiorodri.agenpet.model.usuario.StatusEnum
-import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest
-import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.Toast;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.enableEdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.lifecycleScope;
+import br.com.caiorodri.agenpet.R;
+import br.com.caiorodri.agenpet.api.controller.UsuarioController;
+import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher;
+import br.com.caiorodri.agenpet.model.usuario.Endereco;
+import br.com.caiorodri.agenpet.model.usuario.Estado;
+import br.com.caiorodri.agenpet.model.usuario.Perfil;
+import br.com.caiorodri.agenpet.model.usuario.PerfilEnum;
+import br.com.caiorodri.agenpet.model.usuario.Status;
+import br.com.caiorodri.agenpet.model.usuario.StatusEnum;
+import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
+import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import kotlinx.coroutines.Dispatchers;
+import kotlinx.coroutines.launch;
+import kotlinx.coroutines.withContext;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 class CadastroActivity : AppCompatActivity() {
 
     private lateinit var usuarioController: UsuarioController;
-    private lateinit var constraintLayoutMain: ConstraintLayout;
     private lateinit var frameLayoutLoading: FrameLayout;
-    private lateinit var imageViewVoltar: ImageView;
     private lateinit var buttonCadastrar: Button;
-    private lateinit var editTextCpf: EditText;
-    private lateinit var editTextNome: EditText;
-    private lateinit var editTextEmail: EditText;
-    private lateinit var editTextDataNascimento: EditText;
-    private lateinit var editTextTelefone: EditText;
-    private lateinit var editTextSenha: EditText;
-    private lateinit var editTextConfirmarSenha: EditText;
-    private lateinit var editTextCep: EditText;
-    private lateinit var editTextLogradouro: EditText;
-    private lateinit var editTextNumero: EditText;
-    private lateinit var editTextComplemento: EditText;
-    private lateinit var editTextCidade: EditText;
-    private lateinit var editTextEstado: EditText;
-    private lateinit var imageViewProximo: ImageView;
-    private var indiceCampos = 0;
-    private var INDICE_DADOS_PESSOAIS = 0;
-    private var INDICE_ENDERECO = 1;
-    private var INDICE_SENHA = 2;
+    private lateinit var toolbar: MaterialToolbar;
+
+    // Campos de Input
+    private lateinit var editTextNome: TextInputEditText;
+    private lateinit var editTextEmail: TextInputEditText;
+    private lateinit var editTextCpf: TextInputEditText;
+    private lateinit var editTextDataNascimento: TextInputEditText;
+    private lateinit var editTextTelefone: TextInputEditText;
+    private lateinit var editTextSenha: TextInputEditText;
+    private lateinit var editTextConfirmarSenha: TextInputEditText;
+    private lateinit var editTextCep: TextInputEditText;
+    private lateinit var editTextLogradouro: TextInputEditText;
+    private lateinit var editTextNumero: TextInputEditText;
+    private lateinit var editTextComplemento: TextInputEditText;
+    private lateinit var editTextCidade: TextInputEditText;
+    private lateinit var editTextEstado: TextInputEditText;
+
+    // Layouts de Input (para mostrar erros)
+    private lateinit var inputLayoutNome: TextInputLayout;
+    private lateinit var inputLayoutEmail: TextInputLayout;
+    private lateinit var inputLayoutCpf: TextInputLayout;
+    private lateinit var inputLayoutDataNascimento: TextInputLayout;
+    private lateinit var inputLayoutTelefone: TextInputLayout;
+    private lateinit var inputLayoutSenha: TextInputLayout;
+    private lateinit var inputLayoutConfirmarSenha: TextInputLayout;
+    private lateinit var inputLayoutCep: TextInputLayout;
+    private lateinit var inputLayoutLogradouro: TextInputLayout;
+    private lateinit var inputLayoutNumero: TextInputLayout;
+    private lateinit var inputLayoutCidade: TextInputLayout;
+    private lateinit var inputLayoutEstado: TextInputLayout;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_cadastro)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cadastro)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        super.onCreate(savedInstanceState);
+        enableEdgeToEdge();
+        setContentView(R.layout.activity_cadastro);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cadastro_root)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            insets;
+        };
 
         usuarioController = UsuarioController(this);
 
         val callback = object : OnBackPressedCallback(true) {
-
             override fun handleOnBackPressed() {
-
-                handleBackPress();
-
+                finish();
             }
-
-        }
-
+        };
         onBackPressedDispatcher.addCallback(this, callback);
 
         setUpViews();
         setUpListeners();
 
-    }
+    };
 
-    fun setUpViews(){
-
-        constraintLayoutMain = findViewById(R.id.cadastro);
-        imageViewVoltar = findViewById(R.id.imageViewVoltar);
-        buttonCadastrar = findViewById(R.id.buttonCadastrar);
-        editTextCpf = findViewById(R.id.editTextCpf);
-        editTextSenha = findViewById(R.id.editTextSenha);
-        editTextNome = findViewById(R.id.editTextNome);
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextDataNascimento = findViewById(R.id.editTextDataNascimento);
-        editTextTelefone = findViewById(R.id.editTextTelefone);
-        editTextConfirmarSenha = findViewById(R.id.editTextConfirmarSenha);
-        imageViewProximo = findViewById(R.id.imageViewProximo);
-        editTextCep = findViewById(R.id.editTextCep);
-        editTextLogradouro = findViewById(R.id.editTextLogradouro);
-        editTextNumero = findViewById(R.id.editTextNumero);
-        editTextComplemento = findViewById(R.id.editTextComplemento);
-        editTextCidade = findViewById(R.id.editTextCidade);
-        editTextEstado = findViewById(R.id.editTextEstado);
+    fun setUpViews() {
         frameLayoutLoading = findViewById(R.id.loadingOverlay);
+        buttonCadastrar = findViewById(R.id.button_cadastrar);
+        toolbar = findViewById(R.id.toolbar_cadastro);
 
-    }
+        editTextNome = findViewById(R.id.edit_text_nome);
+        editTextEmail = findViewById(R.id.edit_text_email);
+        editTextCpf = findViewById(R.id.edit_text_cpf);
+        editTextDataNascimento = findViewById(R.id.edit_text_data_nascimento);
+        editTextTelefone = findViewById(R.id.edit_text_telefone);
+        editTextSenha = findViewById(R.id.edit_text_senha);
+        editTextConfirmarSenha = findViewById(R.id.edit_text_confirmar_senha);
+        editTextCep = findViewById(R.id.edit_text_cep);
+        editTextLogradouro = findViewById(R.id.edit_text_logradouro);
+        editTextNumero = findViewById(R.id.edit_text_numero);
+        editTextComplemento = findViewById(R.id.edit_text_complemento);
+        editTextCidade = findViewById(R.id.edit_text_cidade);
+        editTextEstado = findViewById(R.id.edit_text_estado);
+
+        inputLayoutNome = findViewById(R.id.input_layout_nome);
+        inputLayoutEmail = findViewById(R.id.input_layout_email);
+        inputLayoutCpf = findViewById(R.id.input_layout_cpf);
+        inputLayoutDataNascimento = findViewById(R.id.input_layout_data_nascimento);
+        inputLayoutTelefone = findViewById(R.id.input_layout_telefone);
+        inputLayoutSenha = findViewById(R.id.input_layout_senha);
+        inputLayoutConfirmarSenha = findViewById(R.id.input_layout_confirmar_senha);
+        inputLayoutCep = findViewById(R.id.input_layout_cep);
+        inputLayoutLogradouro = findViewById(R.id.input_layout_logradouro);
+        inputLayoutNumero = findViewById(R.id.input_layout_numero);
+        inputLayoutCidade = findViewById(R.id.input_layout_cidade);
+        inputLayoutEstado = findViewById(R.id.input_layout_estado);
+    };
 
     fun setUpListeners() {
-        imageViewVoltar.setOnClickListener {
-            handleBackPress()
-        }
-
-        imageViewProximo.setOnClickListener {
-            if (indiceCampos < INDICE_SENHA) {
-                indiceCampos++
-                mudarCampos()
-            }
-        }
+        toolbar.setNavigationOnClickListener {
+            finish();
+        };
 
         buttonCadastrar.setOnClickListener {
             if (!validarCadastro()) {
-                return@setOnClickListener
+                Toast.makeText(this@CadastroActivity, "Por favor, corrija os erros no formulário.", Toast.LENGTH_SHORT).show();
+                return@setOnClickListener;
             }
 
-            frameLayoutLoading.visibility = FrameLayout.VISIBLE
-            buttonCadastrar.isEnabled = false
+            frameLayoutLoading.visibility = FrameLayout.VISIBLE;
+            buttonCadastrar.isEnabled = false;
 
             lifecycleScope.launch {
                 try {
-                    val usuarioSalvo = cadastrar()
+                    val usuarioSalvo = cadastrar();
 
                     if (usuarioSalvo != null) {
-                        Log.i("CadastroActivity", "Usuário ${usuarioSalvo.nome} cadastrado com sucesso")
-                        Toast.makeText(this@CadastroActivity, "Usuário ${usuarioSalvo.nome} cadastrado", Toast.LENGTH_SHORT).show()
-                        finish()
+                        Log.i("CadastroActivity", "Usuário ${usuarioSalvo.nome} cadastrado com sucesso");
+                        Toast.makeText(this@CadastroActivity, "Usuário ${usuarioSalvo.nome} cadastrado", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
-                        Toast.makeText(this@CadastroActivity, "Falha ao cadastrar. Verifique os logs.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@CadastroActivity, "Falha ao cadastrar.", Toast.LENGTH_LONG).show();
                     }
 
                 } catch (e: Exception) {
-                    Log.e("CadastroActivity", "Falha no processo de cadastro: ${e.message}", e)
-                    Toast.makeText(this@CadastroActivity, "Erro: ${e.message}", Toast.LENGTH_LONG).show()
+                    Log.e("CadastroActivity", "Falha no processo de cadastro: ${e.message}", e);
+                    Toast.makeText(this@CadastroActivity, "Erro: ${e.message}", Toast.LENGTH_LONG).show();
                 } finally {
-                    frameLayoutLoading.visibility = FrameLayout.GONE
-                    buttonCadastrar.isEnabled = true
+                    frameLayoutLoading.visibility = FrameLayout.GONE;
+                    buttonCadastrar.isEnabled = true;
                 }
-            }
-        }
+            };
+        };
 
-        editTextDataNascimento.addTextChangedListener(DateMaskTextWatcher(editTextDataNascimento))
-    }
+        editTextDataNascimento.addTextChangedListener(DateMaskTextWatcher(editTextDataNascimento));
+    };
 
     private suspend fun cadastrar(): UsuarioResponse? {
 
-        val nome = editTextNome.text.toString()
-        val email = editTextEmail.text.toString()
-        val cpf = editTextCpf.text.toString()
-        val telefone = editTextTelefone.text.toString()
-        val dataNascimentoStr = editTextDataNascimento.text.toString()
-        val senha = editTextSenha.text.toString()
-        val cep = editTextCep.text.toString()
-        val logradouro = editTextLogradouro.text.toString()
-        val numero = editTextNumero.text.toString()
-        val complemento = editTextComplemento.text.toString()
-        val cidade = editTextCidade.text.toString()
-        val estado = editTextEstado.text.toString()
+        val nome = editTextNome.text.toString();
+        val email = editTextEmail.text.toString();
+        val cpf = editTextCpf.text.toString();
+        val telefone = editTextTelefone.text.toString();
+        val dataNascimentoStr = editTextDataNascimento.text.toString();
+        val senha = editTextSenha.text.toString();
+        val cep = editTextCep.text.toString();
+        val logradouro = editTextLogradouro.text.toString();
+        val numero = editTextNumero.text.toString();
+        val complemento = editTextComplemento.text.toString();
+        val cidade = editTextCidade.text.toString();
+        val estado = editTextEstado.text.toString();
 
         val dataNascimentoFormatada = try {
-            SimpleDateFormat("dd/MM/yyyy").parse(dataNascimentoStr)
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dataNascimentoStr);
         } catch (e: Exception) {
-            throw Exception("Formato de data inválido. Use DD/MM/AAAA.")
-        }
+            throw Exception("Formato de data inválido. Use DD/MM/AAAA.");
+        };
 
         val usuarioRequest = UsuarioRequest(
             null, nome, email, cpf, senha, listOf(telefone),
             dataNascimentoFormatada,
             Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, estado)), null, null,
             Perfil(PerfilEnum.CLIENTE.getValue(), null), Status(StatusEnum.ATIVO.getValue(), null)
-        )
+        );
 
         return withContext(Dispatchers.IO) {
-            usuarioController.save(usuarioRequest)
-        }
-    }
+            usuarioController.save(usuarioRequest);
+        };
+    };
 
     fun validarCadastro(): Boolean {
-
         var valido = true;
 
-        if(editTextSenha.text.toString() != editTextConfirmarSenha.text.toString()){
+        inputLayoutNome.error = null;
+        inputLayoutEmail.error = null;
+        inputLayoutCpf.error = null;
+        inputLayoutTelefone.error = null;
+        inputLayoutDataNascimento.error = null;
+        inputLayoutCep.error = null;
+        inputLayoutLogradouro.error = null;
+        inputLayoutNumero.error = null;
+        inputLayoutCidade.error = null;
+        inputLayoutEstado.error = null;
+        inputLayoutSenha.error = null;
+        inputLayoutConfirmarSenha.error = null;
 
-            editTextSenha.error = "As senhas não são iguais";
-            editTextConfirmarSenha.error = "As senhas não são iguais";
+        if (editTextSenha.text.toString().length < 8) {
+            inputLayoutSenha.error = "A senha deve conter no mínimo 8 caracteres";
             valido = false;
-
         }
 
-        if(editTextSenha.text.toString().length < 8){
-
-            editTextSenha.error = "A senha deve conter no mínimo 8 caracteres";
-            editTextConfirmarSenha.error = "A senha deve conter no mínimo 8 caracteres";
+        if (editTextSenha.text.toString() != editTextConfirmarSenha.text.toString()) {
+            inputLayoutConfirmarSenha.error = "As senhas não são iguais";
             valido = false;
-
         }
 
-        if(editTextNome.text.toString().isEmpty()){
-
-            editTextNome.error = "O nome não pode estar vazio";
+        // Validação de Dados Pessoais
+        if (editTextNome.text.toString().isEmpty()) {
+            inputLayoutNome.error = "O nome não pode estar vazio";
             valido = false;
-
         }
 
-        if(editTextEmail.text.toString().isEmpty() || !editTextEmail.text.toString().contains("@")){
-
-            editTextEmail.error = "O email precisa ser válido";
+        if (editTextEmail.text.toString().isEmpty() || !editTextEmail.text.toString().contains("@")) {
+            inputLayoutEmail.error = "O email precisa ser válido";
             valido = false;
-
         }
 
-        if(editTextCpf.text.toString().isEmpty() || editTextCpf.text.toString().length != 11){
-
-            editTextCpf.error = "O CPF precisa ser válido";
+        if (editTextCpf.text.toString().length != 11) {
+            inputLayoutCpf.error = "O CPF precisa ter 11 dígitos";
             valido = false;
-
         }
 
-        if(editTextTelefone.text.toString().isEmpty()){
-
-            editTextTelefone.error = "O telefone não pode estar vazio";
+        if (editTextTelefone.text.toString().isEmpty()) {
+            inputLayoutTelefone.error = "O telefone não pode estar vazio";
             valido = false;
-
         }
 
-        if(editTextDataNascimento.text.toString().isEmpty()){
-
-            editTextDataNascimento.error = "A data de nascimento não pode estar vazia";
+        if (editTextDataNascimento.text.toString().length != 10) { // Valida máscara DD/MM/AAAA
+            inputLayoutDataNascimento.error = "A data deve estar no formato DD/MM/AAAA";
             valido = false;
-
         }
 
-        if(editTextCep.text.toString().isEmpty()){
-
-            editTextCep.error = "O CEP não pode estar vazio";
+        // Validação de Endereço
+        if (editTextCep.text.toString().isEmpty()) {
+            inputLayoutCep.error = "O CEP não pode estar vazio";
             valido = false;
-
         }
 
-        if(editTextLogradouro.text.toString().isEmpty()){
-
-            editTextLogradouro.error = "O logradouro não pode estar vazio";
+        if (editTextLogradouro.text.toString().isEmpty()) {
+            inputLayoutLogradouro.error = "O logradouro não pode estar vazio";
             valido = false;
-
         }
 
-        if(editTextNumero.text.toString().isEmpty()){
-
-            editTextNumero.error = "O número não pode estar vazio";
+        if (editTextNumero.text.toString().isEmpty()) {
+            inputLayoutNumero.error = "O número não pode estar vazio";
             valido = false;
-
         }
 
-        if(editTextCidade.text.toString().isEmpty()){
-
-            editTextCidade.error = "A cidade não pode estar vazia";
+        if (editTextCidade.text.toString().isEmpty()) {
+            inputLayoutCidade.error = "A cidade não pode estar vazia";
             valido = false;
-
         }
 
-        if(editTextEstado.text.toString().isEmpty()){
-
-            editTextEstado.error = "O estado não pode estar vazio";
+        if (editTextEstado.text.toString().length != 2) {
+            inputLayoutEstado.error = "O estado deve ter 2 caracteres (ex: SP)";
             valido = false;
-
         }
 
         return valido;
-
-    }
-
-    fun mudarCampos() {
-
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(constraintLayoutMain)
-
-        fun setDadosPessoaisVisibility(visibility: Int) {
-            constraintSet.setVisibility(R.id.editTextNome, visibility)
-            constraintSet.setVisibility(R.id.editTextEmail, visibility)
-            constraintSet.setVisibility(R.id.editTextCpf, visibility)
-            constraintSet.setVisibility(R.id.editTextTelefone, visibility)
-            constraintSet.setVisibility(R.id.editTextDataNascimento, visibility)
-        }
-
-        fun setEnderecoVisibility(visibility: Int) {
-            constraintSet.setVisibility(R.id.editTextCep, visibility)
-            constraintSet.setVisibility(R.id.editTextLogradouro, visibility)
-            constraintSet.setVisibility(R.id.editTextNumero, visibility)
-            constraintSet.setVisibility(R.id.editTextComplemento, visibility)
-            constraintSet.setVisibility(R.id.editTextCidade, visibility)
-            constraintSet.setVisibility(R.id.editTextEstado, visibility)
-        }
-
-        fun setSenhaVisibility(visibility: Int) {
-            constraintSet.setVisibility(R.id.editTextSenha, visibility)
-            constraintSet.setVisibility(R.id.editTextConfirmarSenha, visibility)
-            constraintSet.setVisibility(R.id.buttonCadastrar, visibility)
-        }
-
-        when (indiceCampos) {
-            INDICE_DADOS_PESSOAIS -> {
-                setDadosPessoaisVisibility(ConstraintSet.VISIBLE)
-                setEnderecoVisibility(ConstraintSet.GONE)
-                setSenhaVisibility(ConstraintSet.GONE)
-
-                constraintSet.setVisibility(R.id.imageViewProximo, ConstraintSet.VISIBLE)
-                constraintSet.connect(R.id.imageViewProximo, ConstraintSet.TOP, R.id.editTextDataNascimento, ConstraintSet.BOTTOM, 24)
-            }
-            INDICE_ENDERECO -> {
-                setDadosPessoaisVisibility(ConstraintSet.GONE)
-                setEnderecoVisibility(ConstraintSet.VISIBLE)
-                setSenhaVisibility(ConstraintSet.GONE)
-
-                constraintSet.setVisibility(R.id.imageViewProximo, ConstraintSet.VISIBLE)
-                constraintSet.connect(R.id.imageViewProximo, ConstraintSet.TOP, R.id.editTextEstado, ConstraintSet.BOTTOM, 24)
-            }
-            INDICE_SENHA -> {
-                setDadosPessoaisVisibility(ConstraintSet.GONE)
-                setEnderecoVisibility(ConstraintSet.GONE)
-                setSenhaVisibility(ConstraintSet.VISIBLE)
-
-                constraintSet.setVisibility(R.id.imageViewProximo, ConstraintSet.GONE)
-            }
-        }
-
-        TransitionManager.beginDelayedTransition(constraintLayoutMain)
-        constraintSet.applyTo(constraintLayoutMain)
-
-    }
-
-
-    fun handleBackPress(){
-
-        if (indiceCampos > INDICE_DADOS_PESSOAIS) {
-
-            indiceCampos--
-            mudarCampos()
-
-        } else {
-
-            finish()
-
-        }
-
     }
 
 }

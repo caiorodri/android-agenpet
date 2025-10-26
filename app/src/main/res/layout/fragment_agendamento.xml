@@ -76,6 +76,6 @@
         android:src="@drawable/ic_add"
         app:tint="@android:color/white"
         app:backgroundTint="@color/principal"
-        android:contentDescription="Adicionar novo agendamento" />
+        android:contentDescription="@string/cadastrar_novo_agendamento" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

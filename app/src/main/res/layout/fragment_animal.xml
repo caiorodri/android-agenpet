@@ -71,6 +71,6 @@
         android:src="@drawable/ic_add"
         app:tint="@android:color/white"
         app:backgroundTint="@color/principal"
-        android:contentDescription="Adicionar novo animal" />
+        android:contentDescription="@string/cadastrar_novo_pet" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

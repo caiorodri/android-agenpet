@@ -14,7 +14,7 @@
         android:id="@+id/nav_header_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:contentDescription="Imagem do perfil"
+        android:contentDescription="@string/cd_imagem_perfil"
         app:srcCompat="@drawable/ic_profile"
         app:tint="@color/branco" />
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Nome do Utilizador"
+        android:text="@string/placeholder_nome_usuario"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold" />
 
@@ -31,6 +31,6 @@
         android:id="@+id/nav_header_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email.do.utilizador@email.com" />
+        android:text="@string/placeholder_email_usuario" />
 
 </LinearLayout>

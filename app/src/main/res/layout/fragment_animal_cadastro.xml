@@ -25,7 +25,7 @@
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="ID: 123"
+            tools:text="@string/placeholder_id_animal"
             tools:visibility="visible"/>
 
         <com.google.android.material.card.MaterialCardView
@@ -47,7 +47,7 @@
                     android:id="@+id/label_identificacao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Identificação do Pet"
+                    android:text="@string/label_identificacao_pet"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     android:textColor="@color/principal"
                     app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Nome"
+                    android:hint="@string/nome"
                     app:startIconDrawable="@drawable/ic_pet_tag"
                     app:startIconTint="@color/principal"
                     app:layout_constraintTop_toBottomOf="@id/label_identificacao"
@@ -78,7 +78,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Data de Nascimento"
+                    android:hint="@string/data_nascimento"
                     app:endIconMode="custom"
                     app:endIconTint="@color/principal"
                     app:startIconDrawable="@drawable/ic_calendar_dots"
@@ -91,9 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:cursorVisible="false"
-
-                        />
+                        android:cursorVisible="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -102,7 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Espécie"
+                    android:hint="@string/label_especie"
                     app:startIconDrawable="@drawable/ic_pet"
                     app:startIconTint="@color/principal"
                     app:layout_constraintTop_toBottomOf="@id/input_layout_data_nascimento"
@@ -121,7 +119,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Raça"
+                    android:hint="@string/label_raca"
                     android:enabled="false"
                     app:startIconDrawable="@drawable/ic_pet"
                     app:startIconTint="@color/principal"
@@ -156,7 +154,7 @@
                     android:id="@+id/label_caracteristicas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Características Físicas"
+                    android:text="@string/label_caracteristicas_fisicas"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     android:textColor="@color/principal"
                     app:layout_constraintTop_toTopOf="parent"
@@ -167,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Sexo"
+                    android:text="@string/label_sexo"
                     android:labelFor="@id/toggle_button_group_sexo"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="@color/preto"
@@ -189,7 +187,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Macho"
+                        android:text="@string/option_macho"
                         android:textColor="@color/toggle_text_color_selector"
                         app:backgroundTint="@color/toggle_background_tint_selector"
                         />
@@ -199,7 +197,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Fêmea"
+                        android:text="@string/option_femea"
                         android:textColor="@color/toggle_text_color_selector"
                         app:backgroundTint="@color/toggle_background_tint_selector"
                         />
@@ -210,7 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Informações (não editáveis após cadastro)"
+                    android:text="@string/label_info_adicional_animal"
                     android:textAppearance="?attr/textAppearanceBodySmall"
                     android:textStyle="bold"
                     android:textColor="@color/preto"
@@ -224,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:hint="Peso (kg)"
+                    android:hint="@string/hint_peso_kg"
                     app:startIconDrawable="@drawable/ic_weight"
                     app:startIconTint="@color/principal"
                     app:layout_constraintTop_toBottomOf="@id/label_info_adicional"
@@ -243,7 +241,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:hint="Altura (cm)"
+                    android:hint="@string/hint_altura_cm"
                     app:startIconDrawable="@drawable/ic_height"
                     app:startIconTint="@color/principal"
                     app:layout_constraintTop_toTopOf="@id/input_layout_peso"
@@ -261,7 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Castrado?"
+                    android:text="@string/label_castrado"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="@color/preto"
                     app:layout_constraintTop_toBottomOf="@id/input_layout_peso"
@@ -275,8 +273,8 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@id/label_castrado"
                     app:layout_constraintStart_toStartOf="parent">
-                    <RadioButton android:id="@+id/radio_castrado_sim" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sim"/>
-                    <RadioButton android:id="@+id/radio_castrado_nao" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Não"/>
+                    <RadioButton android:id="@+id/radio_castrado_sim" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/option_sim"/>
+                    <RadioButton android:id="@+id/radio_castrado_nao" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/option_nao"/>
                 </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -306,7 +304,7 @@
                     app:tint="@color/principal"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:contentDescription="Ícone de descrição"/>
+                    android:contentDescription="@string/cd_icone_descricao"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_descricao"
@@ -314,7 +312,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:hint="Descrição / Observações"
+                    android:hint="@string/hint_descricao_observacoes"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon_descricao"
                     app:layout_constraintEnd_toEndOf="parent">
@@ -337,7 +335,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:paddingVertical="12dp"
-            android:text="Salvar"
+            android:text="@string/button_salvar"
             android:backgroundTint="@color/principal"
             android:textColor="@color/branco"
             app:layout_constraintTop_toBottomOf="@id/card_observacoes"

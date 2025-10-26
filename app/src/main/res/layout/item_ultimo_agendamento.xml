@@ -56,7 +56,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_pet"
-                android:contentDescription="Ícone do pet" />
+                android:contentDescription="@string/cd_icone_pet" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -92,7 +92,7 @@
             android:id="@+id/image_view_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Ver detalhes"
+            android:contentDescription="@string/cd_ver_detalhes"
             android:rotationY="180"
             android:src="@drawable/ic_arrow_left"
             app:layout_constraintBottom_toBottomOf="parent"

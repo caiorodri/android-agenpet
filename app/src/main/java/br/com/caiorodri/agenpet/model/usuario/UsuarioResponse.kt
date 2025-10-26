@@ -20,7 +20,7 @@ data class UsuarioResponse(
     val perfil: Perfil,
     val status: Status,
     val senha: String,
-    val agendamentos: MutableList<AgendamentoResponse>,
-    val animais: MutableList<AnimalResponse>,
+    val agendamentos: List<AgendamentoResponse>?,
+    val animais: List<AnimalResponse>?,
     val receberEmail: Boolean
 )

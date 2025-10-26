@@ -11,18 +11,19 @@ class SessionManager(context: Context) {
     }
 
     fun saveAuthToken(token: String) {
-        val editor = prefs.edit()
-        editor.putString(AUTH_TOKEN, token)
-        editor.commit()
+        val editor = prefs.edit();
+        editor.putString(AUTH_TOKEN, token);
+        editor.commit();
     }
 
     fun fetchAuthToken(): String? {
-        return prefs.getString(AUTH_TOKEN, null)
+        return prefs.getString(AUTH_TOKEN, null);
     }
 
     fun clearAuthToken() {
-        val editor = prefs.edit()
-        editor.remove(AUTH_TOKEN)
-        editor.apply()
+        val editor = prefs.edit();
+        editor.remove(AUTH_TOKEN);
+        editor.commit();
+
     }
 }

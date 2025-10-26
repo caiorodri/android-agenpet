@@ -10,26 +10,76 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="nome">Nome</string>
     <string name="cpf">CPF</string>
-    <string name="cadastro">Cadastro</string>>
-    <string name="login">Login</string>>
-    <string name="data_nascimento">Data de Nascimento</string>>
-    <string name="telefone">Telefone</string>>
-    <string name="confirmar_senha">Confirmar Senha</string>>
-    <string name="logradouro">Logradouro</string>>
-    <string name="numero">Número</string>>
-    <string name="bairro">Bairro</string>>
-    <string name="cep">CEP</string>>
-    <string name="cidade">Cidade</string>>
-    <string name="estado">Estado</string>>
+    <string name="cadastro">Cadastro</string>
+    <string name="login">Login</string>
+    <string name="data_nascimento">Data de Nascimento</string>
+    <string name="telefone">Telefone</string>
+    <string name="confirmar_senha">Confirmar Senha</string>
+    <string name="logradouro">Logradouro</string>
+    <string name="numero">Número</string>
+    <string name="bairro">Bairro</string>
+    <string name="cep">CEP</string>
+    <string name="cidade">Cidade</string>
+    <string name="estado">Estado</string>
     <string name="complemento">Complemento</string>
     <string name="home">Home</string>
     <string name="agendamentos">Agendamentos</string>
     <string name="pets">Pets</string>
     <string name="configuracao">Configuração</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="navigation_drawer_open" />
-    <string name="navigation_drawer_close" />
+    <string name="cadastrar_novo_agendamento">Cadastrar Novo Agendamento</string>
+    <string name="cadastrar_novo_pet">Cadastrar Novo Pet</string>
+    <string name="navigation_drawer_open">Abrir menu de navegação</string>
+    <string name="navigation_drawer_close">Fechar menu de navegação</string>
 
+    <string name="title_cadastro_usuario">Cadastro de Usuário</string>
+    <string name="label_dados_pessoais">Dados Pessoais</string>
+    <string name="hint_nome_completo">Nome Completo</string>
+    <string name="hint_data_nascimento_formato">Data de Nascimento (DD/MM/AAAA)</string>
+    <string name="label_endereco">Endereço</string>
+    <string name="label_seguranca">Segurança</string>
+    <string name="hint_senha_min_chars">Senha (mín. 8 caracteres)</string>
+
+    <string name="label_identificacao_pet">Identificação do Pet</string>
+    <string name="label_especie">Espécie</string>
+    <string name="label_raca">Raça</string>
+    <string name="label_caracteristicas_fisicas">Características Físicas</string>
+    <string name="label_sexo">Sexo</string>
+    <string name="option_macho">Macho</string>
+    <string name="option_femea">Fêmea</string>
+    <string name="label_info_adicional_animal">Informações (não editáveis após cadastro)</string>
+    <string name="hint_peso_kg">Peso (kg)</string>
+    <string name="hint_altura_cm">Altura (cm)</string>
+    <string name="label_castrado">Castrado?</string>
+    <string name="option_sim">Sim</string>
+    <string name="option_nao">Não</string>
+    <string name="hint_descricao_observacoes">Descrição / Observações</string>
+    <string name="cd_icone_descricao">Ícone de descrição</string>
+    <string name="button_salvar">Salvar</string>
+    <string name="placeholder_id_animal">ID: %1$d</string>
+    <string name="titulo_ultimo_agendamento">Último agendamento</string>
+    <string name="titulo_recentes">Recentes</string>
+
+    <string name="label_animal">Animal:</string>
+    <string name="label_veterinario">Veterinário:</string>
+    <string name="label_data">Data:</string>
+    <string name="label_horario">Horário:</string>
+
+    <string name="cd_icone_pet">Ícone do pet</string>
+    <string name="label_pet_item">Pet:</string>
+    <string name="label_servico">Serviço:</string>
+    <string name="label_hora_item">Hora:</string>
+    <string name="label_status">Status:</string>
+
+    <string name="meu_perfil">Meu Perfil</string>
+    <string name="sair">Sair</string>
+
+    <string name="cd_ver_detalhes">Ver Detalhes</string>
+
+    <string name="cd_imagem_perfil">Imagem do perfil</string>
+    <string name="placeholder_nome_usuario">Nome do Utilizador</string>
+    <string name="placeholder_email_usuario">email.do.utilizador@email.com</string>
+
+    <string name="title_perfil">Perfil</string>
+    <string name="cd_acessar_perfil">Acessar perfil do usuário</string>
 
 </resources>

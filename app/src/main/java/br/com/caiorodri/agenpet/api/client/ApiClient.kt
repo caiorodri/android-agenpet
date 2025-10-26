@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import kotlin.jvm.java
 
 object ApiClient {
@@ -23,6 +24,9 @@ object ApiClient {
         val sessionManager = SessionManager(context.applicationContext)
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(sessionManager))
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 

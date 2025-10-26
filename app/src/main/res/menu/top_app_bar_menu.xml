@@ -5,8 +5,8 @@
     <item
         android:id="@+id/profile_icon"
         android:icon="@drawable/ic_profile_white"
-        android:title="Perfil"
-        android:contentDescription="Acessar perfil do usuário"
+        android:title="@string/title_perfil"
+        android:contentDescription=""
         app:showAsAction="ifRoom" />
 
 </menu>

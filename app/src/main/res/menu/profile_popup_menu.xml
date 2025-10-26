@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/popup_my_profile"
-        android:title="Meu Perfil" />
+        android:title="@string/meu_perfil" />
     <item
         android:id="@+id/popup_logout"
-        android:title="Sair" />
+        android:title="@string/sair" />
 </menu>
