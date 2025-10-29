@@ -6,15 +6,13 @@
     android:id="@+id/cadastro_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".ui.inicio.CadastroActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/cinza"
-        android:fitsSystemWindows="true">
+        android:background="@color/cinza">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -98,7 +96,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edit_text_email"
+                                android:id="@+id/editTextEmail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textEmailAddress"/>
@@ -153,13 +151,17 @@
                             app:startIconDrawable="@drawable/ic_calendar_dots"
                             app:layout_constraintTop_toBottomOf="@id/input_layout_telefone"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent">
+                            app:layout_constraintEnd_toEndOf="parent"
+                            >
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edit_text_data_nascimento"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="date"
-                                android:maxLength="10"/>
+                                android:inputType="none"
+                                android:maxLength="10"
+                                android:focusable="false"
+                                android:cursorVisible="false"
+                                />
                         </com.google.android.material.textfield.TextInputLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -339,7 +341,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edit_text_senha"
+                                android:id="@+id/editTextSenha"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword"/>
@@ -402,7 +404,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            android:indeterminateTint="@color/principal" />
 
     </FrameLayout>
 

@@ -23,13 +23,18 @@ import br.com.caiorodri.agenpet.model.usuario.StatusEnum;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import kotlinx.coroutines.Dispatchers;
 import kotlinx.coroutines.launch;
 import kotlinx.coroutines.withContext;
 import java.text.SimpleDateFormat;
+import java.util.Date
 import java.util.Locale;
+import java.util.TimeZone
 
 class CadastroActivity : AppCompatActivity() {
 
@@ -38,7 +43,6 @@ class CadastroActivity : AppCompatActivity() {
     private lateinit var buttonCadastrar: Button;
     private lateinit var toolbar: MaterialToolbar;
 
-    // Campos de Input
     private lateinit var editTextNome: TextInputEditText;
     private lateinit var editTextEmail: TextInputEditText;
     private lateinit var editTextCpf: TextInputEditText;
@@ -53,7 +57,6 @@ class CadastroActivity : AppCompatActivity() {
     private lateinit var editTextCidade: TextInputEditText;
     private lateinit var editTextEstado: TextInputEditText;
 
-    // Layouts de Input (para mostrar erros)
     private lateinit var inputLayoutNome: TextInputLayout;
     private lateinit var inputLayoutEmail: TextInputLayout;
     private lateinit var inputLayoutCpf: TextInputLayout;
@@ -67,6 +70,10 @@ class CadastroActivity : AppCompatActivity() {
     private lateinit var inputLayoutCidade: TextInputLayout;
     private lateinit var inputLayoutEstado: TextInputLayout;
 
+    private val formatadorDeData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+        timeZone = TimeZone.getTimeZone("UTC");
+    };
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -76,7 +83,7 @@ class CadastroActivity : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cadastro_root)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            insets;
+            WindowInsetsCompat.CONSUMED;
         };
 
         usuarioController = UsuarioController(this);
@@ -99,11 +106,11 @@ class CadastroActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar_cadastro);
 
         editTextNome = findViewById(R.id.edit_text_nome);
-        editTextEmail = findViewById(R.id.edit_text_email);
+        editTextEmail = findViewById(R.id.editTextEmail);
         editTextCpf = findViewById(R.id.edit_text_cpf);
         editTextDataNascimento = findViewById(R.id.edit_text_data_nascimento);
         editTextTelefone = findViewById(R.id.edit_text_telefone);
-        editTextSenha = findViewById(R.id.edit_text_senha);
+        editTextSenha = findViewById(R.id.editTextSenha);
         editTextConfirmarSenha = findViewById(R.id.edit_text_confirmar_senha);
         editTextCep = findViewById(R.id.edit_text_cep);
         editTextLogradouro = findViewById(R.id.edit_text_logradouro);
@@ -159,11 +166,19 @@ class CadastroActivity : AppCompatActivity() {
                     frameLayoutLoading.visibility = FrameLayout.GONE;
                     buttonCadastrar.isEnabled = true;
                 }
-            };
-        };
+            }
+        }
 
         editTextDataNascimento.addTextChangedListener(DateMaskTextWatcher(editTextDataNascimento));
-    };
+
+        inputLayoutDataNascimento.setEndIconOnClickListener {
+            mostrarDatePicker()
+        }
+        editTextDataNascimento.setOnClickListener {
+            mostrarDatePicker()
+        }
+
+    }
 
     private suspend fun cadastrar(): UsuarioResponse? {
 
@@ -224,7 +239,6 @@ class CadastroActivity : AppCompatActivity() {
             valido = false;
         }
 
-        // Validação de Dados Pessoais
         if (editTextNome.text.toString().isEmpty()) {
             inputLayoutNome.error = "O nome não pode estar vazio";
             valido = false;
@@ -245,12 +259,11 @@ class CadastroActivity : AppCompatActivity() {
             valido = false;
         }
 
-        if (editTextDataNascimento.text.toString().length != 10) { // Valida máscara DD/MM/AAAA
+        if (editTextDataNascimento.text.toString().length != 10) {
             inputLayoutDataNascimento.error = "A data deve estar no formato DD/MM/AAAA";
             valido = false;
         }
 
-        // Validação de Endereço
         if (editTextCep.text.toString().isEmpty()) {
             inputLayoutCep.error = "O CEP não pode estar vazio";
             valido = false;
@@ -277,6 +290,27 @@ class CadastroActivity : AppCompatActivity() {
         }
 
         return valido;
+    }
+
+    private fun mostrarDatePicker() {
+        val constraintsBuilder = CalendarConstraints.Builder();
+        val hojeEmUtc = MaterialDatePicker.todayInUtcMilliseconds();
+        val validator = DateValidatorPointBackward.now();
+
+        constraintsBuilder.setEnd(hojeEmUtc);
+        constraintsBuilder.setValidator(validator);
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText(getString(R.string.titulo_datepicker_data_nascimento))
+            .setCalendarConstraints(constraintsBuilder.build())
+            .build();
+
+        datePicker.addOnPositiveButtonClickListener { dataTimestamp ->
+            val data = Date(dataTimestamp);
+            editTextDataNascimento.setText(formatadorDeData.format(data));
+        };
+
+        datePicker.show(supportFragmentManager, "DATE_PICKER");
     }
 
 }

@@ -1,347 +1,401 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cinza"
-    android:fillViewport="true"
     tools:context=".ui.animal.AnimalCadastroFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/text_view_id_animal"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/text_view_id_animal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_chip"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:textColor="@color/preto"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/placeholder_id_animal"
+                tools:visibility="visible"/>
+
+            <ImageButton
+                android:id="@+id/button_remover"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/cd_remover_animal"
+                android:src="@drawable/ic_trash"
+                android:visibility="gone"
+                app:tint="@color/vermelho"
+                tools:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_view_id_animal"
+                app:layout_constraintBottom_toBottomOf="@+id/text_view_id_animal" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_identificacao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/branco"
+                app:layout_constraintTop_toBottomOf="@id/button_remover"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/label_identificacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_identificacao_pet"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/principal"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_layout_nome"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/nome"
+                        app:startIconDrawable="@drawable/ic_pet_tag"
+                        app:startIconTint="@color/principal"
+                        app:layout_constraintTop_toBottomOf="@id/label_identificacao"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_nome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapWords"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_layout_data_nascimento"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/data_nascimento"
+                        app:startIconDrawable="@drawable/ic_calendar_dots"
+                        app:startIconTint="@color/principal"
+                        app:layout_constraintTop_toBottomOf="@id/input_layout_nome"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_data_nascimento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:cursorVisible="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/menu_especie"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/label_especie"
+                        app:startIconDrawable="@drawable/ic_pet"
+                        app:startIconTint="@color/principal"
+                        app:layout_constraintTop_toBottomOf="@id/input_layout_data_nascimento"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <AutoCompleteTextView
+                            android:id="@+id/auto_complete_especie"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar_racas"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone"
+                        android:contentDescription="@string/cd_carregando_racas"
+                        app:layout_constraintTop_toBottomOf="@id/menu_especie"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:visibility="visible"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/menu_raca"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="@string/label_raca"
+                        android:enabled="false"
+                        app:startIconDrawable="@drawable/ic_pet"
+                        app:startIconTint="@color/principal"
+                        app:layout_constraintTop_toBottomOf="@id/progress_bar_racas"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <AutoCompleteTextView
+                            android:id="@+id/auto_complete_raca"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_caracteristicas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/branco"
+                app:layout_constraintTop_toBottomOf="@id/card_identificacao"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/label_caracteristicas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_caracteristicas_fisicas"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/principal"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/label_sexo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/label_sexo"
+                        android:labelFor="@id/toggle_button_group_sexo"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="@color/preto"
+                        app:layout_constraintTop_toBottomOf="@id/label_caracteristicas"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_button_group_sexo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:singleSelection="true"
+                        app:layout_constraintTop_toBottomOf="@id/label_sexo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <Button
+                            android:id="@+id/button_macho"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/option_macho"
+                            android:textColor="@color/toggle_text_color_selector"
+                            app:backgroundTint="@color/toggle_background_tint_selector"
+                            />
+                        <Button
+                            android:id="@+id/button_femea"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/option_femea"
+                            android:textColor="@color/toggle_text_color_selector"
+                            app:backgroundTint="@color/toggle_background_tint_selector"
+                            />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <TextView
+                        android:id="@+id/label_info_adicional"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/label_info_adicional_animal"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        android:textStyle="bold"
+                        android:textColor="@color/preto"
+                        app:layout_constraintTop_toBottomOf="@id/toggle_button_group_sexo"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_layout_peso"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="@string/hint_peso_kg"
+                        app:startIconDrawable="@drawable/ic_weight"
+                        app:startIconTint="@color/principal"
+                        app:layout_constraintTop_toBottomOf="@id/label_info_adicional"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/input_layout_altura">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_peso"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_layout_altura"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:hint="@string/hint_altura_cm"
+                        app:startIconDrawable="@drawable/ic_height"
+                        app:startIconTint="@color/principal"
+                        app:layout_constraintTop_toTopOf="@id/input_layout_peso"
+                        app:layout_constraintStart_toEndOf="@id/input_layout_peso"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_altura"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/label_castrado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/label_castrado"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="@color/preto"
+                        app:layout_constraintTop_toBottomOf="@id/input_layout_peso"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <RadioGroup
+                        android:id="@+id/radio_group_castrado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/label_castrado"
+                        app:layout_constraintStart_toStartOf="parent">
+                        <RadioButton android:id="@+id/radio_castrado_sim" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/option_sim"/>
+                        <RadioButton android:id="@+id/radio_castrado_nao" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/option_nao"/>
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_observacoes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/branco"
+                app:layout_constraintTop_toBottomOf="@id/card_caracteristicas"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/icon_descricao"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_notes"
+                        app:tint="@color/principal"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:contentDescription="@string/cd_icone_descricao"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_layout_descricao"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:hint="@string/hint_descricao_observacoes"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/icon_descricao"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_descricao"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:minLines="4" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <Button
+                android:id="@+id/button_salvar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingVertical="12dp"
+                android:text="@string/button_salvar"
+                android:backgroundTint="@color/principal"
+                android:textColor="@color/branco"
+                app:layout_constraintTop_toBottomOf="@id/card_observacoes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/saving_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progress_bar_saving"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_chip"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:textAppearance="?attr/textAppearanceLabelMedium"
-            android:textColor="@color/preto"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="@string/placeholder_id_animal"
-            tools:visibility="visible"/>
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/principal" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_identificacao"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/branco"
-            app:layout_constraintTop_toBottomOf="@id/text_view_id_animal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+    </FrameLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
+</FrameLayout>
 
-                <TextView
-                    android:id="@+id/label_identificacao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_identificacao_pet"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="@color/principal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_nome"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/nome"
-                    app:startIconDrawable="@drawable/ic_pet_tag"
-                    app:startIconTint="@color/principal"
-                    app:layout_constraintTop_toBottomOf="@id/label_identificacao"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_nome"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapWords"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_data_nascimento"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/data_nascimento"
-                    app:endIconMode="custom"
-                    app:endIconTint="@color/principal"
-                    app:startIconDrawable="@drawable/ic_calendar_dots"
-                    app:startIconTint="@color/principal"
-                    app:layout_constraintTop_toBottomOf="@id/input_layout_nome"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_data_nascimento"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:cursorVisible="false" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/menu_especie"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/label_especie"
-                    app:startIconDrawable="@drawable/ic_pet"
-                    app:startIconTint="@color/principal"
-                    app:layout_constraintTop_toBottomOf="@id/input_layout_data_nascimento"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-                    <AutoCompleteTextView
-                        android:id="@+id/auto_complete_especie"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/menu_raca"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/label_raca"
-                    android:enabled="false"
-                    app:startIconDrawable="@drawable/ic_pet"
-                    app:startIconTint="@color/principal"
-                    app:layout_constraintTop_toBottomOf="@id/menu_especie"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-                    <AutoCompleteTextView
-                        android:id="@+id/auto_complete_raca"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_caracteristicas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/branco"
-            app:layout_constraintTop_toBottomOf="@id/card_identificacao"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/label_caracteristicas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_caracteristicas_fisicas"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="@color/principal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <TextView
-                    android:id="@+id/label_sexo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/label_sexo"
-                    android:labelFor="@id/toggle_button_group_sexo"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="@color/preto"
-                    app:layout_constraintTop_toBottomOf="@id/label_caracteristicas"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/toggle_button_group_sexo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:singleSelection="true"
-                    app:layout_constraintTop_toBottomOf="@id/label_sexo"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-                    <Button
-                        android:id="@+id/button_macho"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/option_macho"
-                        android:textColor="@color/toggle_text_color_selector"
-                        app:backgroundTint="@color/toggle_background_tint_selector"
-                        />
-                    <Button
-                        android:id="@+id/button_femea"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/option_femea"
-                        android:textColor="@color/toggle_text_color_selector"
-                        app:backgroundTint="@color/toggle_background_tint_selector"
-                        />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
-
-                <TextView
-                    android:id="@+id/label_info_adicional"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/label_info_adicional_animal"
-                    android:textAppearance="?attr/textAppearanceBodySmall"
-                    android:textStyle="bold"
-                    android:textColor="@color/preto"
-                    app:layout_constraintTop_toBottomOf="@id/toggle_button_group_sexo"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_peso"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:hint="@string/hint_peso_kg"
-                    app:startIconDrawable="@drawable/ic_weight"
-                    app:startIconTint="@color/principal"
-                    app:layout_constraintTop_toBottomOf="@id/label_info_adicional"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/input_layout_altura">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_peso"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_altura"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:hint="@string/hint_altura_cm"
-                    app:startIconDrawable="@drawable/ic_height"
-                    app:startIconTint="@color/principal"
-                    app:layout_constraintTop_toTopOf="@id/input_layout_peso"
-                    app:layout_constraintStart_toEndOf="@id/input_layout_peso"
-                    app:layout_constraintEnd_toEndOf="parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_altura"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/label_castrado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/label_castrado"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="@color/preto"
-                    app:layout_constraintTop_toBottomOf="@id/input_layout_peso"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <RadioGroup
-                    android:id="@+id/radio_group_castrado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/label_castrado"
-                    app:layout_constraintStart_toStartOf="parent">
-                    <RadioButton android:id="@+id/radio_castrado_sim" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/option_sim"/>
-                    <RadioButton android:id="@+id/radio_castrado_nao" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/option_nao"/>
-                </RadioGroup>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_observacoes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="@color/branco"
-            app:layout_constraintTop_toBottomOf="@id/card_caracteristicas"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
-
-                <ImageView
-                    android:id="@+id/icon_descricao"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_notes"
-                    app:tint="@color/principal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:contentDescription="@string/cd_icone_descricao"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_descricao"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:hint="@string/hint_descricao_observacoes"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/icon_descricao"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_descricao"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:inputType="textMultiLine"
-                        android:minLines="4" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <Button
-            android:id="@+id/button_salvar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:paddingVertical="12dp"
-            android:text="@string/button_salvar"
-            android:backgroundTint="@color/principal"
-            android:textColor="@color/branco"
-            app:layout_constraintTop_toBottomOf="@id/card_observacoes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

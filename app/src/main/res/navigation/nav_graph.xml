@@ -28,6 +28,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/meuPerfilFragment"
+        android:name="br.com.caiorodri.agenpet.ui.usuario.MeuPerfilFragment"
+        android:label="@string/title_meu_perfil"
+        tools:layout="@layout/fragment_meu_perfil" />
+
+    <action
+        android:id="@+id/action_global_meuPerfilFragment"
+        app:destination="@id/meuPerfilFragment" />
+
+    <fragment
         android:id="@+id/cadastroAnimalFragment"
         android:name="br.com.caiorodri.agenpet.ui.animal.AnimalCadastroFragment"
         android:label="Cadastro de Pet"

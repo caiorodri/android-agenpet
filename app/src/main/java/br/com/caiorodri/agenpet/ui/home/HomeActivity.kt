@@ -137,8 +137,11 @@ class HomeActivity : AppCompatActivity() {
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.popup_my_profile -> {
-                    Toast.makeText(this, "Abrindo Meu Perfil...", Toast.LENGTH_SHORT).show()
+
+                    val navController = findNavController(R.id.fragment_container)
+                    navController.navigate(R.id.action_global_meuPerfilFragment)
                     true
+
                 }
                 R.id.popup_logout -> {
 

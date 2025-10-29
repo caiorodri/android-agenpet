@@ -4,4 +4,5 @@
     <color name="branco">#FFFFFFFF</color>
     <color name="preto">#FF000000</color>
     <color name="cinza">#E0E0E0</color>
+    <color name="vermelho">#D32F2F</color>
 </resources>

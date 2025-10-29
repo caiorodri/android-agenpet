@@ -45,4 +45,23 @@ data class Usuario(
         usuarioResponse.receberEmail
         )
 
+    constructor(id: Long?, nome: String, email: String, senha: String): this (
+        id,
+        nome,
+        email,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+)
+
 }

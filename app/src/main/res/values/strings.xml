@@ -31,6 +31,10 @@
     <string name="navigation_drawer_open">Abrir menu de navegação</string>
     <string name="navigation_drawer_close">Fechar menu de navegação</string>
 
+    <string name="title_login">Login</string>
+    <string name="cd_logo_app">Logo do Aplicativo</string>
+    <string name="label_acesso_conta">Acesse sua conta</string>
+
     <string name="title_cadastro_usuario">Cadastro de Usuário</string>
     <string name="label_dados_pessoais">Dados Pessoais</string>
     <string name="hint_nome_completo">Nome Completo</string>
@@ -38,7 +42,6 @@
     <string name="label_endereco">Endereço</string>
     <string name="label_seguranca">Segurança</string>
     <string name="hint_senha_min_chars">Senha (mín. 8 caracteres)</string>
-
     <string name="label_identificacao_pet">Identificação do Pet</string>
     <string name="label_especie">Espécie</string>
     <string name="label_raca">Raça</string>
@@ -56,6 +59,22 @@
     <string name="cd_icone_descricao">Ícone de descrição</string>
     <string name="button_salvar">Salvar</string>
     <string name="placeholder_id_animal">ID: %1$d</string>
+    <string name="titulo_editar_animal">Editar Pet</string>
+    <string name="titulo_novo_animal">Novo Pet</string>
+    <string name="button_atualizar">Atualizar</string>
+    <string name="cd_carregando_racas">Carregando raças</string>
+    <string name="toast_animal_salvo_sucesso">Pet salvo com sucesso!</string>
+    <string name="toast_preencher_campos_obrigatorios">Por favor, preencha todos os campos obrigatórios.</string>
+    <string name="toast_erro_usuario_nao_encontrado">Erro: usuário não encontrado. Tente novamente.</string>
+    <string name="erro_nome_obrigatorio">Nome é obrigatório</string>
+    <string name="erro_especie_obrigatoria">Espécie é obrigatória</string>
+    <string name="erro_raca_obrigatoria">Raça é obrigatória</string>
+    <string name="toast_selecionar_sexo">Selecione o sexo do pet</string>
+    <string name="erro_obrigatorio">Obrigatório</string>
+    <string name="toast_informar_castrado">Informe se o pet é castrado</string>
+    <string name="titulo_datepicker_data_nascimento">Selecione a data de nascimento</string>
+
+
     <string name="titulo_ultimo_agendamento">Último agendamento</string>
     <string name="titulo_recentes">Recentes</string>
 
@@ -74,12 +93,26 @@
     <string name="sair">Sair</string>
 
     <string name="cd_ver_detalhes">Ver Detalhes</string>
-
     <string name="cd_imagem_perfil">Imagem do perfil</string>
+    <string name="cd_acessar_perfil">Acessar perfil do usuário</string>
+
     <string name="placeholder_nome_usuario">Nome do Utilizador</string>
     <string name="placeholder_email_usuario">email.do.utilizador@email.com</string>
 
     <string name="title_perfil">Perfil</string>
-    <string name="cd_acessar_perfil">Acessar perfil do usuário</string>
+
+    <string name="cd_remover_animal">Remover animal</string>
+
+    <string name="toast_animal_removido_sucesso">Animal removido com sucesso!</string>
+    <string name="dialog_title_remover_animal">Remover Animal</string>
+    <string name="dialog_message_remover_animal">Tem a certeza de que deseja remover %1$s? Esta ação não pode ser desfeita.</string>
+    <string name="dialog_button_remover">Remover</string>
+    <string name="dialog_button_cancelar">Cancelar</string>
+
+    <string name="title_meu_perfil">Meu Perfil</string>
+    <string name="button_salvar_alteracoes">Salvar Alterações</string>
+    <string name="toast_perfil_atualizado_sucesso">Perfil atualizado com sucesso!</string>
+
+    <string name="cd_propaganda">Propaganda</string>
 
 </resources>

@@ -4,6 +4,10 @@
         <item name="colorPrimary">@color/principal</item>
         <item name="toolbarStyle">@style/MyToolbarStyle</item>
         <item name="android:colorBackground">@color/cinza</item>
+
+        <item name="colorSecondaryContainer">@color/principal</item>
+        <item name="colorOnSecondaryContainer">@color/branco</item>
+        <item name="colorOnSurfaceVariant">@color/preto</item>
     </style>
 
     <style name="MyToolbarStyle" parent="Widget.Material3.Toolbar">
