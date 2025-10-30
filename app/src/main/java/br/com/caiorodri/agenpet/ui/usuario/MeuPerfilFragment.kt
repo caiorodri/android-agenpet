@@ -21,6 +21,7 @@ import br.com.caiorodri.agenpet.model.usuario.Usuario;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest;
+import br.com.caiorodri.agenpet.security.SessionManager
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
 import br.com.caiorodri.agenpet.ui.perfil.MeuPerfilViewModel
 import com.google.android.material.datepicker.CalendarConstraints
@@ -31,11 +32,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone
+import br.com.caiorodri.agenpet.model.usuario.LoginResponse
 
 class MeuPerfilFragment : Fragment() {
 
     private var _binding: FragmentMeuPerfilBinding? = null;
     private val binding get() = _binding!!;
+
+    private lateinit var sessionManager: SessionManager;
 
     private val viewModel: MeuPerfilViewModel by viewModels();
     private val sharedViewModel: HomeSharedViewModel by activityViewModels();
@@ -55,6 +59,9 @@ class MeuPerfilFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
+
+        sessionManager = SessionManager(requireContext());
+
         setupListeners();
         setupObservers();
         binding.editTextDataNascimento.addTextChangedListener(DateMaskTextWatcher(binding.editTextDataNascimento));
@@ -97,10 +104,15 @@ class MeuPerfilFragment : Fragment() {
             }
         }
 
-        viewModel.updateSuccess.observe(viewLifecycleOwner) { usuarioAtualizado ->
-            if (usuarioAtualizado != null) {
+        viewModel.updateSuccess.observe(viewLifecycleOwner) { loginResponse ->
+            if (loginResponse != null) {
                 Toast.makeText(context, getString(R.string.toast_perfil_atualizado_sucesso), Toast.LENGTH_SHORT).show();
-                sharedViewModel.setUsuario(Usuario(usuarioAtualizado));
+
+                sessionManager.saveAuthToken(loginResponse.token);
+
+                val usuarioAtualizado = Usuario(loginResponse.usuario);
+
+                sharedViewModel.setUsuario(usuarioAtualizado);
                 viewModel.resetUpdateSuccess();
                 findNavController().popBackStack();
             }

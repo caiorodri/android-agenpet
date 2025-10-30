@@ -21,7 +21,7 @@ interface UsuarioService {
     suspend fun salvar(@Body usuario: UsuarioRequest): Response<UsuarioResponse>
 
     @PUT("usuarios")
-    suspend fun atualizar(@Body usuario: UsuarioUpdateRequest): Response<UsuarioResponse>
+    suspend fun atualizar(@Body usuario: UsuarioUpdateRequest): Response<LoginResponse>
 
     @PUT("usuarios/atualizar-senha")
     suspend fun atualizarsenha(@Body usuario: UsuarioUpdateSenhaRequest): Response<UsuarioResponse>

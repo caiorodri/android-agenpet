@@ -72,7 +72,7 @@ public class UsuarioController(private val context: Context) {
         return null
     }
 
-    suspend fun atualizar(usuario: UsuarioUpdateRequest): UsuarioResponse? {
+    suspend fun atualizar(usuario: UsuarioUpdateRequest): LoginResponse? {
 
         Log.i("Api", "[Inicio] - atualizar ID: ${usuario.id}")
 
@@ -83,7 +83,7 @@ public class UsuarioController(private val context: Context) {
             if (response.isSuccessful) {
 
                 val usuarioAtualizado = response.body();
-                Log.i("Api", "[Fim] - atualizar - Sucesso ID: ${usuarioAtualizado?.id}");
+                Log.i("Api", "[Fim] - atualizar - Sucesso ID: ${usuarioAtualizado?.usuario?.id}");
                 return usuarioAtualizado;
 
             } else {

@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.caiorodri.agenpet.api.controller.UsuarioController
+import br.com.caiorodri.agenpet.model.usuario.LoginResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
@@ -26,8 +27,8 @@ class MeuPerfilViewModel(application: Application) : AndroidViewModel(applicatio
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
-    private val _updateSuccess = MutableLiveData<UsuarioResponse?>()
-    val updateSuccess: LiveData<UsuarioResponse?> = _updateSuccess
+    private val _updateSuccess = MutableLiveData<LoginResponse?>()
+    val updateSuccess: LiveData<LoginResponse?> = _updateSuccess
 
     fun salvarAlteracoes(usuarioRequest: UsuarioUpdateRequest) {
 

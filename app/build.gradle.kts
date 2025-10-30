@@ -32,25 +32,32 @@ android {
 
         debug {
 
-            val apiUrl = localProperties.getProperty("API_URL", "\"https://url.padrao.para.debug/\"")
-            val apiName = localProperties.getProperty("API_NAME", "\"api-name-padrao\"")
+            applicationIdSuffix = ".dev"
 
-            buildConfigField("String", "API_URL", apiUrl)
-            buildConfigField("String", "API_NAME", apiName)
+            resValue("string", "app_name", "AgenPet Dev")
+
+            buildConfigField("String", "API_URL", "\"http://192.168.0.9:8080/\"")
+            buildConfigField("String", "API_NAME", "\"agendamento-veterinario\"")
             buildConfigField("int", "PAGINA_PADRAO", "0")
             buildConfigField("int", "QUANTIDADE_ITENS_CONSULTA", "10")
+
+            isDebuggable = true
 
         }
 
         release {
+
             isMinifyEnabled = false
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
 
-            val apiUrl = localProperties.getProperty("API_URL", "\"https://url.padrao.para.debug/\"")
-            val apiName = localProperties.getProperty("API_NAME", "\"api-name-padrao\"")
+            resValue("string", "app_name", "AgenPet")
+
+            val apiUrl = localProperties.getProperty("API_URL", "\"URL_NAO_DEFINIDA_NO_LOCAL_PROPERTIES\"")
+            val apiName = localProperties.getProperty("API_NAME", "\"NOME_API_NAO_DEFINIDO\"")
 
             buildConfigField("String", "API_URL", apiUrl)
             buildConfigField("String", "API_NAME", apiName)
