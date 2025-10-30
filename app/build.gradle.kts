@@ -56,6 +56,8 @@ android {
 
             resValue("string", "app_name", "AgenPet")
 
+            signingConfig = signingConfigs.getByName("debug")
+
             val apiUrl = localProperties.getProperty("API_URL", "\"URL_NAO_DEFINIDA_NO_LOCAL_PROPERTIES\"")
             val apiName = localProperties.getProperty("API_NAME", "\"NOME_API_NAO_DEFINIDO\"")
 

@@ -115,4 +115,27 @@
 
     <string name="cd_propaganda">Propaganda</string>
 
+    <string name="label_aparencia">Aparência</string>
+    <string name="label_modo_escuro">Modo Escuro</string>
+    <string name="desc_icon_dark_mode">Ícone de modo escuro</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Escuro</string>
+    <string name="theme_system">Padrão do Sistema</string>
+
+    <string name="label_idioma">Idioma</string>
+    <string name="label_idioma_titulo">Selecionar Idioma</string>
+    <string name="desc_icon_idioma">Ícone de idioma</string>
+    <string name="lang_portuguese">Português</string>
+    <string name="lang_english">English</string>
+
+    <string name="label_notificacoes">Notificações</string>
+    <string name="label_receber_notificacoes">Receber notificações</string>
+    <string name="desc_icon_notificacoes">Ícone de notificações</string>
+
+    <string name="label_inicio">Inicio</string>
+    <string name="label_cadastro_pet">Cadastro de Pet</string>
+    <string name="label_meus_agendamentos">Meus Agendamentos</string>
+    <string name="label_meus_pets">Meus Pets</string>
+
+
 </resources>

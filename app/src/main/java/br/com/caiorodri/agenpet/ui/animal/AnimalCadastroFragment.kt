@@ -106,7 +106,7 @@ class AnimalCadastroFragment : Fragment() {
 
             binding.buttonSalvar.text = getString(R.string.button_atualizar);
         } else {
-            (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.titulo_novo_animal);
+            (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.label_cadastro_pet);
             binding.textViewIdAnimal.isVisible = false;
             binding.buttonRemover.isVisible = false;
             binding.labelInfoAdicional.isVisible = true;

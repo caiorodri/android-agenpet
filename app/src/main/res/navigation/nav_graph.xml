@@ -8,19 +8,19 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="br.com.caiorodri.agenpet.ui.home.HomeFragment"
-        android:label="Início"
+        android:label="@string/label_inicio"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/agendamentoFragment"
         android:name="br.com.caiorodri.agenpet.ui.agendamento.AgendamentoFragment"
-        android:label="Meus Agendamentos"
+        android:label="@string/label_meus_agendamentos"
         tools:layout="@layout/fragment_agendamento" />
 
     <fragment
         android:id="@+id/animalFragment"
         android:name="br.com.caiorodri.agenpet.ui.animal.AnimalFragment"
-        android:label="Meus Pets"
+        android:label="@string/label_meus_pets"
         tools:layout="@layout/fragment_animal" >
         <action
             android:id="@+id/action_animalFragment_to_cadastroAnimalFragment"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/cadastroAnimalFragment"
         android:name="br.com.caiorodri.agenpet.ui.animal.AnimalCadastroFragment"
-        android:label="Cadastro de Pet"
+        android:label="@string/label_cadastro_pet"
         tools:layout="@layout/fragment_animal_cadastro" >
         <argument
             android:name="animal"
@@ -48,4 +48,11 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="br.com.caiorodri.agenpet.ui.settings.SettingsFragment"
+        android:label="@string/configuracao"
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>

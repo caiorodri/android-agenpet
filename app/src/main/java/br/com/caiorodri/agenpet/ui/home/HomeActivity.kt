@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -82,7 +83,37 @@ class HomeActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration);
         navigationView.setupWithNavController(navController);
-        bottomNavigationView.setupWithNavController(navController);
+
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            val options = androidx.navigation.NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setPopUpTo(navController.graph.findStartDestination().id, inclusive = false ,saveState = false)
+                .build()
+
+            try {
+                navController.navigate(item.itemId, null, options)
+                true
+            } catch (e: IllegalArgumentException) {
+                false
+            }
+        }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeFragment ->
+                    bottomNavigationView.menu.findItem(R.id.homeFragment).isChecked = true
+                R.id.agendamentoFragment ->
+                    bottomNavigationView.menu.findItem(R.id.agendamentoFragment).isChecked = true
+                R.id.animalFragment ->
+                    bottomNavigationView.menu.findItem(R.id.animalFragment).isChecked = true
+
+                R.id.cadastroAnimalFragment ->
+                    bottomNavigationView.menu.findItem(R.id.animalFragment).isChecked = true
+
+                 R.id.meuPerfilFragment ->
+                     bottomNavigationView.menu.findItem(R.id.homeFragment).isChecked = true
+            }
+        }
 
         val headerView = navigationView.getHeaderView(0);
         val userNameTextView = headerView.findViewById<TextView>(R.id.nav_header_name);

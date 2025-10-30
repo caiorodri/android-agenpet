@@ -10,13 +10,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.security.SessionManager
+import br.com.caiorodri.agenpet.settings.SettingsManager
 import br.com.caiorodri.agenpet.ui.home.HomeActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
+    private lateinit var settingsManager: SettingsManager;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen();
+
+        settingsManager = SettingsManager(this);
+        settingsManager.applyTheme();
+        settingsManager.applyLanguage();
 
         super.onCreate(savedInstanceState);
         checkLoginStatus();
