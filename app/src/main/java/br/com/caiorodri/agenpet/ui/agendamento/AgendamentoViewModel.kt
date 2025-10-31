@@ -38,7 +38,7 @@ class AgendamentoViewModel(application: Application) : AndroidViewModel(applicat
             _isLoading.postValue(true);
             try {
 
-                val agendamentosResponse = agendamentoController.listarAgendamentosByUsuarioId(idUsuario);
+                val agendamentosResponse = agendamentoController.listarAgendamentosByUsuarioId(idUsuario, 0, 25);
                 val novosAgendamentos = agendamentosResponse.map { response -> Agendamento(response) }
                 listaCompleta = novosAgendamentos;
                 _agendamentos.postValue(novosAgendamentos);

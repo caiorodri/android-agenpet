@@ -12,7 +12,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class AgendamentoCompletoAdapter : ListAdapter<Agendamento, AgendamentoCompletoAdapter.AgendamentoCompletoViewHolder>(AgendamentoDiffCallback()) {
+class AgendamentoCompletoAdapter (
+    private val onItemClicked: (Agendamento) -> Unit
+): ListAdapter<Agendamento, AgendamentoCompletoAdapter.AgendamentoCompletoViewHolder>(AgendamentoDiffCallback()) {
 
     inner class AgendamentoCompletoViewHolder(private val binding: ItemAgendamentoCompletoBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -51,7 +53,14 @@ class AgendamentoCompletoAdapter : ListAdapter<Agendamento, AgendamentoCompletoA
     }
 
     override fun onBindViewHolder(holder: AgendamentoCompletoViewHolder, position: Int) {
+
+        val agendamento = getItem(position)
+
         holder.bind(getItem(position))
+
+        holder.itemView.setOnClickListener {
+            onItemClicked(agendamento)
+        }
     }
 
     class AgendamentoDiffCallback : DiffUtil.ItemCallback<Agendamento>() {

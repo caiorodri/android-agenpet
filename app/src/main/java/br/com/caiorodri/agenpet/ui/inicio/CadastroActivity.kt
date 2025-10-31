@@ -209,7 +209,7 @@ class CadastroActivity : AppCompatActivity() {
         );
 
         return withContext(Dispatchers.IO) {
-            usuarioController.save(usuarioRequest);
+            usuarioController.salvar(usuarioRequest);
         };
     };
 

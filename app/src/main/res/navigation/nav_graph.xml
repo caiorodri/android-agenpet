@@ -15,7 +15,13 @@
         android:id="@+id/agendamentoFragment"
         android:name="br.com.caiorodri.agenpet.ui.agendamento.AgendamentoFragment"
         android:label="@string/label_meus_agendamentos"
-        tools:layout="@layout/fragment_agendamento" />
+        tools:layout="@layout/fragment_agendamento">
+
+        <action
+            android:id="@+id/action_agendamentoFragment_to_agendamentoCadastroFragment"
+            app:destination="@id/agendamentoCadastroFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/animalFragment"
@@ -47,6 +53,20 @@
             app:argType="br.com.caiorodri.agenpet.model.animal.Animal"
             app:nullable="true"
             android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/agendamentoCadastroFragment"
+        android:name="br.com.caiorodri.agenpet.ui.agendamento.AgendamentoCadastroFragment"
+        android:label="Agendamento"
+        tools:layout="@layout/fragment_agendamento_cadastro">
+
+        <argument
+            android:name="agendamento"
+            app:argType="br.com.caiorodri.agenpet.model.agendamento.Agendamento"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
     </fragment>
 
     <fragment

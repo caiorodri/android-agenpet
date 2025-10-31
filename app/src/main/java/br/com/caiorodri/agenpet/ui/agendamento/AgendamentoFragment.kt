@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoBinding
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoCompletoAdapter
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
+import androidx.navigation.fragment.findNavController
 
 class AgendamentoFragment : Fragment() {
 
@@ -39,7 +40,11 @@ class AgendamentoFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        agendamentoAdapter = AgendamentoCompletoAdapter()
+        agendamentoAdapter = AgendamentoCompletoAdapter { agendamentoClicado ->
+            val action = AgendamentoFragmentDirections.actionAgendamentoFragmentToAgendamentoCadastroFragment(agendamentoClicado)
+            findNavController().navigate(action)
+        }
+
         binding.recyclerViewAgendamentos.adapter = agendamentoAdapter
     }
 
@@ -54,7 +59,8 @@ class AgendamentoFragment : Fragment() {
         })
 
         binding.fabAddAgendamento.setOnClickListener {
-            Toast.makeText(context, "Abrir tela de novo agendamento", Toast.LENGTH_SHORT).show()
+            val action = AgendamentoFragmentDirections.actionAgendamentoFragmentToAgendamentoCadastroFragment(null)
+            findNavController().navigate(action)
         }
 
         binding.swipeRefreshLayoutAgendamentos.setOnRefreshListener {

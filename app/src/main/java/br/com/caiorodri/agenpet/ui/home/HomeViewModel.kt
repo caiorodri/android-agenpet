@@ -29,7 +29,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
             try {
 
-                val agendamentosResponse = agendamentoController.listarAgendamentosByUsuarioId(idUsuario);
+                val agendamentosResponse = agendamentoController.listarAgendamentosByUsuarioId(idUsuario, 0, 25);
                 val novosAgendamentos = agendamentosResponse.map { response -> Agendamento(response) }
 
                 _agendamentos.postValue(novosAgendamentos.take(3));

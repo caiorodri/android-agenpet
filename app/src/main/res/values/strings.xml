@@ -137,5 +137,14 @@
     <string name="label_meus_agendamentos">Meus Agendamentos</string>
     <string name="label_meus_pets">Meus Pets</string>
 
+    <string name="label_dados_agendamento">Dados do Agendamento</string>
+    <string name="hint_tipo_agendamento">Tipo de Agendamento</string>
+    <string name="hint_selecione_pet">Selecione o Pet</string>
+    <string name="hint_selecione_veterinario">Selecione o Veterinário</string>
+    <string name="label_data_e_hora">Data e Hora</string>
+    <string name="hint_data">Data</string>
+    <string name="hint_horario">Horário</string>
+    <string name="cd_icone_observacoes">Ícone de Observações</string>
+    <string name="hint_descricao_agendamento_opcional">Descrição / Observações (Opcional)</string>
 
 </resources>
