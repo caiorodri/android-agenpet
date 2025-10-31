@@ -83,6 +83,9 @@ interface UsuarioService {
     @GET("usuarios/funcionarios/todos")
     suspend fun listarFuncionariosTodos(): Response<List<UsuarioResponse>>
 
+    @GET("usuarios/recepcionista/auto-atendimento")
+    suspend fun recuperarRecepcionistaAutoAtendimento(): Response<UsuarioResponse>
+
     @GET("usuarios/estados")
     suspend fun listarEstados(): Response<List<Estado>>
 }

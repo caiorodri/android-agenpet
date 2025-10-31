@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.caiorodri.agenpet.databinding.FragmentHomeBinding
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoAdapter
+import androidx.navigation.fragment.findNavController
+import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -48,7 +50,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        agendamentoAdapter = AgendamentoAdapter();
+        agendamentoAdapter = AgendamentoAdapter{ agendamentoClicado ->
+            val action = HomeFragmentDirections.actionHomeFragmentToAgendamentoCadastroFragment(agendamentoClicado)
+            findNavController().navigate(action)
+        }
+
         binding.recyclerViewRecentes.apply {
             layoutManager = LinearLayoutManager(context);
             adapter = agendamentoAdapter;
@@ -87,8 +93,9 @@ class HomeFragment : Fragment() {
         updateUltimoAgendamentoCard(ultimoAgendamento)
     }
 
-    private fun updateUltimoAgendamentoCard(agendamento: br.com.caiorodri.agenpet.model.agendamento.Agendamento?) {
-        binding.includeItemUltimoAgendamento.root.isVisible = (agendamento != null)
+    private fun updateUltimoAgendamentoCard(agendamento: Agendamento?) {
+        val cardRoot = binding.includeItemUltimoAgendamento.root
+        cardRoot.isVisible = (agendamento != null)
 
         if (agendamento != null) {
             with(binding.includeItemUltimoAgendamento) {
@@ -102,6 +109,14 @@ class HomeFragment : Fragment() {
                 textViewData.text = outputFormat.format(data)
                 textViewHorario.text = formatoHora.format(data)
             }
+
+            cardRoot.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToAgendamentoCadastroFragment(agendamento)
+                findNavController().navigate(action)
+            }
+
+        } else {
+            cardRoot.setOnClickListener(null)
         }
     }
 

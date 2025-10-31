@@ -10,6 +10,7 @@ import br.com.caiorodri.agenpet.api.controller.AgendamentoController
 import br.com.caiorodri.agenpet.api.controller.UsuarioController
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoResponse
+import br.com.caiorodri.agenpet.model.agendamento.Status
 import br.com.caiorodri.agenpet.model.agendamento.Tipo
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import kotlinx.coroutines.launch
@@ -22,6 +23,9 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
     private val _tipos = MutableLiveData<List<Tipo>>()
     val tipos: LiveData<List<Tipo>> = _tipos
 
+    private val _status = MutableLiveData<List<Status>>()
+    val status: LiveData<List<Status>> = _status
+
     private val _veterinarios = MutableLiveData<List<UsuarioResponse>>()
     val veterinarios: LiveData<List<UsuarioResponse>> = _veterinarios
 
@@ -30,6 +34,9 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
 
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _recepcionistaAutoAtendimento = MutableLiveData<UsuarioResponse?>()
+    val recepcionistaAutoAtendimento: LiveData<UsuarioResponse?> = _recepcionistaAutoAtendimento
 
     private val _error = MutableLiveData<String?>(null)
     val error: LiveData<String?> = _error
@@ -47,8 +54,19 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
                 val tiposResult = agendamentoController.listarTipos()
                 _tipos.postValue(tiposResult)
 
+                val statusResult = agendamentoController.listarStatus()
+                _status.postValue(statusResult)
+
                 val vets = usuarioController.listarVeterinarios()
                 _veterinarios.postValue(vets)
+
+                val recepcionista = usuarioController.recuperarRecepcionistaAutoAtendimento()
+                _recepcionistaAutoAtendimento.postValue(recepcionista)
+
+                if (recepcionista == null) {
+                    Log.e("AgendamentoCadastroVM", "CRÍTICO: Recepcionista 'AUTO ATENDIMENTO' não encontrado.")
+                    _error.postValue("Erro de configuração do sistema. Contate o suporte.")
+                }
 
             } catch (e: Exception) {
                 Log.e("AgendamentoCadastroVM", "Erro ao carregar dados iniciais", e)

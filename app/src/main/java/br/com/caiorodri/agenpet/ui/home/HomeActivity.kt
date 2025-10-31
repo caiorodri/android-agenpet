@@ -112,6 +112,9 @@ class HomeActivity : AppCompatActivity() {
 
                  R.id.meuPerfilFragment ->
                      bottomNavigationView.menu.findItem(R.id.homeFragment).isChecked = true
+
+                R.id.agendamentoCadastroFragment ->
+                    bottomNavigationView.menu.findItem(R.id.agendamentoFragment).isChecked = true
             }
         }
 

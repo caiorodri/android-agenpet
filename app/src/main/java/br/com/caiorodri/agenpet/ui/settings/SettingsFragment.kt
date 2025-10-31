@@ -29,7 +29,8 @@ class SettingsFragment : Fragment() {
     private val languageOptions by lazy {
         mapOf(
             "pt" to getString(R.string.lang_portuguese),
-            "en" to getString(R.string.lang_english)
+            "en" to getString(R.string.lang_english),
+            "es" to getString(R.string.lang_spanish)
         )
     }
 

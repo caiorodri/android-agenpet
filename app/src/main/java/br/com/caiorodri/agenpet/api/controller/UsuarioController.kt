@@ -416,6 +416,29 @@ class UsuarioController(private val context: Context) {
         return emptyList()
     }
 
+    suspend fun recuperarRecepcionistaAutoAtendimento(): UsuarioResponse? {
+        val endpoint = "recuperarRecepcionistaAutoAtendimento"
+        Log.i(TAG, "[$endpoint] - Inicio")
+
+        try {
+            val response = usuarioService.recuperarRecepcionistaAutoAtendimento()
+            if (response.isSuccessful) {
+                Log.i(TAG, "[$endpoint] - Sucesso.")
+                Log.i(TAG, "[$endpoint] - Fim")
+                return response.body()
+            } else {
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}")
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e)
+        } catch (e: Exception) {
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e)
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim")
+        return null
+    }
+
     suspend fun listarEstados(): List<Estado> {
         val endpoint = "listarEstados"
         Log.i(TAG, "[$endpoint] - Inicio")

@@ -9,7 +9,13 @@
         android:id="@+id/homeFragment"
         android:name="br.com.caiorodri.agenpet.ui.home.HomeFragment"
         android:label="@string/label_inicio"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_agendamentoCadastroFragment"
+            app:destination="@id/agendamentoCadastroFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/agendamentoFragment"

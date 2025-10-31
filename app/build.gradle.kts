@@ -36,7 +36,7 @@ android {
 
             resValue("string", "app_name", "AgenPet Dev")
 
-            buildConfigField("String", "API_URL", "\"http://192.168.0.9:8080/\"")
+            buildConfigField("String", "API_URL", "\"http://192.168.0.8:8080/\"")
             buildConfigField("String", "API_NAME", "\"agendamento-veterinario\"")
             buildConfigField("int", "PAGINA_PADRAO", "0")
             buildConfigField("int", "QUANTIDADE_ITENS_CONSULTA", "10")

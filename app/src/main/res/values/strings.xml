@@ -60,6 +60,7 @@
     <string name="button_salvar">Salvar</string>
     <string name="placeholder_id_animal">ID: %1$d</string>
     <string name="titulo_editar_animal">Editar Pet</string>
+    <string name="titulo_editar_agendamento">Editar Agendamento</string>
     <string name="titulo_novo_animal">Novo Pet</string>
     <string name="button_atualizar">Atualizar</string>
     <string name="cd_carregando_racas">Carregando raças</string>
@@ -116,8 +117,8 @@
     <string name="cd_propaganda">Propaganda</string>
 
     <string name="label_aparencia">Aparência</string>
-    <string name="label_modo_escuro">Modo Escuro</string>
-    <string name="desc_icon_dark_mode">Ícone de modo escuro</string>
+    <string name="label_modo_escuro">Tema</string>
+    <string name="desc_icon_dark_mode">Ícone do tema escuro</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Escuro</string>
     <string name="theme_system">Padrão do Sistema</string>
@@ -127,6 +128,7 @@
     <string name="desc_icon_idioma">Ícone de idioma</string>
     <string name="lang_portuguese">Português</string>
     <string name="lang_english">English</string>
+    <string name="lang_spanish">Espanhol</string>
 
     <string name="label_notificacoes">Notificações</string>
     <string name="label_receber_notificacoes">Receber notificações</string>
@@ -146,5 +148,8 @@
     <string name="hint_horario">Horário</string>
     <string name="cd_icone_observacoes">Ícone de Observações</string>
     <string name="hint_descricao_agendamento_opcional">Descrição / Observações (Opcional)</string>
+
+    <string name="buscar_pets">Buscar por nome ou raça...</string>
+    <string name="buscar_agendamentos">Buscar por pet, veterinário...</string>
 
 </resources>

@@ -12,7 +12,9 @@ import java.util.Date
 import java.util.Locale
 
 
-class AgendamentoAdapter : ListAdapter<Agendamento, AgendamentoAdapter.AgendamentoViewHolder>(AgendamentoDiffCallback()) {
+class AgendamentoAdapter(
+    private val onItemClicked: (Agendamento) -> Unit
+) : ListAdapter<Agendamento, AgendamentoAdapter.AgendamentoViewHolder>(AgendamentoDiffCallback()) {
 
     inner class AgendamentoViewHolder(private val binding: ItemAgendamentoBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -59,5 +61,9 @@ class AgendamentoAdapter : ListAdapter<Agendamento, AgendamentoAdapter.Agendamen
     override fun onBindViewHolder(holder: AgendamentoViewHolder, position: Int) {
         val agendamento = getItem(position)
         holder.bind(agendamento)
+
+        holder.itemView.setOnClickListener {
+            onItemClicked(agendamento)
+        }
     }
 }
