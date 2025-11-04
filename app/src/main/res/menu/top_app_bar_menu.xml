@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/profile_icon"
-        android:icon="@drawable/ic_profile_white"
         android:title="@string/title_perfil"
         android:contentDescription=""
+        app:actionLayout="@layout/toolbar_profile_image"
         app:showAsAction="ifRoom" />
 
 </menu>

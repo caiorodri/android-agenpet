@@ -13,7 +13,7 @@
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/cinza"
+        android:background="?attr/android:colorBackground"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -25,9 +25,9 @@
                 android:id="@+id/toolbar_login"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/principal"
+                android:background="?attr/colorPrimary"
                 app:title="@string/title_login"
-                app:titleTextColor="@color/branco" />
+                app:titleTextColor="?attr/colorOnPrimary" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,7 +58,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    app:cardBackgroundColor="@color/branco"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:layout_constraintTop_toBottomOf="@id/image_view_logo"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/label_acesso_conta"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
-                            android:textColor="@color/principal"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -88,7 +88,6 @@
                             android:layout_marginTop="16dp"
                             android:hint="@string/email"
                             app:startIconDrawable="@drawable/ic_email"
-                            app:startIconTint="@color/principal"
                             app:layout_constraintTop_toBottomOf="@id/label_acesso"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent">
@@ -108,7 +107,6 @@
                             android:hint="@string/senha"
                             app:endIconMode="password_toggle"
                             app:startIconDrawable="@drawable/ic_lock"
-                            app:startIconTint="@color/principal"
                             app:layout_constraintTop_toBottomOf="@id/input_layout_email"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent">
@@ -129,8 +127,8 @@
                     android:layout_marginTop="24dp"
                     android:paddingVertical="12dp"
                     android:text="@string/logar"
-                    android:backgroundTint="@color/principal"
-                    android:textColor="@color/branco"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:textColor="?attr/colorOnPrimary"
                     app:layout_constraintTop_toBottomOf="@id/card_login_fields"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -145,7 +143,7 @@
                     android:focusable="true"
                     android:padding="8dp"
                     android:text="@string/esqueci_senha"
-                    android:textColor="@color/principal"
+                    android:textColor="?attr/colorPrimary"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +160,7 @@
                     android:focusable="true"
                     android:padding="8dp"
                     android:text="@string/realizar_cadastro"
-                    android:textColor="@color/principal"
+                    android:textColor="?attr/colorPrimary"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="@color/principal" />
+            android:indeterminateTint="?attr/colorPrimary" />
 
     </FrameLayout>
 

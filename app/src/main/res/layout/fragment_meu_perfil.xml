@@ -6,7 +6,7 @@
     android:id="@+id/perfil_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cinza"
+    android:background="?attr/android:colorBackground"
     tools:context=".ui.usuario.MeuPerfilFragment">
 
     <ScrollView
@@ -18,12 +18,43 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_foto_perfil"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="1dp"
+                android:background="?attr/colorSurface"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_foto"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:indeterminateTint="?attr/colorPrimary"
+                app:layout_constraintTop_toTopOf="@id/image_view_foto_perfil"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_foto_perfil"
+                app:layout_constraintStart_toStartOf="@id/image_view_foto_perfil"
+                app:layout_constraintEnd_toEndOf="@id/image_view_foto_perfil"
+                tools:visibility="visible"/>
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_dados_pessoais"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/branco"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:layout_constraintTop_toBottomOf="@id/image_view_foto_perfil"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -38,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/label_dados_pessoais"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
-                        android:textColor="@color/principal"
+                        android:textColor="?attr/colorPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -149,7 +180,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/branco"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:layout_constraintTop_toBottomOf="@id/card_dados_pessoais"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -165,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/label_endereco"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
-                        android:textColor="@color/principal"
+                        android:textColor="?attr/colorPrimary"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -287,8 +318,8 @@
                 android:layout_marginTop="24dp"
                 android:paddingVertical="12dp"
                 android:text="@string/button_salvar_alteracoes"
-                android:backgroundTint="@color/principal"
-                android:textColor="@color/branco"
+                android:backgroundTint="?attr/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintTop_toBottomOf="@id/card_endereco"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -314,7 +345,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="@color/principal" />
+            android:indeterminateTint="?attr/colorPrimary" />
 
     </FrameLayout>
 

@@ -35,6 +35,12 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.graphics.drawable.Drawable
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 
 class HomeActivity : AppCompatActivity() {
 
@@ -43,6 +49,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration;
     private lateinit var usuarioController: UsuarioController;
     private lateinit var sessionManager: SessionManager;
+    private var toolbarProfileImageView: ImageView? = null;
+    private var toolbarProfileProgressBar: View? = null;
+
+    private var profileMenuItem: MenuItem? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -116,17 +126,42 @@ class HomeActivity : AppCompatActivity() {
                 R.id.agendamentoCadastroFragment ->
                     bottomNavigationView.menu.findItem(R.id.agendamentoFragment).isChecked = true
             }
+
+            when (destination.id) {
+                R.id.meuPerfilFragment ->
+                    profileMenuItem?.isVisible = false;
+                else ->
+                    profileMenuItem?.isVisible = true;
+            }
         }
 
         val headerView = navigationView.getHeaderView(0);
         val userNameTextView = headerView.findViewById<TextView>(R.id.nav_header_name);
         val userEmailTextView = headerView.findViewById<TextView>(R.id.nav_header_email);
+        val headerImageView = headerView.findViewById<ImageView>(R.id.nav_header_image);
+
 
         sharedViewModel.usuarioLogado.observe(this) { usuario ->
 
             userNameTextView.text = usuario.nome;
             userEmailTextView.text = usuario.email;
 
+            carregarImagemPerfilToolbar(usuario.urlImagem);
+
+            Glide.with(this)
+                .load(usuario.urlImagem)
+                .placeholder(R.drawable.ic_profile_white)
+                .error(R.drawable.ic_profile_white)
+                .circleCrop()
+                .into(headerImageView);
+
+            headerImageView.setOnClickListener {
+
+                navController.navigate(R.id.meuPerfilFragment);
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+            }
         }
 
         val callback = object : OnBackPressedCallback(true) {
@@ -150,15 +185,30 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.top_app_bar_menu, menu)
-        return true
+
+        val profileItem = menu?.findItem(R.id.profile_icon);
+
+        profileMenuItem = profileItem
+
+        val actionView = profileItem?.actionView;
+
+        if (actionView != null) {
+            toolbarProfileImageView = actionView.findViewById(R.id.toolbar_profile_image_view);
+            toolbarProfileProgressBar = actionView.findViewById(R.id.toolbar_profile_progress);
+
+            actionView.setOnClickListener {
+                showProfilePopupMenu(actionView);
+            }
+
+            sharedViewModel.usuarioLogado.value?.urlImagem?.let {
+                carregarImagemPerfilToolbar(it);
+            }
+        }
+
+        return true;
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.profile_icon) {
-            val anchorView = findViewById<View>(R.id.profile_icon)
-            showProfilePopupMenu(anchorView)
-            return true
-        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -220,6 +270,30 @@ class HomeActivity : AppCompatActivity() {
         }
         startActivity(intent)
         finish()
+    }
+
+    private fun carregarImagemPerfilToolbar(url: String?) {
+        toolbarProfileImageView?.let { imageView ->
+
+            toolbarProfileProgressBar?.visibility = View.VISIBLE;
+
+            Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.ic_profile_white)
+                .error(R.drawable.ic_profile_white)
+                .circleCrop()
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
+                        toolbarProfileProgressBar?.visibility = View.GONE
+                        return false;
+                    }
+                    override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>, dataSource: com.bumptech.glide.load.DataSource, isFirstResource: Boolean): Boolean {
+                        toolbarProfileProgressBar?.visibility = View.GONE
+                        return false;
+                    }
+                })
+                .into(imageView);
+        }
     }
 
 }

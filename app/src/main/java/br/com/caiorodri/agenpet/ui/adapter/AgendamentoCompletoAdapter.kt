@@ -1,12 +1,14 @@
 package br.com.caiorodri.agenpet.ui.adapter
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-// ATENÇÃO: Importe o DataBinding do seu NOVO layout
 import br.com.caiorodri.agenpet.databinding.ItemAgendamentoCompletoBinding
+import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -16,9 +18,15 @@ class AgendamentoCompletoAdapter (
     private val onItemClicked: (Agendamento) -> Unit
 ): ListAdapter<Agendamento, AgendamentoCompletoAdapter.AgendamentoCompletoViewHolder>(AgendamentoDiffCallback()) {
 
+    private val ABERTO = "Aberto";
+    private val CANCELADO = "Cancelado";
+    private val CONCLUIDO = "Concluido";
+
     inner class AgendamentoCompletoViewHolder(private val binding: ItemAgendamentoCompletoBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(agendamento: Agendamento) {
+
+            val context = binding.root.context;
 
             binding.textViewAnimalNome.text = agendamento.animal.nome;
             binding.textViewVetNome.text = agendamento.veterinario.nome;
@@ -28,6 +36,18 @@ class AgendamentoCompletoAdapter (
             val dataCompleta = Date(agendamento.dataAgendamentoInicio);
             val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             val formatoHora = SimpleDateFormat("HH:mm", Locale.getDefault());
+
+            val (corFundoRes, corTextoRes) = when (agendamento.status.nome) {
+                CANCELADO -> Pair(R.color.status_cancelado_fundo, R.color.status_cancelado_texto)
+                CONCLUIDO -> Pair(R.color.status_finalizado_fundo, R.color.status_finalizado_texto)
+                else -> Pair(R.color.status_aberto_fundo, R.color.status_aberto_texto)
+            }
+
+            val corFundo = ContextCompat.getColor(context, corFundoRes)
+            val corTexto = ContextCompat.getColor(context, corTextoRes)
+
+            binding.textViewStatus.chipBackgroundColor = ColorStateList.valueOf(corFundo)
+            binding.textViewStatus.setTextColor(corTexto)
 
             try {
 

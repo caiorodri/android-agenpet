@@ -15,5 +15,6 @@ data class AnimalResponse(
     val nome: String,
     val peso: Double,
     val raca: Raca,
-    val sexo: Sexo
+    val sexo: Sexo,
+    val urlImagem: String?
 )

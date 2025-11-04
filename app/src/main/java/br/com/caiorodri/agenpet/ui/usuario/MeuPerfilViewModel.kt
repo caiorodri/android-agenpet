@@ -30,6 +30,10 @@ class MeuPerfilViewModel(application: Application) : AndroidViewModel(applicatio
     private val _updateSuccess = MutableLiveData<LoginResponse?>()
     val updateSuccess: LiveData<LoginResponse?> = _updateSuccess
 
+    fun setIsLoading(loading: Boolean) {
+        _isLoading.value = loading
+    }
+
     fun salvarAlteracoes(usuarioRequest: UsuarioUpdateRequest) {
 
         viewModelScope.launch {

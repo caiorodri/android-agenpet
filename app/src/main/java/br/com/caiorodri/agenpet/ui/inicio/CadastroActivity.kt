@@ -199,19 +199,19 @@ class CadastroActivity : AppCompatActivity() {
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dataNascimentoStr);
         } catch (e: Exception) {
             throw Exception("Formato de data inválido. Use DD/MM/AAAA.");
-        };
+        }
 
         val usuarioRequest = UsuarioRequest(
             null, nome, email, cpf, senha, listOf(telefone),
             dataNascimentoFormatada,
             Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, estado)), null, null,
-            Perfil(PerfilEnum.CLIENTE.getValue(), null), Status(StatusEnum.ATIVO.getValue(), null)
-        );
+            Perfil(PerfilEnum.CLIENTE.getValue(), null), Status(StatusEnum.ATIVO.getValue(), null), null
+        )
 
         return withContext(Dispatchers.IO) {
             usuarioController.salvar(usuarioRequest);
-        };
-    };
+        }
+    }
 
     fun validarCadastro(): Boolean {
         var valido = true;

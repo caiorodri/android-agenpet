@@ -3,4 +3,5 @@ plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.android.navigation.safeargs) apply false
+    alias(libs.plugins.google.gms.services) apply false
 }

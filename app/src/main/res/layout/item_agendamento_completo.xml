@@ -6,9 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="6dp"
-    android:backgroundTint="@color/branco"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
+    app:cardElevation="1dp"
+    app:strokeColor="?attr/colorOutline"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,9 +21,9 @@
             android:id="@+id/placeholder_circle"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            app:cardBackgroundColor="?attr/colorSecondaryContainer"
             app:cardCornerRadius="25dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -29,142 +31,111 @@
                 android:id="@+id/image_view_pet_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="center"
+                android:padding="10dp"
+                app:tint="?attr/colorOnSecondaryContainer"
                 android:src="@drawable/ic_pet"
                 android:contentDescription="@string/cd_icone_pet" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/textViewAnimalLabel"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewServicoNome"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/label_pet_item"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textStyle="bold"
             android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/placeholder_circle"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Consulta de Rotina" />
 
         <TextView
             android:id="@+id/textViewAnimalNome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:maxLines="1"
+            android:layout_marginTop="2dp"
             android:ellipsize="end"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewAnimalLabel"
-            app:layout_constraintStart_toEndOf="@id/textViewAnimalLabel"
-            app:layout_constraintEnd_toStartOf="@+id/textViewDataLabel"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="@id/textViewServicoNome"
+            app:layout_constraintStart_toStartOf="@id/textViewServicoNome"
+            app:layout_constraintTop_toBottomOf="@id/textViewServicoNome"
             tools:text="Beethoven" />
 
-        <TextView
-            android:id="@+id/textViewVetLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/label_veterinario"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/textViewAnimalLabel"
-            app:layout_constraintTop_toBottomOf="@id/textViewAnimalLabel" />
-
-        <TextView
-            android:id="@+id/textViewVetNome"
+        <View
+            android:id="@+id/divider"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewVetLabel"
-            app:layout_constraintStart_toEndOf="@id/textViewVetLabel"
-            app:layout_constraintEnd_toStartOf="@+id/textViewHorarioLabel"
-            tools:text="Dr. House" />
-
-        <TextView
-            android:id="@+id/textViewServicoLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/label_servico"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/textViewVetLabel"
-            app:layout_constraintTop_toBottomOf="@id/textViewVetLabel"/>
-
-        <TextView
-            android:id="@+id/textViewServicoNome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewServicoLabel"
-            app:layout_constraintStart_toEndOf="@id/textViewServicoLabel"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="?attr/colorOutline"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Consulta"/>
-
-        <TextView
-            android:id="@+id/textViewDataLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_data"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textStyle="bold"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@id/textViewDataAgendamento"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/placeholder_circle" />
 
         <TextView
             android:id="@+id/textViewDataAgendamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewDataLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="20/04/2025" />
-
-        <TextView
-            android:id="@+id/textViewHorarioLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_hora_item"
+            android:layout_marginTop="12dp"
+            android:drawablePadding="8dp"
+            android:gravity="center"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textStyle="bold"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@id/textViewHorarioAgendamento"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewVetLabel"/>
+            app:drawableStartCompat="@drawable/ic_calendar_dots"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:text="20/04/2025" />
 
         <TextView
             android:id="@+id/textViewHorarioAgendamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:drawablePadding="8dp"
+            android:gravity="center"
             android:textAppearance="?attr/textAppearanceBodyMedium"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewHorarioLabel"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_time"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
+            app:layout_constraintBaseline_toBaselineOf="@id/textViewDataAgendamento"
+            app:layout_constraintStart_toEndOf="@id/textViewDataAgendamento"
             tools:text="10:30" />
 
-        <TextView
-            android:id="@+id/textViewStatusLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_status"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textStyle="bold"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@id/textViewStatus"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewServicoNome"/>
-
-        <TextView
+        <com.google.android.material.chip.Chip
             android:id="@+id/textViewStatus"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@id/textViewStatusLabel"
+            android:layout_height="36dp"
+            android:clickable="false"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Confirmado"/>
+            app:layout_constraintBottom_toBottomOf="@id/textViewHorarioAgendamento"
+            app:layout_constraintTop_toTopOf="@id/textViewDataAgendamento"
+            tools:text="Pendente" />
+
+        <TextView
+            android:id="@+id/textViewVetNome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:drawableStartCompat="@drawable/ic_profile"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewDataAgendamento"
+            tools:text="Dr. House" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

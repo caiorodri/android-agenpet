@@ -51,7 +51,7 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
 
     init {
         carregarDadosIniciais()
-        _sexos.value = listOf(Sexo(1, "Macho"), Sexo(2, "Fêmea"))
+        _sexos.value = listOf(Sexo(1, "Macho"), Sexo(2, "Fêmea"), Sexo(3, "Desconhecido"));
     }
 
     private fun carregarDadosIniciais() {
@@ -59,6 +59,7 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
             _isLoadingDadosIniciais.value = true
             _erroDadosIniciais.value = null
             try {
+
                 val data = animalRepository.getAnimalData()
 
                 listaCompletaRacas = data.racas
@@ -87,9 +88,12 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
+    fun setIsLoading(loading: Boolean) {
+        _isLoading.value = loading
+    }
+
     fun salvarAnimal(animal: Animal) {
         viewModelScope.launch {
-            _isLoading.value = true
             _actionError.value = null
             _animalSalvoComSucesso.value = null
 

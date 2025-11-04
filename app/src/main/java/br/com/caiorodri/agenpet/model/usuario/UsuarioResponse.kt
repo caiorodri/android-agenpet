@@ -22,5 +22,6 @@ data class UsuarioResponse(
     val senha: String,
     val agendamentos: List<AgendamentoResponse>?,
     val animais: List<AnimalResponse>?,
-    val receberEmail: Boolean
+    val receberEmail: Boolean,
+    val urlImagem: String?
 )

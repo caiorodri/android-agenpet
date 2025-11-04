@@ -15,4 +15,5 @@ data class UsuarioUpdateRequest(
     val endereco: Endereco?,
     val perfil: Perfil?,
     val status: Status?,
+    val urlImagem: String?
 )

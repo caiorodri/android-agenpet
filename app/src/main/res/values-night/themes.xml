@@ -1,36 +1,40 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AgenPet" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/principal</item>
-        <item name="toolbarStyle">@style/MyToolbarStyle</item>
-        <item name="android:colorBackground">@color/cinza</item>
 
-        <item name="colorSecondaryContainer">@color/principal</item>
-        <item name="colorOnSecondaryContainer">@color/branco</item>
-        <item name="colorOnSurfaceVariant">@color/preto</item>
+    <style name="Base.Theme.AgenPet" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/secundaria</item>
+        <item name="colorOnPrimary">@color/cor_texto_principal</item>
+        <item name="android:colorBackground">@color/cor_fundo_app</item>
+        <item name="colorSurface">@color/cor_fundo_card</item>
+
+        <item name="colorOnBackground">@color/cor_texto_principal</item>
+        <item name="colorOnSurface">@color/cor_texto_principal</item>
+        <item name="colorOnSurfaceVariant">@color/cor_texto_secundario</item>
+
+        <item name="colorSecondaryContainer">@color/secundaria</item>
+        <item name="colorOnSecondaryContainer">@color/cor_texto_sobre_cor</item>
+
+        <item name="toolbarStyle">@style/MyToolbarStyle</item>
     </style>
 
     <style name="MyToolbarStyle" parent="Widget.Material3.Toolbar">
         <item name="android:theme">@style/MyToolbarTheme</item>
     </style>
-
     <style name="MyToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar.Primary">
-        <item name="android:textColorPrimary">@color/branco</item>
-        <item name="android:textColorSecondary">@color/branco</item>
-        <item name="colorControlNormal">@color/branco</item>
+        <item name="android:textColorPrimary">@color/cor_texto_sobre_cor</item>
+        <item name="android:textColorSecondary">@color/cor_texto_sobre_cor</item>
+        <item name="colorControlNormal">@color/cor_texto_sobre_cor</item>
     </style>
 
     <style name="Theme.AgenPet" parent="Base.Theme.AgenPet" />
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/principal</item>
+        <item name="windowSplashScreenBackground">@color/cor_fundo_app</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.AgenPet</item>
-
     </style>
 
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@android:color/white</item>
+        <item name="android:color">@color/cor_texto_sobre_cor</item>
     </style>
-
 </resources>

@@ -23,6 +23,7 @@ data class Usuario(
     var agendamentos: List<Agendamento>?,
     var animais: List<Animal>?,
     val receberEmail: Boolean?,
+    val urlImagem: String?
 
     ): Parcelable {
 
@@ -42,13 +43,15 @@ data class Usuario(
         usuarioResponse.senha,
         agendamentos = usuarioResponse.agendamentos?.map { Agendamento(it) } ?: listOf(),
         animais = usuarioResponse.animais?.map { Animal(it) } ?: listOf(),
-        usuarioResponse.receberEmail
+        usuarioResponse.receberEmail,
+        urlImagem = usuarioResponse.urlImagem
         )
 
     constructor(id: Long?, nome: String, email: String, senha: String): this (
         id,
         nome,
         email,
+        null,
         null,
         null,
         null,

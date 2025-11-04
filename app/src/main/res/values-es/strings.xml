@@ -47,6 +47,7 @@
     <string name="label_sexo">Sexo</string>
     <string name="option_macho">Macho</string>
     <string name="option_femea">Hembra</string>
+    <string name="option_desconhecido">No sé</string>
     <string name="label_info_adicional_animal">Información (no editable después del registro)</string>
     <string name="hint_peso_kg">Peso (kg)</string>
     <string name="hint_altura_cm">Altura (cm)</string>
@@ -72,7 +73,7 @@
     <string name="erro_obrigatorio">Obligatorio</string>
     <string name="toast_informar_castrado">Informe si la mascota está castrada</string>
     <string name="titulo_datepicker_data_nascimento">Seleccione la fecha de nacimiento</string>
-    <string name="titulo_ultimo_agendamento">Última cita</string>
+    <string name="titulo_proximo_agendamento">Próxima cita</string>
     <string name="titulo_recentes">Recientes</string>
     <string name="label_animal">Animal:</string>
     <string name="label_veterinario">Veterinario:</string>

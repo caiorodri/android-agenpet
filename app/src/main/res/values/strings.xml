@@ -49,6 +49,7 @@
     <string name="label_sexo">Sexo</string>
     <string name="option_macho">Macho</string>
     <string name="option_femea">Fêmea</string>
+    <string name="option_desconhecido">Não sei</string>
     <string name="label_info_adicional_animal">Informações (não editáveis após cadastro)</string>
     <string name="hint_peso_kg">Peso (kg)</string>
     <string name="hint_altura_cm">Altura (cm)</string>
@@ -76,7 +77,7 @@
     <string name="titulo_datepicker_data_nascimento">Selecione a data de nascimento</string>
 
 
-    <string name="titulo_ultimo_agendamento">Último agendamento</string>
+    <string name="titulo_proximo_agendamento">Próximo agendamento</string>
     <string name="titulo_recentes">Recentes</string>
 
     <string name="label_animal">Animal:</string>

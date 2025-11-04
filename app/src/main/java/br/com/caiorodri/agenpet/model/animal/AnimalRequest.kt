@@ -13,7 +13,8 @@ data class AnimalRequest(
     val nome: String,
     val peso: Double,
     val raca: Raca,
-    val sexo: Sexo
+    val sexo: Sexo,
+    val urlImagem: String?
 
 ){
 
@@ -32,7 +33,8 @@ data class AnimalRequest(
         nome = animal.nome,
         peso = animal.peso!!,
         raca = animal.raca!!,
-        sexo = animal.sexo!!
+        sexo = animal.sexo!!,
+        urlImagem = animal.urlImagem
 
     )
 

@@ -47,6 +47,7 @@
     <string name="label_sexo">Sex</string>
     <string name="option_macho">Male</string>
     <string name="option_femea">Female</string>
+    <string name="option_desconhecido">Unknown</string>
     <string name="label_info_adicional_animal">Information (not editable after registration)</string>
     <string name="hint_peso_kg">Weight (kg)</string>
     <string name="hint_altura_cm">Height (cm)</string>
@@ -72,7 +73,7 @@
     <string name="erro_obrigatorio">Required</string>
     <string name="toast_informar_castrado">Inform if the pet is neutered</string>
     <string name="titulo_datepicker_data_nascimento">Select date of birth</string>
-    <string name="titulo_ultimo_agendamento">Last appointment</string>
+    <string name="titulo_proximo_agendamento">Next appointment</string>
     <string name="titulo_recentes">Recent</string>
     <string name="label_animal">Animal:</string>
     <string name="label_veterinario">Veterinarian:</string>

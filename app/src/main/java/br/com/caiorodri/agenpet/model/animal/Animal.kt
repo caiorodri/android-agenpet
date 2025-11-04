@@ -18,7 +18,8 @@ data class Animal(
     val nome: String,
     val peso: Double?,
     val raca: Raca?,
-    val sexo: Sexo?
+    val sexo: Sexo?,
+    val urlImagem: String?
 ): Parcelable {
 
     constructor(animalResponse: AnimalResponse): this (
@@ -32,7 +33,8 @@ data class Animal(
         animalResponse.nome,
         animalResponse.peso,
         animalResponse.raca,
-        animalResponse.sexo
+        animalResponse.sexo,
+        animalResponse.urlImagem
     )
 
 }

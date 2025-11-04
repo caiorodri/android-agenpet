@@ -8,7 +8,8 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:backgroundTint="@color/branco"
+    android:backgroundTint="?attr/colorSurface"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardCornerRadius="24dp"
     app:cardElevation="4dp">
 
@@ -40,26 +41,34 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewData"
             tools:text="10:30" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_view_icon_container"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_pet_foto"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="0dp"
+            android:scaleType="centerCrop"
+            android:padding="2dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:strokeColor="?attr/colorPrimary"
+            app:strokeWidth="1dp"
+            android:background="?attr/colorSurface"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/cd_icone_pet"
+            tools:src="@tools:sample/avatars"/>
 
-            <ImageView
-                android:id="@+id/image_view_pet_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_pet"
-                android:contentDescription="@string/cd_icone_pet" />
-
-        </com.google.android.material.card.MaterialCardView>
-
+        <ProgressBar
+            android:id="@+id/progress_bar_foto_ultimo"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminateTint="?attr/colorPrimary"
+            app:layout_constraintTop_toTopOf="@id/image_view_pet_foto"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_pet_foto"
+            app:layout_constraintStart_toStartOf="@id/image_view_pet_foto"
+            app:layout_constraintEnd_toEndOf="@id/image_view_pet_foto"
+            tools:visibility="visible"/>
         <LinearLayout
             android:id="@+id/linear_layout_details"
             android:layout_width="0dp"
@@ -67,7 +76,7 @@
             android:layout_marginHorizontal="16dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/card_view_icon_container"
+            app:layout_constraintStart_toEndOf="@id/image_view_pet_foto"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     id("kotlin-parcelize")
     alias(libs.plugins.android.navigation.safeargs)
+    alias(libs.plugins.google.gms.services)
 }
 
 val localProperties = Properties()
@@ -36,7 +37,7 @@ android {
 
             resValue("string", "app_name", "AgenPet Dev")
 
-            buildConfigField("String", "API_URL", "\"http://192.168.0.8:8080/\"")
+            buildConfigField("String", "API_URL", "\"http://192.168.0.3:8080/\"")
             buildConfigField("String", "API_NAME", "\"agendamento-veterinario\"")
             buildConfigField("int", "PAGINA_PADRAO", "0")
             buildConfigField("int", "QUANTIDADE_ITENS_CONSULTA", "10")
@@ -105,6 +106,12 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.auth.ktx)
+
+    implementation(libs.glide)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

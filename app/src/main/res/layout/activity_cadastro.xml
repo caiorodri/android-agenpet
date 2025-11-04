@@ -12,7 +12,7 @@
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/cinza">
+        android:background="?attr/android:colorBackground">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -23,11 +23,11 @@
                 android:id="@+id/toolbar_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/principal"
+                android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/ic_arrow_left"
-                app:navigationIconTint="@color/branco"
+                app:navigationIconTint="?attr/colorOnPrimary"
                 app:title="@string/title_cadastro_usuario"
-                app:titleTextColor="@color/branco" />
+                app:titleTextColor="?attr/colorOnPrimary" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -46,7 +46,7 @@
                     android:id="@+id/card_dados_pessoais"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/branco"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
@@ -62,7 +62,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/label_dados_pessoais"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
-                            android:textColor="@color/principal"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -172,7 +172,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:cardBackgroundColor="@color/branco"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:layout_constraintTop_toBottomOf="@id/card_dados_pessoais"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
@@ -188,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/label_endereco"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
-                            android:textColor="@color/principal"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -308,7 +308,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:cardBackgroundColor="@color/branco"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:layout_constraintTop_toBottomOf="@id/card_endereco"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
@@ -324,7 +324,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/label_seguranca"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
-                            android:textColor="@color/principal"
+                            android:textColor="?attr/colorPrimary"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -376,8 +376,8 @@
                     android:layout_marginTop="24dp"
                     android:paddingVertical="12dp"
                     android:text="@string/cadastrar"
-                    android:backgroundTint="@color/principal"
-                    android:textColor="@color/branco"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:textColor="?attr/colorOnPrimary"
                     app:layout_constraintTop_toBottomOf="@id/card_senha"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -405,7 +405,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="@color/principal" />
+            android:indeterminateTint="?attr/colorPrimary" />
 
     </FrameLayout>
 

@@ -32,6 +32,19 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import br.com.caiorodri.agenpet.model.usuario.Usuario
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.util.UUID
 
 class AnimalCadastroFragment : Fragment() {
 
@@ -47,8 +60,51 @@ class AnimalCadastroFragment : Fragment() {
 
     private lateinit var especieAdapter: ArrayAdapter<String>;
     private lateinit var racaAdapter: ArrayAdapter<String>;
-
     private val uiHandler = Handler(Looper.getMainLooper());
+
+    private val storage = Firebase.storage;
+    private var fotoUri: Uri? = null;
+    private var fotoUrlExistente: String? = null;
+
+    private val selecionarImagemLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri == null) {
+            binding.progressBarFoto.visibility = View.GONE
+            binding.imageViewFotoPet.isEnabled = true
+            return@registerForActivityResult
+        }
+
+        try {
+            val pfd = requireContext().contentResolver.openFileDescriptor(uri, "r");
+            val tamanhoEmBytes = pfd?.statSize;
+            pfd?.close();
+            val maxTamanhoEmMB = 30;
+            val maxTamanhoEmBytes = maxTamanhoEmMB * 1024 * 1024;
+            if (tamanhoEmBytes != null && tamanhoEmBytes > maxTamanhoEmBytes) {
+                Toast.makeText(context, "Imagem muito grande. O limite é de ${maxTamanhoEmMB}MB.", Toast.LENGTH_LONG).show();
+                binding.progressBarFoto.visibility = View.GONE;
+                binding.imageViewFotoPet.isEnabled = true;
+                return@registerForActivityResult;
+            }
+
+            fotoUri = uri;
+
+            Glide.with(this)
+                .load(uri)
+                .circleCrop()
+                .into(binding.imageViewFotoPet);
+
+            binding.progressBarFoto.visibility = View.GONE;
+            binding.imageViewFotoPet.isEnabled = true;
+
+        } catch (e: Exception) {
+            Log.e("AnimalCadastroFragment", "Erro ao ler o tamanho do arquivo", e);
+            Toast.makeText(context, "Não foi possível selecionar esta imagem.", Toast.LENGTH_SHORT).show();
+            binding.progressBarFoto.visibility = View.GONE;
+            binding.imageViewFotoPet.isEnabled = true;
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAnimalCadastroBinding.inflate(inflater, container, false);
@@ -71,7 +127,11 @@ class AnimalCadastroFragment : Fragment() {
     }
 
     private fun setupUIBase() {
+
         val animal = animalParaEdicao;
+
+        binding.buttonSalvar.isEnabled = false;
+
         if (animal != null) {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.titulo_editar_animal);
             binding.textViewIdAnimal.text = getString(R.string.placeholder_id_animal, animal.id ?: 0);
@@ -85,10 +145,12 @@ class AnimalCadastroFragment : Fragment() {
                 binding.editTextDataNascimento.setText(formatadorDeData.format(Date(timestamp)));
             };
 
-            if (animal.sexo?.nome == getString(R.string.option_macho)) {
-                binding.toggleButtonGroupSexo.check(R.id.button_macho);
-            } else if (animal.sexo?.nome == getString(R.string.option_femea)){
-                binding.toggleButtonGroupSexo.check(R.id.button_femea);
+            val sexoId = animal.sexo?.id;
+            when (sexoId) {
+                1 -> binding.toggleButtonGroupSexo.check(R.id.button_macho);
+                2 -> binding.toggleButtonGroupSexo.check(R.id.button_femea);
+                3 -> binding.toggleButtonGroupSexo.check(R.id.button_desconhecido);
+                else -> binding.toggleButtonGroupSexo.clearChecked();
             }
 
             binding.editTextPeso.setText(animal.peso?.toString());
@@ -105,6 +167,30 @@ class AnimalCadastroFragment : Fragment() {
             binding.labelInfoAdicional.isVisible = true;
 
             binding.buttonSalvar.text = getString(R.string.button_atualizar);
+
+            fotoUrlExistente = animal.urlImagem;
+            binding.progressBarFoto.visibility = View.VISIBLE;
+            binding.imageViewFotoPet.isEnabled = false;
+
+            Glide.with(this)
+                .load(fotoUrlExistente)
+                .placeholder(R.drawable.ic_pet)
+                .error(R.drawable.ic_pet)
+                .circleCrop()
+                .listener(object : com.bumptech.glide.request.RequestListener<Drawable> {
+                    override fun onLoadFailed(e: com.bumptech.glide.load.engine.GlideException?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>, isFirstResource: Boolean): Boolean {
+                        binding.progressBarFoto.visibility = View.GONE
+                        binding.imageViewFotoPet.isEnabled = true
+                        return false
+                    }
+                    override fun onResourceReady(resource: Drawable, model: Any, target: com.bumptech.glide.request.target.Target<Drawable>, dataSource: com.bumptech.glide.load.DataSource, isFirstResource: Boolean): Boolean {
+                        binding.progressBarFoto.visibility = View.GONE
+                        binding.imageViewFotoPet.isEnabled = true
+                        return false
+                    }
+                })
+                .into(binding.imageViewFotoPet)
+
         } else {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.label_cadastro_pet);
             binding.textViewIdAnimal.isVisible = false;
@@ -135,8 +221,15 @@ class AnimalCadastroFragment : Fragment() {
         };
 
         binding.buttonRemover.setOnClickListener {
-            mostrarDialogoDelecao()
+            mostrarDialogoDelecao();
         }
+
+        binding.imageViewFotoPet.setOnClickListener {
+            binding.progressBarFoto.visibility = View.VISIBLE;
+            binding.imageViewFotoPet.isEnabled = false;
+            selecionarImagemLauncher.launch("image/*");
+        }
+
     }
 
     private fun setupObservers() {
@@ -182,6 +275,8 @@ class AnimalCadastroFragment : Fragment() {
             uiHandler.post {
                 binding.progressBarRacas?.isVisible = isLoading;
                 binding.menuEspecie.isEnabled = !isLoading;
+                binding.buttonSalvar.isEnabled = !isLoading;
+
                 if(isLoading) {
                     binding.menuRaca.isEnabled = false;
                 }
@@ -270,31 +365,130 @@ class AnimalCadastroFragment : Fragment() {
             return;
         }
 
-        val dataNascimentoString = binding.editTextDataNascimento.text.toString();
+        viewModel.setIsLoading(true);
+
+        try {
+
+            val animal = criarObjetoAnimal(dono, fotoUrlExistente)
+
+            if (fotoUri != null) {
+                comprimirEUploadImagem(fotoUri!!) { downloadUrl ->
+                    val animalComFoto = criarObjetoAnimal(dono, downloadUrl)
+                    viewModel.salvarAnimal(animalComFoto)
+                }
+            } else {
+                viewModel.salvarAnimal(animal)
+            }
+
+
+        } catch (e: Exception) {
+
+            viewModel.setIsLoading(false);
+            Log.e("AnimalCadastroFragment", "Erro ao criar objeto animal", e);
+            Toast.makeText(context, e.message ?: "Erro ao validar dados.", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    private fun comprimirEUploadImagem(uri: Uri, onSuccess: (String) -> Unit) {
+
+        val MAX_DIMENSION = 1080;
+
+        Glide.with(this)
+            .asBitmap()
+            .load(uri)
+            .override(MAX_DIMENSION, MAX_DIMENSION)
+            .centerInside()
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+
+                    val baos = ByteArrayOutputStream();
+
+                    resource.compress(Bitmap.CompressFormat.JPEG, 85, baos);
+
+                    val dataEmBytes = baos.toByteArray();
+
+                    Log.d("AnimalCadastroFragment", "Imagem comprimida para ${dataEmBytes.size / 1024} KB");
+
+                    uploadBytesParaFirebase(dataEmBytes, onSuccess);
+
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+
+                    Log.e("AnimalCadastroFragment", "Falha ao carregar/comprimir imagem com Glide");
+
+                    Toast.makeText(context, "Erro ao processar a imagem.", Toast.LENGTH_SHORT).show();
+
+                    viewModel.setIsLoading(false);
+
+                    binding.progressBarFoto.visibility = View.GONE;
+                    binding.imageViewFotoPet.isEnabled = true;
+                }
+            })
+    }
+
+    private fun uploadBytesParaFirebase(data: ByteArray, onSuccess: (String) -> Unit) {
+        val nomeArquivo = "${UUID.randomUUID()}.jpg"
+        val ref = storage.reference.child("imagens/animais/$nomeArquivo")
+
+        ref.putBytes(data)
+            .addOnSuccessListener {
+                ref.downloadUrl.addOnSuccessListener { downloadUri ->
+                    onSuccess(downloadUri.toString())
+                }.addOnFailureListener { e ->
+                    Log.e("AnimalCadastroFragment", "Erro ao obter URL de download", e)
+                    Toast.makeText(context, "Erro ao obter URL: ${e.message}", Toast.LENGTH_SHORT).show()
+                    viewModel.setIsLoading(false)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("AnimalCadastroFragment", "Erro no upload da imagem", e)
+                Toast.makeText(context, "Erro no upload: ${e.message}", Toast.LENGTH_SHORT).show()
+                viewModel.setIsLoading(false)
+            }
+    }
+
+    private fun criarObjetoAnimal(dono: Usuario, urlDaFoto: String?): Animal {
+        val dataNascimentoString = binding.editTextDataNascimento.text.toString()
         val dataNascimentoTimestamp = if (dataNascimentoString.isNotBlank()) {
             try {
-                formatadorDeData.parse(dataNascimentoString)?.time;
-            } catch (e: Exception) {
-                null;
-            }
-        } else {
-            null;
-        };
+                formatadorDeData.parse(dataNascimentoString)?.time
+            } catch (e: Exception) { null }
+        } else { null }
 
         val nome = binding.editTextNome.text.toString().trim();
         val descricao = binding.editTextDescricao.text.toString().trim();
 
+
         val nomeRacaSelecionada = binding.autoCompleteRaca.text.toString();
-        val raca = viewModel.listaCompletaRacas.find { it.nome == nomeRacaSelecionada };
+        val raca = viewModel.listaCompletaRacas.find { it.nome == nomeRacaSelecionada }
+            ?: run {
+                if (binding.menuRaca.isEnabled) {
+                    binding.menuRaca.error = getString(R.string.erro_raca_obrigatoria);
+                    throw Exception(getString(R.string.erro_raca_obrigatoria));
+                }
+                null;
+            }
 
-        val nomeSexo = if (binding.toggleButtonGroupSexo.checkedButtonId == R.id.button_macho) getString(R.string.option_macho) else getString(R.string.option_femea);
-        val sexo = viewModel.sexos.value?.find { it.nome == nomeSexo };
+        val sexoId = when (binding.toggleButtonGroupSexo.checkedButtonId) {
+            R.id.button_macho -> 1;
+            R.id.button_femea -> 2;
+            R.id.button_desconhecido -> 3;
+            else -> throw Exception("Sexo não selecionado");
+        };
 
-        val peso = if (animalParaEdicao != null) animalParaEdicao?.peso else binding.editTextPeso.text.toString().toDoubleOrNull();
-        val altura = if (animalParaEdicao != null) animalParaEdicao?.altura else binding.editTextAltura.text.toString().toDoubleOrNull();
-        val castrado = if (animalParaEdicao != null) animalParaEdicao?.castrado else binding.radioGroupCastrado.checkedRadioButtonId == R.id.radio_castrado_sim;
+        val sexo = viewModel.sexos.value?.find { it.id == sexoId }
+            ?: throw Exception("Objeto Sexo (ID: $sexoId) não encontrado no ViewModel.");
 
-        val animal = Animal(
+        val peso = if (animalParaEdicao != null) animalParaEdicao?.peso else binding.editTextPeso.text.toString().toDoubleOrNull()
+        val altura = if (animalParaEdicao != null) animalParaEdicao?.altura else binding.editTextAltura.text.toString().toDoubleOrNull()
+        val castrado = if (animalParaEdicao != null) animalParaEdicao?.castrado else binding.radioGroupCastrado.checkedRadioButtonId == R.id.radio_castrado_sim
+
+        return Animal(
             id = animalParaEdicao?.id,
             nome = nome,
             dono = dono,
@@ -305,10 +499,9 @@ class AnimalCadastroFragment : Fragment() {
             peso = peso,
             altura = altura,
             castrado = castrado,
-            agendamentos = animalParaEdicao?.agendamentos
-        );
-
-        viewModel.salvarAnimal(animal);
+            agendamentos = animalParaEdicao?.agendamentos,
+            urlImagem = urlDaFoto
+        )
     }
 
     private fun validarCampos(): Boolean {

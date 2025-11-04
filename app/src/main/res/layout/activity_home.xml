@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/principal"
+            android:backgroundTint="?attr/colorPrimary"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="8dp"
             app:fabCradleRoundedCornerRadius="24dp"/>
@@ -59,7 +59,7 @@
             app:layout_anchor="@id/bottomAppBar"
             app:menu="@menu/bottom_nav_menu"
             app:itemIconTint="@color/bottom_nav_color_selector"
-            app:itemTextColor="@color/branco"
+            app:itemTextColor="?attr/colorOnPrimary"
             app:elevation="0dp"
             app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"/>
 

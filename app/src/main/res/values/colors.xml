@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="principal">#003366</color>
-    <color name="branco">#FFFFFFFF</color>
-    <color name="preto">#FF000000</color>
-    <color name="cinza">#E0E0E0</color>
-    <color name="vermelho">#D32F2F</color>
+    <color name="secundaria">#6487A7</color>
+    <color name="vermelho_erro">#D32F2F</color>
+
+    <color name="cor_fundo_app">#E0E0E0</color>
+    <color name="cor_fundo_card">#FFFFFFFF</color>
+    <color name="cor_texto_principal">#FF000000</color>
+    <color name="cor_texto_secundario">#5A5A5A</color>
+    <color name="cor_texto_sobre_cor">#FFFFFFFF</color>
+    <color name="cor_progresso">@color/principal</color>
+
+    <color name="status_aberto_fundo">#E3F2FD</color>
+    <color name="status_aberto_texto">#1565C0</color>
+    <color name="status_finalizado_fundo">#E8F5E9</color>
+    <color name="status_finalizado_texto">#2E7D32</color>
+    <color name="status_cancelado_fundo">#FFEBEE</color>
+    <color name="status_cancelado_texto">@color/vermelho_erro</color>
 </resources>

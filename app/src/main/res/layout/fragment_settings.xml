@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cinza"
+    android:background="?attr/android:colorBackground"
     android:fillViewport="true"
     tools:context=".ui.settings.SettingsFragment">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/label_aparencia"
             android:textAppearance="?attr/textAppearanceTitleSmall"
-            android:textColor="@color/principal"
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardBackgroundColor="@color/branco"
+            app:cardBackgroundColor="?attr/colorSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_aparencia">
@@ -50,7 +50,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/principal"
+                    app:tint="?attr/colorPrimary"
                     android:contentDescription="@string/desc_icon_dark_mode" />
 
                 <TextView
@@ -60,7 +60,7 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/label_modo_escuro"
                     android:textAppearance="?attr/textAppearanceBodyLarge"
-                    android:textColor="@color/preto"
+                    android:textColor="?attr/colorOnSurface"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon_theme"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -70,6 +70,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="@id/label_theme_title"
                     app:layout_constraintStart_toStartOf="@id/label_theme_title"
                     app:layout_constraintTop_toBottomOf="@id/label_theme_title"
@@ -86,7 +87,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/label_idioma"
             android:textAppearance="?attr/textAppearanceTitleSmall"
-            android:textColor="@color/principal"
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_aparencia" />
 
@@ -95,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardBackgroundColor="@color/branco"
+            app:cardBackgroundColor="?attr/colorSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_idioma_secao">
@@ -117,7 +118,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/principal"
+                    app:tint="?attr/colorPrimary"
                     android:contentDescription="@string/desc_icon_idioma" />
 
                 <TextView
@@ -127,7 +128,7 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/label_idioma_titulo"
                     android:textAppearance="?attr/textAppearanceBodyLarge"
-                    android:textColor="@color/preto"
+                    android:textColor="?attr/colorOnSurface"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon_language"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -137,6 +138,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="@id/label_language_title"
                     app:layout_constraintStart_toStartOf="@id/label_language_title"
                     app:layout_constraintTop_toBottomOf="@id/label_language_title"
@@ -153,7 +155,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/label_notificacoes"
             android:textAppearance="?attr/textAppearanceTitleSmall"
-            android:textColor="@color/principal"
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_idioma" />
 
@@ -162,7 +164,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardBackgroundColor="@color/branco"
+            app:cardBackgroundColor="?attr/colorSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_notificacoes_secao">
@@ -180,7 +182,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/principal"
+                    app:tint="?attr/colorPrimary"
                     android:contentDescription="@string/desc_icon_notificacoes"/>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
@@ -190,7 +192,7 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/label_receber_notificacoes"
                     android:textAppearance="?attr/textAppearanceBodyLarge"
-                    android:textColor="@color/preto"
+                    android:textColor="?attr/colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon_notifications"
