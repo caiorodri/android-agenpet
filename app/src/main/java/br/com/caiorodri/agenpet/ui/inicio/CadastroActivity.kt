@@ -23,18 +23,18 @@ import br.com.caiorodri.agenpet.model.usuario.StatusEnum;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointBackward
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import kotlinx.coroutines.Dispatchers;
 import kotlinx.coroutines.launch;
 import kotlinx.coroutines.withContext;
 import java.text.SimpleDateFormat;
-import java.util.Date
+import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone
+import java.util.TimeZone;
 
 class CadastroActivity : AppCompatActivity() {
 
@@ -140,7 +140,7 @@ class CadastroActivity : AppCompatActivity() {
 
         buttonCadastrar.setOnClickListener {
             if (!validarCadastro()) {
-                Toast.makeText(this@CadastroActivity, "Por favor, corrija os erros no formulário.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this@CadastroActivity, getString(R.string.erro_corrija_formulario), Toast.LENGTH_SHORT).show();
                 return@setOnClickListener;
             }
 
@@ -153,10 +153,10 @@ class CadastroActivity : AppCompatActivity() {
 
                     if (usuarioSalvo != null) {
                         Log.i("CadastroActivity", "Usuário ${usuarioSalvo.nome} cadastrado com sucesso");
-                        Toast.makeText(this@CadastroActivity, "Usuário ${usuarioSalvo.nome} cadastrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this@CadastroActivity, getString(R.string.sucesso_cadastro_usuario, usuarioSalvo.nome), Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(this@CadastroActivity, "Falha ao cadastrar.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this@CadastroActivity, getString(R.string.erro_falha_cadastro), Toast.LENGTH_LONG).show();
                     }
 
                 } catch (e: Exception) {
@@ -172,10 +172,10 @@ class CadastroActivity : AppCompatActivity() {
         editTextDataNascimento.addTextChangedListener(DateMaskTextWatcher(editTextDataNascimento));
 
         inputLayoutDataNascimento.setEndIconOnClickListener {
-            mostrarDatePicker()
+            mostrarDatePicker();
         }
         editTextDataNascimento.setOnClickListener {
-            mostrarDatePicker()
+            mostrarDatePicker();
         }
 
     }
@@ -198,7 +198,7 @@ class CadastroActivity : AppCompatActivity() {
         val dataNascimentoFormatada = try {
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dataNascimentoStr);
         } catch (e: Exception) {
-            throw Exception("Formato de data inválido. Use DD/MM/AAAA.");
+            throw Exception(getString(R.string.erro_formato_data_invalido));
         }
 
         val usuarioRequest = UsuarioRequest(
@@ -206,7 +206,7 @@ class CadastroActivity : AppCompatActivity() {
             dataNascimentoFormatada,
             Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, estado)), null, null,
             Perfil(PerfilEnum.CLIENTE.getValue(), null), Status(StatusEnum.ATIVO.getValue(), null), null
-        )
+        );
 
         return withContext(Dispatchers.IO) {
             usuarioController.salvar(usuarioRequest);
@@ -230,62 +230,62 @@ class CadastroActivity : AppCompatActivity() {
         inputLayoutConfirmarSenha.error = null;
 
         if (editTextSenha.text.toString().length < 8) {
-            inputLayoutSenha.error = "A senha deve conter no mínimo 8 caracteres";
+            inputLayoutSenha.error = getString(R.string.erro_senha_minima);
             valido = false;
         }
 
         if (editTextSenha.text.toString() != editTextConfirmarSenha.text.toString()) {
-            inputLayoutConfirmarSenha.error = "As senhas não são iguais";
+            inputLayoutConfirmarSenha.error = getString(R.string.erro_senhas_nao_conferem);
             valido = false;
         }
 
         if (editTextNome.text.toString().isEmpty()) {
-            inputLayoutNome.error = "O nome não pode estar vazio";
+            inputLayoutNome.error = getString(R.string.erro_nome_vazio);
             valido = false;
         }
 
         if (editTextEmail.text.toString().isEmpty() || !editTextEmail.text.toString().contains("@")) {
-            inputLayoutEmail.error = "O email precisa ser válido";
+            inputLayoutEmail.error = getString(R.string.erro_email_invalido);
             valido = false;
         }
 
         if (editTextCpf.text.toString().length != 11) {
-            inputLayoutCpf.error = "O CPF precisa ter 11 dígitos";
+            inputLayoutCpf.error = getString(R.string.erro_cpf_formato);
             valido = false;
         }
 
         if (editTextTelefone.text.toString().isEmpty()) {
-            inputLayoutTelefone.error = "O telefone não pode estar vazio";
+            inputLayoutTelefone.error = getString(R.string.erro_telefone_vazio);
             valido = false;
         }
 
         if (editTextDataNascimento.text.toString().length != 10) {
-            inputLayoutDataNascimento.error = "A data deve estar no formato DD/MM/AAAA";
+            inputLayoutDataNascimento.error = getString(R.string.erro_data_formato);
             valido = false;
         }
 
         if (editTextCep.text.toString().isEmpty()) {
-            inputLayoutCep.error = "O CEP não pode estar vazio";
+            inputLayoutCep.error = getString(R.string.erro_cep_vazio);
             valido = false;
         }
 
         if (editTextLogradouro.text.toString().isEmpty()) {
-            inputLayoutLogradouro.error = "O logradouro não pode estar vazio";
+            inputLayoutLogradouro.error = getString(R.string.erro_logradouro_vazio);
             valido = false;
         }
 
         if (editTextNumero.text.toString().isEmpty()) {
-            inputLayoutNumero.error = "O número não pode estar vazio";
+            inputLayoutNumero.error = getString(R.string.erro_numero_vazio);
             valido = false;
         }
 
         if (editTextCidade.text.toString().isEmpty()) {
-            inputLayoutCidade.error = "A cidade não pode estar vazia";
+            inputLayoutCidade.error = getString(R.string.erro_cidade_vazia);
             valido = false;
         }
 
         if (editTextEstado.text.toString().length != 2) {
-            inputLayoutEstado.error = "O estado deve ter 2 caracteres (ex: SP)";
+            inputLayoutEstado.error = getString(R.string.erro_estado_formato);
             valido = false;
         }
 
@@ -312,5 +312,4 @@ class CadastroActivity : AppCompatActivity() {
 
         datePicker.show(supportFragmentManager, "DATE_PICKER");
     }
-
 }

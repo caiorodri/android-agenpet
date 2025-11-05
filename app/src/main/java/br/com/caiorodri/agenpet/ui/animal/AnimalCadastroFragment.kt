@@ -1,50 +1,51 @@
-package br.com.caiorodri.agenpet.ui.animal
+package br.com.caiorodri.agenpet.ui.animal;
 
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import br.com.caiorodri.agenpet.R
-import br.com.caiorodri.agenpet.databinding.FragmentAnimalCadastroBinding
-import br.com.caiorodri.agenpet.model.animal.Animal
-import br.com.caiorodri.agenpet.model.animal.AnimalResponse
-import br.com.caiorodri.agenpet.model.animal.Especie
-import br.com.caiorodri.agenpet.model.animal.Raca
-import br.com.caiorodri.agenpet.model.animal.Sexo
-import br.com.caiorodri.agenpet.ui.home.HomeActivity
-import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointBackward
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.text.SimpleDateFormat
-import java.util.*
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
-import br.com.caiorodri.agenpet.model.usuario.Usuario
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
-import java.util.UUID
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.children;
+import androidx.core.view.isVisible;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.activityViewModels;
+import androidx.fragment.app.viewModels;
+import androidx.navigation.fragment.findNavController;
+import androidx.navigation.fragment.navArgs;
+import br.com.caiorodri.agenpet.R;
+import br.com.caiorodri.agenpet.databinding.FragmentAnimalCadastroBinding;
+import br.com.caiorodri.agenpet.model.animal.Animal;
+import br.com.caiorodri.agenpet.model.animal.AnimalResponse;
+import br.com.caiorodri.agenpet.model.animal.Especie;
+import br.com.caiorodri.agenpet.model.animal.Raca;
+import br.com.caiorodri.agenpet.model.animal.Sexo;
+import br.com.caiorodri.agenpet.ui.home.HomeActivity;
+import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.util.Log;
+import androidx.activity.result.contract.ActivityResultContracts;
+import br.com.caiorodri.agenpet.model.usuario.Usuario;
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.ktx.Firebase;
+import com.google.firebase.storage.ktx.storage;
+import java.io.ByteArrayOutputStream;
+import java.util.UUID;
 
 class AnimalCadastroFragment : Fragment() {
 
@@ -70,9 +71,9 @@ class AnimalCadastroFragment : Fragment() {
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         if (uri == null) {
-            binding.progressBarFoto.visibility = View.GONE
-            binding.imageViewFotoPet.isEnabled = true
-            return@registerForActivityResult
+            binding.progressBarFoto.visibility = View.GONE;
+            binding.imageViewFotoPet.isEnabled = true;
+            return@registerForActivityResult;
         }
 
         try {
@@ -82,7 +83,7 @@ class AnimalCadastroFragment : Fragment() {
             val maxTamanhoEmMB = 30;
             val maxTamanhoEmBytes = maxTamanhoEmMB * 1024 * 1024;
             if (tamanhoEmBytes != null && tamanhoEmBytes > maxTamanhoEmBytes) {
-                Toast.makeText(context, "Imagem muito grande. O limite é de ${maxTamanhoEmMB}MB.", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getString(R.string.erro_imagem_muito_grande_animal, maxTamanhoEmMB), Toast.LENGTH_LONG).show();
                 binding.progressBarFoto.visibility = View.GONE;
                 binding.imageViewFotoPet.isEnabled = true;
                 return@registerForActivityResult;
@@ -100,11 +101,11 @@ class AnimalCadastroFragment : Fragment() {
 
         } catch (e: Exception) {
             Log.e("AnimalCadastroFragment", "Erro ao ler o tamanho do arquivo", e);
-            Toast.makeText(context, "Não foi possível selecionar esta imagem.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.erro_selecionar_imagem_animal), Toast.LENGTH_SHORT).show();
             binding.progressBarFoto.visibility = View.GONE;
             binding.imageViewFotoPet.isEnabled = true;
         }
-    }
+    };
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAnimalCadastroBinding.inflate(inflater, container, false);
@@ -179,17 +180,17 @@ class AnimalCadastroFragment : Fragment() {
                 .circleCrop()
                 .listener(object : com.bumptech.glide.request.RequestListener<Drawable> {
                     override fun onLoadFailed(e: com.bumptech.glide.load.engine.GlideException?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>, isFirstResource: Boolean): Boolean {
-                        binding.progressBarFoto.visibility = View.GONE
-                        binding.imageViewFotoPet.isEnabled = true
-                        return false
+                        binding.progressBarFoto.visibility = View.GONE;
+                        binding.imageViewFotoPet.isEnabled = true;
+                        return false;
                     }
                     override fun onResourceReady(resource: Drawable, model: Any, target: com.bumptech.glide.request.target.Target<Drawable>, dataSource: com.bumptech.glide.load.DataSource, isFirstResource: Boolean): Boolean {
-                        binding.progressBarFoto.visibility = View.GONE
-                        binding.imageViewFotoPet.isEnabled = true
-                        return false
+                        binding.progressBarFoto.visibility = View.GONE;
+                        binding.imageViewFotoPet.isEnabled = true;
+                        return false;
                     }
                 })
-                .into(binding.imageViewFotoPet)
+                .into(binding.imageViewFotoPet);
 
         } else {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.label_cadastro_pet);
@@ -210,7 +211,7 @@ class AnimalCadastroFragment : Fragment() {
 
         binding.autoCompleteEspecie.setOnItemClickListener { parent, _, position, _ ->
             val nomeEspecie = parent.getItemAtPosition(position) as String;
-            val especieSelecionada = viewModel.especies.value?.find { it.nome == nomeEspecie };
+            val especieSelecionada = viewModel.especies.value?.find { it.getNomeTraduzido(requireContext()) == nomeEspecie };
 
             binding.autoCompleteRaca.setText(null, false);
             viewModel.filtrarRacasPorEspecie(especieSelecionada);
@@ -234,17 +235,17 @@ class AnimalCadastroFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.especies.observe(viewLifecycleOwner) { especies ->
-            val nomesDasEspecies = especies.map { it.nome };
+            val nomesDasEspecies = especies.map { it.getNomeTraduzido(requireContext()) };
             uiHandler.post {
                 especieAdapter.clear();
                 especieAdapter.addAll(nomesDasEspecies);
                 especieAdapter.notifyDataSetChanged();
 
                 if (animalParaEdicao != null) {
-                    val especieAtualNome = animalParaEdicao?.raca?.especie?.nome;
+                    val especieAtualNome = animalParaEdicao?.raca?.especie?.getNomeTraduzido(requireContext());
                     if (especieAtualNome != null && nomesDasEspecies.contains(especieAtualNome)) {
                         binding.autoCompleteEspecie.setText(especieAtualNome, false);
-                        val especieInicial = especies.find { it.nome == especieAtualNome };
+                        val especieInicial = especies.find { it.getNomeTraduzido(requireContext()) == especieAtualNome };
                         viewModel.filtrarRacasPorEspecie(especieInicial);
                     }
                 }
@@ -252,14 +253,16 @@ class AnimalCadastroFragment : Fragment() {
         };
 
         viewModel.racasFiltradas.observe(viewLifecycleOwner) { racas ->
-            val nomesDasRacas = racas.map { it.nome };
+            val nomesDasRacas = racas.map { it.getNomeTraduzido(requireContext()) };
             uiHandler.post {
                 racaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesDasRacas);
                 binding.autoCompleteRaca.setAdapter(racaAdapter);
                 binding.menuRaca.isEnabled = racas.isNotEmpty();
 
                 if (animalParaEdicao != null) {
-                    val racaAtualNome = animalParaEdicao?.raca?.nome;
+
+                    val racaAtualNome = animalParaEdicao?.raca?.getNomeTraduzido(requireContext());
+
                     if (racaAtualNome != null && nomesDasRacas.contains(racaAtualNome)) {
                         binding.autoCompleteRaca.setText(racaAtualNome, false);
                     } else {
@@ -288,67 +291,67 @@ class AnimalCadastroFragment : Fragment() {
         };
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.savingOverlay.isVisible = isLoading
-            binding.buttonSalvar.isEnabled = !isLoading
-            binding.buttonRemover.isEnabled = !isLoading
+            binding.savingOverlay.isVisible = isLoading;
+            binding.buttonSalvar.isEnabled = !isLoading;
+            binding.buttonRemover.isEnabled = !isLoading;
         }
 
         viewModel.actionError.observe(viewLifecycleOwner) { error ->
             if (error != null) {
-                Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-                viewModel.resetActionError()
+                Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+                viewModel.resetActionError();
             }
         }
 
         viewModel.animalSalvoComSucesso.observe(viewLifecycleOwner) { animalResponseSalvo ->
-            animalResponseSalvo ?: return@observe
+            animalResponseSalvo ?: return@observe;
 
-            Toast.makeText(context, getString(R.string.toast_animal_salvo_sucesso), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.toast_animal_salvo_sucesso), Toast.LENGTH_SHORT).show();
 
-            val animalConvertido = Animal(animalResponseSalvo)
+            val animalConvertido = Animal(animalResponseSalvo);
             val animalFinal = animalConvertido.copy(
                 agendamentos = animalParaEdicao?.agendamentos
-            )
+            );
 
-            sharedViewModel.atualizarAnimalLocalmente(animalFinal)
-            (activity as? HomeActivity)?.carregarDadosDoUsuario()
+            sharedViewModel.atualizarAnimalLocalmente(animalFinal);
+            (activity as? HomeActivity)?.carregarDadosDoUsuario();
 
-            viewModel.resetAnimalSalvo()
-            findNavController().popBackStack()
+            viewModel.resetAnimalSalvo();
+            findNavController().popBackStack();
         }
 
         viewModel.animalRemovidoComSucesso.observe(viewLifecycleOwner) { removido ->
-            removido ?: return@observe
+            removido ?: return@observe;
 
-            Toast.makeText(context, getString(R.string.toast_animal_removido_sucesso), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.toast_animal_removido_sucesso), Toast.LENGTH_SHORT).show();
 
             animalParaEdicao?.id?.let {
-                sharedViewModel.removerAnimalLocalmente(it)
-            }
+                sharedViewModel.removerAnimalLocalmente(it);
+            };
 
-            (activity as? HomeActivity)?.carregarDadosDoUsuario()
+            (activity as? HomeActivity)?.carregarDadosDoUsuario();
 
-            viewModel.resetAnimalRemovido()
-            findNavController().popBackStack()
+            viewModel.resetAnimalRemovido();
+            findNavController().popBackStack();
         }
     }
 
     private fun mostrarDialogoDelecao() {
-        val animalId = animalParaEdicao?.id
-        val animalNome = animalParaEdicao?.nome
-        if (animalId == null || animalNome == null) return
+        val animalId = animalParaEdicao?.id;
+        val animalNome = animalParaEdicao?.nome;
+        if (animalId == null || animalNome == null) return;
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.dialog_title_remover_animal))
             .setMessage(getString(R.string.dialog_message_remover_animal, animalNome))
             .setNegativeButton(getString(R.string.dialog_button_cancelar)) { dialog, _ ->
-                dialog.dismiss()
+                dialog.dismiss();
             }
             .setPositiveButton(getString(R.string.dialog_button_remover)) { dialog, _ ->
-                viewModel.removerAnimal(animalId)
-                dialog.dismiss()
+                viewModel.removerAnimal(animalId);
+                dialog.dismiss();
             }
-            .show()
+            .show();
     }
 
     private fun salvarDadosDoAnimal() {
@@ -369,23 +372,23 @@ class AnimalCadastroFragment : Fragment() {
 
         try {
 
-            val animal = criarObjetoAnimal(dono, fotoUrlExistente)
+            val animal = criarObjetoAnimal(dono, fotoUrlExistente);
 
             if (fotoUri != null) {
                 comprimirEUploadImagem(fotoUri!!) { downloadUrl ->
-                    val animalComFoto = criarObjetoAnimal(dono, downloadUrl)
-                    viewModel.salvarAnimal(animalComFoto)
+                    val animalComFoto = criarObjetoAnimal(dono, downloadUrl);
+                    viewModel.salvarAnimal(animalComFoto);
                 }
             } else {
-                viewModel.salvarAnimal(animal)
+                viewModel.salvarAnimal(animal);
             }
 
 
         } catch (e: Exception) {
 
             viewModel.setIsLoading(false);
-            Log.e("AnimalCadastroFragment", "Erro ao criar objeto animal", e);
-            Toast.makeText(context, e.message ?: "Erro ao validar dados.", Toast.LENGTH_SHORT).show();
+            Log.e("AnimalCadastroFragment", getString(R.string.erro_criar_objeto_animal), e);
+            Toast.makeText(context, e.message ?: getString(R.string.erro_validar_dados_animal), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -421,72 +424,71 @@ class AnimalCadastroFragment : Fragment() {
 
                     Log.e("AnimalCadastroFragment", "Falha ao carregar/comprimir imagem com Glide");
 
-                    Toast.makeText(context, "Erro ao processar a imagem.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.erro_processar_imagem_animal), Toast.LENGTH_SHORT).show();
 
                     viewModel.setIsLoading(false);
 
                     binding.progressBarFoto.visibility = View.GONE;
                     binding.imageViewFotoPet.isEnabled = true;
                 }
-            })
+            });
     }
 
     private fun uploadBytesParaFirebase(data: ByteArray, onSuccess: (String) -> Unit) {
-        val nomeArquivo = "${UUID.randomUUID()}.jpg"
-        val ref = storage.reference.child("imagens/animais/$nomeArquivo")
+        val nomeArquivo = "${UUID.randomUUID()}.jpg";
+        val ref = storage.reference.child("imagens/animais/$nomeArquivo");
 
         ref.putBytes(data)
             .addOnSuccessListener {
                 ref.downloadUrl.addOnSuccessListener { downloadUri ->
-                    onSuccess(downloadUri.toString())
+                    onSuccess(downloadUri.toString());
                 }.addOnFailureListener { e ->
-                    Log.e("AnimalCadastroFragment", "Erro ao obter URL de download", e)
-                    Toast.makeText(context, "Erro ao obter URL: ${e.message}", Toast.LENGTH_SHORT).show()
-                    viewModel.setIsLoading(false)
+                    Log.e("AnimalCadastroFragment", "Erro ao obter URL de download", e);
+                    Toast.makeText(context, getString(R.string.erro_obter_url_animal, e.message), Toast.LENGTH_SHORT).show();
+                    viewModel.setIsLoading(false);
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("AnimalCadastroFragment", "Erro no upload da imagem", e)
-                Toast.makeText(context, "Erro no upload: ${e.message}", Toast.LENGTH_SHORT).show()
-                viewModel.setIsLoading(false)
-            }
+                Log.e("AnimalCadastroFragment", "Erro no upload da imagem", e);
+                Toast.makeText(context, getString(R.string.erro_upload_imagem_animal, e.message), Toast.LENGTH_SHORT).show();
+                viewModel.setIsLoading(false);
+            };
     }
 
     private fun criarObjetoAnimal(dono: Usuario, urlDaFoto: String?): Animal {
-        val dataNascimentoString = binding.editTextDataNascimento.text.toString()
+        val dataNascimentoString = binding.editTextDataNascimento.text.toString();
         val dataNascimentoTimestamp = if (dataNascimentoString.isNotBlank()) {
             try {
-                formatadorDeData.parse(dataNascimentoString)?.time
+                formatadorDeData.parse(dataNascimentoString)?.time;
             } catch (e: Exception) { null }
-        } else { null }
+        } else { null };
 
         val nome = binding.editTextNome.text.toString().trim();
         val descricao = binding.editTextDescricao.text.toString().trim();
 
-
-        val nomeRacaSelecionada = binding.autoCompleteRaca.text.toString();
-        val raca = viewModel.listaCompletaRacas.find { it.nome == nomeRacaSelecionada }
+        val nomeRacaTraduzido = binding.autoCompleteRaca.text.toString();
+        val raca = viewModel.listaCompletaRacas.find { it.getNomeTraduzido(requireContext()) == nomeRacaTraduzido }
             ?: run {
                 if (binding.menuRaca.isEnabled) {
                     binding.menuRaca.error = getString(R.string.erro_raca_obrigatoria);
                     throw Exception(getString(R.string.erro_raca_obrigatoria));
                 }
                 null;
-            }
+            };
 
         val sexoId = when (binding.toggleButtonGroupSexo.checkedButtonId) {
             R.id.button_macho -> 1;
             R.id.button_femea -> 2;
             R.id.button_desconhecido -> 3;
-            else -> throw Exception("Sexo não selecionado");
+            else -> throw Exception(getString(R.string.toast_selecionar_sexo));
         };
 
         val sexo = viewModel.sexos.value?.find { it.id == sexoId }
             ?: throw Exception("Objeto Sexo (ID: $sexoId) não encontrado no ViewModel.");
 
-        val peso = if (animalParaEdicao != null) animalParaEdicao?.peso else binding.editTextPeso.text.toString().toDoubleOrNull()
-        val altura = if (animalParaEdicao != null) animalParaEdicao?.altura else binding.editTextAltura.text.toString().toDoubleOrNull()
-        val castrado = if (animalParaEdicao != null) animalParaEdicao?.castrado else binding.radioGroupCastrado.checkedRadioButtonId == R.id.radio_castrado_sim
+        val peso = if (animalParaEdicao != null) animalParaEdicao?.peso else binding.editTextPeso.text.toString().toDoubleOrNull();
+        val altura = if (animalParaEdicao != null) animalParaEdicao?.altura else binding.editTextAltura.text.toString().toDoubleOrNull();
+        val castrado = if (animalParaEdicao != null) animalParaEdicao?.castrado else binding.radioGroupCastrado.checkedRadioButtonId == R.id.radio_castrado_sim;
 
         return Animal(
             id = animalParaEdicao?.id,
@@ -501,7 +503,7 @@ class AnimalCadastroFragment : Fragment() {
             castrado = castrado,
             agendamentos = animalParaEdicao?.agendamentos,
             urlImagem = urlDaFoto
-        )
+        );
     }
 
     private fun validarCampos(): Boolean {

@@ -1,7 +1,7 @@
 package br.com.caiorodri.agenpet.ui.usuario;
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,28 +23,28 @@ import br.com.caiorodri.agenpet.model.usuario.Usuario;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest;
-import br.com.caiorodri.agenpet.security.SessionManager
+import br.com.caiorodri.agenpet.security.SessionManager;
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
-import br.com.caiorodri.agenpet.ui.perfil.MeuPerfilViewModel
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointBackward
-import com.google.android.material.datepicker.MaterialDatePicker
+import br.com.caiorodri.agenpet.ui.usuario.MeuPerfilViewModel;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone
-import br.com.caiorodri.agenpet.model.usuario.LoginResponse
-import android.net.Uri
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
-import java.util.UUID
+import java.util.TimeZone;
+import br.com.caiorodri.agenpet.model.usuario.LoginResponse;
+import android.net.Uri;
+import android.util.Log;
+import androidx.activity.result.contract.ActivityResultContracts;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.ktx.Firebase;
+import com.google.firebase.storage.ktx.storage;
+import java.io.ByteArrayOutputStream;
+import java.util.UUID;
 
 class MeuPerfilFragment : Fragment() {
 
@@ -61,33 +61,32 @@ class MeuPerfilFragment : Fragment() {
     };
     private var usuarioAtual: Usuario? = null;
 
-    private val storage = Firebase.storage
-    private var fotoUri: Uri? = null
-    private var fotoUrlExistente: String? = null
+    private val storage = Firebase.storage;
+    private var fotoUri: Uri? = null;
+    private var fotoUrlExistente: String? = null;
 
     private val selecionarImagemLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
 
         if (uri == null) {
-            return@registerForActivityResult
+            return@registerForActivityResult;
         }
 
         try {
-            val pfd = requireContext().contentResolver.openFileDescriptor(uri, "r")
-            val tamanhoEmBytes = pfd?.statSize
-            pfd?.close()
+            val pfd = requireContext().contentResolver.openFileDescriptor(uri, "r");
+            val tamanhoEmBytes = pfd?.statSize;
+            pfd?.close();
 
             val maxTamanhoEmMB = 30;
             val maxTamanhoEmBytes = maxTamanhoEmMB * 1024 * 1024;
 
             if (tamanhoEmBytes != null && tamanhoEmBytes > maxTamanhoEmBytes) {
-
                 Toast.makeText(
                     context,
-                    "Imagem muito grande. O limite é de ${maxTamanhoEmMB}MB.",
+                    getString(R.string.erro_imagem_muito_grande, maxTamanhoEmMB),
                     Toast.LENGTH_LONG
-                ).show()
+                ).show();
 
                 return@registerForActivityResult;
             }
@@ -107,11 +106,10 @@ class MeuPerfilFragment : Fragment() {
 
         } catch (e: Exception) {
             Log.e("MeuPerfilFragment", "Erro ao ler o tamanho do arquivo", e);
-            Toast.makeText(context, "Não foi possível selecionar esta imagem.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.erro_selecionar_imagem), Toast.LENGTH_SHORT).show();
 
             binding.progressBarFoto.visibility = View.GONE;
             binding.imageViewFotoPerfil.isEnabled = true;
-
         }
     }
 
@@ -169,7 +167,7 @@ class MeuPerfilFragment : Fragment() {
                 usuarioAtual = usuario;
                 popularCampos(usuario);
             } else {
-                Toast.makeText(context, "Não foi possível carregar os dados do perfil.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.info_perfil_nao_carregado), Toast.LENGTH_SHORT).show();
                 findNavController().popBackStack();
             }
         }
@@ -212,8 +210,8 @@ class MeuPerfilFragment : Fragment() {
 
         fotoUrlExistente = usuario.urlImagem;
 
-        binding.progressBarFoto.visibility = View.VISIBLE
-        binding.imageViewFotoPerfil.isEnabled = false
+        binding.progressBarFoto.visibility = View.VISIBLE;
+        binding.imageViewFotoPerfil.isEnabled = false;
 
         Glide.with(this)
             .load(fotoUrlExistente)
@@ -222,43 +220,43 @@ class MeuPerfilFragment : Fragment() {
             .circleCrop()
             .listener(object : com.bumptech.glide.request.RequestListener<Drawable> {
                 override fun onLoadFailed(e: com.bumptech.glide.load.engine.GlideException?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>, isFirstResource: Boolean): Boolean {
-                    binding.progressBarFoto.visibility = View.GONE
-                    binding.imageViewFotoPerfil.isEnabled = true
-                    return false
+                    binding.progressBarFoto.visibility = View.GONE;
+                    binding.imageViewFotoPerfil.isEnabled = true;
+                    return false;
                 }
 
                 override fun onResourceReady(resource: Drawable, model: Any, target: com.bumptech.glide.request.target.Target<Drawable>, dataSource: com.bumptech.glide.load.DataSource, isFirstResource: Boolean): Boolean {
-                    binding.progressBarFoto.visibility = View.GONE
-                    binding.imageViewFotoPerfil.isEnabled = true
-                    return false
+                    binding.progressBarFoto.visibility = View.GONE;
+                    binding.imageViewFotoPerfil.isEnabled = true;
+                    return false;
                 }
             })
-            .into(binding.imageViewFotoPerfil)
+            .into(binding.imageViewFotoPerfil);
     }
 
     private fun validarEsalvar() {
         if (!validarCampos()) {
-            Toast.makeText(context, "Por favor, corrija os erros no formulário.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.erro_corrija_formulario), Toast.LENGTH_SHORT).show();
             return;
         }
 
         val usuarioOriginal = usuarioAtual;
 
         if (usuarioOriginal?.id == null) {
-            Toast.makeText(context, "Erro ao obter dados originais do usuário.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.erro_obter_dados_usuario), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        viewModel.setIsLoading(true)
+        viewModel.setIsLoading(true);
 
         if (fotoUri != null) {
             comprimirEUploadImagem(fotoUri!!) { downloadUrl ->
-                val request = criarUsuarioUpdateRequest(usuarioOriginal, downloadUrl)
-                viewModel.salvarAlteracoes(request)
+                val request = criarUsuarioUpdateRequest(usuarioOriginal, downloadUrl);
+                viewModel.salvarAlteracoes(request);
             }
         } else {
-            val request = criarUsuarioUpdateRequest(usuarioOriginal, fotoUrlExistente)
-            viewModel.salvarAlteracoes(request)
+            val request = criarUsuarioUpdateRequest(usuarioOriginal, fotoUrlExistente);
+            viewModel.salvarAlteracoes(request);
         }
 
     }
@@ -277,55 +275,55 @@ class MeuPerfilFragment : Fragment() {
         binding.inputLayoutEstado.error = null;
 
         if (binding.editTextNome.text.toString().isBlank()) {
-            binding.inputLayoutNome.error = "O nome não pode estar vazio";
+            binding.inputLayoutNome.error = getString(R.string.erro_nome_vazio);
             valido = false;
         }
 
         if (binding.editTextEmail.text.toString().isBlank() || !android.util.Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmail.text.toString()).matches()) {
-            binding.inputLayoutEmail.error = "O email precisa ser válido";
+            binding.inputLayoutEmail.error = getString(R.string.erro_email_invalido);
             valido = false;
         }
 
         if (binding.editTextTelefone.text.toString().isBlank()) {
-            binding.inputLayoutTelefone.error = "O telefone não pode estar vazio";
+            binding.inputLayoutTelefone.error = getString(R.string.erro_telefone_vazio);
             valido = false;
         }
 
         if (binding.editTextDataNascimento.text.toString().length != 10) {
-            binding.inputLayoutDataNascimento.error = "A data deve estar no formato DD/MM/AAAA";
+            binding.inputLayoutDataNascimento.error = getString(R.string.erro_data_formato);
             valido = false;
         } else {
             try {
                 dateFormatter.isLenient = false;
                 dateFormatter.parse(binding.editTextDataNascimento.text.toString());
             } catch (e: ParseException) {
-                binding.inputLayoutDataNascimento.error = "Data inválida";
+                binding.inputLayoutDataNascimento.error = getString(R.string.erro_data_invalida);
                 valido = false;
             }
         }
 
         if (binding.editTextCep.text.toString().isBlank()) {
-            binding.inputLayoutCep.error = "O CEP não pode estar vazio";
+            binding.inputLayoutCep.error = getString(R.string.erro_cep_vazio);
             valido = false;
         }
 
         if (binding.editTextLogradouro.text.toString().isBlank()) {
-            binding.inputLayoutLogradouro.error = "O logradouro não pode estar vazio";
+            binding.inputLayoutLogradouro.error = getString(R.string.erro_logradouro_vazio);
             valido = false;
         }
 
         if (binding.editTextNumero.text.toString().isBlank()) {
-            binding.inputLayoutNumero.error = "O número não pode estar vazio";
+            binding.inputLayoutNumero.error = getString(R.string.erro_numero_vazio);
             valido = false;
         }
 
         if (binding.editTextCidade.text.toString().isBlank()) {
-            binding.inputLayoutCidade.error = "A cidade não pode estar vazia";
+            binding.inputLayoutCidade.error = getString(R.string.erro_cidade_vazia);
             valido = false;
         }
 
         if (binding.editTextEstado.text.toString().length != 2) {
-            binding.inputLayoutEstado.error = "O estado deve ter 2 caracteres (ex: SP)";
+            binding.inputLayoutEstado.error = getString(R.string.erro_estado_formato);
             valido = false;
         }
 
@@ -354,7 +352,7 @@ class MeuPerfilFragment : Fragment() {
     }
 
     private fun comprimirEUploadImagem(uri: Uri, onSuccess: (String) -> Unit) {
-        val MAX_DIMENSION = 1080
+        val MAX_DIMENSION = 1080;
 
         binding.progressBarFoto.visibility = View.VISIBLE;
         binding.imageViewFotoPerfil.isEnabled = false;
@@ -367,70 +365,68 @@ class MeuPerfilFragment : Fragment() {
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
 
-                    val baos = ByteArrayOutputStream()
-                    resource.compress(Bitmap.CompressFormat.JPEG, 85, baos)
-                    val dataEmBytes = baos.toByteArray()
+                    val baos = ByteArrayOutputStream();
+                    resource.compress(Bitmap.CompressFormat.JPEG, 85, baos);
+                    val dataEmBytes = baos.toByteArray();
 
-                    Log.d("MeuPerfilFragment", "Imagem original grande, comprimida para ${dataEmBytes.size / 1024} KB")
+                    Log.d("MeuPerfilFragment", "Imagem original grande, comprimida para ${dataEmBytes.size / 1024} KB");
 
                     binding.progressBarFoto.visibility = View.GONE;
                     binding.imageViewFotoPerfil.isEnabled = true;
 
-                    uploadBytesParaFirebase(dataEmBytes, onSuccess)
+                    uploadBytesParaFirebase(dataEmBytes, onSuccess);
                 }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                }
+                override fun onLoadCleared(placeholder: Drawable?) {}
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     Log.e("MeuPerfilFragment", "Falha ao carregar/comprimir imagem com Glide");
-                    Toast.makeText(context, "Erro ao processar a imagem.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.erro_processar_imagem), Toast.LENGTH_SHORT).show();
                     viewModel.setIsLoading(false);
 
                     binding.progressBarFoto.visibility = View.GONE;
                     binding.imageViewFotoPerfil.isEnabled = true;
-
                 }
             })
     }
 
     private fun uploadBytesParaFirebase(data: ByteArray, onSuccess: (String) -> Unit) {
-        val nomeArquivo = "${UUID.randomUUID()}.jpg"
-        val ref = storage.reference.child("imagens/usuarios/$nomeArquivo")
+        val nomeArquivo = "${UUID.randomUUID()}.jpg";
+        val ref = storage.reference.child("imagens/usuarios/$nomeArquivo");
 
         ref.putBytes(data)
             .addOnSuccessListener {
                 ref.downloadUrl.addOnSuccessListener { downloadUri ->
-                    onSuccess(downloadUri.toString())
+                    onSuccess(downloadUri.toString());
                 }.addOnFailureListener { e ->
-                    Log.e("MeuPerfilFragment", "Erro ao obter URL de download", e)
-                    Toast.makeText(context, "Erro ao obter URL: ${e.message}", Toast.LENGTH_SHORT).show()
-                    viewModel.setIsLoading(false)
+                    Log.e("MeuPerfilFragment", "Erro ao obter URL de download", e);
+                    Toast.makeText(context, getString(R.string.erro_obter_url, e.message), Toast.LENGTH_SHORT).show();
+                    viewModel.setIsLoading(false);
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("MeuPerfilFragment", "Erro no upload da imagem", e)
-                Toast.makeText(context, "Erro no upload: ${e.message}", Toast.LENGTH_SHORT).show()
-                viewModel.setIsLoading(false)
+                Log.e("MeuPerfilFragment", "Erro no upload da imagem", e);
+                Toast.makeText(context, getString(R.string.erro_upload_imagem, e.message), Toast.LENGTH_SHORT).show();
+                viewModel.setIsLoading(false);
             }
     }
 
     private fun criarUsuarioUpdateRequest(usuarioOriginal: Usuario, urlDaFoto: String?): UsuarioUpdateRequest {
 
-        val nome = binding.editTextNome.text.toString()
-        val email = binding.editTextEmail.text.toString()
-        val telefone = binding.editTextTelefone.text.toString()
-        val dataNascimentoStr = binding.editTextDataNascimento.text.toString()
-        val cep = binding.editTextCep.text.toString()
-        val logradouro = binding.editTextLogradouro.text.toString()
-        val numero = binding.editTextNumero.text.toString()
-        val complemento = binding.editTextComplemento.text.toString().takeIf { it.isNotBlank() }
-        val cidade = binding.editTextCidade.text.toString()
-        val estadoSigla = binding.editTextEstado.text.toString()
+        val nome = binding.editTextNome.text.toString();
+        val email = binding.editTextEmail.text.toString();
+        val telefone = binding.editTextTelefone.text.toString();
+        val dataNascimentoStr = binding.editTextDataNascimento.text.toString();
+        val cep = binding.editTextCep.text.toString();
+        val logradouro = binding.editTextLogradouro.text.toString();
+        val numero = binding.editTextNumero.text.toString();
+        val complemento = binding.editTextComplemento.text.toString().takeIf { it.isNotBlank() };
+        val cidade = binding.editTextCidade.text.toString();
+        val estadoSigla = binding.editTextEstado.text.toString();
 
         val dataNascimento: Date? = try {
-            dateFormatter.isLenient = false
-            dateFormatter.parse(dataNascimentoStr)
+            dateFormatter.isLenient = false;
+            dateFormatter.parse(dataNascimentoStr);
         } catch (e: ParseException) {
             null;
         }
@@ -445,7 +441,7 @@ class MeuPerfilFragment : Fragment() {
             perfil = usuarioOriginal.perfil,
             status = usuarioOriginal.status,
             urlImagem = urlDaFoto
-        )
+        );
     }
 
     override fun onDestroyView() {

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.caiorodri.agenpet.api.controller.AnimalController
 import br.com.caiorodri.agenpet.model.animal.Animal
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import kotlinx.coroutines.launch
 
 class AnimalViewModel(application: Application) : AndroidViewModel(application) {
@@ -53,8 +54,9 @@ class AnimalViewModel(application: Application) : AndroidViewModel(application) 
             val queryLowerCase = query.lowercase().trim()
             val listaFiltrada = listaCompleta.filter { animal ->
                 animal.nome.lowercase().contains(queryLowerCase) ||
-                        animal.raca?.nome?.lowercase()?.contains(queryLowerCase) == true ||
-                        animal.raca?.especie?.nome?.lowercase()?.contains(queryLowerCase) == true
+                        animal.raca?.getNomeTraduzido(getApplication())?.lowercase()?.contains(queryLowerCase) == true ||
+                        animal.raca?.especie?.getNomeTraduzido(getApplication())?.lowercase()?.contains(queryLowerCase) == true ||
+                        animal.sexo?.getNomeTraduzido(getApplication())?.lowercase()?.contains(queryLowerCase) == true
             }
             _animais.value = listaFiltrada
         }

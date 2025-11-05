@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.ItemAnimalBinding
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido;
 import br.com.caiorodri.agenpet.model.animal.Animal
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
@@ -17,28 +18,26 @@ import com.bumptech.glide.request.target.Target
 
 class AnimalAdapter(private val onItemClicked: (Animal) -> Unit) : ListAdapter<Animal, AnimalAdapter.AnimalViewHolder>(AnimalDiffCallback()) {
 
-    private val DESCONHECIDO = "Desconhecido";
-
     inner class AnimalViewHolder(private val binding: ItemAnimalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(animal: Animal) {
 
+            val context = itemView.context;
+
+            val raca = animal.raca;
+            val especie = raca?.especie;
+
             binding.textViewAnimalNome.text = animal.nome;
 
-            if(animal.raca?.especie?.nome != DESCONHECIDO){
-
-                val text = animal.raca?.especie?.nome + " - " + animal.raca?.nome;
-
-                binding.textViewRaca.text = text;
-
+            if (especie != null && especie.nome != "Outros") {
+                val especieTraduzida = especie.getNomeTraduzido(context);
+                val racaTraduzida = raca.getNomeTraduzido(context);
+                val texto = "$especieTraduzida - $racaTraduzida"
+                binding.textViewRaca.text = texto;
             } else {
-
-                binding.textViewRaca.text = animal.raca.nome;
-
+                binding.textViewRaca.text = raca?.getNomeTraduzido(context) ?: context.getString(R.string.raca_desconhecido);
             }
 
-            binding.textViewSexo.text = animal.sexo?.nome ?: "Não informado";
-
-            val context = itemView.context;
+            binding.textViewSexo.text = animal.sexo?.getNomeTraduzido(context) ?: context.getString(R.string.option_desconhecido);
 
             val iconResId = when (animal.sexo?.id){
 

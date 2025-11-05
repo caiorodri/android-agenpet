@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.caiorodri.agenpet.databinding.ItemAgendamentoCompletoBinding
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -17,10 +18,6 @@ import java.util.Locale
 class AgendamentoCompletoAdapter (
     private val onItemClicked: (Agendamento) -> Unit
 ): ListAdapter<Agendamento, AgendamentoCompletoAdapter.AgendamentoCompletoViewHolder>(AgendamentoDiffCallback()) {
-
-    private val ABERTO = "Aberto";
-    private val CANCELADO = "Cancelado";
-    private val CONCLUIDO = "Concluido";
 
     inner class AgendamentoCompletoViewHolder(private val binding: ItemAgendamentoCompletoBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -30,17 +27,18 @@ class AgendamentoCompletoAdapter (
 
             binding.textViewAnimalNome.text = agendamento.animal.nome;
             binding.textViewVetNome.text = agendamento.veterinario.nome;
-            binding.textViewServicoNome.text = agendamento.tipo.nome;
-            binding.textViewStatus.text = agendamento.status.nome;
 
             val dataCompleta = Date(agendamento.dataAgendamentoInicio);
             val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             val formatoHora = SimpleDateFormat("HH:mm", Locale.getDefault());
 
-            val (corFundoRes, corTextoRes) = when (agendamento.status.nome) {
-                CANCELADO -> Pair(R.color.status_cancelado_fundo, R.color.status_cancelado_texto)
-                CONCLUIDO -> Pair(R.color.status_finalizado_fundo, R.color.status_finalizado_texto)
-                else -> Pair(R.color.status_aberto_fundo, R.color.status_aberto_texto)
+            binding.textViewServicoNome.text = agendamento.tipo.getNomeTraduzido(context);
+            binding.textViewStatus.text = agendamento.status.getNomeTraduzido(context);
+
+            val (corFundoRes, corTextoRes) = when (agendamento.status.id) {
+                2 -> Pair(R.color.status_cancelado_fundo, R.color.status_cancelado_texto);
+                3 -> Pair(R.color.status_finalizado_fundo, R.color.status_finalizado_texto);
+                else -> Pair(R.color.status_aberto_fundo, R.color.status_aberto_texto);
             }
 
             val corFundo = ContextCompat.getColor(context, corFundoRes)

@@ -66,11 +66,6 @@
     <string name="toast_animal_salvo_sucesso">¡Mascota guardada con éxito!</string>
     <string name="toast_preencher_campos_obrigatorios">Por favor, rellene todos los campos obligatorios.</string>
     <string name="toast_erro_usuario_nao_encontrado">Error: usuario no encontrado. Inténtalo de nuevo.</string>
-    <string name="erro_nome_obrigatorio">El nombre es obligatorio</string>
-    <string name="erro_especie_obrigatoria">La especie es obligatoria</string>
-    <string name="erro_raca_obrigatoria">La raza es obligatoria</string>
-    <string name="toast_selecionar_sexo">Seleccione el sexo de la mascota</string>
-    <string name="erro_obrigatorio">Obligatorio</string>
     <string name="toast_informar_castrado">Informe si la mascota está castrada</string>
     <string name="titulo_datepicker_data_nascimento">Seleccione la fecha de nacimiento</string>
     <string name="titulo_proximo_agendamento">Próxima cita</string>
@@ -132,4 +127,137 @@
     <string name="hint_descricao_agendamento_opcional">Descripción / Observaciones (Opcional)</string>
     <string name="buscar_pets">Buscar por nombre o raza...</string>
     <string name="buscar_agendamentos">Buscar por mascota, veterinario...</string>
+
+    <string name="status_aberto">Abierto</string>
+    <string name="status_cancelado">Cancelado</string>
+    <string name="status_finalizado">Finalizado</string>
+    <string name="status_desconhecido">Estado Desconocido</string>
+
+    <string name="tipo_consulta">Consulta</string>
+    <string name="tipo_cirurgia">Cirugía</string>
+    <string name="tipo_vacina">Vacuna</string>
+    <string name="tipo_outro">Otro</string>
+
+    <string name="especie_cachorro">Perro</string>
+    <string name="especie_gato">Gato</string>
+    <string name="especie_ave">Ave</string>
+    <string name="especie_coelho">Conejo</string>
+    <string name="especie_tartaruga">Tortuga</string>
+    <string name="especie_peixe">Pez</string>
+    <string name="especie_cavalo">Caballo</string>
+    <string name="especie_porquinho_da_india">Cobaya</string>
+    <string name="especie_reptil">Reptil</string>
+    <string name="especie_rato">Rata</string>
+    <string name="especie_furao">Hurón</string>
+    <string name="especie_hamster">Hámster</string>
+    <string name="especie_outros">Otros</string>
+
+    <string name="raca_desconhecido">Desconocido</string>
+    <string name="raca_vira_lata">Mestizo</string>
+
+    <string name="raca_pastor_alemao">Pastor Alemán</string>
+    <string name="raca_poodle">Caniche</string>
+    <string name="raca_labrador_retriever">Labrador Retriever</string>
+    <string name="raca_bulldog_frances">Bulldog Francés</string>
+    <string name="raca_golden_retriever">Golden Retriever</string>
+    <string name="raca_chihuahua">Chihuahua</string>
+    <string name="raca_beagle">Beagle</string>
+    <string name="raca_shih_tzu">Shih Tzu</string>
+    <string name="raca_dachshund">Teckel</string>
+    <string name="raca_boxer">Bóxer</string>
+    <string name="raca_rottweiler">Rottweiler</string>
+
+    <string name="raca_siames">Siamés</string>
+    <string name="raca_persa">Persa</string>
+    <string name="raca_maine_coon">Maine Coon</string>
+    <string name="raca_angora">Angora</string>
+    <string name="raca_sphynx">Sphynx</string>
+    <string name="raca_british_shorthair">Británico de pelo corto</string>
+    <string name="raca_bengal">Bengala</string>
+    <string name="raca_ragdoll">Ragdoll</string>
+
+    <string name="raca_periquito">Periquito</string>
+    <string name="raca_calopsita">Cacatúa ninfa</string>
+    <string name="raca_papagaio">Loro</string>
+    <string name="raca_canario">Canario</string>
+    <string name="raca_arara">Guacamayo</string>
+
+    <string name="raca_mini_lop">Mini Lop</string>
+    <string name="raca_lionhead">Cabeza de León</string>
+    <string name="raca_rex">Rex</string>
+    <string name="raca_angora_ingles">Angora Inglés</string>
+
+    <string name="raca_betta">Betta</string>
+    <string name="raca_goldfish">Goldfish</string>
+    <string name="raca_tetra_neon">Tetra Neón</string>
+
+    <string name="raca_mangalarga_marchador">Mangalarga Marchador</string>
+    <string name="raca_puro_sangue_arabe">Pura Sangre Árabe</string>
+
+    <string name="raca_hamster_sirio">Hámster Sirio</string>
+    <string name="raca_hamster_anao_russo">Hámster Ruso</string>
+
+    <string name="erro_obrigatorio">Obligatorio</string>
+    <string name="erro_nome_obrigatorio">El nombre es obligatorio</string>
+    <string name="erro_especie_obrigatoria">La especie es obligatoria</string>
+    <string name="erro_raca_obrigatoria">La raza es obligatoria</string>
+    <string name="erro_animal_invalido">Seleccione una mascota válida</string>
+    <string name="erro_veterinario_invalido">Seleccione un veterinario válido</string>
+    <string name="erro_tipo_invalido">Seleccione un tipo válido</string>
+    <string name="erro_status_nao_encontrado">Estado \'Abierto\' (ID 1) no encontrado.</string>
+
+    <string name="erro_corrija_formulario">Por favor, corrija los errores en el formulario.</string>
+    <string name="erro_obter_dados_usuario">Error al obtener los datos originales del usuario.</string>
+    <string name="erro_data_invalida">Fecha inválida</string>
+    <string name="erro_data_vazia">La fecha no puede estar vacía</string>
+    <string name="erro_nome_vazio">El nombre no puede estar vacío</string>
+    <string name="erro_email_invalido">El correo debe ser válido</string>
+    <string name="erro_telefone_vazio">El teléfono no puede estar vacío</string>
+    <string name="erro_data_formato">La fecha debe tener el formato DD/MM/AAAA</string>
+    <string name="erro_cep_vazio">El código postal no puede estar vacío</string>
+    <string name="erro_logradouro_vazio">La dirección no puede estar vacía</string>
+    <string name="erro_numero_vazio">El número no puede estar vacío</string>
+    <string name="erro_cidade_vazia">La ciudad no puede estar vacía</string>
+    <string name="erro_estado_formato">El estado debe tener 2 caracteres (ej: SP)</string>
+    <string name="erro_senha_minima">La contraseña debe tener al menos 8 caracteres</string>
+    <string name="erro_senhas_nao_conferem">Las contraseñas no coinciden</string>
+    <string name="erro_cpf_formato">El CPF debe tener 11 dígitos</string>
+
+    <string name="erro_imagem_muito_grande">Imagen muy grande. El límite es de %1$dMB.</string>
+    <string name="erro_selecionar_imagem">No se pudo seleccionar esta imagen.</string>
+    <string name="erro_processar_imagem">Error al procesar la imagen.</string>
+    <string name="erro_obter_url">Error al obtener URL: %1$s</string>
+    <string name="erro_upload_imagem">Error de carga: %1$s</string>
+    <string name="erro_salvar_alteracoes">No se pudieron guardar los cambios.</string>
+    <string name="erro_conexao_geral">Error de conexión. Revisa tu internet.</string>
+    <string name="erro_desconhecido">Ocurrió un error desconocido.</string>
+    <string name="erro_falha_cadastro">Fallo al registrar.</string>
+    <string name="erro_formato_data_invalido">Formato de fecha inválido. Use DD/MM/AAAA.</string>
+
+    <string name="sucesso_cadastro_usuario">Usuario %1$s registrado</string>
+    <string name="info_perfil_nao_carregado">No se pudieron cargar los datos del perfil.</string>
+
+    <string name="erro_imagem_muito_grande_animal">Imagen muy grande. El límite es de %1$dMB.</string>
+    <string name="erro_selecionar_imagem_animal">No se pudo seleccionar esta imagen.</string>
+    <string name="erro_processar_imagem_animal">Error al procesar la imagen.</string>
+    <string name="erro_obter_url_animal">Error al obtener URL: %1$s</string>
+    <string name="erro_upload_imagem_animal">Error de carga: %1$s</string>
+    <string name="erro_criar_objeto_animal">Error al crear el objeto animal</string>
+    <string name="erro_validar_dados_animal">Error al validar los datos.</string>
+    <string name="erro_carregar_especies_racas">No se pudieron cargar especies o razas.</string>
+    <string name="erro_salvar_animal_rede">Error de conexión. Revisa tu internet.</string>
+    <string name="erro_salvar_animal_generico">Ocurrió un error desconocido.</string>
+    <string name="erro_remover_animal_rede">Error de conexión. Revisa tu internet.</string>
+    <string name="erro_remover_animal_generico">No se pudo eliminar el animal.</string>
+    <string name="toast_selecionar_sexo">El sexo es obligatorio</string>
+
+    <string name="erro_recepcionista_nao_encontrado">Error de configuración del sistema. Contacte con soporte.</string>
+    <string name="erro_carregar_dados_agendamento">No se pudieron cargar los datos necesarios.</string>
+    <string name="erro_salvar_agendamento_rede">Error de conexión. Revisa tu internet.</string>
+    <string name="erro_salvar_agendamento_generico">Ocurrió un error desconocido.</string>
+    <string name="erro_agendamento_salvo_nulo">Respuesta nula del servidor al guardar la cita.</string>
+    <string name="erro_agendamento_atualizado_nulo">Respuesta nula del servidor al actualizar la cita.</string>
+
+    <string name="sucesso_agendamento_salvo">¡Cita guardada con éxito!</string>
+
 </resources>

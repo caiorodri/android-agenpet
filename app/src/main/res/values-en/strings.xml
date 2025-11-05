@@ -66,11 +66,6 @@
     <string name="toast_animal_salvo_sucesso">Pet saved successfully!</string>
     <string name="toast_preencher_campos_obrigatorios">Please fill in all required fields.</string>
     <string name="toast_erro_usuario_nao_encontrado">Error: user not found. Try again.</string>
-    <string name="erro_nome_obrigatorio">Name is required</string>
-    <string name="erro_especie_obrigatoria">Species is required</string>
-    <string name="erro_raca_obrigatoria">Breed is required</string>
-    <string name="toast_selecionar_sexo">Select the pet\'s sex</string>
-    <string name="erro_obrigatorio">Required</string>
     <string name="toast_informar_castrado">Inform if the pet is neutered</string>
     <string name="titulo_datepicker_data_nascimento">Select date of birth</string>
     <string name="titulo_proximo_agendamento">Next appointment</string>
@@ -132,4 +127,137 @@
     <string name="hint_descricao_agendamento_opcional">Description / Observations (Optional)</string>
     <string name="buscar_pets">Search by name or breed...</string>
     <string name="buscar_agendamentos">Search by pet, veterinarian...</string>
+
+    <string name="status_aberto">Open</string>
+    <string name="status_cancelado">Cancelled</string>
+    <string name="status_finalizado">Completed</string>
+    <string name="status_desconhecido">Unknown Status</string>
+
+    <string name="tipo_consulta">Consultation</string>
+    <string name="tipo_cirurgia">Surgery</string>
+    <string name="tipo_vacina">Vaccine</string>
+    <string name="tipo_outro">Other</string>
+
+    <string name="especie_cachorro">Dog</string>
+    <string name="especie_gato">Cat</string>
+    <string name="especie_ave">Bird</string>
+    <string name="especie_coelho">Rabbit</string>
+    <string name="especie_tartaruga">Turtle</string>
+    <string name="especie_peixe">Fish</string>
+    <string name="especie_cavalo">Horse</string>
+    <string name="especie_porquinho_da_india">Guinea Pig</string>
+    <string name="especie_reptil">Reptile</string>
+    <string name="especie_rato">Rat</string>
+    <string name="especie_furao">Ferret</string>
+    <string name="especie_hamster">Hamster</string>
+    <string name="especie_outros">Others</string>
+
+    <string name="raca_desconhecido">Unknown</string>
+    <string name="raca_vira_lata">Mixed Breed (Mutt)</string>
+
+    <string name="raca_pastor_alemao">German Shepherd</string>
+    <string name="raca_poodle">Poodle</string>
+    <string name="raca_labrador_retriever">Labrador Retriever</string>
+    <string name="raca_bulldog_frances">French Bulldog</string>
+    <string name="raca_golden_retriever">Golden Retriever</string>
+    <string name="raca_chihuahua">Chihuahua</string>
+    <string name="raca_beagle">Beagle</string>
+    <string name="raca_shih_tzu">Shih Tzu</string>
+    <string name="raca_dachshund">Dachshund</string>
+    <string name="raca_boxer">Boxer</string>
+    <string name="raca_rottweiler">Rottweiler</string>
+
+    <string name="raca_siames">Siamese</string>
+    <string name="raca_persa">Persian</string>
+    <string name="raca_maine_coon">Maine Coon</string>
+    <string name="raca_angora">Angora</string>
+    <string name="raca_sphynx">Sphynx</string>
+    <string name="raca_british_shorthair">British Shorthair</string>
+    <string name="raca_bengal">Bengal</string>
+    <string name="raca_ragdoll">Ragdoll</string>
+
+    <string name="raca_periquito">Parakeet</string>
+    <string name="raca_calopsita">Cockatiel</string>
+    <string name="raca_papagaio">Parrot</string>
+    <string name="raca_canario">Canary</string>
+    <string name="raca_arara">Macaw</string>
+
+    <string name="raca_mini_lop">Mini Lop</string>
+    <string name="raca_lionhead">Lionhead</string>
+    <string name="raca_rex">Rex</string>
+    <string name="raca_angora_ingles">English Angora</string>
+
+    <string name="raca_betta">Betta</string>
+    <string name="raca_goldfish">Goldfish</string>
+    <string name="raca_tetra_neon">Neon Tetra</string>
+
+    <string name="raca_mangalarga_marchador">Mangalarga Marchador</string>
+    <string name="raca_puro_sangue_arabe">Arabian</string>
+
+    <string name="raca_hamster_sirio">Syrian Hamster</string>
+    <string name="raca_hamster_anao_russo">Russian Dwarf Hamster</string>
+
+    <string name="erro_obrigatorio">Required</string>
+    <string name="erro_nome_obrigatorio">Name is required</string>
+    <string name="erro_especie_obrigatoria">Species is required</string>
+    <string name="erro_raca_obrigatoria">Breed is required</string>
+    <string name="erro_animal_invalido">Select a valid pet</string>
+    <string name="erro_veterinario_invalido">Select a valid veterinarian</string>
+    <string name="erro_tipo_invalido">Select a valid type</string>
+    <string name="erro_status_nao_encontrado">\'Open\' status (ID 1) not found.</string>
+
+    <string name="erro_corrija_formulario">Please correct the errors in the form.</string>
+    <string name="erro_obter_dados_usuario">Error fetching original user data.</string>
+    <string name="erro_data_invalida">Invalid date</string>
+    <string name="erro_data_vazia">Date cannot be empty</string>
+    <string name="erro_nome_vazio">Name cannot be empty</string>
+    <string name="erro_email_invalido">Email must be valid</string>
+    <string name="erro_telefone_vazio">Phone cannot be empty</string>
+    <string name="erro_data_formato">Date must be in DD/MM/YYYY format</string>
+    <string name="erro_cep_vazio">Postal Code cannot be empty</string>
+    <string name="erro_logradouro_vazio">Street address cannot be empty</string>
+    <string name="erro_numero_vazio">Number cannot be empty</string>
+    <string name="erro_cidade_vazia">City cannot be empty</string>
+    <string name="erro_estado_formato">State must have 2 characters (e.g., SP)</string>
+    <string name="erro_senha_minima">Password must be at least 8 characters</string>
+    <string name="erro_senhas_nao_conferem">Passwords do not match</string>
+    <string name="erro_cpf_formato">CPF must have 11 digits</string>
+
+    <string name="erro_imagem_muito_grande">Image too large. The limit is %1$dMB.</string>
+    <string name="erro_selecionar_imagem">Could not select this image.</string>
+    <string name="erro_processar_imagem">Error processing image.</string>
+    <string name="erro_obter_url">Error getting URL: %1$s</string>
+    <string name="erro_upload_imagem">Upload error: %1$s</string>
+    <string name="erro_salvar_alteracoes">Could not save changes.</string>
+    <string name="erro_conexao_geral">Connection error. Check your internet.</string>
+    <string name="erro_desconhecido">An unknown error occurred.</string>
+    <string name="erro_falha_cadastro">Failed to register.</string>
+    <string name="erro_formato_data_invalido">Invalid date format. Use DD/MM/YYYY.</string>
+
+    <string name="sucesso_cadastro_usuario">User %1$s registered</string>
+    <string name="info_perfil_nao_carregado">Could not load profile data.</string>
+
+    <string name="erro_imagem_muito_grande_animal">Image too large. The limit is %1$dMB.</string>
+    <string name="erro_selecionar_imagem_animal">Could not select this image.</string>
+    <string name="erro_processar_imagem_animal">Error processing image.</string>
+    <string name="erro_obter_url_animal">Error getting URL: %1$s</string>
+    <string name="erro_upload_imagem_animal">Upload error: %1$s</string>
+    <string name="erro_criar_objeto_animal">Error creating animal object</string>
+    <string name="erro_validar_dados_animal">Error validating data.</string>
+    <string name="erro_carregar_especies_racas">Could not load species or breeds.</string>
+    <string name="erro_salvar_animal_rede">Connection error. Check your internet.</string>
+    <string name="erro_salvar_animal_generico">An unknown error occurred.</string>
+    <string name="erro_remover_animal_rede">Connection error. Check your internet.</string>
+    <string name="erro_remover_animal_generico">Could not remove animal.</string>
+    <string name="toast_selecionar_sexo">Sex is required</string>
+
+    <string name="erro_recepcionista_nao_encontrado">System configuration error. Contact support.</string>
+    <string name="erro_carregar_dados_agendamento">Could not load necessary data.</string>
+    <string name="erro_salvar_agendamento_rede">Connection error. Check your internet.</string>
+    <string name="erro_salvar_agendamento_generico">An unknown error occurred.</string>
+    <string name="erro_agendamento_salvo_nulo">Null response from server when saving appointment.</string>
+    <string name="erro_agendamento_atualizado_nulo">Null response from server when updating appointment.</string>
+
+    <string name="sucesso_agendamento_salvo">Appointment saved successfully!</string>
+
 </resources>

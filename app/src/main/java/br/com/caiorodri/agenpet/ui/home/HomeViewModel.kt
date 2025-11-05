@@ -49,6 +49,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         _proximoAgendamento.postValue(agendamentosFuturos.lastOrNull());
 
-        _agendamentosRecentes.postValue(agendamentosPassados.take(3));
+        _agendamentosRecentes.postValue(agendamentosPassados.take(5));
     }
 }

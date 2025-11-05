@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.caiorodri.agenpet.api.controller.AgendamentoController
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDateTime
@@ -70,9 +71,10 @@ class AgendamentoViewModel(application: Application) : AndroidViewModel(applicat
 
                 agendamento.animal.nome.lowercase().contains(queryLowerCase) ||
                         agendamento.veterinario.nome.lowercase().contains(queryLowerCase) ||
-                        agendamento.tipo.nome.lowercase().contains(queryLowerCase) ||
-                        agendamento.status.nome.lowercase().contains(queryLowerCase) ||
-                        dataFormatada.contains(queryLowerCase)
+                        agendamento.tipo.getNomeTraduzido(getApplication()).lowercase().contains(queryLowerCase) ||
+                        agendamento.status.getNomeTraduzido(getApplication()).lowercase().contains(queryLowerCase) ||
+                        dataFormatada.contains(queryLowerCase) ||
+                        dataHoraLocal.toString().contains(queryLowerCase)
             }
             _agendamentos.value = listaFiltrada
         }
