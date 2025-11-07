@@ -77,6 +77,15 @@ class HomeFragment : Fragment() {
 
         viewModel.agendamentosRecentes.observe(viewLifecycleOwner) { listaRecentes ->
             Log.i("HomeFragment", "Agendamentos recentes atualizados: ${listaRecentes.size}");
+
+            if (listaRecentes.isEmpty()) {
+                binding.recyclerViewRecentes.isVisible = false;
+                binding.textViewInfoRecentes.isVisible = true;
+            } else {
+                binding.recyclerViewRecentes.isVisible = true;
+                binding.textViewInfoRecentes.isVisible = false;
+            }
+
             agendamentoAdapter.submitList(listaRecentes);
         }
 
@@ -93,10 +102,13 @@ class HomeFragment : Fragment() {
 
     private fun updateProximoAgendamentoCard(agendamento: Agendamento?) {
         val cardRoot = binding.includeItemUltimoAgendamento.root;
+
         cardRoot.isVisible = (agendamento != null);
+        binding.textViewInfoProximo.isVisible = (agendamento == null);
+
+        binding.tituloUltimoAgendamento.text = getString(R.string.titulo_proximo_agendamento);
 
         if (agendamento != null) {
-            binding.tituloUltimoAgendamento.text = getString(R.string.titulo_proximo_agendamento);
 
             with(binding.includeItemUltimoAgendamento) {
                 textViewUltimoVetNome.text = agendamento.veterinario.nome;
@@ -136,7 +148,6 @@ class HomeFragment : Fragment() {
             }
 
         } else {
-            binding.tituloUltimoAgendamento.text = getString(R.string.titulo_proximo_agendamento);
             cardRoot.setOnClickListener(null);
         }
     }

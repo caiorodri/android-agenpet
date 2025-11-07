@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.children;
@@ -20,10 +19,6 @@ import androidx.navigation.fragment.navArgs;
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.databinding.FragmentAnimalCadastroBinding;
 import br.com.caiorodri.agenpet.model.animal.Animal;
-import br.com.caiorodri.agenpet.model.animal.AnimalResponse;
-import br.com.caiorodri.agenpet.model.animal.Especie;
-import br.com.caiorodri.agenpet.model.animal.Raca;
-import br.com.caiorodri.agenpet.model.animal.Sexo;
 import br.com.caiorodri.agenpet.ui.home.HomeActivity;
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -59,12 +54,9 @@ class AnimalCadastroFragment : Fragment() {
         timeZone = TimeZone.getTimeZone("UTC");
     };
 
-    private lateinit var especieAdapter: ArrayAdapter<String>;
-    private lateinit var racaAdapter: ArrayAdapter<String>;
     private val uiHandler = Handler(Looper.getMainLooper());
 
     private val storage = Firebase.storage;
-    private var fotoUri: Uri? = null;
     private var fotoUrlExistente: String? = null;
 
     private val selecionarImagemLauncher = registerForActivityResult(
@@ -89,15 +81,7 @@ class AnimalCadastroFragment : Fragment() {
                 return@registerForActivityResult;
             }
 
-            fotoUri = uri;
-
-            Glide.with(this)
-                .load(uri)
-                .circleCrop()
-                .into(binding.imageViewFotoPet);
-
-            binding.progressBarFoto.visibility = View.GONE;
-            binding.imageViewFotoPet.isEnabled = true;
+            viewModel.fotoUriSelecionada.value = uri;
 
         } catch (e: Exception) {
             Log.e("AnimalCadastroFragment", "Erro ao ler o tamanho do arquivo", e);
@@ -108,14 +92,11 @@ class AnimalCadastroFragment : Fragment() {
     };
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
         _binding = FragmentAnimalCadastroBinding.inflate(inflater, container, false);
 
-        especieAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, mutableListOf<String>());
-        racaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, mutableListOf<String>());
-        binding.autoCompleteEspecie.setAdapter(especieAdapter);
-        binding.autoCompleteRaca.setAdapter(racaAdapter);
-
         return binding.root;
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -129,12 +110,21 @@ class AnimalCadastroFragment : Fragment() {
 
     private fun setupUIBase() {
 
+        binding.autoCompleteEspecie.setAdapter(
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, emptyList<String>())
+        )
+        binding.autoCompleteRaca.setAdapter(
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, emptyList<String>())
+        )
+
         val animal = animalParaEdicao;
 
         binding.buttonSalvar.isEnabled = false;
 
         if (animal != null) {
+
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.titulo_editar_animal);
+
             binding.textViewIdAnimal.text = getString(R.string.placeholder_id_animal, animal.id ?: 0);
             binding.textViewIdAnimal.isVisible = true;
             binding.buttonRemover.isVisible = true;
@@ -156,6 +146,7 @@ class AnimalCadastroFragment : Fragment() {
 
             binding.editTextPeso.setText(animal.peso?.toString());
             binding.editTextAltura.setText(animal.altura?.toString());
+
             if (animal.castrado == true) {
                 binding.radioCastradoSim.isChecked = true;
             } else {
@@ -170,27 +161,30 @@ class AnimalCadastroFragment : Fragment() {
             binding.buttonSalvar.text = getString(R.string.button_atualizar);
 
             fotoUrlExistente = animal.urlImagem;
-            binding.progressBarFoto.visibility = View.VISIBLE;
-            binding.imageViewFotoPet.isEnabled = false;
 
-            Glide.with(this)
-                .load(fotoUrlExistente)
-                .placeholder(R.drawable.ic_pet)
-                .error(R.drawable.ic_pet)
-                .circleCrop()
-                .listener(object : com.bumptech.glide.request.RequestListener<Drawable> {
-                    override fun onLoadFailed(e: com.bumptech.glide.load.engine.GlideException?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>, isFirstResource: Boolean): Boolean {
-                        binding.progressBarFoto.visibility = View.GONE;
-                        binding.imageViewFotoPet.isEnabled = true;
-                        return false;
-                    }
-                    override fun onResourceReady(resource: Drawable, model: Any, target: com.bumptech.glide.request.target.Target<Drawable>, dataSource: com.bumptech.glide.load.DataSource, isFirstResource: Boolean): Boolean {
-                        binding.progressBarFoto.visibility = View.GONE;
-                        binding.imageViewFotoPet.isEnabled = true;
-                        return false;
-                    }
-                })
-                .into(binding.imageViewFotoPet);
+            if (viewModel.fotoUriSelecionada.value == null) {
+                binding.progressBarFoto.visibility = View.VISIBLE;
+                binding.imageViewFotoPet.isEnabled = false;
+
+                Glide.with(this)
+                    .load(fotoUrlExistente)
+                    .placeholder(R.drawable.ic_pet)
+                    .error(R.drawable.ic_pet)
+                    .circleCrop()
+                    .listener(object : com.bumptech.glide.request.RequestListener<Drawable> {
+                        override fun onLoadFailed(e: com.bumptech.glide.load.engine.GlideException?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>, isFirstResource: Boolean): Boolean {
+                            binding.progressBarFoto.visibility = View.GONE;
+                            binding.imageViewFotoPet.isEnabled = true;
+                            return false;
+                        }
+                        override fun onResourceReady(resource: Drawable, model: Any, target: com.bumptech.glide.request.target.Target<Drawable>, dataSource: com.bumptech.glide.load.DataSource, isFirstResource: Boolean): Boolean {
+                            binding.progressBarFoto.visibility = View.GONE;
+                            binding.imageViewFotoPet.isEnabled = true;
+                            return false;
+                        }
+                    })
+                    .into(binding.imageViewFotoPet);
+            }
 
         } else {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.label_cadastro_pet);
@@ -206,15 +200,25 @@ class AnimalCadastroFragment : Fragment() {
     }
 
     private fun setupListeners() {
+
         binding.inputLayoutDataNascimento.setEndIconOnClickListener { mostrarDatePicker(); };
         binding.editTextDataNascimento.setOnClickListener { mostrarDatePicker(); };
 
         binding.autoCompleteEspecie.setOnItemClickListener { parent, _, position, _ ->
             val nomeEspecie = parent.getItemAtPosition(position) as String;
-            val especieSelecionada = viewModel.especies.value?.find { it.getNomeTraduzido(requireContext()) == nomeEspecie };
+            val especie = viewModel.especies.value?.find { it.getNomeTraduzido(requireContext()) == nomeEspecie };
 
             binding.autoCompleteRaca.setText(null, false);
-            viewModel.filtrarRacasPorEspecie(especieSelecionada);
+            viewModel.setEspecie(especie);
+        };
+
+        binding.autoCompleteRaca.setOnItemClickListener { parent, _, position, _ ->
+            val nomeRaca = parent.getItemAtPosition(position) as String;
+            val especieAtual = viewModel.especieSelecionada.value;
+            val raca = viewModel.listaCompletaRacas.find {
+                it.getNomeTraduzido(requireContext()) == nomeRaca && it.especie?.id == especieAtual?.id
+            };
+            viewModel.setRaca(raca);
         };
 
         binding.buttonSalvar.setOnClickListener {
@@ -234,57 +238,76 @@ class AnimalCadastroFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.especies.observe(viewLifecycleOwner) { especies ->
-            val nomesDasEspecies = especies.map { it.getNomeTraduzido(requireContext()) };
-            uiHandler.post {
-                especieAdapter.clear();
-                especieAdapter.addAll(nomesDasEspecies);
-                especieAdapter.notifyDataSetChanged();
 
-                if (animalParaEdicao != null) {
-                    val especieAtualNome = animalParaEdicao?.raca?.especie?.getNomeTraduzido(requireContext());
-                    if (especieAtualNome != null && nomesDasEspecies.contains(especieAtualNome)) {
-                        binding.autoCompleteEspecie.setText(especieAtualNome, false);
-                        val especieInicial = especies.find { it.getNomeTraduzido(requireContext()) == especieAtualNome };
-                        viewModel.filtrarRacasPorEspecie(especieInicial);
-                    }
+        viewModel.especies.observe(viewLifecycleOwner) { especies ->
+
+            val nomesDasEspecies = especies.map { it.getNomeTraduzido(requireContext()) };
+
+            val novoAdapterEspecie = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesDasEspecies);
+            binding.autoCompleteEspecie.setAdapter(novoAdapterEspecie);
+
+            if (animalParaEdicao != null && viewModel.especieSelecionada.value == null) {
+                val especieDoAnimal = animalParaEdicao?.raca?.especie;
+                if (especieDoAnimal != null) {
+                    viewModel.setEspecie(especieDoAnimal);
                 }
-            };
-        };
+            }
+
+        }
+
+        viewModel.especieSelecionada.observe(viewLifecycleOwner) { especie ->
+            if (especie != null) {
+                binding.autoCompleteEspecie.setText(especie.getNomeTraduzido(requireContext()), false);
+            } else {
+                if (animalParaEdicao == null) {
+                    binding.autoCompleteEspecie.setText(null, false);
+                }
+            }
+        }
 
         viewModel.racasFiltradas.observe(viewLifecycleOwner) { racas ->
+
             val nomesDasRacas = racas.map { it.getNomeTraduzido(requireContext()) };
-            uiHandler.post {
-                racaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesDasRacas);
-                binding.autoCompleteRaca.setAdapter(racaAdapter);
-                binding.menuRaca.isEnabled = racas.isNotEmpty();
 
-                if (animalParaEdicao != null) {
+            val novoAdapterRaca = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesDasRacas);
+            binding.autoCompleteRaca.setAdapter(novoAdapterRaca);
 
-                    val racaAtualNome = animalParaEdicao?.raca?.getNomeTraduzido(requireContext());
+            binding.menuRaca.isEnabled = racas.isNotEmpty();
 
-                    if (racaAtualNome != null && nomesDasRacas.contains(racaAtualNome)) {
-                        binding.autoCompleteRaca.setText(racaAtualNome, false);
-                    } else {
-                        binding.autoCompleteRaca.setText(null, false);
-                    }
-                } else {
-                    binding.autoCompleteRaca.setText(null, false);
+            if (animalParaEdicao != null && viewModel.racaSelecionada.value == null) {
+                val racaDoAnimal = animalParaEdicao?.raca;
+                if (racaDoAnimal != null && racas.any { it.id == racaDoAnimal.id }) {
+                    viewModel.setRaca(racaDoAnimal);
                 }
-            };
-        };
+            }
+        }
+
+        viewModel.racaSelecionada.observe(viewLifecycleOwner) { raca ->
+            if (raca != null) {
+                binding.autoCompleteRaca.setText(raca.getNomeTraduzido(requireContext()), false);
+            } else {
+                binding.autoCompleteRaca.setText(null, false);
+            }
+        }
 
         viewModel.isLoadingDadosIniciais.observe(viewLifecycleOwner) { isLoading ->
-            uiHandler.post {
-                binding.progressBarRacas?.isVisible = isLoading;
-                binding.menuEspecie.isEnabled = !isLoading;
-                binding.buttonSalvar.isEnabled = !isLoading;
 
-                if(isLoading) {
-                    binding.menuRaca.isEnabled = false;
-                }
-            };
-        };
+            binding.progressBarRacas?.isVisible = isLoading;
+            binding.menuEspecie.isEnabled = !isLoading;
+            binding.buttonSalvar.isEnabled = !isLoading;
+
+            if(isLoading) {
+
+                binding.menuRaca.isEnabled = false;
+
+            } else {
+
+                val temRacas = viewModel.racasFiltradas.value?.isNotEmpty() ?: false
+                binding.menuRaca.isEnabled = temRacas
+
+            }
+
+        }
 
         viewModel.erroDadosIniciais.observe(viewLifecycleOwner) { erro ->
             erro?.let { Toast.makeText(context, it, Toast.LENGTH_LONG).show(); };
@@ -334,6 +357,31 @@ class AnimalCadastroFragment : Fragment() {
             viewModel.resetAnimalRemovido();
             findNavController().popBackStack();
         }
+
+        viewModel.fotoUriSelecionada.observe(viewLifecycleOwner) { uri ->
+            if (uri != null) {
+
+                binding.progressBarFoto.visibility = View.VISIBLE;
+                binding.imageViewFotoPet.isEnabled = false;
+
+                Glide.with(this)
+                    .load(uri)
+                    .circleCrop()
+                    .listener(object : com.bumptech.glide.request.RequestListener<Drawable> {
+                        override fun onLoadFailed(e: com.bumptech.glide.load.engine.GlideException?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>, isFirstResource: Boolean): Boolean {
+                            binding.progressBarFoto.visibility = View.GONE;
+                            binding.imageViewFotoPet.isEnabled = true;
+                            return false;
+                        }
+                        override fun onResourceReady(resource: Drawable, model: Any, target: com.bumptech.glide.request.target.Target<Drawable>, dataSource: com.bumptech.glide.load.DataSource, isFirstResource: Boolean): Boolean {
+                            binding.progressBarFoto.visibility = View.GONE;
+                            binding.imageViewFotoPet.isEnabled = true;
+                            return false;
+                        }
+                    })
+                    .into(binding.imageViewFotoPet);
+            }
+        }
     }
 
     private fun mostrarDialogoDelecao() {
@@ -374,8 +422,10 @@ class AnimalCadastroFragment : Fragment() {
 
             val animal = criarObjetoAnimal(dono, fotoUrlExistente);
 
-            if (fotoUri != null) {
-                comprimirEUploadImagem(fotoUri!!) { downloadUrl ->
+            val uriSelecionado = viewModel.fotoUriSelecionada.value;
+
+            if (uriSelecionado != null) {
+                comprimirEUploadImagem(uriSelecionado) { downloadUrl ->
                     val animalComFoto = criarObjetoAnimal(dono, downloadUrl);
                     viewModel.salvarAnimal(animalComFoto);
                 }
@@ -466,8 +516,12 @@ class AnimalCadastroFragment : Fragment() {
         val nome = binding.editTextNome.text.toString().trim();
         val descricao = binding.editTextDescricao.text.toString().trim();
 
+
+        val nomeEspecieTraduzido = binding.autoCompleteEspecie.text.toString();
+        val especie = viewModel.especies.value?.find { it.getNomeTraduzido(requireContext()) == nomeEspecieTraduzido }
+
         val nomeRacaTraduzido = binding.autoCompleteRaca.text.toString();
-        val raca = viewModel.listaCompletaRacas.find { it.getNomeTraduzido(requireContext()) == nomeRacaTraduzido }
+        val raca = viewModel.listaCompletaRacas.find { it.getNomeTraduzido(requireContext()) == nomeRacaTraduzido && (it.especie?.equals(especie) == true) }
             ?: run {
                 if (binding.menuRaca.isEnabled) {
                     binding.menuRaca.error = getString(R.string.erro_raca_obrigatoria);

@@ -218,10 +218,11 @@
     <string name="erro_logradouro_vazio">Street address cannot be empty</string>
     <string name="erro_numero_vazio">Number cannot be empty</string>
     <string name="erro_cidade_vazia">City cannot be empty</string>
-    <string name="erro_estado_formato">State must have 2 characters (e.g., SP)</string>
+    <string name="erro_selecionar_estado">Select a state</string>
     <string name="erro_senha_minima">Password must be at least 8 characters</string>
     <string name="erro_senhas_nao_conferem">Passwords do not match</string>
     <string name="erro_cpf_formato">CPF must have 11 digits</string>
+    <string name="erro_carregar_lista">Error loading list</string>
 
     <string name="erro_imagem_muito_grande">Image too large. The limit is %1$dMB.</string>
     <string name="erro_selecionar_imagem">Could not select this image.</string>
@@ -259,5 +260,31 @@
     <string name="erro_agendamento_atualizado_nulo">Null response from server when updating appointment.</string>
 
     <string name="sucesso_agendamento_salvo">Appointment saved successfully!</string>
+
+    <string name="info_sem_proximo_agendamento">No scheduled appointments</string>
+    <string name="info_sem_agendamentos_recentes">No appointments in the last few days</string>
+
+    <string name="info_sem_animais">No pets registered</string>
+    <string name="info_clique_para_adicionar">Click the + button to add your first pet</string>
+
+    <string name="info_sem_agendamentos_lista">No appointments found</string>
+    <string name="info_clique_para_adicionar_agendamento">Click the + button to schedule</string>
+
+    <string name="dialog_button_ok">OK</string>
+
+    <string name="toast_agendamento_cancelado_sucesso">Appointment cancelled successfully!</string>
+    <string name="dialog_title_cancelar_agendamento">Cancel Appointment</string>
+    <string name="dialog_message_cancelar_agendamento">Are you sure you want to cancel this appointment?</string>
+    <string name="dialog_button_cancelar_agendamento">Yes</string>
+    <string name="dialog_button_voltar">Back</string>
+
+    <string name="dialog_title_erro_animal">Error Saving Pet</string>
+    <string name="dialog_message_erro_animal">Could not save pet data. Please try again later.</string>
+
+    <string name="dialog_title_erro_agendamento">Error Saving Appointment</string>
+    <string name="dialog_message_erro_agendamento">Could not save appointment data. Please try again later.</string>
+
+    <string name="erro_sem_horarios_disponiveis">No available time slots for this date</string>
+    <string name="titulo_datepicker_data_agendamento">Select Appointment Date</string>
 
 </resources>

@@ -154,10 +154,9 @@
                         app:endIconMode="custom"
                         app:endIconDrawable="@drawable/ic_calendar_dots"
                         app:endIconTint="?attr/colorPrimary"
-                        app:layout_constraintEnd_toStartOf="@+id/menu_horario"
+                        app:layout_constraintEnd_toStartOf="@+id/frame_layout_horario"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/label_data_hora"
-
                         app:layout_constraintHorizontal_weight="6">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -169,26 +168,43 @@
                             android:inputType="none" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/menu_horario"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    <FrameLayout
+                        android:id="@+id/frame_layout_horario"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:enabled="false"
-                        android:hint="@string/hint_horario"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/input_layout_data"
                         app:layout_constraintTop_toTopOf="@id/input_layout_data"
-
                         app:layout_constraintHorizontal_weight="5">
 
-                        <AutoCompleteTextView
-                            android:id="@+id/auto_complete_horario"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/menu_horario"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="none" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:enabled="false"
+                            android:hint="@string/hint_horario">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/auto_complete_horario"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar_horarios"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:layout_marginEnd="16dp"
+                            android:indeterminateTint="?attr/colorPrimary"
+                            android:visibility="gone"
+                            tools:visibility="visible"/>
+
+                    </FrameLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

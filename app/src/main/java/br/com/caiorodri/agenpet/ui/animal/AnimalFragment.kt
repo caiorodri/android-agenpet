@@ -1,19 +1,19 @@
-package br.com.caiorodri.agenpet.ui.animal
+package br.com.caiorodri.agenpet.ui.animal;
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import br.com.caiorodri.agenpet.databinding.FragmentAnimalBinding
-import br.com.caiorodri.agenpet.ui.adapter.AnimalAdapter
-import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.isVisible;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.activityViewModels;
+import androidx.fragment.app.viewModels;
+import androidx.navigation.fragment.findNavController;
+import br.com.caiorodri.agenpet.databinding.FragmentAnimalBinding;
+import br.com.caiorodri.agenpet.ui.adapter.AnimalAdapter;
+import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
 
 class AnimalFragment : Fragment() {
 
@@ -27,8 +27,8 @@ class AnimalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAnimalBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding = FragmentAnimalBinding.inflate(inflater, container, false);
+        return binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,59 +44,71 @@ class AnimalFragment : Fragment() {
         animalAdapter = AnimalAdapter { animalClicado ->
             val action = AnimalFragmentDirections.actionAnimalFragmentToCadastroAnimalFragment(animalClicado);
             findNavController().navigate(action);
-        }
+        };
         binding.recyclerViewAnimais.adapter = animalAdapter;
     }
 
     private fun setupListeners() {
         binding.searchViewAnimais.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextSubmit(query: String?): Boolean = false;
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 viewModel.filtrarAnimais(newText);
                 return true;
             }
-        })
+        });
 
         binding.fabAddAnimal.setOnClickListener {
             val action = AnimalFragmentDirections.actionAnimalFragmentToCadastroAnimalFragment(null);
             findNavController().navigate(action);
-        }
+        };
 
         binding.swipeRefreshLayoutAnimais.setOnRefreshListener {
-
-            binding.swipeRefreshLayoutAnimais.isRefreshing = false;
             sharedViewModel.usuarioLogado.value?.let { usuario ->
                 viewModel.carregarAnimais(usuario.id!!);
-            }
-
-        }
+            };
+        };
     }
 
     private fun setupObservers() {
 
         sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
-            viewModel.setAnimaisIniciais(usuario.animais ?: emptyList())
-            viewModel.carregarAnimais(usuario.id!!);
-        }
+            viewModel.setAnimaisIniciais(usuario.animais ?: emptyList());
+            if (usuario?.id != null) {
+                viewModel.carregarAnimais(usuario.id);
+            }
+        };
 
         viewModel.animais.observe(viewLifecycleOwner) { lista ->
+
+            if (lista.isEmpty()) {
+                binding.recyclerViewAnimais.isVisible = false;
+                binding.layoutInfoSemAnimais.isVisible = true;
+            } else {
+                binding.recyclerViewAnimais.isVisible = true;
+                binding.layoutInfoSemAnimais.isVisible = false;
+            }
+
             animalAdapter.submitList(lista);
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { estaCarregando ->
-            binding.progressBarAnimais.isVisible = estaCarregando;
-        }
+            binding.progressBarAnimais.isVisible = estaCarregando && animalAdapter.itemCount > 0;
+
+            if (!estaCarregando) {
+                binding.swipeRefreshLayoutAnimais.isRefreshing = false;
+            }
+        };
 
         viewModel.erro.observe(viewLifecycleOwner) { erro ->
             erro?.let {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show();
             }
-        }
+        };
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        super.onDestroyView();
+        _binding = null;
     }
 }

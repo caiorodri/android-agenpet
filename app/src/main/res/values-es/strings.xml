@@ -218,10 +218,11 @@
     <string name="erro_logradouro_vazio">La dirección no puede estar vacía</string>
     <string name="erro_numero_vazio">El número no puede estar vacío</string>
     <string name="erro_cidade_vazia">La ciudad no puede estar vacía</string>
-    <string name="erro_estado_formato">El estado debe tener 2 caracteres (ej: SP)</string>
+    <string name="erro_selecionar_estado">Selecciona un estado</string>
     <string name="erro_senha_minima">La contraseña debe tener al menos 8 caracteres</string>
     <string name="erro_senhas_nao_conferem">Las contraseñas no coinciden</string>
     <string name="erro_cpf_formato">El CPF debe tener 11 dígitos</string>
+    <string name="erro_carregar_lista">Error al cargar la lista</string>
 
     <string name="erro_imagem_muito_grande">Imagen muy grande. El límite es de %1$dMB.</string>
     <string name="erro_selecionar_imagem">No se pudo seleccionar esta imagen.</string>
@@ -259,5 +260,31 @@
     <string name="erro_agendamento_atualizado_nulo">Respuesta nula del servidor al actualizar la cita.</string>
 
     <string name="sucesso_agendamento_salvo">¡Cita guardada con éxito!</string>
+
+    <string name="info_sem_proximo_agendamento">No hay citas programadas</string>
+    <string name="info_sem_agendamentos_recentes">No hay citas en los últimos días</string>
+
+    <string name="info_sem_animais">No hay mascotas registradas</string>
+    <string name="info_clique_para_adicionar">Haga clic en el botón + para agregar su primera mascota</string>
+
+    <string name="info_sem_agendamentos_lista">No se encontraron citas</string>
+    <string name="info_clique_para_adicionar_agendamento">Haga clic en el botón + para programar</string>
+
+    <string name="dialog_button_ok">OK</string>
+
+    <string name="toast_agendamento_cancelado_sucesso">¡Cita cancelada con éxito!</string>
+    <string name="dialog_title_cancelar_agendamento">Cancelar Cita</string>
+    <string name="dialog_message_cancelar_agendamento">¿Estás seguro de que quieres cancelar esta cita?</string>
+    <string name="dialog_button_cancelar_agendamento">Sí</string>
+    <string name="dialog_button_voltar">Volver</string>
+
+    <string name="dialog_title_erro_animal">Error al Guardar Mascota</string>
+    <string name="dialog_message_erro_animal">No se pudieron guardar los datos de la mascota. Por favor, inténtelo de nuevo más tarde.</string>
+
+    <string name="dialog_title_erro_agendamento">Error al Guardar Cita</string>
+    <string name="dialog_message_erro_agendamento">No se pudieron guardar los datos de la cita. Por favor, inténtelo de nuevo más tarde.</string>
+
+    <string name="erro_sem_horarios_disponiveis">No hay horarios disponibles para esta fecha</string>
+    <string name="titulo_datepicker_data_agendamento">Seleccione la Fecha de la Cita</string>
 
 </resources>

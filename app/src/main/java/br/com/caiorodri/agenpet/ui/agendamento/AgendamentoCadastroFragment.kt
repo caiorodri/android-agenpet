@@ -1,6 +1,7 @@
 package br.com.caiorodri.agenpet.ui.agendamento;
 
 import android.os.Bundle;
+import android.util.Log
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar;
 import br.com.caiorodri.agenpet.model.usuario.Usuario;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar;
 import br.com.caiorodri.agenpet.utils.getNomeTraduzido;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 class AgendamentoCadastroFragment : Fragment() {
 
@@ -44,19 +46,20 @@ class AgendamentoCadastroFragment : Fragment() {
     private val viewModel: AgendamentoCadastroViewModel by viewModels();
     private val sharedViewModel: HomeSharedViewModel by activityViewModels();
 
-    private val formatadorDeData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+    private val formatadorDeDataUI = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
     };
+
+    private val formatadorDeDataAPI = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
+        timeZone = TimeZone.getTimeZone("UTC");
+    };
+
     private val formatadorDeHora = SimpleDateFormat("HH:mm", Locale.getDefault());
 
     private var listaAnimais: List<Animal> = emptyList();
     private var listaVeterinarios: List<UsuarioResponse> = emptyList();
     private var listaTipos: List<Tipo> = emptyList();
     private var listaStatus: List<Status> = emptyList();
-    private lateinit var horarioAdapter: ArrayAdapter<String>;
-
-    private var dataSelecionadaTimestamp: Long? = null;
-
     private val args: AgendamentoCadastroFragmentArgs by navArgs();
 
     private var agendamentoParaEdicao: Agendamento? = null;
@@ -81,9 +84,6 @@ class AgendamentoCadastroFragment : Fragment() {
 
     private fun setupUIBase(agendamento: Agendamento?) {
 
-        horarioAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, mutableListOf<String>());
-        binding.autoCompleteHorario.setAdapter(horarioAdapter);
-
         if (agendamento != null) {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.titulo_editar_agendamento);
             binding.buttonSalvar.text = getString(R.string.button_atualizar);
@@ -93,15 +93,21 @@ class AgendamentoCadastroFragment : Fragment() {
             binding.autoCompleteVeterinario.setText(agendamento.veterinario.nome, false);
             binding.editTextDescricao.setText(agendamento.descricao);
 
-            dataSelecionadaTimestamp = agendamento.dataAgendamentoInicio;
-            binding.editTextData.setText(formatadorDeData.format(Date(agendamento.dataAgendamentoInicio)));
+            viewModel.setDataSelecionada(agendamento.dataAgendamentoInicio, formatadorDeDataAPI.format(Date(agendamento.dataAgendamentoInicio)));
+            viewModel.setHoraSelecionada(formatadorDeHora.format(Date(agendamento.dataAgendamentoInicio)));
+
+            binding.editTextData.setText(formatadorDeDataUI.format(Date(agendamento.dataAgendamentoInicio)));
             binding.autoCompleteHorario.setText(formatadorDeHora.format(Date(agendamento.dataAgendamentoInicio)));
 
-            popularHorarios(agendamento.dataAgendamentoInicio);
+//            horarioAdapter.add(formatadorDeHora.format(Date(agendamento.dataAgendamentoInicio)));
+//            horarioAdapter.notifyDataSetChanged();
             binding.menuHorario.isEnabled = true;
 
             binding.inputLayoutData.isEnabled = false;
             binding.menuHorario.isEnabled = false;
+            binding.menuTipoAgendamento.isEnabled = false;
+            binding.menuAnimal.isEnabled = false;
+            binding.menuVeterinario.isEnabled = false;
 
             binding.menuStatus.visibility = View.VISIBLE;
             binding.autoCompleteStatus.setText(agendamento.status.getNomeTraduzido(requireContext()), false);
@@ -115,8 +121,20 @@ class AgendamentoCadastroFragment : Fragment() {
             binding.buttonSalvar.text = getString(R.string.button_salvar);
 
             binding.menuStatus.visibility = View.GONE;
-        }
 
+            binding.autoCompleteHorario.setAdapter(
+                ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, emptyList<String>())
+            );
+
+            binding.menuVeterinario.isEnabled = (viewModel.tipoSelecionadoId.value != null);
+            binding.inputLayoutData.isEnabled = (viewModel.veterinarioSelecionadoId.value != null);
+            binding.menuHorario.isEnabled = (viewModel.dataSelecionadaApi.value != null);
+
+            viewModel.dataSelecionadaTimestamp.value?.let {
+                binding.editTextData.setText(formatadorDeDataUI.format(Date(it)));
+            }
+
+        }
 
     }
 
@@ -135,18 +153,71 @@ class AgendamentoCadastroFragment : Fragment() {
 
         if(agendamentoParaEdicao == null){
 
+            binding.autoCompleteTipo.setOnItemClickListener { parent, _, position, _ ->
+                val nomeTraduzido = parent.getItemAtPosition(position) as String;
+                val tipo = listaTipos.find { it.getNomeTraduzido(requireContext()) == nomeTraduzido };
+
+                viewModel.setTipoSelecionado(tipo);
+
+                binding.autoCompleteVeterinario.setText("", false);
+                binding.editTextData.setText("");
+                binding.autoCompleteHorario.setText("", false);
+
+                binding.menuVeterinario.isEnabled = (tipo != null);
+                binding.inputLayoutData.isEnabled = false;
+                binding.menuHorario.isEnabled = false;
+
+                buscarHorariosDisponiveisSePronto();
+            };
+
+            binding.autoCompleteVeterinario.setOnItemClickListener { parent, _, position, _ ->
+
+                val nomeVet = parent.getItemAtPosition(position) as String;
+                val vet = listaVeterinarios.find { it.nome == nomeVet };
+
+                viewModel.setVeterinarioSelecionado(vet);
+
+                binding.editTextData.setText("");
+                binding.autoCompleteHorario.setText("", false);
+                binding.menuHorario.isEnabled = false;
+
+                binding.inputLayoutData.isEnabled = (vet != null);
+
+                buscarHorariosDisponiveisSePronto();
+            };
+
             binding.inputLayoutData.setEndIconOnClickListener { mostrarDatePicker(); };
             binding.editTextData.setOnClickListener { mostrarDatePicker(); };
 
         }
 
+        binding.autoCompleteHorario.setOnItemClickListener { parent, _, position, _ ->
+            val hora = parent.getItemAtPosition(position) as String;
+            viewModel.setHoraSelecionada(hora);
+        };
+
         binding.buttonSalvar.setOnClickListener {
+
+            if (agendamentoParaEdicao != null) {
+
+                val cancelarAgendamento: Status? = listaStatus.find { it.getNomeTraduzido(requireContext()) == binding.autoCompleteStatus.text.toString()}
+
+                if(cancelarAgendamento?.id == 2){
+
+                    mostrarDialogoCancelamento();
+                    return@setOnClickListener;
+                }
+
+            }
+
             validarEsalvar();
+
         };
 
     }
 
     private fun setupObservers() {
+
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.savingOverlay.isVisible = isLoading;
             binding.buttonSalvar.isEnabled = !isLoading;
@@ -154,7 +225,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             if (error != null) {
-                Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+                mostrarDialogoErro(error);
                 viewModel.resetError();
             }
         };
@@ -162,7 +233,7 @@ class AgendamentoCadastroFragment : Fragment() {
         viewModel.agendamentoSalvo.observe(viewLifecycleOwner) { agendamentoSalvo ->
             agendamentoSalvo ?: return@observe;
 
-            Toast.makeText(context, getString(R.string.sucesso_agendamento_salvo), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.sucesso_agendamento_salvo), Toast.LENGTH_SHORT).show();
             (activity as? HomeActivity)?.carregarDadosDoUsuario();
             viewModel.resetAgendamentoSalvo();
             findNavController().popBackStack();
@@ -201,26 +272,88 @@ class AgendamentoCadastroFragment : Fragment() {
         };
 
         viewModel.tipos.observe(viewLifecycleOwner) { tipos ->
+
             listaTipos = tipos;
             val nomesTipos = tipos.map { it.getNomeTraduzido(requireContext()) };
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesTipos);
             binding.autoCompleteTipo.setAdapter(adapter);
 
-            if (agendamentoParaEdicao != null) {
+            if (agendamentoParaEdicao == null && viewModel.tipoSelecionadoId.value != null) {
+
+                val tipoSalvo = tipos.find { it.id == viewModel.tipoSelecionadoId.value };
+
+                if (tipoSalvo != null) {
+                    binding.autoCompleteTipo.setText(tipoSalvo.getNomeTraduzido(requireContext()), false);
+                }
+
+            } else if (agendamentoParaEdicao != null) {
+
                 binding.autoCompleteTipo.setText(agendamentoParaEdicao!!.tipo.getNomeTraduzido(requireContext()), false);
+
             }
 
-        };
+        }
 
         viewModel.veterinarios.observe(viewLifecycleOwner) { veterinarios ->
+
             listaVeterinarios = veterinarios;
+
             val nomesVets = veterinarios.map { it.nome };
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesVets);
+
             binding.autoCompleteVeterinario.setAdapter(adapter);
-        };
+
+            if (agendamentoParaEdicao == null && viewModel.veterinarioSelecionadoId.value != null) {
+
+                val vetSalvo = veterinarios.find { it.id == viewModel.veterinarioSelecionadoId.value };
+
+                if (vetSalvo != null) {
+
+                    binding.autoCompleteVeterinario.setText(vetSalvo.nome, false);
+
+                }
+
+            }
+
+        }
+
+        viewModel.isLoadingHorarios.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBarHorarios.isVisible = isLoading;
+
+
+            if (isLoading) {
+                binding.menuHorario.isEnabled = false;
+            } else {
+                val temHorarios = viewModel.horariosDisponiveis.value?.isNotEmpty() ?: false
+                binding.menuHorario.isEnabled = temHorarios
+            }
+        }
+
+        viewModel.horariosDisponiveis.observe(viewLifecycleOwner) { horarios ->
+
+            val novoAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, horarios);
+            binding.autoCompleteHorario.setAdapter(novoAdapter);
+
+            val temHorarios = horarios.isNotEmpty();
+            binding.menuHorario.isEnabled = temHorarios && (viewModel.isLoadingHorarios.value == false);
+
+            if (!temHorarios && viewModel.dataSelecionadaApi.value != null && viewModel.veterinarioSelecionadoId.value != null && viewModel.tipoSelecionadoId.value != null) {
+                binding.menuHorario.error = getString(R.string.erro_sem_horarios_disponiveis);
+            } else {
+                binding.menuHorario.error = null;
+            }
+
+            viewModel.horaSelecionada.value?.let { horaSalva ->
+                if (horarios.contains(horaSalva)) {
+                    binding.autoCompleteHorario.setText(horaSalva, false);
+                }
+            }
+
+        }
     }
 
     private fun mostrarDatePicker() {
+
         val constraintsBuilder = CalendarConstraints.Builder();
         constraintsBuilder.setValidator(DateValidatorPointForward.now());
 
@@ -229,120 +362,135 @@ class AgendamentoCadastroFragment : Fragment() {
         val maxDateTimestamp = cal.timeInMillis;
 
         constraintsBuilder.setEnd(maxDateTimestamp);
-
         constraintsBuilder.setStart(MaterialDatePicker.todayInUtcMilliseconds());
 
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText(getString(R.string.titulo_datepicker_data_nascimento))
-            .setCalendarConstraints(constraintsBuilder.build())
-            .build();
+        val datePickerBuilder = MaterialDatePicker.Builder.datePicker()
+            .setTitleText(getString(R.string.titulo_datepicker_data_agendamento))
+            .setCalendarConstraints(constraintsBuilder.build());
+
+        viewModel.dataSelecionadaTimestamp.value?.let {
+            datePickerBuilder.setSelection(it);
+        }
+
+        val datePicker = datePickerBuilder.build();
 
         datePicker.addOnPositiveButtonClickListener { dataTimestampUtc ->
-            dataSelecionadaTimestamp = dataTimestampUtc;
-            binding.editTextData.setText(formatadorDeData.format(Date(dataTimestampUtc)));
 
-            popularHorarios(dataTimestampUtc);
+            val dataApi = formatadorDeDataAPI.format(Date(dataTimestampUtc));
+
+            viewModel.setDataSelecionada(dataTimestampUtc, dataApi);
+
+            binding.editTextData.setText(formatadorDeDataUI.format(Date(dataTimestampUtc)));
+            
             binding.autoCompleteHorario.setText("", false);
-            binding.menuHorario.isEnabled = true;
+            binding.menuHorario.error = null;
+
+            buscarHorariosDisponiveisSePronto();
         };
 
         datePicker.show(childFragmentManager, "DATE_PICKER");
     }
 
-    private fun popularHorarios(selectedTimestamp: Long) {
-        val horarios = mutableListOf<String>();
-        val cal = Calendar.getInstance();
+    private fun buscarHorariosDisponiveisSePronto() {
 
-        val calUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        calUtc.timeInMillis = selectedTimestamp;
-        calUtc.set(Calendar.HOUR_OF_DAY, 0);
-        calUtc.set(Calendar.MINUTE, 0);
-        calUtc.set(Calendar.SECOND, 0);
-        calUtc.set(Calendar.MILLISECOND, 0);
-        val diaSelecionadoMeiaNoiteUtc = calUtc.timeInMillis;
+        val tipoId = viewModel.tipoSelecionadoId.value;
+        val vetId = viewModel.veterinarioSelecionadoId.value;
+        val dataApi = viewModel.dataSelecionadaApi.value;
 
-        val hojeMeiaNoiteUtc = MaterialDatePicker.todayInUtcMilliseconds();
+        if (tipoId != null && vetId != null && dataApi != null) {
 
-        val isHoje = (diaSelecionadoMeiaNoiteUtc == hojeMeiaNoiteUtc);
+            Log.d("AgendamentoCadastro", "Buscando horários para Tipo ID: $tipoId, Vet ID: $vetId, Data: $dataApi");
+            viewModel.buscarHorariosDisponiveis(vetId, dataApi, tipoId);
 
-        val horaAtualLocal = if (isHoje) {
-            Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        } else {
-            -1;
-        };
-
-        for (hora in 8..21) {
-
-            if (isHoje && hora <= horaAtualLocal) {
-                continue;
-            }
-
-            cal.set(Calendar.HOUR_OF_DAY, hora);
-            cal.set(Calendar.MINUTE, 0);
-            horarios.add(formatadorDeHora.format(cal.time));
         }
+    }
 
-        horarioAdapter.clear();
-        horarioAdapter.addAll(horarios);
-        horarioAdapter.notifyDataSetChanged();
+    private fun mostrarDialogoCancelamento(){
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.dialog_title_cancelar_agendamento))
+            .setMessage(getString(R.string.dialog_message_cancelar_agendamento))
+            .setPositiveButton(getString(R.string.dialog_button_cancelar_agendamento)) { dialog, _ ->
+                validarEsalvar();
+                dialog.dismiss();
+            }
+            .setNegativeButton(getString(R.string.dialog_button_voltar)) { dialog, _ ->
+                dialog.dismiss();
+            }
+            .show();
+
     }
 
     private fun validarEsalvar() {
         if (!validarCampos()) {
-            Toast.makeText(context, getString(R.string.toast_preencher_campos_obrigatorios), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.toast_preencher_campos_obrigatorios), Toast.LENGTH_SHORT).show();
             return;
         }
 
         val cliente: Usuario? = sharedViewModel.usuarioLogado.value;
         val animalSelecionado = listaAnimais.find { it.nome == binding.autoCompleteAnimal.text.toString() };
-        val vetSelecionado = listaVeterinarios.find { it.nome == binding.autoCompleteVeterinario.text.toString() };
+
+        val vetSelecionado = if (agendamentoParaEdicao != null) {
+
+            listaVeterinarios.find { it.nome == binding.autoCompleteVeterinario.text.toString() };
+
+        } else {
+
+            listaVeterinarios.find { it.id == viewModel.veterinarioSelecionadoId.value };
+
+        }
 
         val nomeTipoTraduzido = binding.autoCompleteTipo.text.toString();
         val tipoSelecionado = listaTipos.find { it.getNomeTraduzido(requireContext()) == nomeTipoTraduzido };
 
         val nomeStatusTraduzido = binding.autoCompleteStatus.text.toString();
+
         val statusSelecionado = if (agendamentoParaEdicao != null) {
-            listaStatus.find { it.getNomeTraduzido(requireContext()) == nomeStatusTraduzido }
-                ?: agendamentoParaEdicao!!.status;
+
+            listaStatus.find { it.getNomeTraduzido(requireContext()) == nomeStatusTraduzido } ?: agendamentoParaEdicao!!.status;
+
         } else {
+
             viewModel.status.value?.find { it.id == 1 };
+
         }
 
         val recepcionistaAutoAtendimento = viewModel.recepcionistaAutoAtendimento.value;
 
-        val dataTimestamp = dataSelecionadaTimestamp;
+        val dataTimestamp = viewModel.dataSelecionadaTimestamp.value;
         val horaString = binding.autoCompleteHorario.text.toString();
 
         if (cliente?.id == null) {
-            Toast.makeText(context, getString(R.string.toast_erro_usuario_nao_encontrado), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.toast_erro_usuario_nao_encontrado), Toast.LENGTH_SHORT).show();
             return;
         }
         if (animalSelecionado?.id == null) {
             val erroMsg = getString(R.string.erro_animal_invalido);
-            Toast.makeText(context, erroMsg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), erroMsg, Toast.LENGTH_SHORT).show();
             binding.menuAnimal.error = erroMsg;
             return;
         }
         if (vetSelecionado?.id == null) {
             val erroMsg = getString(R.string.erro_veterinario_invalido);
-            Toast.makeText(context, erroMsg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), erroMsg, Toast.LENGTH_SHORT).show();
             binding.menuVeterinario.error = erroMsg;
             return;
         }
+
         if (tipoSelecionado == null) {
             val erroMsg = getString(R.string.erro_tipo_invalido);
-            Toast.makeText(context, erroMsg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), erroMsg, Toast.LENGTH_SHORT).show();
             binding.menuTipoAgendamento.error = erroMsg;
             return;
         }
         if (dataTimestamp == null) {
             val erroMsg = getString(R.string.erro_data_invalida);
-            Toast.makeText(context, erroMsg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), erroMsg, Toast.LENGTH_SHORT).show();
             binding.inputLayoutData.error = getString(R.string.erro_obrigatorio);
             return;
         }
         if (statusSelecionado == null) {
-            Toast.makeText(context, getString(R.string.erro_status_nao_encontrado), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.erro_status_nao_encontrado), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -361,7 +509,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
         val calendarFim = Calendar.getInstance();
         calendarFim.time = dataInicio;
-        calendarFim.add(Calendar.HOUR_OF_DAY, 1);
+        calendarFim.add(Calendar.MINUTE, tipoSelecionado.duracaoMinutos);
         val dataFim = calendarFim.time;
 
 
@@ -385,7 +533,8 @@ class AgendamentoCadastroFragment : Fragment() {
                 email = vetSelecionado.email),
             tipo = Tipo(
                 id = tipoSelecionado.id,
-                nome = tipoSelecionado.nome),
+                nome = tipoSelecionado.nome,
+                duracaoMinutos = tipoSelecionado.duracaoMinutos),
             dataAgendamentoInicio = dataInicio,
             dataAgendamentoFinal = dataFim,
             descricao = binding.editTextDescricao.text.toString().trim(),
@@ -428,6 +577,16 @@ class AgendamentoCadastroFragment : Fragment() {
             valido = false;
         }
         return valido;
+    }
+
+    private fun mostrarDialogoErro(mensagem: String) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.dialog_title_erro_agendamento))
+            .setMessage(mensagem)
+            .setPositiveButton(getString(R.string.dialog_button_ok)) { dialog, _ ->
+                dialog.dismiss();
+            }
+            .show();
     }
 
     override fun onDestroyView() {

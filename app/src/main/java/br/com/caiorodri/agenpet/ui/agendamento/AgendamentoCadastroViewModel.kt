@@ -7,8 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.viewModelScope;
 import br.com.caiorodri.agenpet.R;
-import br.com.caiorodri.agenpet.api.controller.AgendamentoController;
-import br.com.caiorodri.agenpet.api.controller.UsuarioController;
+import br.com.caiorodri.agenpet.api.repository.AgendamentoRepository
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest;
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoResponse;
 import br.com.caiorodri.agenpet.model.agendamento.Status;
@@ -19,8 +18,7 @@ import java.io.IOException;
 
 class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val agendamentoController = AgendamentoController(application);
-    private val usuarioController = UsuarioController(application);
+    private val agendamentoRepository = AgendamentoRepository.getInstance(application);
     private val _tipos = MutableLiveData<List<Tipo>>();
     val tipos: LiveData<List<Tipo>> = _tipos;
 
@@ -42,6 +40,18 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
     private val _error = MutableLiveData<String?>(null);
     val error: LiveData<String?> = _error;
 
+    private val _horariosDisponiveis = MutableLiveData<List<String>>();
+    val horariosDisponiveis: LiveData<List<String>> = _horariosDisponiveis;
+
+    private val _isLoadingHorarios = MutableLiveData<Boolean>(false);
+    val isLoadingHorarios: LiveData<Boolean> = _isLoadingHorarios;
+
+    val tipoSelecionadoId = MutableLiveData<Int?>(null);
+    val veterinarioSelecionadoId = MutableLiveData<Long?>(null);
+    val dataSelecionadaApi = MutableLiveData<String?>(null);
+    val dataSelecionadaTimestamp = MutableLiveData<Long?>(null);
+    val horaSelecionada = MutableLiveData<String?>(null);
+
     init {
         carregarDadosIniciais();
     }
@@ -52,19 +62,14 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
             _error.value = null;
             try {
 
-                val tiposResult = agendamentoController.listarTipos();
-                _tipos.postValue(tiposResult);
+                val data = agendamentoRepository.getAgendamentoData();
 
-                val statusResult = agendamentoController.listarStatus();
-                _status.postValue(statusResult);
+                _tipos.postValue(data.tipos);
+                _status.postValue(data.status);
+                _veterinarios.postValue(data.veterinarios);
+                _recepcionistaAutoAtendimento.postValue(data.recepcionista);
 
-                val vets = usuarioController.listarVeterinarios();
-                _veterinarios.postValue(vets);
-
-                val recepcionista = usuarioController.recuperarRecepcionistaAutoAtendimento();
-                _recepcionistaAutoAtendimento.postValue(recepcionista);
-
-                if (recepcionista == null) {
+                if (data.recepcionista == null) {
                     Log.e("AgendamentoCadastroVM", "CRÍTICO: Recepcionista 'AUTO ATENDIMENTO' não encontrado.");
                     _error.postValue(getApplication<Application>().getString(R.string.erro_recepcionista_nao_encontrado));
                 }
@@ -78,6 +83,51 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
         }
     }
 
+    fun buscarHorariosDisponiveis(idVeterinario: Long, data: String, idTipo: Int) {
+
+        viewModelScope.launch {
+
+            _isLoadingHorarios.value = true;
+
+            try {
+
+                val horarios = agendamentoRepository.listarHorariosDisponiveis(idVeterinario, data, idTipo);
+                _horariosDisponiveis.postValue(horarios);
+
+            } catch (e: Exception) {
+                Log.e("AgendamentoCadastroVM", "Erro ao buscar horários disponíveis", e);
+                _error.postValue(e.message ?: getApplication<Application>().getString(R.string.erro_desconhecido));
+            } finally {
+                _isLoadingHorarios.value = false;
+            }
+        }
+    }
+
+    fun setTipoSelecionado(tipo: Tipo?) {
+        tipoSelecionadoId.value = tipo?.id;
+        veterinarioSelecionadoId.value = null;
+        dataSelecionadaApi.value = null;
+        dataSelecionadaTimestamp.value = null;
+        horaSelecionada.value = null;
+    }
+
+    fun setVeterinarioSelecionado(vet: UsuarioResponse?) {
+        veterinarioSelecionadoId.value = vet?.id;
+        dataSelecionadaApi.value = null;
+        dataSelecionadaTimestamp.value = null;
+        horaSelecionada.value = null;
+    }
+
+    fun setDataSelecionada(timestamp: Long, dataApi: String) {
+        dataSelecionadaTimestamp.value = timestamp;
+        dataSelecionadaApi.value = dataApi;
+        horaSelecionada.value = null;
+    }
+
+    fun setHoraSelecionada(hora: String?) {
+        horaSelecionada.value = hora;
+    }
+
     fun salvarOuAtualizarAgendamento(request: AgendamentoRequest) {
         viewModelScope.launch {
             _isLoading.value = true;
@@ -87,20 +137,13 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
             try {
                 if (request.id == null) {
                     Log.d("AgendamentoCadastroVM", "Salvando novo agendamento...");
-                    val agendamentoSalvo = agendamentoController.salvarAgendamento(request);
-                    if (agendamentoSalvo != null) {
-                        _agendamentoSalvo.postValue(agendamentoSalvo);
-                    } else {
-                        throw IOException(getApplication<Application>().getString(R.string.erro_agendamento_salvo_nulo));
-                    }
+                    val agendamentoSalvo = agendamentoRepository.salvarAgendamento(request);
+                    _agendamentoSalvo.postValue(agendamentoSalvo);
+
                 } else {
                     Log.d("AgendamentoCadastroVM", "Atualizando agendamento ID: ${request.id}");
-                    val agendamentoAtualizado = agendamentoController.atualizarAgendamento(request);
-                    if (agendamentoAtualizado != null) {
-                        _agendamentoSalvo.postValue(agendamentoAtualizado);
-                    } else {
-                        throw IOException(getApplication<Application>().getString(R.string.erro_agendamento_atualizado_nulo));
-                    }
+                    val agendamentoAtualizado = agendamentoRepository.atualizarAgendamento(request);
+                    _agendamentoSalvo.postValue(agendamentoAtualizado);
                 }
 
             } catch (e: IOException) {

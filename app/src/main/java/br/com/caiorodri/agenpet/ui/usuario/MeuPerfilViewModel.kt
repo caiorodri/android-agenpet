@@ -8,11 +8,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.api.controller.UsuarioController
+import br.com.caiorodri.agenpet.model.usuario.Estado
 import br.com.caiorodri.agenpet.model.usuario.LoginResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 
 class MeuPerfilViewModel(application: Application) : AndroidViewModel(application) {
@@ -30,6 +33,12 @@ class MeuPerfilViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val _updateSuccess = MutableLiveData<LoginResponse?>();
     val updateSuccess: LiveData<LoginResponse?> = _updateSuccess;
+    private val _estados = MutableLiveData<List<Estado>>();
+    val estados: LiveData<List<Estado>> = _estados;
+
+    init {
+        carregarEstados();
+    }
 
     fun setIsLoading(loading: Boolean) {
         _isLoading.value = loading;
@@ -75,6 +84,20 @@ class MeuPerfilViewModel(application: Application) : AndroidViewModel(applicatio
 
         }
 
+    }
+
+    private fun carregarEstados() {
+        viewModelScope.launch {
+            try {
+                val lista = withContext(Dispatchers.IO) {
+                    usuarioController.listarEstados()
+                }
+                _estados.postValue(lista)
+            } catch (e: Exception) {
+                Log.e("MeuPerfilVM", "Erro ao carregar estados", e)
+                _error.postValue(getApplication<Application>().getString(R.string.erro_carregar_lista))
+            }
+        }
     }
 
     fun resetUpdateSuccess() {

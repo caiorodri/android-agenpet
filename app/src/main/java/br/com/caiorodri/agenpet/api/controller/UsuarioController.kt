@@ -11,6 +11,7 @@ import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioAlterarSenha
 import br.com.caiorodri.agenpet.model.usuario.Status
+import br.com.caiorodri.agenpet.model.usuario.VeterinarioHorario
 import java.io.IOException
 
 class UsuarioController(private val context: Context) {
@@ -440,11 +441,14 @@ class UsuarioController(private val context: Context) {
     }
 
     suspend fun listarEstados(): List<Estado> {
+
         val endpoint = "listarEstados"
         Log.i(TAG, "[$endpoint] - Inicio")
 
         try {
+
             val response = usuarioService.listarEstados()
+
             if (response.isSuccessful) {
                 val estados = response.body() ?: emptyList()
                 Log.i(TAG, "[$endpoint] - Sucesso. ${estados.size} estados encontrados.")
@@ -453,6 +457,7 @@ class UsuarioController(private val context: Context) {
             } else {
                 Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}")
             }
+
         } catch (e: IOException) {
             Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e)
         } catch (e: Exception) {
@@ -462,4 +467,53 @@ class UsuarioController(private val context: Context) {
         Log.i(TAG, "[$endpoint] - Fim")
         return emptyList()
     }
+
+    suspend fun listarHorariosVeterinario(idVeterinario: Long): List<VeterinarioHorario> {
+        val endpoint = "listarHorariosVeterinario";
+        Log.i(TAG, "[$endpoint] - Inicio (ID: $idVeterinario)");
+
+        try {
+            val response = usuarioService.listarHorariosVeterinario(idVeterinario);
+            if (response.isSuccessful) {
+                val horarios = response.body() ?: emptyList();
+                Log.i(TAG, "[$endpoint] - Sucesso. ${horarios.size} blocos de horário encontrados.");
+                Log.i(TAG, "[$endpoint] - Fim");
+                return horarios;
+            } else {
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}");
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e);
+        } catch (e: Exception) {
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e);
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim");
+        return emptyList();
+    }
+
+    suspend fun listarHorariosDisponiveis(idVeterinario: Long, data: String, idTipo: Int): List<String> {
+        val endpoint = "listarHorariosDisponiveis";
+        Log.i(TAG, "[$endpoint] - Inicio (ID: $idVeterinario, Data: $data)");
+
+        try {
+            val response = usuarioService.listarHorariosDisponiveis(idVeterinario, data, idTipo);
+            if (response.isSuccessful) {
+                val horarios = response.body() ?: emptyList();
+                Log.i(TAG, "[$endpoint] - Sucesso. ${horarios.size} slots disponíveis encontrados.");
+                Log.i(TAG, "[$endpoint] - Fim");
+                return horarios;
+            } else {
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}");
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e);
+        } catch (e: Exception) {
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e);
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim");
+        return emptyList();
+    }
+
 }

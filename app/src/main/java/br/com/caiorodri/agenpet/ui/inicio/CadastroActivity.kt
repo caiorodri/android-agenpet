@@ -2,6 +2,8 @@ package br.com.caiorodri.agenpet.ui.inicio;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -55,7 +57,7 @@ class CadastroActivity : AppCompatActivity() {
     private lateinit var editTextNumero: TextInputEditText;
     private lateinit var editTextComplemento: TextInputEditText;
     private lateinit var editTextCidade: TextInputEditText;
-    private lateinit var editTextEstado: TextInputEditText;
+    private lateinit var autoCompleteEstado: AutoCompleteTextView;
 
     private lateinit var inputLayoutNome: TextInputLayout;
     private lateinit var inputLayoutEmail: TextInputLayout;
@@ -73,6 +75,8 @@ class CadastroActivity : AppCompatActivity() {
     private val formatadorDeData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
     };
+
+    private var listaDeEstados: List<Estado> = emptyList();
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +101,7 @@ class CadastroActivity : AppCompatActivity() {
 
         setUpViews();
         setUpListeners();
+        carregarEstados();
 
     };
 
@@ -117,7 +122,7 @@ class CadastroActivity : AppCompatActivity() {
         editTextNumero = findViewById(R.id.edit_text_numero);
         editTextComplemento = findViewById(R.id.edit_text_complemento);
         editTextCidade = findViewById(R.id.edit_text_cidade);
-        editTextEstado = findViewById(R.id.edit_text_estado);
+        autoCompleteEstado = findViewById(R.id.auto_complete_estado);
 
         inputLayoutNome = findViewById(R.id.input_layout_nome);
         inputLayoutEmail = findViewById(R.id.input_layout_email);
@@ -180,6 +185,31 @@ class CadastroActivity : AppCompatActivity() {
 
     }
 
+    private fun carregarEstados() {
+
+        inputLayoutEstado.isEnabled = false;
+
+        lifecycleScope.launch {
+            try {
+                listaDeEstados = withContext(Dispatchers.IO) {
+                    usuarioController.listarEstados();
+                }
+
+                val siglasDosEstados = listaDeEstados.map { it.sigla }
+
+                val adapter = ArrayAdapter(this@CadastroActivity, android.R.layout.simple_dropdown_item_1line, siglasDosEstados);
+                autoCompleteEstado.setAdapter(adapter);
+
+                inputLayoutEstado.isEnabled = true;
+
+            } catch (e: Exception) {
+                Log.e("CadastroActivity", "Erro ao carregar estados", e);
+                inputLayoutEstado.error = getString(R.string.erro_carregar_lista);
+                Toast.makeText(this@CadastroActivity, "Falha ao carregar estados", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private suspend fun cadastrar(): UsuarioResponse? {
 
         val nome = editTextNome.text.toString();
@@ -193,7 +223,7 @@ class CadastroActivity : AppCompatActivity() {
         val numero = editTextNumero.text.toString();
         val complemento = editTextComplemento.text.toString();
         val cidade = editTextCidade.text.toString();
-        val estado = editTextEstado.text.toString();
+        val siglaEstado = autoCompleteEstado.text.toString();
 
         val dataNascimentoFormatada = try {
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dataNascimentoStr);
@@ -204,7 +234,7 @@ class CadastroActivity : AppCompatActivity() {
         val usuarioRequest = UsuarioRequest(
             null, nome, email, cpf, senha, listOf(telefone),
             dataNascimentoFormatada,
-            Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, estado)), null, null,
+            Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, siglaEstado)), null, null,
             Perfil(PerfilEnum.CLIENTE.getValue(), null), Status(StatusEnum.ATIVO.getValue(), null), null
         );
 
@@ -284,8 +314,8 @@ class CadastroActivity : AppCompatActivity() {
             valido = false;
         }
 
-        if (editTextEstado.text.toString().length != 2) {
-            inputLayoutEstado.error = getString(R.string.erro_estado_formato);
+        if (autoCompleteEstado.text.toString().isBlank()) {
+            inputLayoutEstado.error = getString(R.string.erro_selecionar_estado);
             valido = false;
         }
 

@@ -1,6 +1,7 @@
 package br.com.caiorodri.agenpet.ui.animal;
 
 import android.app.Application;
+import android.net.Uri
 import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -25,7 +26,7 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
 
     var listaCompletaRacas: List<Raca> = emptyList(); private set;
 
-    private val _racasFiltradas = MutableLiveData<List<Raca>>();
+    private val _racasFiltradas = MutableLiveData<List<Raca>>(emptyList());
     val racasFiltradas: LiveData<List<Raca>> = _racasFiltradas;
 
     private val _sexos = MutableLiveData<List<Sexo>>();
@@ -48,7 +49,9 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
 
     private val _actionError = MutableLiveData<String?>(null);
     val actionError: LiveData<String?> = _actionError;
-
+    val fotoUriSelecionada = MutableLiveData<Uri?>(null);
+    val especieSelecionada = MutableLiveData<Especie?>(null);
+    val racaSelecionada = MutableLiveData<Raca?>(null);
 
     init {
         carregarDadosIniciais();
@@ -56,22 +59,28 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
     }
 
     private fun carregarDadosIniciais() {
+
         viewModelScope.launch {
+
             _isLoadingDadosIniciais.value = true;
             _erroDadosIniciais.value = null;
+
             try {
+
                 val data = animalRepository.getAnimalData();
 
                 listaCompletaRacas = data.racas;
                 _especies.postValue(data.especies);
-                _racasFiltradas.postValue(emptyList());
 
             } catch (e: Exception) {
+
                 Log.e("CadastroAnimalVM", "Erro ao carregar dados iniciais (espécies/raças)", e);
+
                 _erroDadosIniciais.postValue(getApplication<Application>().getString(R.string.erro_carregar_especies_racas));
                 _especies.postValue(emptyList());
                 listaCompletaRacas = emptyList();
                 _racasFiltradas.postValue(emptyList());
+
             } finally {
                 _isLoadingDadosIniciais.value = false;
             }
@@ -90,6 +99,16 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
 
     fun setIsLoading(loading: Boolean) {
         _isLoading.value = loading;
+    }
+
+    fun setEspecie(especie: Especie?) {
+        especieSelecionada.value = especie;
+        racaSelecionada.value = null;
+        filtrarRacasPorEspecie(especie);
+    }
+
+    fun setRaca(raca: Raca?) {
+        racaSelecionada.value = raca;
     }
 
     fun salvarAnimal(animal: Animal) {

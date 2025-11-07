@@ -37,6 +37,7 @@ import java.util.TimeZone;
 import br.com.caiorodri.agenpet.model.usuario.LoginResponse;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -60,7 +61,7 @@ class MeuPerfilFragment : Fragment() {
         timeZone = TimeZone.getTimeZone("UTC");
     };
     private var usuarioAtual: Usuario? = null;
-
+    private var listaDeEstados: List<Estado> = emptyList();
     private val storage = Firebase.storage;
     private var fotoUri: Uri? = null;
     private var fotoUrlExistente: String? = null;
@@ -184,7 +185,20 @@ class MeuPerfilFragment : Fragment() {
                 viewModel.resetUpdateSuccess();
                 findNavController().popBackStack();
             }
-        };
+        }
+
+        viewModel.estados.observe(viewLifecycleOwner) { estados ->
+
+            listaDeEstados = estados;
+            val siglas = estados.map { it.sigla }
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, siglas);
+            binding.autoCompleteEstado.setAdapter(adapter);
+
+            usuarioAtual?.endereco?.estado?.sigla?.let {
+                binding.autoCompleteEstado.setText(it, false);
+            }
+        }
+
     }
 
     private fun popularCampos(usuario: Usuario) {
@@ -203,7 +217,7 @@ class MeuPerfilFragment : Fragment() {
             binding.editTextNumero.setText(end.numero);
             binding.editTextComplemento.setText(end.complemento ?: "");
             binding.editTextCidade.setText(end.cidade);
-            binding.editTextEstado.setText(end.estado?.sigla ?: "");
+            binding.autoCompleteEstado.setText(end.estado?.sigla ?: "", false);
         };
 
         binding.inputLayoutCpf.isEnabled = false;
@@ -322,8 +336,8 @@ class MeuPerfilFragment : Fragment() {
             valido = false;
         }
 
-        if (binding.editTextEstado.text.toString().length != 2) {
-            binding.inputLayoutEstado.error = getString(R.string.erro_estado_formato);
+        if (binding.autoCompleteEstado.text.toString().isBlank()) {
+            binding.inputLayoutEstado.error = getString(R.string.erro_selecionar_estado);
             valido = false;
         }
 
@@ -422,7 +436,7 @@ class MeuPerfilFragment : Fragment() {
         val numero = binding.editTextNumero.text.toString();
         val complemento = binding.editTextComplemento.text.toString().takeIf { it.isNotBlank() };
         val cidade = binding.editTextCidade.text.toString();
-        val estadoSigla = binding.editTextEstado.text.toString();
+        val estadoSigla = binding.autoCompleteEstado.text.toString();
 
         val dataNascimento: Date? = try {
             dateFormatter.isLenient = false;

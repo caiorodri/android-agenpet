@@ -63,6 +63,32 @@
                 app:layout_constraintEnd_toEndOf="@id/card_superior" />
 
             <TextView
+                android:id="@+id/text_view_info_proximo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:text="@string/info_sem_proximo_agendamento"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                app:drawableTopCompat="@drawable/ic_calendar_check"
+                app:drawableTint="?attr/colorOnSurfaceVariant"
+                app:layout_constraintEnd_toEndOf="@id/card_superior"
+                app:layout_constraintStart_toStartOf="@id/card_superior"
+                app:layout_constraintTop_toBottomOf="@id/titulo_ultimo_agendamento"
+                tools:visibility="visible"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_proximo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="include_item_ultimo_agendamento,text_view_info_proximo" />
+
+            <TextView
                 android:id="@+id/titulo_recentes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +97,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:textColor="?attr/colorOnBackground"
-                app:layout_constraintTop_toBottomOf="@id/include_item_ultimo_agendamento"
+                app:layout_constraintTop_toBottomOf="@id/barrier_proximo"
                 app:layout_constraintStart_toStartOf="@id/card_superior" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -89,6 +115,25 @@
                 app:layout_constraintVertical_bias="0.0"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_agendamento" />
+
+            <TextView
+                android:id="@+id/text_view_info_recentes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:text="@string/info_sem_agendamentos_recentes"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                app:drawableTopCompat="@drawable/ic_history"
+                app:drawableTint="?attr/colorOnSurfaceVariant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titulo_recentes"
+                tools:visibility="visible"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

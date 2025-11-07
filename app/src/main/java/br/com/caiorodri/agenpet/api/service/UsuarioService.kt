@@ -9,6 +9,7 @@ import br.com.caiorodri.agenpet.model.usuario.UsuarioAlterarSenha
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
+import br.com.caiorodri.agenpet.model.usuario.VeterinarioHorario
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -88,4 +89,15 @@ interface UsuarioService {
 
     @GET("usuarios/estados")
     suspend fun listarEstados(): Response<List<Estado>>
+
+    @GET("usuarios/veterinarios/{id}/horarios")
+    suspend fun listarHorariosVeterinario(@Path("id") idVeterinario: Long): Response<List<VeterinarioHorario>>;
+
+    @GET("usuarios/veterinarios/{id}/horarios-disponiveis")
+    suspend fun listarHorariosDisponiveis(
+        @Path("id") idVeterinario: Long,
+        @Query("data") data: String,
+        @Query("idTipo") idTipo: Int
+    ): Response<List<String>>;
+
 }

@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Tipo(
     val id: Int,
-    val nome: String
+    val nome: String,
+    val duracaoMinutos: Int
 ): Parcelable
