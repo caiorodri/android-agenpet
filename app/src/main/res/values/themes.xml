@@ -37,4 +37,10 @@
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/cor_texto_sobre_cor</item>
     </style>
+
+    <style name="ShapeAppearance.AgenPet.CardPropaganda" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
 </resources>

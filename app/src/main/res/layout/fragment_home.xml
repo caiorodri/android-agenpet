@@ -27,30 +27,53 @@
                 app:cardCornerRadius="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                >
 
-                <ImageView
-                    android:id="@+id/image_view_no_card"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/cobasi"
-                    android:contentDescription="@string/cd_propaganda"
-                    />
+                    android:layout_height="match_parent">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/view_pager_propaganda"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout_indicador"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintStart_toStartOf="@id/card_superior"
+                app:layout_constraintEnd_toEndOf="@id/card_superior"
+                app:layout_constraintTop_toBottomOf="@id/card_superior"
+                app:tabBackground="@drawable/tab_selector_propaganda"
+                app:tabIndicatorHeight="0dp"
+                app:tabPadding="0dp"
+                app:tabContentStart="0dp"/>
 
             <TextView
                 android:id="@+id/titulo_ultimo_agendamento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/titulo_proximo_agendamento"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorOnBackground"
                 app:layout_constraintStart_toStartOf="@id/card_superior"
-                app:layout_constraintTop_toBottomOf="@id/card_superior" />
+                app:layout_constraintTop_toBottomOf="@id/tab_layout_indicador" />
 
             <include
                 android:id="@+id/include_item_ultimo_agendamento"

@@ -38,7 +38,7 @@ class LoadingActivity : AppCompatActivity() {
         "> Carregando seu perfil...",
         "> Buscando seus pets...",
         "> Organizando sua agenda...",
-        "> Quase lá!"
+        "> Quase lá..."
     );
 
     private val loadingMessagesReduzida = listOf(
