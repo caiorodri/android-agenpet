@@ -2,7 +2,6 @@ package br.com.caiorodri.agenpet.model.animal
 
 import android.os.Parcelable
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
-import br.com.caiorodri.agenpet.model.animal.Sexo
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import kotlinx.parcelize.Parcelize
 

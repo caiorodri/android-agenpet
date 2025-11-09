@@ -1,7 +1,6 @@
 package br.com.caiorodri.agenpet.model.agendamento
 
 import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar
-import br.com.caiorodri.agenpet.model.animal.AnimalRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar
 import java.util.Date
 

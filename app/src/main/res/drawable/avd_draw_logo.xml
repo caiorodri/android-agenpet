@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_logo_draw">
+
+    <target
+        android:name="path1"
+        android:animation="@animator/animator_draw" />
+    <target
+        android:name="path2"
+        android:animation="@animator/animator_draw" />
+    <target
+        android:name="path3"
+        android:animation="@animator/animator_draw" />
+    <target
+        android:name="path4"
+        android:animation="@animator/animator_draw" />
+    <target
+        android:name="path5"
+        android:animation="@animator/animator_draw" />
+
+    <target
+        android:name="path6"
+        android:animation="@animator/animator_draw_calendario" />
+
+</animated-vector>

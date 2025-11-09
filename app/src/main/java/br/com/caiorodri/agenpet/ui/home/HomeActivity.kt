@@ -1,12 +1,14 @@
 package br.com.caiorodri.agenpet.ui.home
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
@@ -29,18 +31,16 @@ import br.com.caiorodri.agenpet.api.controller.UsuarioController
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.security.SessionManager
 import br.com.caiorodri.agenpet.ui.inicio.LoginActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import android.graphics.drawable.Drawable
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 
 class HomeActivity : AppCompatActivity() {
 
@@ -63,18 +63,19 @@ class HomeActivity : AppCompatActivity() {
         sessionManager = SessionManager(this);
 
         val usuarioLogadoIntent: Usuario? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("usuarioLogado", Usuario::class.java)
+            intent.getParcelableExtra("usuarioLogado", Usuario::class.java);
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra("usuarioLogado")
+            intent.getParcelableExtra("usuarioLogado");
         }
 
         if (usuarioLogadoIntent != null) {
-            Log.d("HomeActivity", "Usuário recebido via Intent.")
-            sharedViewModel.setUsuario(usuarioLogadoIntent)
+            Log.d("HomeActivity", "Usuário recebido via Intent.");
+            sharedViewModel.setUsuario(usuarioLogadoIntent);
         } else {
-            Log.d("HomeActivity", "Usuário não recebido via Intent. Buscando perfil na rede.")
-            carregarDadosDoUsuario()
+            Log.e("HomeActivity", "Usuário não recebido via Intent. Buscando perfil na rede.");
+            Toast.makeText(this, "Erro ao carregar seu perfil. Tente novamente.", Toast.LENGTH_LONG).show();
+            deslogarEVoltarParaLogin();
         }
 
         drawerLayout = findViewById(R.id.drawer_layout);

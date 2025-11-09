@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgenPet">
         <activity
+            android:name=".ui.inicio.LoadingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.inicio.LoginActivity"
             android:exported="false" />
         <activity

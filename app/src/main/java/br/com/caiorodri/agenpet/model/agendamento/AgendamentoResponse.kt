@@ -1,9 +1,6 @@
 package br.com.caiorodri.agenpet.model.agendamento
 
-import br.com.caiorodri.agenpet.model.animal.Animal
-import br.com.caiorodri.agenpet.model.agendamento.Tipo
 import br.com.caiorodri.agenpet.model.animal.AnimalResponse
-import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import java.util.Date
 

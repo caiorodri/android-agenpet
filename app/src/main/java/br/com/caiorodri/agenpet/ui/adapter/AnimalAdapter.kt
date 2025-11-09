@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.ItemAnimalBinding
-import br.com.caiorodri.agenpet.utils.getNomeTraduzido;
 import br.com.caiorodri.agenpet.model.animal.Animal
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener

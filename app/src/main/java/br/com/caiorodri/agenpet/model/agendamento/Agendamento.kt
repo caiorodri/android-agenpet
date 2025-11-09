@@ -2,10 +2,8 @@ package br.com.caiorodri.agenpet.model.agendamento
 
 import android.os.Parcelable
 import br.com.caiorodri.agenpet.model.animal.Animal
-import br.com.caiorodri.agenpet.model.agendamento.Tipo
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import kotlinx.parcelize.Parcelize
-import java.util.Date
 
 @Parcelize
 data class Agendamento(

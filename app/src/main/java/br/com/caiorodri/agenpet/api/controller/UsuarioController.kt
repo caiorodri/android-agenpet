@@ -6,11 +6,11 @@ import br.com.caiorodri.agenpet.api.client.ApiClient
 import br.com.caiorodri.agenpet.model.usuario.Estado
 import br.com.caiorodri.agenpet.model.usuario.LoginRequest
 import br.com.caiorodri.agenpet.model.usuario.LoginResponse
+import br.com.caiorodri.agenpet.model.usuario.Status
+import br.com.caiorodri.agenpet.model.usuario.UsuarioAlterarSenha
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
-import br.com.caiorodri.agenpet.model.usuario.UsuarioAlterarSenha
-import br.com.caiorodri.agenpet.model.usuario.Status
 import br.com.caiorodri.agenpet.model.usuario.VeterinarioHorario
 import java.io.IOException
 

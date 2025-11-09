@@ -2,7 +2,6 @@ package br.com.caiorodri.agenpet.api.service
 
 import br.com.caiorodri.agenpet.BuildConfig
 import br.com.caiorodri.agenpet.api.model.PageResponse
-import br.com.caiorodri.agenpet.model.animal.Animal
 import br.com.caiorodri.agenpet.model.animal.AnimalRequest
 import br.com.caiorodri.agenpet.model.animal.AnimalResponse
 import br.com.caiorodri.agenpet.model.animal.Especie

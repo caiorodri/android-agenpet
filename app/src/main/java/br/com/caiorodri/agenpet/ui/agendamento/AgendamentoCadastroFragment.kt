@@ -1,42 +1,42 @@
 package br.com.caiorodri.agenpet.ui.agendamento;
 
-import android.os.Bundle;
+import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.isVisible;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.activityViewModels;
-import androidx.fragment.app.viewModels;
-import androidx.navigation.fragment.findNavController;
-import br.com.caiorodri.agenpet.R;
-import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoCadastroBinding;
-import br.com.caiorodri.agenpet.model.agendamento.Agendamento;
-import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest;
-import br.com.caiorodri.agenpet.model.agendamento.Tipo;
-import br.com.caiorodri.agenpet.model.animal.Animal;
-import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
-import br.com.caiorodri.agenpet.ui.home.HomeActivity;
-import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-import androidx.navigation.fragment.navArgs;
-import br.com.caiorodri.agenpet.model.agendamento.Status;
-import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar;
-import br.com.caiorodri.agenpet.model.usuario.Usuario;
-import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar;
-import br.com.caiorodri.agenpet.utils.getNomeTraduzido;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import br.com.caiorodri.agenpet.R
+import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoCadastroBinding
+import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest
+import br.com.caiorodri.agenpet.model.agendamento.Status
+import br.com.caiorodri.agenpet.model.agendamento.Tipo
+import br.com.caiorodri.agenpet.model.animal.Animal
+import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar
+import br.com.caiorodri.agenpet.model.usuario.Usuario
+import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar
+import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
+import br.com.caiorodri.agenpet.ui.home.HomeActivity
+import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class AgendamentoCadastroFragment : Fragment() {
 
@@ -99,8 +99,6 @@ class AgendamentoCadastroFragment : Fragment() {
             binding.editTextData.setText(formatadorDeDataUI.format(Date(agendamento.dataAgendamentoInicio)));
             binding.autoCompleteHorario.setText(formatadorDeHora.format(Date(agendamento.dataAgendamentoInicio)));
 
-//            horarioAdapter.add(formatadorDeHora.format(Date(agendamento.dataAgendamentoInicio)));
-//            horarioAdapter.notifyDataSetChanged();
             binding.menuHorario.isEnabled = true;
 
             binding.inputLayoutData.isEnabled = false;
@@ -117,6 +115,7 @@ class AgendamentoCadastroFragment : Fragment() {
             }
 
         } else {
+
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.cadastrar_novo_agendamento);
             binding.buttonSalvar.text = getString(R.string.button_salvar);
 

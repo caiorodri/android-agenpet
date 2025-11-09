@@ -10,7 +10,6 @@ import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.api.controller.UsuarioController
 import br.com.caiorodri.agenpet.model.usuario.Estado
 import br.com.caiorodri.agenpet.model.usuario.LoginResponse
-import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
 import kotlinx.coroutines.Dispatchers

@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import br.com.caiorodri.agenpet.databinding.ItemAgendamentoCompletoBinding
 import br.com.caiorodri.agenpet.R
+import br.com.caiorodri.agenpet.databinding.ItemAgendamentoCompletoBinding
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import java.text.SimpleDateFormat

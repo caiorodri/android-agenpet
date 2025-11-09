@@ -15,17 +15,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.api.controller.UsuarioController
-import br.com.caiorodri.agenpet.model.agendamento.Agendamento
-import br.com.caiorodri.agenpet.model.animal.Animal
 import br.com.caiorodri.agenpet.model.usuario.LoginRequest
 import br.com.caiorodri.agenpet.model.usuario.Usuario
-import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.security.SessionManager
-import br.com.caiorodri.agenpet.ui.home.HomeActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.jvm.java
 
 class LoginActivity : AppCompatActivity() {
 
@@ -101,17 +96,15 @@ class LoginActivity : AppCompatActivity() {
 
                         val usuarioResponse = loginResponse.usuario;
 
-                        Toast.makeText(this@LoginActivity, "Bem-vindo, ${usuarioResponse.nome}!", Toast.LENGTH_SHORT).show()
-
-                        val intentHome = Intent(this@LoginActivity, HomeActivity::class.java);
+                        val intentLoading = Intent(this@LoginActivity, LoadingActivity::class.java);
 
                         val usuarioLogado = Usuario(usuarioResponse);
 
-                        Log.d("LoginActivity", "Enviando usuário para Home com ${usuarioLogado.agendamentos?.size} agendamentos")
+                        Log.d("LoginActivity", "Enviando usuário ${usuarioLogado.nome} para LoadingActivity")
 
-                        intentHome.putExtra("usuarioLogado", usuarioLogado);
+                        intentLoading.putExtra("usuarioLogado", usuarioLogado);
 
-                        startActivity(intentHome);
+                        startActivity(intentLoading);
                         finish();
 
                     } else {

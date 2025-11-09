@@ -44,14 +44,14 @@
 
                 <ImageView
                     android:id="@+id/image_view_logo"
-                    android:layout_width="120dp"
+                    android:layout_width="140dp"
                     android:layout_height="120dp"
                     android:layout_marginTop="32dp"
                     android:contentDescription="@string/cd_logo_app"
-                    app:srcCompat="@mipmap/ic_launcher_round"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_logo_name" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_login_fields"
