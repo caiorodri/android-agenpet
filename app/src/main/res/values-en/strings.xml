@@ -287,4 +287,13 @@
     <string name="erro_sem_horarios_disponiveis">No available time slots for this date</string>
     <string name="titulo_datepicker_data_agendamento">Select Appointment Date</string>
 
+    <string name="button_alterar_senha">Change Password</string>
+    <string name="hint_senha_antiga">Old Password</string>
+    <string name="hint_nova_senha">New Password</string>
+    <string name="hint_confirmar_nova_senha">Confirm New Password</string>
+    <string name="button_salvar_nova_senha">Save New Password</string>
+    <string name="sucesso_alterar_senha">Password changed successfully!</string>
+    <string name="erro_senha_nova_igual_antiga">The new password cannot be the same as the old password.</string>
+    <string name="erro_alterar_senha_falha">Could not change password. Check your old password and try again.</string>
+
 </resources>

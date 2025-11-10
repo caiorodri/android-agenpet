@@ -287,4 +287,13 @@
     <string name="erro_sem_horarios_disponiveis">No hay horarios disponibles para esta fecha</string>
     <string name="titulo_datepicker_data_agendamento">Seleccione la Fecha de la Cita</string>
 
+    <string name="button_alterar_senha">Cambiar Contraseña</string>
+    <string name="hint_senha_antiga">Contraseña Antigua</string>
+    <string name="hint_nova_senha">Nueva Contraseña</string>
+    <string name="hint_confirmar_nova_senha">Confirmar Nueva Contraseña</string>
+    <string name="button_salvar_nova_senha">Guardar Nueva Contraseña</string>
+    <string name="sucesso_alterar_senha">¡Contraseña cambiada con éxito!</string>
+    <string name="erro_senha_nova_igual_antiga">La nueva contraseña no puede ser igual que la contraseña antigua.</string>
+    <string name="erro_alterar_senha_falha">No se pudo cambiar la contraseña. Verifique su contraseña antigua e inténtelo de nuevo.</string>
+
 </resources>

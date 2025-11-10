@@ -307,4 +307,13 @@
     <string name="erro_sem_horarios_disponiveis">Sem horários disponíveis para esta data</string>
     <string name="titulo_datepicker_data_agendamento">Selecione a Data do Agendamento</string>
 
+    <string name="button_alterar_senha">Alterar Senha</string>
+    <string name="hint_senha_antiga">Senha Antiga</string>
+    <string name="hint_nova_senha">Nova Senha</string>
+    <string name="hint_confirmar_nova_senha">Confirmar Nova Senha</string>
+    <string name="button_salvar_nova_senha">Salvar Nova Senha</string>
+    <string name="sucesso_alterar_senha">Senha alterada com sucesso!</string>
+    <string name="erro_senha_nova_igual_antiga">A nova senha não pode ser igual à senha antiga.</string>
+    <string name="erro_alterar_senha_falha">Não foi possível alterar a senha. Verifique sua senha antiga e tente novamente.</string>
+
 </resources>

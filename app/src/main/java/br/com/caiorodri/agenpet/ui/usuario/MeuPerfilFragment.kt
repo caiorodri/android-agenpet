@@ -55,7 +55,35 @@ class MeuPerfilFragment : Fragment() {
         timeZone = TimeZone.getTimeZone("UTC");
     };
     private var usuarioAtual: Usuario? = null;
-    private var listaDeEstados: List<Estado> = emptyList();
+    private var listaDeEstados: List<Estado> = listOf(
+        Estado("Acre", "AC"),
+        Estado("Alagoas", "AL"),
+        Estado("Amapá", "AP"),
+        Estado("Amazonas", "AM"),
+        Estado("Bahia", "BA"),
+        Estado("Ceará", "CE"),
+        Estado("Distrito Federal", "DF"),
+        Estado("Espírito Santo", "ES"),
+        Estado("Goiás", "GO"),
+        Estado("Maranhão", "MA"),
+        Estado("Mato Grosso", "MT"),
+        Estado("Mato Grosso do Sul", "MS"),
+        Estado("Minas Gerais", "MG"),
+        Estado("Pará", "PA"),
+        Estado("Paraíba", "PB"),
+        Estado("Paraná", "PR"),
+        Estado("Pernambuco", "PE"),
+        Estado("Piauí", "PI"),
+        Estado("Rio de Janeiro", "RJ"),
+        Estado("Rio Grande do Norte", "RN"),
+        Estado("Rio Grande do Sul", "RS"),
+        Estado("Rondônia", "RO"),
+        Estado("Roraima", "RR"),
+        Estado("Santa Catarina", "SC"),
+        Estado("São Paulo", "SP"),
+        Estado("Sergipe", "SE"),
+        Estado("Tocantins", "TO")
+    )
     private val storage = Firebase.storage;
     private var fotoUri: Uri? = null;
     private var fotoUrlExistente: String? = null;
@@ -123,6 +151,15 @@ class MeuPerfilFragment : Fragment() {
 
         setupListeners();
         setupObservers();
+
+        val siglas = listaDeEstados.map { it.sigla }
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, siglas);
+        binding.autoCompleteEstado.setAdapter(adapter);
+
+        usuarioAtual?.endereco?.estado?.sigla?.let {
+            binding.autoCompleteEstado.setText(it, false);
+        }
+
         binding.editTextDataNascimento.addTextChangedListener(DateMaskTextWatcher(binding.editTextDataNascimento));
     }
 
@@ -140,6 +177,10 @@ class MeuPerfilFragment : Fragment() {
 
         binding.imageViewFotoPerfil.setOnClickListener {
             selecionarImagemLauncher.launch("image/*");
+        }
+
+        binding.buttonAlterarSenha.setOnClickListener {
+            AlterarSenhaBottomSheet().show(childFragmentManager, AlterarSenhaBottomSheet.TAG);
         }
 
     }
@@ -178,18 +219,6 @@ class MeuPerfilFragment : Fragment() {
                 sharedViewModel.setUsuario(usuarioAtualizado);
                 viewModel.resetUpdateSuccess();
                 findNavController().popBackStack();
-            }
-        }
-
-        viewModel.estados.observe(viewLifecycleOwner) { estados ->
-
-            listaDeEstados = estados;
-            val siglas = estados.map { it.sigla }
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, siglas);
-            binding.autoCompleteEstado.setAdapter(adapter);
-
-            usuarioAtual?.endereco?.estado?.sigla?.let {
-                binding.autoCompleteEstado.setText(it, false);
             }
         }
 
