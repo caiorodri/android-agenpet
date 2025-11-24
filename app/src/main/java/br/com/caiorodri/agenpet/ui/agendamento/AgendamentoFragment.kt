@@ -10,18 +10,24 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoBinding
+import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoCompletoAdapter
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel
+import br.com.caiorodri.agenpet.ui.home.HomeActivity
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
 
 class AgendamentoFragment : Fragment() {
 
     private var _binding: FragmentAgendamentoBinding? = null;
     private val binding get() = _binding!!;
-    private val sharedViewModel: HomeSharedViewModel by activityViewModels();
     private val viewModel: AgendamentoViewModel by viewModels();
     private lateinit var agendamentoAdapter: AgendamentoCompletoAdapter;
+    private lateinit var usuarioLogadoLiveData: LiveData<Usuario>;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +39,24 @@ class AgendamentoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
+
+        val activity = requireActivity();
+
+        if(activity is ClienteHomeActivity){
+
+            val sharedViewModel = ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+            usuarioLogadoLiveData = sharedViewModel.usuarioLogado;
+
+        } else if (activity is HomeActivity){
+
+            val sharedViewModel = ViewModelProvider(activity)[HomeSharedViewModel::class.java];
+            usuarioLogadoLiveData = sharedViewModel.usuarioLogado;
+
+        } else {
+
+            throw IllegalStateException("Activity não suportada");
+
+        }
 
         setupRecyclerView();
         setupListeners();
@@ -64,19 +88,23 @@ class AgendamentoFragment : Fragment() {
         };
 
         binding.swipeRefreshLayoutAgendamentos.setOnRefreshListener {
-            sharedViewModel.usuarioLogado.value?.let { usuario ->
+            usuarioLogadoLiveData.value?.let { usuario ->
                 viewModel.carregarAgendamentos(usuario.id!!);
             };
         };
     }
 
     private fun setupObservers() {
-        sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
+
+        usuarioLogadoLiveData.observe(viewLifecycleOwner) { usuario ->
+
             viewModel.setAgendamentosIniciais(usuario.agendamentos ?: emptyList());
+            
             if (usuario?.id != null) {
-                viewModel.carregarAgendamentos(usuario.id!!);
+                viewModel.carregarAgendamentos(usuario.id);
             }
-        };
+
+        }
 
         viewModel.agendamentos.observe(viewLifecycleOwner) { lista ->
             if (lista.isEmpty()) {

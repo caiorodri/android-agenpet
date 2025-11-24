@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="br.com.caiorodri.agenpet.ui.home.HomeFragment"
+        android:name="br.com.caiorodri.agenpet.ui.home.ClienteHomeFragment"
         android:label="@string/label_inicio"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home_cliente">
 
         <action
             android:id="@+id/action_homeFragment_to_agendamentoCadastroFragment"
@@ -27,7 +27,6 @@
             android:id="@+id/action_agendamentoFragment_to_agendamentoCadastroFragment"
             app:destination="@id/agendamentoCadastroFragment" />
     </fragment>
-
 
     <fragment
         android:id="@+id/animalFragment"

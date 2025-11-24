@@ -15,6 +15,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.FragmentMeuPerfilBinding
@@ -24,6 +26,9 @@ import br.com.caiorodri.agenpet.model.usuario.Estado
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
 import br.com.caiorodri.agenpet.security.SessionManager
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel
+import br.com.caiorodri.agenpet.ui.home.HomeActivity
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -49,12 +54,14 @@ class MeuPerfilFragment : Fragment() {
     private lateinit var sessionManager: SessionManager;
 
     private val viewModel: MeuPerfilViewModel by viewModels();
-    private val sharedViewModel: HomeSharedViewModel by activityViewModels();
-
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
     };
     private var usuarioAtual: Usuario? = null;
+
+    private lateinit var usuarioLogadoLiveData: LiveData<Usuario>
+    private var updateUsuarioCallback: ((Usuario) -> Unit)? = null
+
     private var listaDeEstados: List<Estado> = listOf(
         Estado("Acre", "AC"),
         Estado("Alagoas", "AL"),
@@ -149,6 +156,26 @@ class MeuPerfilFragment : Fragment() {
 
         sessionManager = SessionManager(requireContext());
 
+        val activity = requireActivity();
+
+        if (activity is ClienteHomeActivity) {
+
+            val viewModel = ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+
+            usuarioLogadoLiveData = viewModel.usuarioLogado;
+            updateUsuarioCallback = { novoUsuario -> viewModel.setUsuario(novoUsuario) }
+
+        } else if (activity is HomeActivity) {
+
+            val viewModel = ViewModelProvider(activity)[HomeSharedViewModel::class.java];
+
+            usuarioLogadoLiveData = viewModel.usuarioLogado;
+            updateUsuarioCallback = { novoUsuario -> viewModel.setUsuario(novoUsuario) }
+
+        } else {
+            throw IllegalStateException("MeuPerfilFragment deve ser usado dentro de ClienteHomeActivity ou HomeActivity")
+        }
+
         setupListeners();
         setupObservers();
 
@@ -198,27 +225,29 @@ class MeuPerfilFragment : Fragment() {
             }
         };
 
-        sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
+        usuarioLogadoLiveData.observe(viewLifecycleOwner) { usuario ->
             if (usuario != null) {
-                usuarioAtual = usuario;
-                popularCampos(usuario);
+                usuarioAtual = usuario
+                popularCampos(usuario)
             } else {
-                Toast.makeText(context, getString(R.string.info_perfil_nao_carregado), Toast.LENGTH_SHORT).show();
-                findNavController().popBackStack();
+                Toast.makeText(context, getString(R.string.info_perfil_nao_carregado), Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
             }
         }
 
         viewModel.updateSuccess.observe(viewLifecycleOwner) { loginResponse ->
+
             if (loginResponse != null) {
+
                 Toast.makeText(context, getString(R.string.toast_perfil_atualizado_sucesso), Toast.LENGTH_SHORT).show();
 
                 sessionManager.saveAuthToken(loginResponse.token);
-
                 val usuarioAtualizado = Usuario(loginResponse.usuario);
+                updateUsuarioCallback?.invoke(usuarioAtualizado);
 
-                sharedViewModel.setUsuario(usuarioAtualizado);
                 viewModel.resetUpdateSuccess();
                 findNavController().popBackStack();
+
             }
         }
 

@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:navGraph="@navigation/nav_graph"
+            app:navGraph="@navigation/nav_graph_profissional"
             app:defaultNavHost="true"/>
 
         <com.google.android.material.bottomappbar.BottomAppBar
@@ -63,6 +63,7 @@
             app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"

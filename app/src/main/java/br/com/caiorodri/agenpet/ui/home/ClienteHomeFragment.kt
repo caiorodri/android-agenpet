@@ -17,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import br.com.caiorodri.agenpet.R
-import br.com.caiorodri.agenpet.databinding.FragmentHomeBinding
+import br.com.caiorodri.agenpet.databinding.FragmentHomeClienteBinding
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoAdapter
 import br.com.caiorodri.agenpet.ui.adapter.PropagandaAdapter
@@ -25,18 +25,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HomeFragment : Fragment() {
+class ClienteHomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null;
+    private var _binding: FragmentHomeClienteBinding? = null;
     private val binding get() = _binding!!;
-    private val sharedViewModel: HomeSharedViewModel by activityViewModels();
-    private val viewModel: HomeViewModel by viewModels();
+    private val sharedViewModel: ClienteHomeSharedViewModel by activityViewModels();
+    private val viewModel: ClienteHomeViewModel by viewModels();
     private lateinit var agendamentoAdapter: AgendamentoAdapter;
     private lateinit var propagandaAdapter: PropagandaAdapter;
     private val listaPropagandas = listOf(
@@ -51,7 +50,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false);
+        _binding = FragmentHomeClienteBinding.inflate(inflater, container, false);
         return binding.root;
     }
 
@@ -64,14 +63,14 @@ class HomeFragment : Fragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             Log.d("HomeFragment", "Iniciando atualização...");
-            (activity as? HomeActivity)?.carregarDadosDoUsuario();
+            (activity as? ClienteHomeActivity)?.carregarDadosDoUsuario();
         }
 
     }
 
     private fun setupRecyclerView() {
         agendamentoAdapter = AgendamentoAdapter{ agendamentoClicado ->
-            val action = HomeFragmentDirections.actionHomeFragmentToAgendamentoCadastroFragment(agendamentoClicado);
+            val action = ClienteHomeFragmentDirections.actionHomeFragmentToAgendamentoCadastroFragment(agendamentoClicado);
             findNavController().navigate(action);
         }
 
@@ -138,7 +137,7 @@ class HomeFragment : Fragment() {
 
                 progressBarFotoUltimo.visibility = View.VISIBLE;
 
-                Glide.with(this@HomeFragment)
+                Glide.with(this@ClienteHomeFragment)
                     .load(agendamento.animal.urlImagem)
                     .placeholder(R.drawable.ic_pet)
                     .error(R.drawable.ic_pet)
@@ -158,7 +157,7 @@ class HomeFragment : Fragment() {
             }
 
             cardRoot.setOnClickListener {
-                val action = HomeFragmentDirections.actionHomeFragmentToAgendamentoCadastroFragment(agendamento);
+                val action = ClienteHomeFragmentDirections.actionHomeFragmentToAgendamentoCadastroFragment(agendamento);
                 findNavController().navigate(action);
             }
 

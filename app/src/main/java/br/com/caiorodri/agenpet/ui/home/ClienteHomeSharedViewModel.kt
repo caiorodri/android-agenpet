@@ -8,20 +8,20 @@ import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import br.com.caiorodri.agenpet.model.animal.Animal
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 
-class HomeSharedViewModel : ViewModel() {
+class ClienteHomeSharedViewModel : ViewModel() {
 
-    private val _usuarioLogado = MutableLiveData<Usuario>()
-    val usuarioLogado: LiveData<Usuario> = _usuarioLogado
+    private val _usuarioLogado = MutableLiveData<Usuario>();
+    val usuarioLogado: LiveData<Usuario> = _usuarioLogado;
 
-    private val _isLoading = MutableLiveData<Boolean>(false)
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableLiveData<Boolean>(false);
+    val isLoading: LiveData<Boolean> = _isLoading;
 
     fun setUsuario(usuario: Usuario) {
-        _usuarioLogado.value = usuario
+        _usuarioLogado.value = usuario;
     }
 
     fun setLoading(loading: Boolean) {
-        _isLoading.value = loading
+        _isLoading.value = loading;
     }
 
     fun atualizarAgendamentoLocalmente(agendamento: Agendamento) {
@@ -29,48 +29,48 @@ class HomeSharedViewModel : ViewModel() {
         val usuarioAtual = _usuarioLogado.value;
         if (usuarioAtual == null) {
             Log.w("HomeSharedVM", "Usuário nulo, não foi possível fazer a atualização.");
-            return
+            return;
         }
 
-        val listaAgendamentosAtual = usuarioAtual.agendamentos?.toMutableList() ?: mutableListOf()
+        val listaAgendamentosAtual = usuarioAtual.agendamentos?.toMutableList() ?: mutableListOf();
 
         val index = listaAgendamentosAtual.indexOfFirst { it.id == agendamento.id }
 
         if (index != -1) {
-            listaAgendamentosAtual[index] = agendamento
-            Log.d("HomeSharedVM", "Agendamengo ID ${agendamento.id} atualizado localmente.")
+            listaAgendamentosAtual[index] = agendamento;
+            Log.d("HomeSharedVM", "Agendamengo ID ${agendamento.id} atualizado localmente.");
         } else {
-            listaAgendamentosAtual.add(0, agendamento)
-            Log.d("HomeSharedVM", "Novo Agendamento ID ${agendamento.id} adicionado localmente.")
+            listaAgendamentosAtual.add(0, agendamento);
+            Log.d("HomeSharedVM", "Novo Agendamento ID ${agendamento.id} adicionado localmente.");
         }
 
-        val usuarioAtualizado = usuarioAtual.copy(agendamentos = listaAgendamentosAtual)
+        val usuarioAtualizado = usuarioAtual.copy(agendamentos = listaAgendamentosAtual);
 
-        _usuarioLogado.value = usuarioAtualizado
+        _usuarioLogado.value = usuarioAtualizado;
     }
 
     fun atualizarAnimalLocalmente(animal: Animal) {
-        val usuarioAtual = _usuarioLogado.value
+        val usuarioAtual = _usuarioLogado.value;
         if (usuarioAtual == null) {
-            Log.w("HomeSharedVM", "Usuário nulo, não foi possível fazer a atualização otimista.")
+            Log.w("HomeSharedVM", "Usuário nulo, não foi possível fazer a atualização otimista.");
             return
         }
 
-        val listaAnimaisAtual = usuarioAtual.animais?.toMutableList() ?: mutableListOf()
+        val listaAnimaisAtual = usuarioAtual.animais?.toMutableList() ?: mutableListOf();
 
         val index = listaAnimaisAtual.indexOfFirst { it.id == animal.id }
 
         if (index != -1) {
-            listaAnimaisAtual[index] = animal
-            Log.d("HomeSharedVM", "Animal ID ${animal.id} atualizado localmente.")
+            listaAnimaisAtual[index] = animal;
+            Log.d("HomeSharedVM", "Animal ID ${animal.id} atualizado localmente.");
         } else {
-            listaAnimaisAtual.add(0, animal)
-            Log.d("HomeSharedVM", "Novo animal ID ${animal.id} adicionado localmente.")
+            listaAnimaisAtual.add(0, animal);
+            Log.d("HomeSharedVM", "Novo animal ID ${animal.id} adicionado localmente.");
         }
 
-        val usuarioAtualizado = usuarioAtual.copy(animais = listaAnimaisAtual)
+        val usuarioAtualizado = usuarioAtual.copy(animais = listaAnimaisAtual);
 
-        _usuarioLogado.value = usuarioAtualizado
+        _usuarioLogado.value = usuarioAtualizado;
     }
 
     fun removerAnimalLocalmente(animalId: Long) {

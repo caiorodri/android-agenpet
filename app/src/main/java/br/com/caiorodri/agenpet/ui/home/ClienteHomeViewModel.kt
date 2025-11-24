@@ -9,7 +9,7 @@ import br.com.caiorodri.agenpet.api.controller.AgendamentoController;
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento;
 import kotlinx.coroutines.launch;
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class ClienteHomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val agendamentoController = AgendamentoController(application);
 

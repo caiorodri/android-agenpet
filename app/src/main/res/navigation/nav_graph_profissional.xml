@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_profissional"
+    app:startDestination="@id/homeProfissionalFragment">
+
+    <fragment
+        android:id="@+id/homeProfissionalFragment"
+        android:name="br.com.caiorodri.agenpet.ui.home.HomeFragment"
+        android:label="Início"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/meuPerfilFragment"
+        android:name="br.com.caiorodri.agenpet.ui.usuario.MeuPerfilFragment"
+        android:label="@string/title_meu_perfil"
+        tools:layout="@layout/fragment_meu_perfil" />
+
+    <fragment
+        android:id="@+id/agendamentoFragment"
+        android:name="br.com.caiorodri.agenpet.ui.agendamento.AgendamentoFragment"
+        android:label="@string/label_meus_agendamentos"
+        tools:layout="@layout/fragment_agendamento">
+
+        <action
+            android:id="@+id/action_agendamentoFragment_to_agendamentoCadastroFragment"
+            app:destination="@id/agendamentoCadastroFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/agendamentoCadastroFragment"
+        android:name="br.com.caiorodri.agenpet.ui.agendamento.AgendamentoCadastroFragment"
+        android:label="Agendamento"
+        tools:layout="@layout/fragment_agendamento_cadastro">
+
+        <argument
+            android:name="agendamento"
+            android:defaultValue="@null"
+            app:argType="br.com.caiorodri.agenpet.model.agendamento.Agendamento"
+            app:nullable="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/funcionarioFragment"
+        android:name="br.com.caiorodri.agenpet.ui.usuario.FuncionarioFragment"
+        android:label="Funcionários"
+        tools:layout="@layout/fragment_funcionario">
+
+        <action
+            android:id="@+id/action_funcionarioFragment_to_funcionarioCadastroFragment"
+            app:destination="@id/funcionarioCadastroFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/funcionarioCadastroFragment"
+        android:name="br.com.caiorodri.agenpet.ui.usuario.FuncionarioCadastroFragment"
+        android:label="Funcionário"
+        tools:layout="@layout/fragment_funcionario_cadastro">
+
+        <argument
+            android:name="funcionario"
+            android:defaultValue="@null"
+            app:argType="br.com.caiorodri.agenpet.model.usuario.Usuario"
+            app:nullable="true" />
+
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_meuPerfilFragment"
+        app:destination="@id/meuPerfilFragment" />
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="br.com.caiorodri.agenpet.ui.settings.SettingsFragment"
+        android:label="@string/configuracao"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

@@ -112,11 +112,22 @@ class CadastroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState);
         enableEdgeToEdge();
         setContentView(R.layout.activity_cadastro);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cadastro_root)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            WindowInsetsCompat.CONSUMED;
-        };
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cadastro_root)) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+
+            val bottomPadding = if (ime.bottom > 0) ime.bottom else systemBars.bottom
+
+            view.setPadding(
+                systemBars.left,
+                0,
+                systemBars.right,
+                bottomPadding
+            )
+
+            insets
+        }
 
         usuarioController = UsuarioController(this);
 

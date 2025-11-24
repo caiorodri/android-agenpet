@@ -6,6 +6,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,7 @@ import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.api.controller.UsuarioController
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.security.SessionManager
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
 import br.com.caiorodri.agenpet.ui.home.HomeActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -97,6 +99,12 @@ class LoadingActivity : AppCompatActivity() {
 
             if (finalUsuario != null) {
 
+                val perfil = finalUsuario.perfil?.nome?.uppercase();
+
+
+
+
+
                 val primeiroNome = finalUsuario.nome.split(" ")[0]
                 val welcomeMessage = "> Bem-vindo(a), $primeiroNome!"
 
@@ -111,8 +119,20 @@ class LoadingActivity : AppCompatActivity() {
             fadeOut.duration = 500L;
 
             fadeOut.doOnEnd {
+
                 if (finalUsuario != null) {
-                    navigateToHome(finalUsuario);
+
+                    val perfil = finalUsuario.perfil?.nome?.uppercase()
+
+                    when (perfil) {
+                        "ADMINISTRADOR", "VETERINARIO", "RECEPCIONISTA" -> {
+                            navigateToHome(finalUsuario)
+                        }
+                        else -> {
+                            navigateToClienteHome(finalUsuario)
+                        }
+                    }
+
                 } else {
                     navigateToLogin();
                 }
@@ -179,8 +199,8 @@ class LoadingActivity : AppCompatActivity() {
 
     }
 
-    private fun navigateToHome(usuario: Usuario) {
-        val intent = Intent(this, HomeActivity::class.java).apply {
+    private fun navigateToClienteHome(usuario: Usuario) {
+        val intent = Intent(this, ClienteHomeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK;
             putExtra("usuarioLogado", usuario);
         }
@@ -194,6 +214,18 @@ class LoadingActivity : AppCompatActivity() {
         startActivity(intent, options.toBundle());
 
         finish();
+    }
+
+    private fun navigateToHome(usuario: Usuario) {
+
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra("usuarioLogado", usuario)
+        }
+
+        val options = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in_suave, 0)
+        startActivity(intent, options.toBundle())
+        finish()
     }
 
     private fun navigateToLogin() {

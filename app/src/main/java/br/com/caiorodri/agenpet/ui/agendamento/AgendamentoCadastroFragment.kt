@@ -25,8 +25,9 @@ import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
-import br.com.caiorodri.agenpet.ui.home.HomeActivity
-import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel
+import br.com.caiorodri.agenpet.ui.usuario.FuncionarioViewModel
 import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -44,7 +45,7 @@ class AgendamentoCadastroFragment : Fragment() {
     private val binding get() = _binding!!;
 
     private val viewModel: AgendamentoCadastroViewModel by viewModels();
-    private val sharedViewModel: HomeSharedViewModel by activityViewModels();
+    private val sharedViewModel: ClienteHomeSharedViewModel by activityViewModels();
 
     private val formatadorDeDataUI = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
@@ -85,6 +86,7 @@ class AgendamentoCadastroFragment : Fragment() {
     private fun setupUIBase(agendamento: Agendamento?) {
 
         if (agendamento != null) {
+
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.titulo_editar_agendamento);
             binding.buttonSalvar.text = getString(R.string.button_atualizar);
 
@@ -233,7 +235,13 @@ class AgendamentoCadastroFragment : Fragment() {
             agendamentoSalvo ?: return@observe;
 
             Toast.makeText(requireContext(), getString(R.string.sucesso_agendamento_salvo), Toast.LENGTH_SHORT).show();
-            (activity as? HomeActivity)?.carregarDadosDoUsuario();
+
+            val agendamentoConvertido = Agendamento(agendamentoSalvo);
+            val agendamentoFinal = agendamentoConvertido.copy();
+
+            sharedViewModel.atualizarAgendamentoLocalmente(agendamentoFinal);
+            (activity as? ClienteHomeActivity)?.carregarDadosDoUsuario();
+
             viewModel.resetAgendamentoSalvo();
             findNavController().popBackStack();
 
@@ -251,7 +259,7 @@ class AgendamentoCadastroFragment : Fragment() {
                 listaStatus = statusList;
             }
 
-            val nomesStatus = listaStatus.map { it.getNomeTraduzido(requireContext()) };
+            val nomesStatus = listaStatus.map { it.getNomeTraduzido(requireContext()) }
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesStatus);
             binding.autoCompleteStatus.setAdapter(adapter);
 

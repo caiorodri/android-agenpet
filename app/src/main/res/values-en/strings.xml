@@ -296,4 +296,23 @@
     <string name="erro_senha_nova_igual_antiga">The new password cannot be the same as the old password.</string>
     <string name="erro_alterar_senha_falha">Could not change password. Check your old password and try again.</string>
 
+    <string name="erro_carregar_usuario">Could not load user data. Check your internet connection.</string>
+
+    <string name="titulo_funcionarios">Employees</string>
+    <string name="label_cargo">Role</string>
+    <string name="hint_cargo_selecione">Select role</string>
+    <string name="cargo_veterinario">Veterinarian</string>
+    <string name="cargo_recepcionista">Receptionist</string>
+    <string name="botao_cadastrar_funcionario">Register Employee</string>
+    <string name="erro_cargo_vazio">Please select a valid role.</string>
+    <string name="sucesso_funcionario_salvo">Employee saved successfully!</string>
+    <string name="erro_carregar_funcionarios">Error loading employee list.</string>
+    <string name="info_sem_funcionarios">No employees found.</string>
+    <string name="hint_senha_inicial">Initial Password</string>
+    <string name="titulo_editar_funcionario">Edit Employee</string>
+    <string name="botao_atualizar_funcionario">Update Employee</string>
+    <string name="hint_senha_opcional">New Password (Optional)</string>
+    <string name="sucesso_funcionario_atualizado">Employee updated successfully!</string>
+    <string name="erro_atualizar_funcionario">Error updating employee.</string>
+
 </resources>

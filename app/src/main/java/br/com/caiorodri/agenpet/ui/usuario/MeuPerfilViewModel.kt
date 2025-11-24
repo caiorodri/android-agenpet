@@ -32,12 +32,6 @@ class MeuPerfilViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val _updateSuccess = MutableLiveData<LoginResponse?>();
     val updateSuccess: LiveData<LoginResponse?> = _updateSuccess;
-    private val _estados = MutableLiveData<List<Estado>>();
-    val estados: LiveData<List<Estado>> = _estados;
-
-    init {
-        carregarEstados();
-    }
 
     fun setIsLoading(loading: Boolean) {
         _isLoading.value = loading;
@@ -83,20 +77,6 @@ class MeuPerfilViewModel(application: Application) : AndroidViewModel(applicatio
 
         }
 
-    }
-
-    private fun carregarEstados() {
-        viewModelScope.launch {
-            try {
-                val lista = withContext(Dispatchers.IO) {
-                    usuarioController.listarEstados()
-                }
-                _estados.postValue(lista)
-            } catch (e: Exception) {
-                Log.e("MeuPerfilVM", "Erro ao carregar estados", e)
-                _error.postValue(getApplication<Application>().getString(R.string.erro_carregar_lista))
-            }
-        }
     }
 
     fun resetUpdateSuccess() {

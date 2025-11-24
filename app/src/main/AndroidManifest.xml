@@ -14,18 +14,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgenPet">
         <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
             android:name=".ui.inicio.LoadingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.inicio.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.home.ClienteHomeActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.inicio.CadastroActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.inicio.SplashActivity"
             android:exported="true"

@@ -13,13 +13,13 @@ import androidx.fragment.app.viewModels;
 import androidx.navigation.fragment.findNavController;
 import br.com.caiorodri.agenpet.databinding.FragmentAnimalBinding;
 import br.com.caiorodri.agenpet.ui.adapter.AnimalAdapter;
-import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel;
 
 class AnimalFragment : Fragment() {
 
     private var _binding: FragmentAnimalBinding? = null;
     private val binding get() = _binding!!;
-    private val sharedViewModel: HomeSharedViewModel by activityViewModels();
+    private val sharedViewModel: ClienteHomeSharedViewModel by activityViewModels();
     private val viewModel: AnimalViewModel by viewModels();
     private lateinit var animalAdapter: AnimalAdapter;
 
@@ -73,11 +73,14 @@ class AnimalFragment : Fragment() {
     private fun setupObservers() {
 
         sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
+
             viewModel.setAnimaisIniciais(usuario.animais ?: emptyList());
+
             if (usuario?.id != null) {
                 viewModel.carregarAnimais(usuario.id);
             }
-        };
+
+        }
 
         viewModel.animais.observe(viewLifecycleOwner) { lista ->
 

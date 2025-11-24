@@ -25,8 +25,8 @@ import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.FragmentAnimalCadastroBinding
 import br.com.caiorodri.agenpet.model.animal.Animal
 import br.com.caiorodri.agenpet.model.usuario.Usuario
-import br.com.caiorodri.agenpet.ui.home.HomeActivity
-import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel
 import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -49,7 +49,7 @@ class AnimalCadastroFragment : Fragment() {
     private var _binding: FragmentAnimalCadastroBinding? = null;
     private val binding get() = _binding!!;
     private val viewModel: AnimalCadastroViewModel by viewModels();
-    private val sharedViewModel: HomeSharedViewModel by activityViewModels();
+    private val sharedViewModel: ClienteHomeSharedViewModel by activityViewModels();
     private val args: AnimalCadastroFragmentArgs by navArgs();
     private var animalParaEdicao: Animal? = null;
     private val formatadorDeData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
@@ -339,7 +339,7 @@ class AnimalCadastroFragment : Fragment() {
             );
 
             sharedViewModel.atualizarAnimalLocalmente(animalFinal);
-            (activity as? HomeActivity)?.carregarDadosDoUsuario();
+            (activity as? ClienteHomeActivity)?.carregarDadosDoUsuario();
 
             viewModel.resetAnimalSalvo();
             findNavController().popBackStack();
@@ -354,7 +354,7 @@ class AnimalCadastroFragment : Fragment() {
                 sharedViewModel.removerAnimalLocalmente(it);
             };
 
-            (activity as? HomeActivity)?.carregarDadosDoUsuario();
+            (activity as? ClienteHomeActivity)?.carregarDadosDoUsuario();
 
             viewModel.resetAnimalRemovido();
             findNavController().popBackStack();

@@ -32,16 +32,25 @@ class AnimalViewModel(application: Application) : AndroidViewModel(application) 
 
     fun carregarAnimais(idDono: Long) {
         viewModelScope.launch {
+
             _isLoading.postValue(true);
+
             try {
-                val animaisResponse = animalController.listarAnimaisByDonoId(idDono)
+
+                val animaisResponse = animalController.listarAnimaisByDonoId(idDono);
                 val novosAnimais = animaisResponse.map { response -> Animal(response) }
-                listaCompleta = novosAnimais
-                _animais.postValue(novosAnimais)
+
+                listaCompleta = novosAnimais;
+                _animais.postValue(novosAnimais);
+
             } catch (e: Exception) {
+
                 _erro.postValue("Falha ao buscar os animais.")
+
             } finally {
+
                 _isLoading.postValue(false);
+
             }
         }
     }

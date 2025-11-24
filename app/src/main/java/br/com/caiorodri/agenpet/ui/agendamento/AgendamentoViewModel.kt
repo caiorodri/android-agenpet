@@ -41,6 +41,7 @@ class AgendamentoViewModel(application: Application) : AndroidViewModel(applicat
 
                 val agendamentosResponse = agendamentoController.listarAgendamentosByUsuarioId(idUsuario, 0, 25);
                 val novosAgendamentos = agendamentosResponse.map { response -> Agendamento(response) }
+
                 listaCompleta = novosAgendamentos;
                 _agendamentos.postValue(novosAgendamentos);
 

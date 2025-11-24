@@ -316,4 +316,23 @@
     <string name="erro_senha_nova_igual_antiga">A nova senha não pode ser igual à senha antiga.</string>
     <string name="erro_alterar_senha_falha">Não foi possível alterar a senha. Verifique sua senha antiga e tente novamente.</string>
 
+    <string name="erro_carregar_usuario">Erro ao carregar dados do usuário. Verifique sua conexão.</string>
+
+    <string name="titulo_funcionarios">Funcionários</string>
+    <string name="label_cargo">Cargo</string>
+    <string name="hint_cargo_selecione">Selecione o cargo</string>
+    <string name="cargo_veterinario">Veterinário</string>
+    <string name="cargo_recepcionista">Recepcionista</string>
+    <string name="botao_cadastrar_funcionario">Cadastrar Funcionário</string>
+    <string name="erro_cargo_vazio">Selecione um cargo válido.</string>
+    <string name="sucesso_funcionario_salvo">Funcionário salvo com sucesso!</string>
+    <string name="erro_carregar_funcionarios">Erro ao carregar lista de funcionários.</string>
+    <string name="info_sem_funcionarios">Nenhum funcionário encontrado.</string>
+    <string name="hint_senha_inicial">Senha Inicial</string>
+    <string name="titulo_editar_funcionario">Editar Funcionário</string>
+    <string name="botao_atualizar_funcionario">Atualizar Funcionário</string>
+    <string name="hint_senha_opcional">Nova Senha (Opcional)</string>
+    <string name="sucesso_funcionario_atualizado">Funcionário atualizado com sucesso!</string>
+    <string name="erro_atualizar_funcionario">Erro ao atualizar funcionário.</string>
+
 </resources>
