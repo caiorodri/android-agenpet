@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.isVisible;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.viewModels;
 import androidx.navigation.fragment.findNavController;
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager;
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.databinding.FragmentFuncionarioBinding;
@@ -45,8 +45,7 @@ class FuncionarioFragment : Fragment() {
         adapter = FuncionarioAdapter { funcionario ->
             val action = FuncionarioFragmentDirections.actionFuncionarioFragmentToFuncionarioCadastroFragment(funcionario);
             findNavController().navigate(action);
-
-        }
+        };
 
         binding.recyclerViewFuncionarios.layoutManager = LinearLayoutManager(context);
         binding.recyclerViewFuncionarios.adapter = adapter;
@@ -54,27 +53,47 @@ class FuncionarioFragment : Fragment() {
 
     private fun setupListeners() {
         binding.fabAddFuncionario.setOnClickListener {
-            findNavController().navigate(R.id.action_funcionarioFragment_to_funcionarioCadastroFragment);
+            val action = FuncionarioFragmentDirections.actionFuncionarioFragmentToFuncionarioCadastroFragment(null);
+            findNavController().navigate(action);
         };
 
         binding.swipeRefreshFuncionarios.setOnRefreshListener {
             viewModel.listarFuncionarios();
         };
+
+        binding.searchViewFuncionarios.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false;
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.filtrarFuncionarios(newText);
+                return true;
+            }
+        })
     }
 
     private fun setupObservers() {
         viewModel.funcionarios.observe(viewLifecycleOwner) { lista ->
             adapter.submitList(lista);
-            binding.textInfoVazio.isVisible = lista.isEmpty();
+
+            if (lista.isEmpty()) {
+                binding.textInfoVazio.isVisible = true;
+                binding.recyclerViewFuncionarios.isVisible = false;
+            } else {
+                binding.textInfoVazio.isVisible = false;
+                binding.recyclerViewFuncionarios.isVisible = true;
+            }
         };
 
         viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
-            binding.swipeRefreshFuncionarios.isRefreshing = loading;
 
-            if (loading && adapter.itemCount == 0) {
-                binding.progressBarCentro.isVisible = true;
+            if (loading) {
+                binding.swipeRefreshFuncionarios.isRefreshing = false;
+                binding.progressBarFuncionarios.isVisible = true;
             } else {
-                binding.progressBarCentro.isVisible = false;
+                binding.swipeRefreshFuncionarios.isRefreshing = false;
+                binding.progressBarFuncionarios.isVisible = false;
             }
         };
 

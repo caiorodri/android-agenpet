@@ -73,16 +73,46 @@ class ClienteHomeActivity : AppCompatActivity() {
         setupNavigation();
         setupObservers();
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.drawer_layout)) { view, insets ->
+        val rootView = findViewById<View>(R.id.drawer_layout);
+
+        ViewCompat.setOnApplyWindowInsetsListener(rootView) { view, insets ->
+
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             val ime = insets.getInsets(WindowInsetsCompat.Type.ime());
 
-            val bottomPadding = if (ime.bottom > 0) ime.bottom else systemBars.bottom;
+            val tecladoAberto = ime.bottom > 0;
 
+            val bottomPadding = if (tecladoAberto) ime.bottom else systemBars.bottom;
             view.setPadding(systemBars.left, 0, systemBars.right, bottomPadding);
 
+            if (tecladoAberto) {
+                bottomNavigationView.visibility = View.GONE;
+                findViewById<View>(R.id.bottomAppBar).visibility = View.GONE;
+
+                findViewById<View>(R.id.fragment_container).setPadding(0, 0, 0, 0);
+
+            } else {
+                val currentId = navController.currentDestination?.id;
+
+                val deveTerMenu = when (currentId) {
+                    R.id.homeFragment,
+                    R.id.agendamentoFragment,
+                    R.id.animalFragment -> true
+                    else -> false
+                }
+
+                if (deveTerMenu) {
+                    bottomNavigationView.visibility = View.VISIBLE;
+                    findViewById<View>(R.id.bottomAppBar).visibility = View.VISIBLE;
+
+                    val paddingMenu = (80 * resources.displayMetrics.density).toInt();
+                    findViewById<View>(R.id.fragment_container).setPadding(0, 0, 0, paddingMenu);
+                }
+            }
+
             insets;
-        };
+
+        }
     }
 
     private fun setupViews() {

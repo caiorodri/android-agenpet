@@ -119,6 +119,7 @@ class FuncionarioCadastroFragment : Fragment() {
     }
 
     private fun setupUIBase(funcionario: Usuario?) {
+
         if (funcionario != null) {
 
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.titulo_editar_funcionario);
@@ -132,7 +133,7 @@ class FuncionarioCadastroFragment : Fragment() {
             binding.editTextCpf.setText(funcionario.cpf);
 
 
-            val cargoTexto = if (funcionario.perfil?.id?.toInt() == 2) getString(R.string.cargo_veterinario) else getString(R.string.cargo_recepcionista);
+            val cargoTexto = if (funcionario.perfil?.id?.toInt() == 3) getString(R.string.cargo_veterinario) else getString(R.string.cargo_recepcionista);
             binding.autoCompleteCargo.setText(cargoTexto, false);
 
             if (!funcionario.telefones.isNullOrEmpty()) {
@@ -291,8 +292,8 @@ class FuncionarioCadastroFragment : Fragment() {
 
         if (!valido) return;
 
-        val perfilId: Int = if (cargoSelecionado == getString(R.string.cargo_veterinario)) 2 else 3;
-        val nomePerfil = if(perfilId == 2) "VETERINARIO" else "RECEPCIONISTA";
+        val perfilId: Int = if (cargoSelecionado == getString(R.string.cargo_veterinario)) 3 else 2;
+        val nomePerfil = if(perfilId == 3) "VETERINARIO" else "RECEPCIONISTA";
 
         if (fotoUri != null) {
             comprimirEUploadImagem(fotoUri!!) { urlFoto ->

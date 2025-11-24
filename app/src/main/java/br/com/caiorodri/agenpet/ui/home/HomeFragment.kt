@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import br.com.caiorodri.agenpet.databinding.FragmentHomeBinding;
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoAdapter;
+import br.com.caiorodri.agenpet.R;
 
 class HomeFragment : Fragment() {
 
@@ -40,8 +41,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+
         agendamentoAdapter = AgendamentoAdapter { agendamento ->
 
+            val action = HomeFragmentDirections.actionHomeProfissionalFragmentToAgendamentoCadastroFragment(agendamento);
+            findNavController().navigate(action);
 
 
         };
@@ -52,9 +56,11 @@ class HomeFragment : Fragment() {
 
     private fun setupListeners() {
         binding.cardCadastroFuncionarios.setOnClickListener {
-            // Navegar para tela de cadastro de funcionários
-            // findNavController().navigate(R.id.action_homeFragment_to_cadastroFuncionarioFragment)
-            Toast.makeText(context, "Ir para cadastro", Toast.LENGTH_SHORT).show();
+
+            val action = HomeFragmentDirections.actionHomeProfissionalFragmentToFuncionarioCadastroFragment();
+
+            findNavController().navigate(action);
+
         }
     }
 
