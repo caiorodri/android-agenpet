@@ -47,6 +47,56 @@ class AgendamentoController(private val context: Context) {
         return emptyList()
     }
 
+    suspend fun listarAgendamentosNaData(data: String): List<AgendamentoResponse> {
+        val endpoint = "listarAgendamentosNaData"
+        Log.i(TAG, "[$endpoint] - Inicio (Data: $data)")
+
+        try {
+            val response = agendamentoService.listarPorData(data)
+
+            if (response.isSuccessful) {
+                val agendamentos = response.body() ?: emptyList()
+                Log.i(TAG, "[$endpoint] - Sucesso. ${agendamentos.size} agendamentos encontrados para a data $data.")
+                Log.i(TAG, "[$endpoint] - Fim")
+                return agendamentos
+            } else {
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}")
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e)
+        } catch (e: Exception) {
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e)
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim (Retornando lista vazia)")
+        return emptyList()
+    }
+
+    suspend fun listarAgendamentosVeterinarioNaData(idVeterinario: Long, data: String): List<AgendamentoResponse> {
+        val endpoint = "listarAgendamentosVeterinarioNaData"
+        Log.i(TAG, "[$endpoint] - Inicio (VetID: $idVeterinario, Data: $data)")
+
+        try {
+            val response = agendamentoService.listarPorVeterinarioEData(idVeterinario, data)
+
+            if (response.isSuccessful) {
+                val agendamentos = response.body() ?: emptyList()
+                Log.i(TAG, "[$endpoint] - Sucesso. ${agendamentos.size} agendamentos encontrados do veterinário com id $idVeterinario para a data $data.")
+                Log.i(TAG, "[$endpoint] - Fim")
+                return agendamentos
+            } else {
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}")
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e)
+        } catch (e: Exception) {
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e)
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim (Retornando lista vazia)")
+        return emptyList()
+    }
+
     suspend fun recuperarAgendamento(id: Long): AgendamentoResponse? {
         val endpoint = "recuperarAgendamento"
         Log.i(TAG, "[$endpoint] - Inicio (ID: $id)")

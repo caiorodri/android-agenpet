@@ -78,6 +78,8 @@ class HomeActivity : AppCompatActivity() {
             deslogarEVoltarParaLogin();
         }
 
+        Log.d("HomeActivity", "Usuário logado: ${sharedViewModel.usuarioLogado.value}");
+
         drawerLayout = findViewById(R.id.drawer_layout);
         val navigationView: NavigationView = findViewById(R.id.navigation_view);
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -254,7 +256,7 @@ class HomeActivity : AppCompatActivity() {
                 val usuarioLogado = Usuario(usuarioResponse);
                 sharedViewModel.setUsuario(usuarioLogado);
             } else {
-                Toast.makeText(this@HomeActivity, "Sua sessão expirou. Por favor, faça login novamente.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@HomeActivity, R.string.erro_carregar_usuario, Toast.LENGTH_LONG).show()
                 deslogarEVoltarParaLogin();
             }
 

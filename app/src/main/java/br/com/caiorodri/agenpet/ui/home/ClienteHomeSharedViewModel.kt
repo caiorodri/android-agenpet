@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import br.com.caiorodri.agenpet.model.animal.Animal
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 
@@ -21,6 +22,31 @@ class HomeSharedViewModel : ViewModel() {
 
     fun setLoading(loading: Boolean) {
         _isLoading.value = loading
+    }
+
+    fun atualizarAgendamentoLocalmente(agendamento: Agendamento) {
+
+        val usuarioAtual = _usuarioLogado.value;
+        if (usuarioAtual == null) {
+            Log.w("HomeSharedVM", "Usuário nulo, não foi possível fazer a atualização.");
+            return
+        }
+
+        val listaAgendamentosAtual = usuarioAtual.agendamentos?.toMutableList() ?: mutableListOf()
+
+        val index = listaAgendamentosAtual.indexOfFirst { it.id == agendamento.id }
+
+        if (index != -1) {
+            listaAgendamentosAtual[index] = agendamento
+            Log.d("HomeSharedVM", "Agendamengo ID ${agendamento.id} atualizado localmente.")
+        } else {
+            listaAgendamentosAtual.add(0, agendamento)
+            Log.d("HomeSharedVM", "Novo Agendamento ID ${agendamento.id} adicionado localmente.")
+        }
+
+        val usuarioAtualizado = usuarioAtual.copy(agendamentos = listaAgendamentosAtual)
+
+        _usuarioLogado.value = usuarioAtualizado
     }
 
     fun atualizarAnimalLocalmente(animal: Animal) {

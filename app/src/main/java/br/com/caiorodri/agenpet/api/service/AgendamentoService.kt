@@ -41,6 +41,17 @@ interface AgendamentoService {
         @Query("quantidadeItens") quantidadeItens: Int
     ): Response<PageResponse<AgendamentoResponse>>
 
+    @GET("agendamentos/data")
+    suspend fun listarPorData(
+        @Query("data") data: String
+    ): Response<List<AgendamentoResponse>>
+
+    @GET("agendamentos/veterinario/{idVeterinario}/data")
+    suspend fun listarPorVeterinarioEData(
+        @Path("idVeterinario") idVeterinario: Long,
+        @Query("data") data: String
+    ): Response<List<AgendamentoResponse>>
+
     @POST("agendamentos")
     suspend fun salvar(
         @Body agendamento: AgendamentoRequest

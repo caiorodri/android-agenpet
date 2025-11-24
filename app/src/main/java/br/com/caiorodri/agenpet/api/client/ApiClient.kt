@@ -17,7 +17,7 @@ object ApiClient {
 
     private val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        .create()
+        .create();
 
     private fun createAuthenticatedClient(context: Context): OkHttpClient {
         val sessionManager = SessionManager(context.applicationContext)
@@ -26,7 +26,7 @@ object ApiClient {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
+            .build();
     }
 
     private fun getRetrofitInstance(context: Context): Retrofit {
@@ -34,19 +34,19 @@ object ApiClient {
             .baseUrl(BuildConfig.API_URL.plus(BuildConfig.API_NAME).plus("/"))
             .client(createAuthenticatedClient(context))
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
+            .build();
     }
 
     fun getUsuarioService(context: Context): UsuarioService {
-        return getRetrofitInstance(context).create(UsuarioService::class.java)
+        return getRetrofitInstance(context).create(UsuarioService::class.java);
     }
 
     fun getAgendamentoService(context: Context): AgendamentoService {
-        return getRetrofitInstance(context).create(AgendamentoService::class.java)
+        return getRetrofitInstance(context).create(AgendamentoService::class.java);
     }
 
     fun getAnimalService(context: Context): AnimalService {
-        return getRetrofitInstance(context).create(AnimalService::class.java)
+        return getRetrofitInstance(context).create(AnimalService::class.java);
     }
 
 }
