@@ -130,7 +130,8 @@
 
     <string name="status_aberto">Open</string>
     <string name="status_cancelado">Cancelled</string>
-    <string name="status_finalizado">Completed</string>
+    <string name="status_concluido">Completed</string>
+    <string name="status_perdido">Lost</string>
     <string name="status_desconhecido">Unknown Status</string>
 
     <string name="tipo_consulta">Consultation</string>
@@ -314,5 +315,23 @@
     <string name="hint_senha_opcional">New Password (Optional)</string>
     <string name="sucesso_funcionario_atualizado">Employee updated successfully!</string>
     <string name="erro_atualizar_funcionario">Error updating employee.</string>
+
+    <string name="loading_conectando">> Connecting to server...</string>
+    <string name="loading_autenticacao">> Authentication successful...</string>
+    <string name="loading_carregando_perfil">> Loading your profile...</string>
+    <string name="loading_buscando_pets">> Searching for your pets...</string>
+    <string name="loading_organizando_agenda">> Organizing your schedule...</string>
+    <string name="loading_quase_la">> Almost there...</string>
+    <string name="loading_bem_vindo">> Welcome, %s!</string>
+    <string name="loading_bem_vindo_composta">> Welcome, %s %s!</string>
+
+    <string name="saudacao_simples">Hello, %s</string>
+    <string name="saudacao_composta">Hello, %s %s</string>
+
+    <string name="welcome_profissional_placeholder">Hello, Professional</string>
+    <string name="titulo_painel_admin">Admin Panel</string>
+    <string name="card_cadastrar_funcionarios">Register Employees</string>
+    <string name="titulo_agenda_hoje">Your Schedule Today</string>
+    <string name="info_agenda_vazia">No appointments for today.</string>
 
 </resources>

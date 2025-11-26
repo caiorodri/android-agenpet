@@ -55,6 +55,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupListeners() {
+
         binding.cardCadastroFuncionarios.setOnClickListener {
 
             val action = HomeFragmentDirections.actionHomeProfissionalFragmentToFuncionarioCadastroFragment();
@@ -68,18 +69,24 @@ class HomeFragment : Fragment() {
 
         sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
 
-            binding.textBoasVindas.text = "Olá, ${usuario.nome.split(" ")[0]}";
+            val partesDoNome = usuario.nome.split(" ");
+            val primeiroNome = partesDoNome.firstOrNull() ?: "";
+
+            var saudacaoFinal = getString(R.string.saudacao_simples, primeiroNome);
 
             val perfil = usuario.perfil?.nome?.uppercase();
 
             if (perfil == "ADMINISTRADOR") {
+
                 binding.grupoAdmin.isVisible = true;
                 binding.grupoAgenda.isVisible = false;
+
             } else {
 
                 if(perfil == "VETERINARIO"){
 
-                    binding.textBoasVindas.text = "Olá, ${usuario.nome.split(" ")[0]} ${usuario.nome.split(" ")[1]}";
+                    val segundoNome = partesDoNome[1];
+                    saudacaoFinal = getString(R.string.saudacao_composta, primeiroNome, segundoNome);
 
                 }
 
@@ -88,11 +95,15 @@ class HomeFragment : Fragment() {
 
                 viewModel.carregarDadosHome(usuario);
             }
+
+            binding.textBoasVindas.text = saudacaoFinal;
+
         }
 
         viewModel.agendamentosDia.observe(viewLifecycleOwner) { lista ->
 
             agendamentoAdapter.submitList(lista);
+
             binding.textSemAgendamentos.isVisible = lista.isEmpty();
             binding.recyclerViewAgenda.isVisible = lista.isNotEmpty();
 

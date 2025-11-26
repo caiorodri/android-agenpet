@@ -23,9 +23,7 @@ import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher;
 import br.com.caiorodri.agenpet.model.usuario.Endereco;
 import br.com.caiorodri.agenpet.model.usuario.Estado;
 import br.com.caiorodri.agenpet.model.usuario.Perfil;
-import br.com.caiorodri.agenpet.model.usuario.PerfilEnum;
 import br.com.caiorodri.agenpet.model.usuario.Status;
-import br.com.caiorodri.agenpet.model.usuario.StatusEnum;
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
@@ -164,7 +162,7 @@ class FuncionarioCadastroFragment : Fragment() {
 
             binding.inputLayoutSenha.visibility = View.VISIBLE;
             binding.editTextSenha.visibility = View.VISIBLE;
-            binding.inputLayoutSenha.hint = getString(R.string.hint_senha_opcional);
+
         }
     }
 

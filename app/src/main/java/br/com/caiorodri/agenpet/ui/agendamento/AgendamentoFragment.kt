@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoBinding
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoCompletoAdapter
 import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
@@ -73,6 +74,7 @@ class AgendamentoFragment : Fragment() {
     }
 
     private fun setupListeners() {
+
         binding.searchViewAgendamentos.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false;
 
@@ -88,20 +90,51 @@ class AgendamentoFragment : Fragment() {
         };
 
         binding.swipeRefreshLayoutAgendamentos.setOnRefreshListener {
+
             usuarioLogadoLiveData.value?.let { usuario ->
-                viewModel.carregarAgendamentos(usuario.id!!);
-            };
-        };
+
+                if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id){
+
+                    viewModel.setAgendamentosIniciais(usuario.agendamentos ?: emptyList());
+
+                    if (usuario.id != null) {
+                        viewModel.carregarAgendamentos(usuario.id);
+                    }
+
+                } else if (usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.RECEPCIONISTA.id){
+
+                    viewModel.carregarAgendamentosRecepcionista();
+
+                } else {
+
+                    viewModel.carregarAgendamentosByVeterinario(usuario.id!!);
+
+                }
+
+            }
+        }
     }
 
     private fun setupObservers() {
 
         usuarioLogadoLiveData.observe(viewLifecycleOwner) { usuario ->
 
-            viewModel.setAgendamentosIniciais(usuario.agendamentos ?: emptyList());
-            
-            if (usuario?.id != null) {
-                viewModel.carregarAgendamentos(usuario.id);
+            if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id){
+
+                viewModel.setAgendamentosIniciais(usuario.agendamentos ?: emptyList());
+
+                if (usuario?.id != null) {
+                    viewModel.carregarAgendamentos(usuario.id);
+                }
+
+            } else if (usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.RECEPCIONISTA.id){
+
+                viewModel.carregarAgendamentosRecepcionista();
+
+            } else {
+
+                viewModel.carregarAgendamentosByVeterinario(usuario.id!!);
+
             }
 
         }
@@ -118,12 +151,14 @@ class AgendamentoFragment : Fragment() {
         };
 
         viewModel.isLoading.observe(viewLifecycleOwner) { estaCarregando ->
-            binding.progressBarAgendamentos.isVisible = estaCarregando && agendamentoAdapter.itemCount > 0;
+
+            binding.progressBarAgendamentos.isVisible = estaCarregando;
 
             if (!estaCarregando) {
                 binding.swipeRefreshLayoutAgendamentos.isRefreshing = false;
             }
-        };
+
+        }
 
         viewModel.erro.observe(viewLifecycleOwner) { erro ->
             erro?.let {

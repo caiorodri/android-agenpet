@@ -14,7 +14,8 @@ fun Status.getNomeTraduzido(context: Context): String {
     val stringId = when (this.id) {
         1 -> R.string.status_aberto;
         2 -> R.string.status_cancelado;
-        3 -> R.string.status_finalizado;
+        3 -> R.string.status_concluido;
+        4 -> R.string.status_perdido;
         else -> R.string.status_desconhecido;
     }
 

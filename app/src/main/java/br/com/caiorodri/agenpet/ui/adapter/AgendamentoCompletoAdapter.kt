@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.ItemAgendamentoCompletoBinding
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
 import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -36,8 +37,9 @@ class AgendamentoCompletoAdapter (
             binding.textViewStatus.text = agendamento.status.getNomeTraduzido(context);
 
             val (corFundoRes, corTextoRes) = when (agendamento.status.id) {
-                2 -> Pair(R.color.status_cancelado_fundo, R.color.status_cancelado_texto);
-                3 -> Pair(R.color.status_finalizado_fundo, R.color.status_finalizado_texto);
+                StatusAgendamentoEnum.CANCELADO.id -> Pair(R.color.status_cancelado_fundo, R.color.status_cancelado_texto);
+                StatusAgendamentoEnum.CONCLUIDO.id -> Pair(R.color.status_finalizado_fundo, R.color.status_finalizado_texto);
+                StatusAgendamentoEnum.PERDIDO.id -> Pair(R.color.status_perdido_fundo, R.color.status_perdido_texto);
                 else -> Pair(R.color.status_aberto_fundo, R.color.status_aberto_texto);
             }
 

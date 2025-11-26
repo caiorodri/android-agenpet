@@ -17,6 +17,8 @@
     <color name="status_finalizado_texto">#A5D6A7</color>
     <color name="status_cancelado_fundo">#4E1A1A</color>
     <color name="status_cancelado_texto">#EF9A9A</color>
+    <color name="status_perdido_fundo">#3E2723</color>
+    <color name="status_perdido_texto">#FFCC80</color>
 
     <color name="cor_icone_splash">@color/secundaria</color>
 </resources>

@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.FragmentMeuPerfilBinding
 import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher
+import br.com.caiorodri.agenpet.model.enums.EstadoEnum
 import br.com.caiorodri.agenpet.model.usuario.Endereco
 import br.com.caiorodri.agenpet.model.usuario.Estado
 import br.com.caiorodri.agenpet.model.usuario.Usuario
@@ -62,35 +63,6 @@ class MeuPerfilFragment : Fragment() {
     private lateinit var usuarioLogadoLiveData: LiveData<Usuario>
     private var updateUsuarioCallback: ((Usuario) -> Unit)? = null
 
-    private var listaDeEstados: List<Estado> = listOf(
-        Estado("Acre", "AC"),
-        Estado("Alagoas", "AL"),
-        Estado("Amapá", "AP"),
-        Estado("Amazonas", "AM"),
-        Estado("Bahia", "BA"),
-        Estado("Ceará", "CE"),
-        Estado("Distrito Federal", "DF"),
-        Estado("Espírito Santo", "ES"),
-        Estado("Goiás", "GO"),
-        Estado("Maranhão", "MA"),
-        Estado("Mato Grosso", "MT"),
-        Estado("Mato Grosso do Sul", "MS"),
-        Estado("Minas Gerais", "MG"),
-        Estado("Pará", "PA"),
-        Estado("Paraíba", "PB"),
-        Estado("Paraná", "PR"),
-        Estado("Pernambuco", "PE"),
-        Estado("Piauí", "PI"),
-        Estado("Rio de Janeiro", "RJ"),
-        Estado("Rio Grande do Norte", "RN"),
-        Estado("Rio Grande do Sul", "RS"),
-        Estado("Rondônia", "RO"),
-        Estado("Roraima", "RR"),
-        Estado("Santa Catarina", "SC"),
-        Estado("São Paulo", "SP"),
-        Estado("Sergipe", "SE"),
-        Estado("Tocantins", "TO")
-    )
     private val storage = Firebase.storage;
     private var fotoUri: Uri? = null;
     private var fotoUrlExistente: String? = null;
@@ -179,7 +151,8 @@ class MeuPerfilFragment : Fragment() {
         setupListeners();
         setupObservers();
 
-        val siglas = listaDeEstados.map { it.sigla }
+        val siglas = EstadoEnum.entries.map { it.sigla }
+
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, siglas);
         binding.autoCompleteEstado.setAdapter(adapter);
 
@@ -254,6 +227,7 @@ class MeuPerfilFragment : Fragment() {
     }
 
     private fun popularCampos(usuario: Usuario) {
+
         binding.editTextNome.setText(usuario.nome);
         binding.editTextEmail.setText(usuario.email);
         binding.editTextCpf.setText(usuario.cpf);
@@ -328,6 +302,7 @@ class MeuPerfilFragment : Fragment() {
     }
 
     private fun validarCampos(): Boolean {
+
         var valido = true;
 
         binding.inputLayoutNome.error = null;

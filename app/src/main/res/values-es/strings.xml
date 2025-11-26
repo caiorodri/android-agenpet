@@ -130,7 +130,8 @@
 
     <string name="status_aberto">Abierto</string>
     <string name="status_cancelado">Cancelado</string>
-    <string name="status_finalizado">Finalizado</string>
+    <string name="status_concluido">Concluido</string>
+    <string name="status_perdido">Perdido</string>
     <string name="status_desconhecido">Estado Desconocido</string>
 
     <string name="tipo_consulta">Consulta</string>
@@ -314,5 +315,23 @@
     <string name="hint_senha_opcional">Nueva Contraseña (Opcional)</string>
     <string name="sucesso_funcionario_atualizado">¡Empleado actualizado con éxito!</string>
     <string name="erro_atualizar_funcionario">Error al actualizar el empleado.</string>
+
+    <string name="loading_conectando">> Conectando con el servidor...</string>
+    <string name="loading_autenticacao">> Autenticación exitosa...</string>
+    <string name="loading_carregando_perfil">> Cargando su perfil...</string>
+    <string name="loading_buscando_pets">> Buscando sus mascotas...</string>
+    <string name="loading_organizando_agenda">> Organizando su agenda...</string>
+    <string name="loading_quase_la">> Casi listo...</string>
+    <string name="loading_bem_vindo">> ¡Bienvenido(a), %s!</string>
+    <string name="loading_bem_vindo_composta">> ¡Bienvenido(a), %s %s!</string>
+
+    <string name="saudacao_simples">Hola, %s</string>
+    <string name="saudacao_composta">Hola, %s %s</string>
+
+    <string name="welcome_profissional_placeholder">Hola, Profesional</string>
+    <string name="titulo_painel_admin">Panel Administrativo</string>
+    <string name="card_cadastrar_funcionarios">Registrar Empleados</string>
+    <string name="titulo_agenda_hoje">Su Agenda de Hoy</string>
+    <string name="info_agenda_vazia">No hay citas para hoy.</string>
 
 </resources>

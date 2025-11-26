@@ -96,7 +96,7 @@ class AnimalFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { estaCarregando ->
-            binding.progressBarAnimais.isVisible = estaCarregando && animalAdapter.itemCount > 0;
+            binding.progressBarAnimais.isVisible = estaCarregando;
 
             if (!estaCarregando) {
                 binding.swipeRefreshLayoutAnimais.isRefreshing = false;

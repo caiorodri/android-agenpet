@@ -150,7 +150,8 @@
 
     <string name="status_aberto">Aberto</string>
     <string name="status_cancelado">Cancelado</string>
-    <string name="status_finalizado">Finalizado</string>
+    <string name="status_concluido">Concluído</string>
+    <string name="status_perdido">Perdido</string>
     <string name="status_desconhecido">Status Desconhecido</string>
 
     <string name="tipo_consulta">Consulta</string>
@@ -334,5 +335,23 @@
     <string name="hint_senha_opcional">Nova Senha (Opcional)</string>
     <string name="sucesso_funcionario_atualizado">Funcionário atualizado com sucesso!</string>
     <string name="erro_atualizar_funcionario">Erro ao atualizar funcionário.</string>
+
+    <string name="loading_conectando">> Conectando ao servidor...</string>
+    <string name="loading_autenticacao">> Autenticação bem-sucedida...</string>
+    <string name="loading_carregando_perfil">> Carregando seu perfil...</string>
+    <string name="loading_buscando_pets">> Buscando seus pets...</string>
+    <string name="loading_organizando_agenda">> Organizando sua agenda...</string>
+    <string name="loading_quase_la">> Quase lá...</string>
+    <string name="loading_bem_vindo">> Bem-vindo(a), %s!</string>
+    <string name="loading_bem_vindo_composta">> Bem-vindo(a), %s %s!</string>
+
+    <string name="saudacao_simples">Olá, %s</string>
+    <string name="saudacao_composta">Olá, %s %s</string>
+
+    <string name="welcome_profissional_placeholder">Olá, Profissional</string>
+    <string name="titulo_painel_admin">Painel Administrativo</string>
+    <string name="card_cadastrar_funcionarios">Cadastrar Funcionários</string>
+    <string name="titulo_agenda_hoje">Sua Agenda de Hoje</string>
+    <string name="info_agenda_vazia">Nenhum agendamento para hoje.</string>
 
 </resources>

@@ -29,6 +29,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.api.controller.UsuarioController
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.security.SessionManager
 import br.com.caiorodri.agenpet.ui.inicio.LoginActivity
@@ -230,12 +231,16 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigationView.menu.clear();
         navigationView.menu.clear();
 
-        if (perfil == "ADMINISTRADOR") {
+        if (perfil == PerfilEnum.ADMINISTRADOR.nome) {
+
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_admin);
             navigationView.inflateMenu(R.menu.drawer_menu_admin);
+
         } else {
+
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_veterinario);
             navigationView.inflateMenu(R.menu.drawer_menu_veterinario);
+
         }
 
         bottomNavigationView.setupWithNavController(navController);
@@ -309,10 +314,12 @@ class HomeActivity : AppCompatActivity() {
         popup.show();
     }
 
-    private fun carregarDadosDoUsuario() {
+     fun carregarDadosDoUsuario() {
 
         sharedViewModel.setLoading(true);
+
         lifecycleScope.launch {
+
             val usuarioResponse = withContext(Dispatchers.IO) {
                 usuarioController.getMeuPerfil();
             }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeProfissionalFragment"
         android:name="br.com.caiorodri.agenpet.ui.home.HomeFragment"
-        android:label="Início"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home">
 
         <action

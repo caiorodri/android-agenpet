@@ -35,11 +35,69 @@ class AgendamentoViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun carregarAgendamentos(idUsuario: Long) {
+
         viewModelScope.launch {
+
             _isLoading.postValue(true);
+
             try {
 
                 val agendamentosResponse = agendamentoController.listarAgendamentosByUsuarioId(idUsuario, 0, 25);
+                val novosAgendamentos = agendamentosResponse.map { response -> Agendamento(response) }
+
+                listaCompleta = novosAgendamentos;
+                _agendamentos.postValue(novosAgendamentos);
+
+            } catch (e: Exception) {
+
+                _erro.postValue("Falha ao buscar agendamentos.")
+
+            } finally {
+
+                _isLoading.postValue(false);
+
+            }
+        }
+    }
+
+    fun carregarAgendamentosByVeterinario(idUsuario: Long) {
+
+        viewModelScope.launch {
+
+            _isLoading.postValue(true);
+
+            try {
+
+                val agendamentosResponse = agendamentoController.listarAgendamentosByVeterinario(idUsuario);
+                val novosAgendamentos = agendamentosResponse.map { response -> Agendamento(response) }
+
+                listaCompleta = novosAgendamentos;
+                _agendamentos.postValue(novosAgendamentos);
+
+            } catch (e: Exception) {
+
+                _erro.postValue("Falha ao buscar agendamentos.")
+
+            } finally {
+
+                _isLoading.postValue(false);
+
+            }
+        }
+    }
+
+    fun carregarAgendamentosRecepcionista() {
+
+        viewModelScope.launch {
+
+            _isLoading.postValue(true);
+
+            val pagina = 0;
+            val itens = 30;
+
+            try {
+
+                val agendamentosResponse = agendamentoController.listar(pagina, itens);
                 val novosAgendamentos = agendamentosResponse.map { response -> Agendamento(response) }
 
                 listaCompleta = novosAgendamentos;

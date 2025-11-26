@@ -17,7 +17,7 @@
             android:id="@+id/text_boas_vindas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Olá, Profissional"
+            android:text="@string/welcome_profissional_placeholder"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="?attr/colorPrimary"
@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Painel Administrativo"
+                android:text="@string/titulo_painel_admin"
                 android:layout_marginTop="16dp"
                 android:textAppearance="?attr/textAppearanceTitleMedium"/>
 
@@ -65,7 +65,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cadastrar Funcionários"
+                        android:text="@string/card_cadastrar_funcionarios"
                         android:layout_marginStart="16dp"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sua Agenda de Hoje"
+                android:text="@string/titulo_agenda_hoje"
                 android:layout_marginTop="16dp"
                 android:textAppearance="?attr/textAppearanceTitleMedium"/>
 
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:text="Nenhum agendamento para hoje."
+                android:text="@string/info_agenda_vazia"
                 android:visibility="gone"/>
 
         </LinearLayout>

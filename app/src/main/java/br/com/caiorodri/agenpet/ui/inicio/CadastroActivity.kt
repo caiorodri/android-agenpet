@@ -16,12 +16,13 @@ import androidx.lifecycle.lifecycleScope;
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.api.controller.UsuarioController;
 import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher;
+import br.com.caiorodri.agenpet.model.enums.EstadoEnum
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
+import br.com.caiorodri.agenpet.model.enums.StatusUsuarioEnum
 import br.com.caiorodri.agenpet.model.usuario.Endereco;
 import br.com.caiorodri.agenpet.model.usuario.Estado;
 import br.com.caiorodri.agenpet.model.usuario.Perfil;
-import br.com.caiorodri.agenpet.model.usuario.PerfilEnum;
 import br.com.caiorodri.agenpet.model.usuario.Status;
-import br.com.caiorodri.agenpet.model.usuario.StatusEnum;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -75,36 +76,6 @@ class CadastroActivity : AppCompatActivity() {
     private val formatadorDeData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
     };
-
-    private var listaDeEstados: List<Estado> = listOf(
-        Estado("Acre", "AC"),
-        Estado("Alagoas", "AL"),
-        Estado("Amapá", "AP"),
-        Estado("Amazonas", "AM"),
-        Estado("Bahia", "BA"),
-        Estado("Ceará", "CE"),
-        Estado("Distrito Federal", "DF"),
-        Estado("Espírito Santo", "ES"),
-        Estado("Goiás", "GO"),
-        Estado("Maranhão", "MA"),
-        Estado("Mato Grosso", "MT"),
-        Estado("Mato Grosso do Sul", "MS"),
-        Estado("Minas Gerais", "MG"),
-        Estado("Pará", "PA"),
-        Estado("Paraíba", "PB"),
-        Estado("Paraná", "PR"),
-        Estado("Pernambuco", "PE"),
-        Estado("Piauí", "PI"),
-        Estado("Rio de Janeiro", "RJ"),
-        Estado("Rio Grande do Norte", "RN"),
-        Estado("Rio Grande do Sul", "RS"),
-        Estado("Rondônia", "RO"),
-        Estado("Roraima", "RR"),
-        Estado("Santa Catarina", "SC"),
-        Estado("São Paulo", "SP"),
-        Estado("Sergipe", "SE"),
-        Estado("Tocantins", "TO")
-    )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -231,7 +202,7 @@ class CadastroActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
 
-                val siglasDosEstados = listaDeEstados.map { it.sigla }
+                val siglasDosEstados = EstadoEnum.entries.map { it.sigla };
 
                 val adapter = ArrayAdapter(this@CadastroActivity, android.R.layout.simple_dropdown_item_1line, siglasDosEstados);
                 autoCompleteEstado.setAdapter(adapter);
@@ -267,11 +238,14 @@ class CadastroActivity : AppCompatActivity() {
             throw Exception(getString(R.string.erro_formato_data_invalido));
         }
 
+        val perfilCliente = PerfilEnum.CLIENTE;
+        val statusAtivo = StatusUsuarioEnum.ATIVO;
+
         val usuarioRequest = UsuarioRequest(
             null, nome, email, cpf, senha, listOf(telefone),
             dataNascimentoFormatada,
             Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, siglaEstado)), null, null,
-            Perfil(PerfilEnum.CLIENTE.getValue(), null), Status(StatusEnum.ATIVO.getValue(), null), null
+            Perfil(perfilCliente.id, perfilCliente.nome), Status(statusAtivo.id, statusAtivo.nome), null
         );
 
         return withContext(Dispatchers.IO) {

@@ -301,19 +301,27 @@ class ClienteHomeActivity : AppCompatActivity() {
     }
 
     fun carregarDadosDoUsuario() {
+
         sharedViewModel.setLoading(true);
+
         lifecycleScope.launch {
+
             val usuarioResponse = withContext(Dispatchers.IO) {
                 usuarioController.getMeuPerfil();
             }
 
             if (usuarioResponse != null) {
+
                 val usuarioLogado = Usuario(usuarioResponse);
                 sharedViewModel.setUsuario(usuarioLogado);
+
             } else {
+
                 Toast.makeText(this@ClienteHomeActivity, R.string.erro_carregar_usuario, Toast.LENGTH_LONG).show();
                 deslogarEVoltarParaLogin();
+
             }
+
             sharedViewModel.setLoading(false);
         }
     }

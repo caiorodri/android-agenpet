@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.caiorodri.agenpet.api.controller.AgendamentoController
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -25,11 +26,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         val perfil = usuario.perfil?.nome;
 
-        if(perfil == "ADMINISTRADOR"){
+        if(perfil == PerfilEnum.ADMINISTRADOR.nome){
 
             return;
 
-        } else if (perfil == "RECEPCIONISTA"){
+        } else if (perfil == PerfilEnum.RECEPCIONISTA.nome){
 
             carregarAgendamentosDia(usuario.id!!);
 
