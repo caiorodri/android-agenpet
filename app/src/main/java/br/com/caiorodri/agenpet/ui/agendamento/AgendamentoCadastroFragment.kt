@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -139,6 +140,37 @@ class AgendamentoCadastroFragment : Fragment() {
             if (agendamento.status.id == 2 || agendamento.status.id == 3) {
                 desabilitarFormularioCompleto();
             }
+
+            val usuarioLogado = usuarioLogadoLiveData.value;
+            val isVeterinario = usuarioLogado?.perfil?.id == PerfilEnum.VETERINARIO.id;
+
+            if (isVeterinario) {
+
+                binding.cardAnimal.visibility = View.VISIBLE
+
+                binding.buttonSalvarDadosClinicos.setOnClickListener {
+
+                    val bundle = Bundle().apply {
+                        putParcelable("animal", agendamento.animal)
+                    }
+
+                    try {
+                        findNavController().navigate(
+                            R.id.action_agendamentoCadastroFragment_to_animalVeterinarioEditarFragment,
+                            bundle
+                        )
+                    } catch (e: Exception) {
+                        Log.e("Navegacao", "Erro ao navegar: ${e.message}")
+                    }
+                }
+
+
+            } else {
+
+                binding.cardAnimal.visibility = View.GONE;
+
+            }
+
 
         } else {
 

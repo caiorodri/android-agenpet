@@ -51,6 +51,10 @@
             app:argType="br.com.caiorodri.agenpet.model.agendamento.Agendamento"
             app:nullable="true" />
 
+        <action
+            android:id="@+id/action_agendamentoCadastroFragment_to_animalVeterinarioEditarFragment"
+            app:destination="@id/animalVeterinarioEditarFragment" />
+
     </fragment>
 
     <fragment
@@ -76,6 +80,19 @@
             android:defaultValue="@null"
             app:argType="br.com.caiorodri.agenpet.model.usuario.Usuario"
             app:nullable="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/animalVeterinarioEditarFragment"
+        android:name="br.com.caiorodri.agenpet.ui.animal.AnimalVeterinarioEditarFragment"
+        android:label="Dados Clínicos"
+        tools:layout="@layout/fragment_animal_veterinario_editar">
+
+        <argument
+            android:name="animal"
+            app:argType="br.com.caiorodri.agenpet.model.animal.Animal"
+            app:nullable="false" />
 
     </fragment>
 

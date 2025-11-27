@@ -26,6 +26,9 @@ interface AnimalService {
     @DELETE("animais/{id}")
     suspend fun removerAnimal(@Path("id") id: Long): Response<Unit>
 
+    @GET("animais/{id}")
+    suspend fun recuperarById(@Path("id") id: Long): Response<AnimalResponse>;
+
     @GET("animais/dono/{idDono}")
     suspend fun listarAnimaisByDonoId(
         @Path("idDono") idDono: Long,

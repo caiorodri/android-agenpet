@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoBinding
 import br.com.caiorodri.agenpet.model.enums.PerfilEnum
+import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoCompletoAdapter
 import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
@@ -59,18 +60,35 @@ class AgendamentoFragment : Fragment() {
 
         }
 
+        setupUI();
         setupRecyclerView();
         setupListeners();
         setupObservers();
     }
 
+    private fun setupUI(){
+
+        if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id) {
+
+            binding.fabAddAgendamento.isVisible = true;
+
+        } else {
+
+            binding.fabAddAgendamento.isVisible = false;
+
+        }
+
+    }
+
     private fun setupRecyclerView() {
+
         agendamentoAdapter = AgendamentoCompletoAdapter { agendamentoClicado ->
             val action = AgendamentoFragmentDirections.actionAgendamentoFragmentToAgendamentoCadastroFragment(agendamentoClicado);
             findNavController().navigate(action);
         };
 
         binding.recyclerViewAgendamentos.adapter = agendamentoAdapter;
+
     }
 
     private fun setupListeners() {
@@ -85,8 +103,10 @@ class AgendamentoFragment : Fragment() {
         });
 
         binding.fabAddAgendamento.setOnClickListener {
+
             val action = AgendamentoFragmentDirections.actionAgendamentoFragmentToAgendamentoCadastroFragment(null);
             findNavController().navigate(action);
+
         };
 
         binding.swipeRefreshLayoutAgendamentos.setOnRefreshListener {
@@ -140,23 +160,29 @@ class AgendamentoFragment : Fragment() {
         }
 
         viewModel.agendamentos.observe(viewLifecycleOwner) { lista ->
+
             if (lista.isEmpty()) {
+
                 binding.recyclerViewAgendamentos.isVisible = false;
                 binding.layoutInfoSemAgendamentos.isVisible = true;
+
             } else {
+
                 binding.recyclerViewAgendamentos.isVisible = true;
                 binding.layoutInfoSemAgendamentos.isVisible = false;
+
             }
-            agendamentoAdapter.submitList(lista);
+
+            val novaLista = lista.sortedByDescending { it.dataAgendamentoInicio }
+
+            agendamentoAdapter.submitList(novaLista);
+
         };
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { estaCarregando ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
 
-            binding.progressBarAgendamentos.isVisible = estaCarregando;
-
-            if (!estaCarregando) {
-                binding.swipeRefreshLayoutAgendamentos.isRefreshing = false;
-            }
+            binding.progressBarAgendamentos.isVisible = isLoading;
+            binding.swipeRefreshLayoutAgendamentos.isRefreshing = false;
 
         }
 
@@ -168,7 +194,10 @@ class AgendamentoFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+
         super.onDestroyView();
         _binding = null;
+
     }
+
 }

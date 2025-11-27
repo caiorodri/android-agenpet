@@ -53,19 +53,20 @@ class AnimalRepository private constructor(context: Context) {
         }
     }
 
-    suspend fun salvarAnimal(animal: Animal): AnimalResponse {
+    suspend fun salvarAnimal(animal: Animal): AnimalResponse? {
         Log.d("AnimalRepository", "Chamando controller para salvar animal.")
         return animalController.salvarAnimal(animal)
     }
 
-    suspend fun atualizarAnimal(animal: Animal): AnimalResponse {
+    suspend fun atualizarAnimal(animal: Animal): AnimalResponse? {
         Log.d("AnimalRepository", "Chamando controller para atualizar animal ${animal.id}.")
         return animalController.atualizarAnimal(animal)
     }
 
     suspend fun removerAnimal(id: Long) {
         Log.d("AnimalRepository", "Chamando controller para remover animal $id.")
-        return animalController.removerAnimal(id)
+        animalController.removerAnimal(id);
+        return;
     }
 
     companion object {

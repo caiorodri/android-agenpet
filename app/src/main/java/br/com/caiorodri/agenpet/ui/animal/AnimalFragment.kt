@@ -95,12 +95,11 @@ class AnimalFragment : Fragment() {
             animalAdapter.submitList(lista);
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { estaCarregando ->
-            binding.progressBarAnimais.isVisible = estaCarregando;
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
 
-            if (!estaCarregando) {
-                binding.swipeRefreshLayoutAnimais.isRefreshing = false;
-            }
+            binding.progressBarAnimais.isVisible = isLoading;
+            binding.swipeRefreshLayoutAnimais.isRefreshing = false;
+
         };
 
         viewModel.erro.observe(viewLifecycleOwner) { erro ->

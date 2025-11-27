@@ -358,35 +358,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="?attr/colorSurface"
-                app:layout_constraintTop_toBottomOf="@id/card_caracteristicas"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/card_caracteristicas">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
-                    <ImageView
-                        android:id="@+id/icon_descricao"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="16dp"
-                        android:src="@drawable/ic_notes"
-                        app:tint="?attr/colorPrimary"
-                        app:layout_constraintTop_toTopOf="parent"
+                    <TextView
+                        android:id="@+id/label_descricao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_descricao_observacoes"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="?attr/colorPrimary"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:contentDescription="@string/cd_icone_descricao"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/input_layout_descricao"
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_marginTop="16dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:hint="@string/hint_descricao_observacoes"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/icon_descricao"
+                        android:hint="@string/hint_descricao_agendamento_opcional"
+                        app:layout_constraintTop_toBottomOf="@id/label_descricao"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -395,10 +394,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="top"
                             android:inputType="textMultiLine"
-                            android:minLines="4" />
+                            android:minLines="3" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
             <Button

@@ -22,6 +22,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _erro = MutableLiveData<String?>();
     val erro: LiveData<String?> = _erro;
 
+    private val _isLoading = MutableLiveData<Boolean>();
+    val isLoading: LiveData<Boolean> = _isLoading;
+
     fun carregarDadosHome(usuario: Usuario){
 
         val perfil = usuario.perfil?.nome;
@@ -44,6 +47,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun carregarAgendamentosDia(id: Long){
 
+        _isLoading.postValue(true);
+
         viewModelScope.launch {
 
             try {
@@ -58,6 +63,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
                 _erro.postValue(e.message);
 
+            } finally {
+
+                _isLoading.postValue(false);
+
             }
 
         }
@@ -65,6 +74,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun carregarAgendamentosVeterinarioDia(id: Long){
+
+        _isLoading.postValue(true);
 
         viewModelScope.launch {
 
@@ -79,6 +90,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             } catch (e: Exception){
 
                 _erro.postValue(e.message)
+
+            } finally {
+
+                _isLoading.postValue(false);
 
             }
 

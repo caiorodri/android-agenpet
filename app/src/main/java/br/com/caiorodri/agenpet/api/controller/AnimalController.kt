@@ -15,6 +15,46 @@ class AnimalController(private val context: Context) {
     private val animalService = ApiClient.getAnimalService(context);
     private val TAG = "AnimalController";
 
+    suspend fun recuperarById(id: Long): AnimalResponse? {
+
+        val endpoint = "recuperarById";
+
+        Log.i(TAG, "[$endpoint] - Inicio (ID: $id)");
+
+        try {
+
+            val response = animalService.recuperarById(id = id);
+
+            if (response.isSuccessful) {
+
+                val animal: AnimalResponse? = response.body();
+
+                Log.i(TAG, "[$endpoint] - Sucesso. animal com id ${id} encontrado.");
+                Log.i(TAG, "[$endpoint] - Fim");
+
+                return animal;
+
+            } else {
+
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}");
+
+            }
+
+        } catch (e: IOException) {
+
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e);
+
+        } catch (e: Exception) {
+
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e);
+
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim");
+
+        return null;
+    }
+
     suspend fun listarAnimaisByDonoId(idDono: Long): List<AnimalResponse> {
 
         val endpoint = "listarAnimaisByDonoId";

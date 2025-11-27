@@ -334,4 +334,16 @@
     <string name="titulo_agenda_hoje">Su Agenda de Hoy</string>
     <string name="info_agenda_vazia">No hay citas para hoy.</string>
 
+    <string name="title_dados_clinicos">Datos Clínicos del Animal</string>
+    <string name="label_nome_pet_placeholder">Nombre de la Mascota</string>
+    <string name="label_raca_especie_placeholder">Raza / Especie</string>
+    <string name="label_animal_castrado">¿Animal Castrado?</string>
+    <string name="button_atualizar_dados_clinicos">Actualizar Datos Clínicos</string>
+    <string name="label_dados_animal">Datos del Animal</string>
+    <string name="button_dados_clinicos">Datos Clínicos</string>
+
+    <string name="erro_animal_nao_encontrado">Error: Animal no encontrado</string>
+    <string name="erro_carregar_dados_animal">No se pudieron cargar los datos del animal.</string>
+    <string name="sucesso_dados_clinicos_atualizados">¡Datos clínicos actualizados!</string>
+
 </resources>

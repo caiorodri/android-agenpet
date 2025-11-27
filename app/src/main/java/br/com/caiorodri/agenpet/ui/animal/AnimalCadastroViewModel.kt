@@ -54,8 +54,10 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
     val racaSelecionada = MutableLiveData<Raca?>(null);
 
     init {
+
         carregarDadosIniciais();
         _sexos.value = listOf(Sexo(1, "Macho"), Sexo(2, "Fêmea"), Sexo(3, "Desconhecido"));
+
     }
 
     private fun carregarDadosIniciais() {
@@ -88,13 +90,16 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
     }
 
     fun filtrarRacasPorEspecie(especieSelecionada: Especie?) {
+
         if (especieSelecionada == null) {
             _racasFiltradas.value = emptyList();
             return;
         }
+
         _racasFiltradas.value = listaCompletaRacas.filter { raca ->
             raca.especie?.id == especieSelecionada.id
-        };
+        }
+
     }
 
     fun setIsLoading(loading: Boolean) {
@@ -112,31 +117,50 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
     }
 
     fun salvarAnimal(animal: Animal) {
+
         viewModelScope.launch {
+
             _actionError.value = null;
             _animalSalvoComSucesso.value = null;
 
             try {
+
                 if (animal.id == null || animal.id == 0L) {
+
                     Log.d("CadastroAnimalVM", "Salvando novo animal: ${animal.nome}");
+
                     val animalSalvo = animalRepository.salvarAnimal(animal);
-                    Log.d("CadastroAnimalVM", "Salvo com sucesso, ID: ${animalSalvo.id}");
+
+                    Log.d("CadastroAnimalVM", "Salvo com sucesso, ID: ${animalSalvo?.id}");
+
                     _animalSalvoComSucesso.postValue(animalSalvo);
+
                 } else {
+
                     Log.d("CadastroAnimalVM", "Atualizando animal ID ${animal.id}: ${animal.nome}");
+
                     val animalAtualizado = animalRepository.atualizarAnimal(animal);
-                    Log.d("CadastroAnimalVM", "Atualizado com sucesso, ID: ${animalAtualizado.id}");
+
+                    Log.d("CadastroAnimalVM", "Atualizado com sucesso, ID: ${animalAtualizado?.id}");
+
                     _animalSalvoComSucesso.postValue(animalAtualizado);
+
                 }
 
             } catch (e: IOException) {
+
                 Log.e("CadastroAnimalVM", "Erro de rede ao salvar animal", e);
                 _actionError.postValue(getApplication<Application>().getString(R.string.erro_salvar_animal_rede));
+
             } catch (e: Exception) {
+
                 Log.e("CadastroAnimalVM", "Erro ao salvar animal", e);
                 _actionError.postValue(e.message ?: getApplication<Application>().getString(R.string.erro_salvar_animal_generico));
+
             } finally {
+
                 _isLoading.value = false;
+
             }
         }
     }

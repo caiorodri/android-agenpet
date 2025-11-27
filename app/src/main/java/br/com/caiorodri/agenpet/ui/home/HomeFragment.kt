@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import br.com.caiorodri.agenpet.databinding.FragmentHomeBinding;
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoAdapter;
 import br.com.caiorodri.agenpet.R;
+import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
 
 class HomeFragment : Fragment() {
 
@@ -63,6 +65,22 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action);
 
         }
+
+        binding.swipeRefreshHomeProfissional.setOnRefreshListener {
+
+            val usuario = sharedViewModel.usuarioLogado.value;
+
+            if (usuario != null) {
+
+                viewModel.carregarDadosHome(usuario);
+
+            } else {
+
+                binding.swipeRefreshHomeProfissional.isRefreshing = false;
+
+            }
+        }
+
     }
 
     private fun setupObservers() {
@@ -102,10 +120,23 @@ class HomeFragment : Fragment() {
 
         viewModel.agendamentosDia.observe(viewLifecycleOwner) { lista ->
 
-            agendamentoAdapter.submitList(lista);
+            val trintaMinutosAtras = System.currentTimeMillis() - (30 * 60 * 1000);
 
-            binding.textSemAgendamentos.isVisible = lista.isEmpty();
-            binding.recyclerViewAgenda.isVisible = lista.isNotEmpty();
+            val novaLista: List<Agendamento> = lista
+                .filter { it.status.id == StatusAgendamentoEnum.ABERTO.id && it.dataAgendamentoInicio > trintaMinutosAtras }
+                .sortedBy { it.dataAgendamentoInicio }
+
+            agendamentoAdapter.submitList(novaLista);
+
+            binding.textSemAgendamentos.isVisible = novaLista.isEmpty();
+            binding.recyclerViewAgenda.isVisible = novaLista.isNotEmpty();
+
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+
+            binding.progressBarHome.isVisible = isLoading;
+            binding.swipeRefreshHomeProfissional.isRefreshing = false;
 
         }
 

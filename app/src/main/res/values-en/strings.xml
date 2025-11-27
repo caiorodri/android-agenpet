@@ -334,4 +334,16 @@
     <string name="titulo_agenda_hoje">Your Schedule Today</string>
     <string name="info_agenda_vazia">No appointments for today.</string>
 
+    <string name="title_dados_clinicos">Animal Clinical Data</string>
+    <string name="label_nome_pet_placeholder">Pet Name</string>
+    <string name="label_raca_especie_placeholder">Breed / Species</string>
+    <string name="label_animal_castrado">Neutered?</string>
+    <string name="button_atualizar_dados_clinicos">Update Clinical Data</string>
+    <string name="label_dados_animal">Animal Data</string>
+    <string name="button_dados_clinicos">Clinical Data</string>
+
+    <string name="erro_animal_nao_encontrado">Error: Animal not found</string>
+    <string name="erro_carregar_dados_animal">Could not load animal data.</string>
+    <string name="sucesso_dados_clinicos_atualizados">Clinical data updated!</string>
+
 </resources>

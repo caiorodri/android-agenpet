@@ -229,26 +229,25 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
-                    <ImageView
-                        android:id="@+id/icon_descricao"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="16dp"
-                        android:src="@drawable/ic_notes"
-                        app:tint="?attr/colorPrimary"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:contentDescription="@string/cd_icone_observacoes"/>
+                    <TextView
+                    android:id="@+id/label_descricao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_descricao_observacoes"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/input_layout_descricao"
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_marginTop="16dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:hint="@string/hint_descricao_agendamento_opcional"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/icon_descricao"
+                        app:layout_constraintTop_toBottomOf="@id/label_descricao"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -264,6 +263,44 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_animal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:layout_constraintTop_toBottomOf="@id/card_observacoes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/label_animal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_dados_animal"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="?attr/colorPrimary"/>
+
+                    <Button
+                        android:id="@+id/button_salvar_dados_clinicos"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/button_dados_clinicos"
+                        app:icon="@drawable/ic_pet"
+                        tools:visibility="visible"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <Button
                 android:id="@+id/button_salvar"
                 android:layout_width="0dp"
@@ -275,11 +312,10 @@
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_observacoes"
+                app:layout_constraintTop_toBottomOf="@id/card_animal"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 
     <FrameLayout
@@ -302,5 +338,4 @@
             android:indeterminateTint="?attr/colorPrimary" />
 
     </FrameLayout>
-
 </FrameLayout>
