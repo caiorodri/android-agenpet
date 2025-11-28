@@ -519,6 +519,46 @@ class UsuarioController(private val context: Context) {
         return emptyList();
     }
 
+    suspend fun listarClientes(): List<UsuarioResponse> {
+
+        val endpoint = "listarClientes";
+
+        Log.i(TAG, "[$endpoint] - Inicio");
+
+        try {
+
+            val response = usuarioService.listarClientes();
+
+            if (response.isSuccessful) {
+
+                val usuarios = response.body() ?: emptyList();
+
+                Log.i(TAG, "[$endpoint] - Sucesso. ${usuarios.size} clientes encontrados.");
+                Log.i(TAG, "[$endpoint] - Fim");
+
+                return usuarios;
+
+            } else {
+
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}");
+
+            }
+
+        } catch (e: IOException) {
+
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e);
+
+        } catch (e: Exception) {
+
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e);
+
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim");
+
+        return emptyList();
+    }
+
     suspend fun listarRecepcionistas(): List<UsuarioResponse> {
 
         val endpoint = "listarRecepcionistas";

@@ -69,6 +69,9 @@ interface UsuarioService {
         @Query("quantidadeItens") quantidadeItens: Int
     ): Response<PageResponse<UsuarioResponse>>
 
+    @GET("usuarios/clientes/ativo")
+    suspend fun listarClientes(): Response<List<UsuarioResponse>>
+
     @GET("usuarios/recepcionistas")
     suspend fun listarRecepcionistas(): Response<List<UsuarioResponse>>
 

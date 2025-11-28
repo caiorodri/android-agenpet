@@ -69,9 +69,12 @@ class AgendamentoCadastroFragment : Fragment() {
     private var listaVeterinarios: List<UsuarioResponse> = emptyList();
     private var listaTipos: List<Tipo> = emptyList();
     private var listaStatus: List<Status> = emptyList();
+    private var listaClientes: List<UsuarioResponse> = emptyList();
     private val args: AgendamentoCadastroFragmentArgs by navArgs();
 
     private var agendamentoParaEdicao: Agendamento? = null;
+    private var isRecepcionista = false;
+    private var clienteSelecionadoId: Long? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,6 +85,7 @@ class AgendamentoCadastroFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState);
 
         agendamentoParaEdicao = args.agendamento;
@@ -104,12 +108,27 @@ class AgendamentoCadastroFragment : Fragment() {
 
         }
 
+        isRecepcionista = usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.RECEPCIONISTA.id;
+
+        viewModel.carregarDadosIniciais(isRecepcionista);
+
         setupUIBase(agendamentoParaEdicao);
         setupListeners();
         setupObservers();
     }
 
     private fun setupUIBase(agendamento: Agendamento?) {
+
+        if (isRecepcionista) {
+
+            binding.menuCliente.visibility = View.VISIBLE;
+            binding.menuAnimal.isEnabled = false;
+
+        } else {
+
+            binding.menuCliente.visibility = View.GONE;
+
+        }
 
         if (agendamento != null) {
 
@@ -119,6 +138,12 @@ class AgendamentoCadastroFragment : Fragment() {
             binding.autoCompleteTipo.setText(agendamento.tipo.getNomeTraduzido(requireContext()), false);
             binding.autoCompleteAnimal.setText(agendamento.animal.nome, false);
             binding.autoCompleteVeterinario.setText(agendamento.veterinario.nome, false);
+
+            if (isRecepcionista) {
+                binding.autoCompleteCliente.setText(agendamento.cliente.nome, false);
+                binding.menuCliente.isEnabled = false;
+            }
+
             binding.editTextDescricao.setText(agendamento.descricao);
 
             viewModel.setDataSelecionada(agendamento.dataAgendamentoInicio, formatadorDeDataAPI.format(Date(agendamento.dataAgendamentoInicio)));
@@ -270,7 +295,28 @@ class AgendamentoCadastroFragment : Fragment() {
 
             validarEsalvar();
 
-        };
+        }
+
+        if (isRecepcionista) {
+
+            binding.autoCompleteCliente.setOnItemClickListener { parent, _, position, _ ->
+
+                val nomeCliente = parent.getItemAtPosition(position) as String;
+                val cliente = listaClientes.find { it.nome == nomeCliente }
+
+                if (cliente != null) {
+
+                    viewModel.filtrarAnimaisPorCliente(cliente.id);
+                    clienteSelecionadoId = cliente.id;
+
+                    binding.menuAnimal.isEnabled = true;
+                    binding.autoCompleteAnimal.setText("", false);
+
+
+                }
+
+            }
+        }
 
     }
 
@@ -355,7 +401,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
             usuarioAtual = usuario;
 
-            if (usuario?.animais != null) {
+            if (!isRecepcionista && usuario?.animais != null) {
 
                 listaAnimais = usuario.animais!!;
 
@@ -446,6 +492,32 @@ class AgendamentoCadastroFragment : Fragment() {
             }
 
         }
+
+        viewModel.clientes.observe(viewLifecycleOwner) { clientes ->
+
+            listaClientes = clientes;
+
+            val nomesClientes = clientes.map { it.nome }
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesClientes);
+
+            binding.autoCompleteCliente.setAdapter(adapter);
+
+        }
+
+        viewModel.animaisFiltrados.observe(viewLifecycleOwner) { animais ->
+
+            if (isRecepcionista) {
+
+                listaAnimais = animais;
+
+                val nomesAnimais = animais.map { it.nome };
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesAnimais);
+
+                binding.autoCompleteAnimal.setAdapter(adapter);
+
+            }
+        }
+
     }
 
     private fun mostrarDatePicker() {
@@ -541,7 +613,6 @@ class AgendamentoCadastroFragment : Fragment() {
         val tipoSelecionado = listaTipos.find { it.getNomeTraduzido(requireContext()) == nomeTipoTraduzido };
 
         val nomeStatusTraduzido = binding.autoCompleteStatus.text.toString();
-
         val statusSelecionado = if (agendamentoParaEdicao != null) {
 
             listaStatus.find { it.getNomeTraduzido(requireContext()) == nomeStatusTraduzido } ?: agendamentoParaEdicao!!.status;
@@ -581,11 +652,19 @@ class AgendamentoCadastroFragment : Fragment() {
                 clienteNome = usuarioLogado?.nome
                 clienteEmail = usuarioLogado?.email
 
-                val animalSelecionado = listaAnimais.find { it.nome == binding.autoCompleteAnimal.text.toString() };
-                animalId = animalSelecionado?.id
-                animalNome = animalSelecionado?.nome
+            } else if (perfilLogado == PerfilEnum.RECEPCIONISTA) {
+
+                clienteId = clienteSelecionadoId;
+                val clienteObj = listaClientes.find { it.id == clienteId }
+                clienteNome = clienteObj?.nome
+                clienteEmail = clienteObj?.email
 
             }
+
+            val animalSelecionado = listaAnimais.find { it.nome == binding.autoCompleteAnimal.text.toString() };
+            animalId = animalSelecionado?.id
+            animalNome = animalSelecionado?.nome
+
         }
 
         if (clienteId == null) {
@@ -593,8 +672,12 @@ class AgendamentoCadastroFragment : Fragment() {
             return;
         }
 
-        if (recepcionistaAutoAtendimento == null) {
-            Toast.makeText(requireContext(), "Erro: Sistema indisponível (Recepcionista não encontrado).", Toast.LENGTH_SHORT).show()
+        val idRecepcionistaFinal = if (isRecepcionista) usuarioLogado?.id!! else recepcionistaAutoAtendimento?.id
+        val nomeRecepcionistaFinal = if (isRecepcionista) usuarioLogado?.nome else recepcionistaAutoAtendimento?.nome ?: ""
+        val emailRecepcionistaFinal = if (isRecepcionista) usuarioLogado?.email else recepcionistaAutoAtendimento?.email ?: ""
+
+        if (idRecepcionistaFinal == null) {
+            Toast.makeText(requireContext(), "Erro no Recepcionista", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -654,9 +737,9 @@ class AgendamentoCadastroFragment : Fragment() {
                 nome = clienteNome!!,
                 email = clienteEmail!!),
             recepcionista = UsuarioCadastroComplementar(
-                id = recepcionistaAutoAtendimento.id,
-                nome = recepcionistaAutoAtendimento.nome,
-                email = recepcionistaAutoAtendimento.email
+                id = idRecepcionistaFinal,
+                nome = nomeRecepcionistaFinal!!,
+                email = emailRecepcionistaFinal!!
             ),
             animal = AnimalCadastroComplementar(
                 id = animalId,
@@ -710,6 +793,12 @@ class AgendamentoCadastroFragment : Fragment() {
             binding.menuHorario.error = erroObrigatorio;
             valido = false;
         }
+
+        if (isRecepcionista && binding.autoCompleteCliente.text.isNullOrBlank()) {
+            binding.menuCliente.error = erroObrigatorio
+            valido = false
+        }
+
         return valido;
     }
 

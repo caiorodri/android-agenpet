@@ -12,6 +12,7 @@ import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest;
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoResponse;
 import br.com.caiorodri.agenpet.model.agendamento.Status;
 import br.com.caiorodri.agenpet.model.agendamento.Tipo;
+import br.com.caiorodri.agenpet.model.animal.Animal
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
 import kotlinx.coroutines.launch;
 import java.io.IOException;
@@ -52,27 +53,48 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
     val dataSelecionadaTimestamp = MutableLiveData<Long?>(null);
     val horaSelecionada = MutableLiveData<String?>(null);
 
-    init {
-        carregarDadosIniciais();
-    }
+    private val _clientes = MutableLiveData<List<UsuarioResponse>>()
+    val clientes: LiveData<List<UsuarioResponse>> = _clientes
 
-    private fun carregarDadosIniciais() {
+    private var todosAnimais: List<Animal> = emptyList()
+
+    private val _animaisFiltrados = MutableLiveData<List<Animal>>()
+    val animaisFiltrados: LiveData<List<Animal>> = _animaisFiltrados
+
+    fun carregarDadosIniciais(isRecepcionista: Boolean) {
+
         viewModelScope.launch {
+
             _isLoading.value = true;
             _error.value = null;
+
             try {
 
-                val data = agendamentoRepository.getAgendamentoData();
+                val data = agendamentoRepository.getAgendamentoData(isRecepcionista);
 
                 _tipos.postValue(data.tipos);
                 _status.postValue(data.status);
                 _veterinarios.postValue(data.veterinarios);
-                _recepcionistaAutoAtendimento.postValue(data.recepcionista);
 
-                if (data.recepcionista == null) {
-                    Log.e("AgendamentoCadastroVM", "CRÍTICO: Recepcionista 'AUTO ATENDIMENTO' não encontrado.");
-                    _error.postValue(getApplication<Application>().getString(R.string.erro_recepcionista_nao_encontrado));
+                if (isRecepcionista) {
+
+                    _clientes.postValue(data.clientes ?: emptyList());
+                    todosAnimais = data.animais?.map { Animal(it) } ?: emptyList();
+                    _animaisFiltrados.postValue(emptyList());
+
+                } else {
+
+                    _recepcionistaAutoAtendimento.postValue(data.recepcionista);
+
+                    if (data.recepcionista == null) {
+
+                        Log.e("AgendamentoCadastroVM", "CRÍTICO: Recepcionista 'AUTO ATENDIMENTO' não encontrado.");
+                        _error.postValue(getApplication<Application>().getString(R.string.erro_recepcionista_nao_encontrado));
+
+                    }
                 }
+
+
 
             } catch (e: Exception) {
                 Log.e("AgendamentoCadastroVM", "Erro ao carregar dados iniciais", e);
@@ -129,33 +151,52 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
     }
 
     fun salvarOuAtualizarAgendamento(request: AgendamentoRequest) {
+
         viewModelScope.launch {
+
             _isLoading.value = true;
             _error.value = null;
             _agendamentoSalvo.value = null;
 
             try {
+
                 if (request.id == null) {
+
                     Log.d("AgendamentoCadastroVM", "Salvando novo agendamento...");
                     val agendamentoSalvo = agendamentoRepository.salvarAgendamento(request);
                     _agendamentoSalvo.postValue(agendamentoSalvo);
 
                 } else {
+
                     Log.d("AgendamentoCadastroVM", "Atualizando agendamento ID: ${request.id}");
                     val agendamentoAtualizado = agendamentoRepository.atualizarAgendamento(request);
                     _agendamentoSalvo.postValue(agendamentoAtualizado);
+
                 }
 
             } catch (e: IOException) {
+
                 Log.e("AgendamentoCadastroVM", "Erro de rede", e);
                 _error.postValue(getApplication<Application>().getString(R.string.erro_salvar_agendamento_rede));
+
             } catch (e: Exception) {
+
                 Log.e("AgendamentoCadastroVM", "Erro ao salvar/atualizar", e);
                 _error.postValue(e.message ?: getApplication<Application>().getString(R.string.erro_salvar_agendamento_generico));
+
             } finally {
+
                 _isLoading.value = false;
+
             }
         }
+    }
+
+    fun filtrarAnimaisPorCliente(idCliente: Long) {
+
+        val animaisDoCliente = todosAnimais.filter { it.dono.id == idCliente }
+        _animaisFiltrados.value = animaisDoCliente
+
     }
 
     fun resetAgendamentoSalvo() {

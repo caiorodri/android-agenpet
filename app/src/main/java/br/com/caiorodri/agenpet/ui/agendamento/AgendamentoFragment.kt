@@ -68,7 +68,7 @@ class AgendamentoFragment : Fragment() {
 
     private fun setupUI(){
 
-        if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id) {
+        if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id || usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.RECEPCIONISTA.id) {
 
             binding.fabAddAgendamento.isVisible = true;
 
@@ -100,14 +100,14 @@ class AgendamentoFragment : Fragment() {
                 viewModel.filtrarAgendamentos(newText);
                 return true;
             }
-        });
+        })
 
         binding.fabAddAgendamento.setOnClickListener {
 
             val action = AgendamentoFragmentDirections.actionAgendamentoFragmentToAgendamentoCadastroFragment(null);
             findNavController().navigate(action);
 
-        };
+        }
 
         binding.swipeRefreshLayoutAgendamentos.setOnRefreshListener {
 

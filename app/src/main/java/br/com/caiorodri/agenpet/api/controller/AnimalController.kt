@@ -55,6 +55,46 @@ class AnimalController(private val context: Context) {
         return null;
     }
 
+    suspend fun listar(): List<AnimalResponse> {
+
+        val endpoint = "listar";
+
+        Log.i(TAG, "[$endpoint] - Inicio");
+
+        try {
+
+            val response = animalService.listar();
+
+            if (response.isSuccessful) {
+
+                val animais = response.body() ?: emptyList();
+
+                Log.i(TAG, "[$endpoint] - Sucesso. ${animais.size} animais encontrados.");
+                Log.i(TAG, "[$endpoint] - Fim");
+
+                return animais;
+
+            } else {
+
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}");
+
+            }
+
+        } catch (e: IOException) {
+
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e);
+
+        } catch (e: Exception) {
+
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e);
+
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim (Retornando lista vazia)");
+
+        return emptyList();
+    }
+
     suspend fun listarAnimaisByDonoId(idDono: Long): List<AnimalResponse> {
 
         val endpoint = "listarAnimaisByDonoId";
