@@ -18,6 +18,7 @@ import br.com.caiorodri.agenpet.api.controller.UsuarioController
 import br.com.caiorodri.agenpet.model.usuario.LoginRequest
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.security.SessionManager
+import com.google.android.material.checkbox.MaterialCheckBox
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var editTextEmail: EditText;
     lateinit var editTextSenha: EditText;
     lateinit var frameLayoutLoading: FrameLayout;
+    lateinit var checkBoxLembrar: MaterialCheckBox;
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -60,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextSenha = findViewById(R.id.editTextSenha);
         frameLayoutLoading = findViewById(R.id.loadingOverlay);
+        checkBoxLembrar = findViewById(R.id.checkbox_lembrar_mim);
 
     }
 
@@ -93,6 +96,9 @@ class LoginActivity : AppCompatActivity() {
                     if(loginResponse != null){
 
                         sessionManager.saveAuthToken(loginResponse.token);
+
+                        val deveLembrar = checkBoxLembrar.isChecked;
+                        sessionManager.saveRememberMe(deveLembrar);
 
                         val usuarioResponse = loginResponse.usuario;
 

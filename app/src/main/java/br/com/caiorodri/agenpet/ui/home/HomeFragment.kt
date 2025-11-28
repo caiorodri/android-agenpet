@@ -15,6 +15,7 @@ import br.com.caiorodri.agenpet.databinding.FragmentHomeBinding;
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoAdapter;
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
 import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
 
 class HomeFragment : Fragment() {
@@ -48,7 +49,6 @@ class HomeFragment : Fragment() {
 
             val action = HomeFragmentDirections.actionHomeProfissionalFragmentToAgendamentoCadastroFragment(agendamento);
             findNavController().navigate(action);
-
 
         };
 
@@ -92,16 +92,16 @@ class HomeFragment : Fragment() {
 
             var saudacaoFinal = getString(R.string.saudacao_simples, primeiroNome);
 
-            val perfil = usuario.perfil?.nome?.uppercase();
+            val perfil = usuario.perfil?.id;
 
-            if (perfil == "ADMINISTRADOR") {
+            if (perfil == PerfilEnum.ADMINISTRADOR.id) {
 
                 binding.grupoAdmin.isVisible = true;
                 binding.grupoAgenda.isVisible = false;
 
             } else {
 
-                if(perfil == "VETERINARIO"){
+                if(perfil == PerfilEnum.VETERINARIO.id){
 
                     val segundoNome = partesDoNome[1];
                     saudacaoFinal = getString(R.string.saudacao_composta, primeiroNome, segundoNome);

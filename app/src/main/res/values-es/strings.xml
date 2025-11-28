@@ -346,4 +346,7 @@
     <string name="erro_carregar_dados_animal">No se pudieron cargar los datos del animal.</string>
     <string name="sucesso_dados_clinicos_atualizados">¡Datos clínicos actualizados!</string>
 
+    <string name="label_receber_emails">Acepto recibir correos electrónicos</string>
+    <string name="label_lembrar_de_mim">Recuérdame</string>
+
 </resources>

@@ -20,6 +20,8 @@ import androidx.navigation.fragment.navArgs
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.databinding.FragmentFuncionarioCadastroBinding;
 import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher;
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
+import br.com.caiorodri.agenpet.model.enums.StatusUsuarioEnum
 import br.com.caiorodri.agenpet.model.usuario.Endereco;
 import br.com.caiorodri.agenpet.model.usuario.Estado;
 import br.com.caiorodri.agenpet.model.usuario.Perfil;
@@ -131,7 +133,7 @@ class FuncionarioCadastroFragment : Fragment() {
             binding.editTextCpf.setText(funcionario.cpf);
 
 
-            val cargoTexto = if (funcionario.perfil?.id?.toInt() == 3) getString(R.string.cargo_veterinario) else getString(R.string.cargo_recepcionista);
+            val cargoTexto = if (funcionario.perfil?.id == PerfilEnum.VETERINARIO.id) getString(R.string.cargo_veterinario) else getString(R.string.cargo_recepcionista);
             binding.autoCompleteCargo.setText(cargoTexto, false);
 
             if (!funcionario.telefones.isNullOrEmpty()) {
@@ -290,8 +292,9 @@ class FuncionarioCadastroFragment : Fragment() {
 
         if (!valido) return;
 
-        val perfilId: Int = if (cargoSelecionado == getString(R.string.cargo_veterinario)) 3 else 2;
-        val nomePerfil = if(perfilId == 3) "VETERINARIO" else "RECEPCIONISTA";
+        val perfilId: Int = if (cargoSelecionado == getString(R.string.cargo_veterinario)) PerfilEnum.VETERINARIO.id else PerfilEnum.RECEPCIONISTA.id;
+
+        val nomePerfil = if(perfilId == PerfilEnum.VETERINARIO.id) PerfilEnum.VETERINARIO.nome else PerfilEnum.RECEPCIONISTA.nome;
 
         if (fotoUri != null) {
             comprimirEUploadImagem(fotoUri!!) { urlFoto ->
@@ -330,10 +333,11 @@ class FuncionarioCadastroFragment : Fragment() {
                 dataNascimento = dataNascimento,
                 endereco = Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, estado)),
                 perfil = Perfil(perfilId, nomePerfil),
-                status = Status(1, "Ativo"),
+                status = Status(StatusUsuarioEnum.ATIVO.id, StatusUsuarioEnum.ATIVO.nome),
                 urlImagem = urlFoto,
                 agendamentos = null,
-                animais = null
+                animais = null,
+                receberEmail = true
             );
             viewModel.salvarFuncionario(novoFuncionario);
 
@@ -355,7 +359,7 @@ class FuncionarioCadastroFragment : Fragment() {
                 ),
                 perfil = Perfil(perfilId, nomePerfil),
                 status = funcionarioParaEdicao!!.status,
-                urlImagem = urlFoto
+                urlImagem = urlFoto,
             );
             viewModel.atualizarFuncionario(funcionarioAtualizado);
         }

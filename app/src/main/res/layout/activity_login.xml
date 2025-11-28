@@ -67,8 +67,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="16dp"
-                        android:paddingTop="32dp"
-                        android:paddingBottom="48dp">
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp">
 
                         <TextView
                             android:id="@+id/label_acesso"
@@ -116,6 +116,15 @@
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword"/>
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/checkbox_lembrar_mim"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_lembrar_de_mim"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/input_layout_senha"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>

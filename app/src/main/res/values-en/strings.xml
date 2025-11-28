@@ -346,4 +346,7 @@
     <string name="erro_carregar_dados_animal">Could not load animal data.</string>
     <string name="sucesso_dados_clinicos_atualizados">Clinical data updated!</string>
 
+    <string name="label_receber_emails">I accept receiving emails</string>
+    <string name="label_lembrar_de_mim">Remember me</string>
+
 </resources>

@@ -26,6 +26,7 @@ import br.com.caiorodri.agenpet.model.usuario.Status;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -72,6 +73,7 @@ class CadastroActivity : AppCompatActivity() {
     private lateinit var inputLayoutNumero: TextInputLayout;
     private lateinit var inputLayoutCidade: TextInputLayout;
     private lateinit var inputLayoutEstado: TextInputLayout;
+    private lateinit var checkboxReceberEmail: MaterialCheckBox;
 
     private val formatadorDeData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
@@ -146,6 +148,8 @@ class CadastroActivity : AppCompatActivity() {
         inputLayoutNumero = findViewById(R.id.input_layout_numero);
         inputLayoutCidade = findViewById(R.id.input_layout_cidade);
         inputLayoutEstado = findViewById(R.id.input_layout_estado);
+
+        checkboxReceberEmail = findViewById(R.id.checkbox_receber_email);
     };
 
     fun setUpListeners() {
@@ -231,6 +235,7 @@ class CadastroActivity : AppCompatActivity() {
         val complemento = editTextComplemento.text.toString();
         val cidade = editTextCidade.text.toString();
         val siglaEstado = autoCompleteEstado.text.toString();
+        val receberEmail = checkboxReceberEmail.isChecked;
 
         val dataNascimentoFormatada = try {
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dataNascimentoStr);
@@ -245,7 +250,7 @@ class CadastroActivity : AppCompatActivity() {
             null, nome, email, cpf, senha, listOf(telefone),
             dataNascimentoFormatada,
             Endereco(cep, logradouro, numero, complemento, cidade, Estado(null, siglaEstado)), null, null,
-            Perfil(perfilCliente.id, perfilCliente.nome), Status(statusAtivo.id, statusAtivo.nome), null
+            Perfil(perfilCliente.id, perfilCliente.nome), Status(statusAtivo.id, statusAtivo.nome), null, receberEmail
         );
 
         return withContext(Dispatchers.IO) {
@@ -254,6 +259,7 @@ class CadastroActivity : AppCompatActivity() {
     }
 
     fun validarCadastro(): Boolean {
+
         var valido = true;
 
         inputLayoutNome.error = null;

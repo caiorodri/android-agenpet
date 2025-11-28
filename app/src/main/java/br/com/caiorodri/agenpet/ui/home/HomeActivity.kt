@@ -226,12 +226,12 @@ class HomeActivity : AppCompatActivity() {
 
     private fun configurarMenusPorPerfil(usuario: Usuario) {
 
-        val perfil = usuario.perfil?.nome?.uppercase();
+        val perfil = usuario.perfil?.id;
 
         bottomNavigationView.menu.clear();
         navigationView.menu.clear();
 
-        if (perfil == PerfilEnum.ADMINISTRADOR.nome) {
+        if (perfil == PerfilEnum.ADMINISTRADOR.id) {
 
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_admin);
             navigationView.inflateMenu(R.menu.drawer_menu_admin);

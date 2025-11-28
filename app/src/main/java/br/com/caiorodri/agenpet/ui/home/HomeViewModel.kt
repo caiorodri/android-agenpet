@@ -27,13 +27,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun carregarDadosHome(usuario: Usuario){
 
-        val perfil = usuario.perfil?.nome;
+        val perfil = usuario.perfil?.id;
 
-        if(perfil == PerfilEnum.ADMINISTRADOR.nome){
+        if(perfil == PerfilEnum.ADMINISTRADOR.id){
 
             return;
 
-        } else if (perfil == PerfilEnum.RECEPCIONISTA.nome){
+        } else if (perfil == PerfilEnum.RECEPCIONISTA.id){
 
             carregarAgendamentosDia(usuario.id!!);
 

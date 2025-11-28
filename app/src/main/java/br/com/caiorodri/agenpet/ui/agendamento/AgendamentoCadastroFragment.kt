@@ -26,6 +26,7 @@ import br.com.caiorodri.agenpet.model.agendamento.Tipo
 import br.com.caiorodri.agenpet.model.animal.Animal
 import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar
 import br.com.caiorodri.agenpet.model.enums.PerfilEnum
+import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
@@ -137,7 +138,7 @@ class AgendamentoCadastroFragment : Fragment() {
             binding.menuStatus.visibility = View.VISIBLE;
             binding.autoCompleteStatus.setText(agendamento.status.getNomeTraduzido(requireContext()), false);
 
-            if (agendamento.status.id == 2 || agendamento.status.id == 3) {
+            if (agendamento.status.id != StatusAgendamentoEnum.ABERTO.id) {
                 desabilitarFormularioCompleto();
             }
 
@@ -259,7 +260,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
                 val cancelarAgendamento: Status? = listaStatus.find { it.getNomeTraduzido(requireContext()) == binding.autoCompleteStatus.text.toString()}
 
-                if(cancelarAgendamento?.id == 2){
+                if(cancelarAgendamento?.id == StatusAgendamentoEnum.CANCELADO.id){
 
                     mostrarDialogoCancelamento();
                     return@setOnClickListener;
@@ -316,9 +317,9 @@ class AgendamentoCadastroFragment : Fragment() {
 
                 if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id){
 
-                    if (agendamentoParaEdicao?.status?.id == 1) {
+                    if (agendamentoParaEdicao?.status?.id == StatusAgendamentoEnum.ABERTO.id) {
 
-                        listaStatus = statusList.filter { it.id == 2 || it.id == 1 };
+                        listaStatus = statusList.filter { it.id == StatusAgendamentoEnum.CANCELADO.id || it.id == StatusAgendamentoEnum.ABERTO.id };
 
                     } else {
 
@@ -547,7 +548,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
         } else {
 
-            viewModel.status.value?.find { it.id == 1 };
+            viewModel.status.value?.find { it.id == StatusAgendamentoEnum.ABERTO.id };
 
         }
 

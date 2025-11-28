@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<FrameLayout-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/cadastro_root"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".ui.inicio.CadastroActivity">-->
-
-<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        android:id="@+id/coordinator_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="?attr/android:colorBackground">-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -377,6 +363,18 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/checkbox_receber_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/label_receber_emails"
+                    android:checked="true"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_senha" />
+
                 <Button
                     android:id="@+id/button_cadastrar"
                     android:layout_width="0dp"
@@ -386,7 +384,7 @@
                     android:text="@string/cadastrar"
                     android:backgroundTint="?attr/colorPrimary"
                     android:textColor="?attr/colorOnPrimary"
-                    app:layout_constraintTop_toBottomOf="@id/card_senha"
+                    app:layout_constraintTop_toBottomOf="@id/checkbox_receber_email"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -395,7 +393,6 @@
 
         </ScrollView>
 
-<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
     <FrameLayout
         android:id="@+id/loadingOverlay"
@@ -419,4 +416,3 @@
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-<!--</FrameLayout>-->

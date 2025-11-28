@@ -84,6 +84,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private suspend fun definirProximaTela() {
+
         val sessionManager = SessionManager(applicationContext)
         val token = sessionManager.fetchAuthToken()
 
@@ -91,14 +92,20 @@ class SplashActivity : AppCompatActivity() {
             delay(1200)
         }
 
-        proximaIntent = if (!token.isNullOrBlank()) {
+        proximaIntent = if (!token.isNullOrBlank() && sessionManager.fetchRememberMe()) {
+
             Intent(this, LoadingActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
+
         } else {
+
+            sessionManager.clearAuthToken();
+
             Intent(this, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
+
         }
 
     }

@@ -8,6 +8,7 @@ class SessionManager(context: Context) {
 
     companion object {
         const val AUTH_TOKEN = "auth_token"
+        const val KEY_REMEMBER_ME = "remember_me"
     }
 
     fun saveAuthToken(token: String) {
@@ -26,4 +27,15 @@ class SessionManager(context: Context) {
         editor.commit();
 
     }
+
+    fun saveRememberMe(remember: Boolean) {
+        val editor = prefs.edit()
+        editor.putBoolean(KEY_REMEMBER_ME, remember)
+        editor.apply()
+    }
+
+    fun fetchRememberMe(): Boolean {
+        return prefs.getBoolean(KEY_REMEMBER_ME, false)
+    }
+
 }

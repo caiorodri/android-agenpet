@@ -17,5 +17,6 @@ data class UsuarioRequest(
     val animais: List<AnimalResponse>?,
     val perfil: Perfil?,
     val status: Status?,
-    val urlImagem: String?
+    val urlImagem: String?,
+    val receberEmail: Boolean
 )
