@@ -97,7 +97,9 @@ class FuncionarioViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun atualizarFuncionario(usuario: UsuarioUpdateRequest) {
+
         viewModelScope.launch {
+
             _isLoading.value = true;
             _erro.value = null;
             _sucessoCadastro.value = false;

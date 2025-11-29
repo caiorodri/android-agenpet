@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.viewModels;
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController;
 import androidx.navigation.fragment.navArgs
 import br.com.caiorodri.agenpet.R;
@@ -29,6 +30,7 @@ import br.com.caiorodri.agenpet.model.usuario.Status;
 import br.com.caiorodri.agenpet.model.usuario.Usuario
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
+import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
 import br.com.caiorodri.agenpet.ui.usuario.FuncionarioViewModel
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -58,6 +60,7 @@ class FuncionarioCadastroFragment : Fragment() {
     private val args: FuncionarioCadastroFragmentArgs by navArgs();
     private var funcionarioParaEdicao: Usuario? = null
     private var urlFotoAtual: String? = null;
+    private var perfilLogado: PerfilEnum? = null;
 
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
@@ -95,6 +98,17 @@ class FuncionarioCadastroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
 
+        val activity = requireActivity();
+
+        if (activity is br.com.caiorodri.agenpet.ui.home.HomeActivity) {
+
+            val sharedVM = ViewModelProvider(activity)[HomeSharedViewModel::class.java];
+            val usuarioLogado = sharedVM.usuarioLogado.value;
+
+            perfilLogado = PerfilEnum.toEnum(usuarioLogado?.perfil?.id);
+
+        }
+
         funcionarioParaEdicao = args.funcionario;
 
         setupDropdowns();
@@ -106,10 +120,18 @@ class FuncionarioCadastroFragment : Fragment() {
     }
 
     private fun setupDropdowns() {
-        val cargos = listOf(
-            getString(R.string.cargo_veterinario),
-            getString(R.string.cargo_recepcionista)
-        );
+
+        val cargos: List<String>
+
+        if (perfilLogado == PerfilEnum.RECEPCIONISTA) {
+            cargos = listOf("Cliente")
+        } else {
+            cargos = listOf(
+                getString(R.string.cargo_veterinario),
+                getString(R.string.cargo_recepcionista)
+            )
+        }
+
         val adapterCargo = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, cargos);
         binding.autoCompleteCargo.setAdapter(adapterCargo);
 
@@ -119,6 +141,32 @@ class FuncionarioCadastroFragment : Fragment() {
     }
 
     private fun setupUIBase(funcionario: Usuario?) {
+
+        if (perfilLogado == PerfilEnum.RECEPCIONISTA) {
+
+            binding.inputLayoutCargo.visibility = View.GONE;
+
+            binding.textViewDadosFuncionario.text = getString(R.string.dados_cliente);
+
+            if (funcionario == null) {
+
+                (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.titulo_cadastrar_cliente);
+                binding.buttonSalvar.text = getString(R.string.botao_cadastrar_cliente);
+
+            }
+
+        } else {
+
+            binding.inputLayoutCargo.visibility = View.VISIBLE;
+
+            if (funcionario == null) {
+
+                (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.botao_cadastrar_funcionario);
+                binding.buttonSalvar.text = getString(R.string.botao_cadastrar_funcionario);
+
+            }
+
+        }
 
         if (funcionario != null) {
 
@@ -159,8 +207,6 @@ class FuncionarioCadastroFragment : Fragment() {
             }
 
         } else {
-            (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.botao_cadastrar_funcionario);
-            binding.buttonSalvar.text = getString(R.string.botao_cadastrar_funcionario);
 
             binding.inputLayoutSenha.visibility = View.VISIBLE;
             binding.editTextSenha.visibility = View.VISIBLE;
@@ -232,6 +278,7 @@ class FuncionarioCadastroFragment : Fragment() {
     }
 
     private fun validarESalvar() {
+
         val nome = binding.editTextNome.text.toString();
         val email = binding.editTextEmail.text.toString();
         val cpf = binding.editTextCpf.text.toString();
@@ -269,7 +316,11 @@ class FuncionarioCadastroFragment : Fragment() {
             valido = false;
         }
 
-        if (cargoSelecionado.isBlank()) { binding.inputLayoutCargo.error = getString(R.string.erro_cargo_vazio); valido = false; }
+        if (perfilLogado != PerfilEnum.RECEPCIONISTA && cargoSelecionado.isBlank()) {
+            binding.inputLayoutCargo.error = getString(R.string.erro_cargo_vazio);
+            valido = false;
+        }
+
         if (telefone.isBlank()) { binding.inputLayoutTelefone.error = getString(R.string.erro_obrigatorio); valido = false; }
 
         var dataNascimento: Date? = null;
@@ -292,9 +343,16 @@ class FuncionarioCadastroFragment : Fragment() {
 
         if (!valido) return;
 
-        val perfilId: Int = if (cargoSelecionado == getString(R.string.cargo_veterinario)) PerfilEnum.VETERINARIO.id else PerfilEnum.RECEPCIONISTA.id;
+        val perfilId: Int
+        val nomePerfil: String
 
-        val nomePerfil = if(perfilId == PerfilEnum.VETERINARIO.id) PerfilEnum.VETERINARIO.nome else PerfilEnum.RECEPCIONISTA.nome;
+        if (perfilLogado == PerfilEnum.RECEPCIONISTA) {
+            perfilId = PerfilEnum.CLIENTE.id;
+            nomePerfil = PerfilEnum.CLIENTE.nome;
+        } else {
+            perfilId = if (cargoSelecionado == getString(R.string.cargo_veterinario)) PerfilEnum.VETERINARIO.id; else PerfilEnum.RECEPCIONISTA.id;
+            nomePerfil = if(perfilId == PerfilEnum.VETERINARIO.id) PerfilEnum.VETERINARIO.nome else PerfilEnum.RECEPCIONISTA.nome;
+        }
 
         if (fotoUri != null) {
             comprimirEUploadImagem(fotoUri!!) { urlFoto ->

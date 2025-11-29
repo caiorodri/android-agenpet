@@ -4,10 +4,19 @@
         android:id="@+id/homeProfissionalFragment"
         android:icon="@drawable/ic_home"
         android:title="@string/home"/>
-
     <item
         android:id="@+id/agendamentoFragment"
         android:icon="@drawable/ic_calendar_dots"
         android:title="@string/agendamentos"/>
+
+    <item
+        android:id="@+id/funcionarioCadastroFragment"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/titulo_cadastrar_cliente"/>
+
+    <item
+        android:id="@+id/cadastroAnimalFragment"
+        android:icon="@drawable/ic_pet"
+        android:title="@string/cadastrar_novo_pet"/>
 
 </menu>

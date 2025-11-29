@@ -39,6 +39,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView;
 import kotlinx.coroutines.Dispatchers;
 import kotlinx.coroutines.launch;
@@ -86,6 +87,7 @@ class ClienteHomeActivity : AppCompatActivity() {
             view.setPadding(systemBars.left, 0, systemBars.right, bottomPadding);
 
             if (tecladoAberto) {
+
                 bottomNavigationView.visibility = View.GONE;
                 findViewById<View>(R.id.bottomAppBar).visibility = View.GONE;
 
@@ -102,11 +104,13 @@ class ClienteHomeActivity : AppCompatActivity() {
                 }
 
                 if (deveTerMenu) {
+
                     bottomNavigationView.visibility = View.VISIBLE;
                     findViewById<View>(R.id.bottomAppBar).visibility = View.VISIBLE;
 
                     val paddingMenu = (80 * resources.displayMetrics.density).toInt();
                     findViewById<View>(R.id.fragment_container).setPadding(0, 0, 0, paddingMenu);
+
                 }
             }
 
@@ -170,6 +174,8 @@ class ClienteHomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration);
         navigationView.setupWithNavController(navController);
 
+        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_SELECTED;
+
         bottomNavigationView.setOnItemSelectedListener { item ->
 
             try {
@@ -179,6 +185,17 @@ class ClienteHomeActivity : AppCompatActivity() {
                 false;
             }
 
+        }
+
+        navigationView.setNavigationItemSelectedListener { item ->
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+            try {
+                navController.navigate(item.itemId);
+                true;
+            } catch (e: Exception) {
+                false;
+            }
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -197,6 +214,8 @@ class ClienteHomeActivity : AppCompatActivity() {
 
                 fragmentContainer.setPadding(0, 0, 0, paddingComMenu);
 
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
                 if (bottomNavigationView.menu.findItem(destination.id) != null) {
                     bottomNavigationView.menu.findItem(destination.id).isChecked = true;
                 }
@@ -205,6 +224,8 @@ class ClienteHomeActivity : AppCompatActivity() {
 
                 bottomNavigationView.visibility = View.GONE;
                 bottomAppBar.visibility = View.GONE;
+
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
                 fragmentContainer.setPadding(0, 0, 0, 0);
 
@@ -229,6 +250,8 @@ class ClienteHomeActivity : AppCompatActivity() {
 
             userNameTextView.text = usuario.nome;
             userEmailTextView.text = usuario.email;
+
+            headerImageView.clearColorFilter();
 
             Glide.with(this)
                 .load(usuario.urlImagem)

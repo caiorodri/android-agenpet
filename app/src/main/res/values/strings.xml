@@ -335,6 +335,8 @@
     <string name="hint_senha_opcional">Nova Senha (Opcional)</string>
     <string name="sucesso_funcionario_atualizado">Funcionário atualizado com sucesso!</string>
     <string name="erro_atualizar_funcionario">Erro ao atualizar funcionário.</string>
+    <string name="dados_funcionario">Dados do Funcionário</string>
+    <string name="buscar_funcionarios">Buscar funcionários</string>
 
     <string name="loading_conectando">> Conectando ao servidor...</string>
     <string name="loading_autenticacao">> Autenticação bem-sucedida...</string>
@@ -360,6 +362,7 @@
     <string name="label_animal_castrado">Animal Castrado?</string>
     <string name="button_atualizar_dados_clinicos">Atualizar Dados Clínicos</string>
     <string name="label_dados_animal">Dados do Animal</string>
+    <string name="info_cadastre_pet">Cadastre seu primeiro pet para poder agendar consultas</string>
     <string name="button_dados_clinicos">Dados Clínicos</string>
 
     <string name="erro_animal_nao_encontrado">Animal não encontrado</string>
@@ -368,5 +371,12 @@
 
     <string name="label_receber_emails">Aceito receber e-mails</string>
     <string name="label_lembrar_de_mim">Lembrar de mim</string>
+
+    <string name="titulo_clientes">Clientes</string>
+    <string name="titulo_cadastrar_cliente">Cadastrar Cliente</string>
+    <string name="botao_cadastrar_cliente">Cadastrar Cliente</string>
+    <string name="sucesso_cliente_salvo">Cliente salvo com sucesso!</string>
+    <string name="dados_cliente">Dados do Cliente</string>
+    <string name="hint_selecione_cliente">Selecione o Cliente</string>
 
 </resources>

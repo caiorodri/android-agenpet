@@ -315,6 +315,8 @@
     <string name="hint_senha_opcional">New Password (Optional)</string>
     <string name="sucesso_funcionario_atualizado">Employee updated successfully!</string>
     <string name="erro_atualizar_funcionario">Error updating employee.</string>
+    <string name="dados_funcionario">Employee Data</string>
+    <string name="buscar_funcionarios">Search by name...</string>
 
     <string name="loading_conectando">> Connecting to server...</string>
     <string name="loading_autenticacao">> Authentication successful...</string>
@@ -341,6 +343,7 @@
     <string name="button_atualizar_dados_clinicos">Update Clinical Data</string>
     <string name="label_dados_animal">Animal Data</string>
     <string name="button_dados_clinicos">Clinical Data</string>
+    <string name="info_cadastre_pet">Register your first pet to schedule appointments</string>
 
     <string name="erro_animal_nao_encontrado">Error: Animal not found</string>
     <string name="erro_carregar_dados_animal">Could not load animal data.</string>
@@ -348,5 +351,13 @@
 
     <string name="label_receber_emails">I accept receiving emails</string>
     <string name="label_lembrar_de_mim">Remember me</string>
+
+
+    <string name="titulo_clientes">Clients</string>
+    <string name="titulo_cadastrar_cliente">Register Client</string>
+    <string name="botao_cadastrar_cliente">Register Client</string>
+    <string name="sucesso_cliente_salvo">Client saved successfully!</string>
+    <string name="dados_cliente">Client Data</string>
+    <string name="hint_selecione_cliente">Select client</string>
 
 </resources>

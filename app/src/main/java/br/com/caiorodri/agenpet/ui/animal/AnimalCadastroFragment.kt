@@ -24,9 +24,13 @@ import androidx.navigation.fragment.navArgs
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.FragmentAnimalCadastroBinding
 import br.com.caiorodri.agenpet.model.animal.Animal
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario
+import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
 import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel
+import br.com.caiorodri.agenpet.ui.home.HomeActivity
+import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
 import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -49,9 +53,11 @@ class AnimalCadastroFragment : Fragment() {
     private var _binding: FragmentAnimalCadastroBinding? = null;
     private val binding get() = _binding!!;
     private val viewModel: AnimalCadastroViewModel by viewModels();
-    private val sharedViewModel: ClienteHomeSharedViewModel by activityViewModels();
+    private var usuarioLogado: Usuario? = null;
     private val args: AnimalCadastroFragmentArgs by navArgs();
     private var animalParaEdicao: Animal? = null;
+    private var isRecepcionista = false;
+    private var listaClientes: List<UsuarioResponse> = emptyList();
     private val formatadorDeData = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
     };
@@ -102,8 +108,28 @@ class AnimalCadastroFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState);
+
         animalParaEdicao = args.animal;
+
+        val activity = requireActivity();
+
+        if (activity is ClienteHomeActivity) {
+
+            val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+            usuarioLogado = sharedVM.usuarioLogado.value;
+
+        } else if (activity is HomeActivity) {
+
+            val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[HomeSharedViewModel::class.java];
+            usuarioLogado = sharedVM.usuarioLogado.value;
+
+        }
+
+        isRecepcionista = usuarioLogado?.perfil?.id == PerfilEnum.RECEPCIONISTA.id;
+
+        viewModel.carregarDadosIniciais(isRecepcionista);
 
         setupUIBase();
         setupListeners();
@@ -114,10 +140,21 @@ class AnimalCadastroFragment : Fragment() {
 
         binding.autoCompleteEspecie.setAdapter(
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, emptyList<String>())
-        )
+        );
+
         binding.autoCompleteRaca.setAdapter(
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, emptyList<String>())
-        )
+        );
+
+        binding.autoCompleteCliente.setAdapter(
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, emptyList<String>())
+        );
+
+        if (isRecepcionista) {
+            binding.menuCliente.visibility = View.VISIBLE;
+        } else {
+            binding.menuCliente.visibility = View.GONE;
+        }
 
         val animal = animalParaEdicao;
 
@@ -189,7 +226,9 @@ class AnimalCadastroFragment : Fragment() {
             }
 
         } else {
+
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.label_cadastro_pet);
+
             binding.textViewIdAnimal.isVisible = false;
             binding.buttonRemover.isVisible = false;
             binding.labelInfoAdicional.isVisible = true;
@@ -198,6 +237,9 @@ class AnimalCadastroFragment : Fragment() {
             binding.inputLayoutAltura.isEnabled = true;
             binding.radioGroupCastrado.children.forEach { it.isEnabled = true };
             binding.menuRaca.isEnabled = false;
+
+            if(isRecepcionista) binding.menuCliente.isEnabled = true;
+
         }
     }
 
@@ -223,6 +265,19 @@ class AnimalCadastroFragment : Fragment() {
             viewModel.setRaca(raca);
         };
 
+        if(isRecepcionista) {
+
+            binding.autoCompleteCliente.setOnItemClickListener { parent, _, position, _ ->
+
+                val nomeCliente = parent.getItemAtPosition(position) as String;
+                val cliente = listaClientes.find { it.nome == nomeCliente }
+
+                viewModel.setClienteSelecionado(cliente);
+
+            }
+
+        }
+
         binding.buttonSalvar.setOnClickListener {
             salvarDadosDoAnimal();
         };
@@ -240,6 +295,17 @@ class AnimalCadastroFragment : Fragment() {
     }
 
     private fun setupObservers() {
+
+        viewModel.clientes.observe(viewLifecycleOwner) { clientes ->
+
+            listaClientes = clientes;
+
+            val nomes = clientes.map { it.nome }
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomes);
+
+            binding.autoCompleteCliente.setAdapter(adapter);
+
+        }
 
         viewModel.especies.observe(viewLifecycleOwner) { especies ->
 
@@ -298,6 +364,8 @@ class AnimalCadastroFragment : Fragment() {
             binding.menuEspecie.isEnabled = !isLoading;
             binding.buttonSalvar.isEnabled = !isLoading;
 
+            if (isRecepcionista) binding.menuCliente.isEnabled = !isLoading;
+
             if(isLoading) {
 
                 binding.menuRaca.isEnabled = false;
@@ -329,32 +397,51 @@ class AnimalCadastroFragment : Fragment() {
         }
 
         viewModel.animalSalvoComSucesso.observe(viewLifecycleOwner) { animalResponseSalvo ->
+
             animalResponseSalvo ?: return@observe;
 
             Toast.makeText(context, getString(R.string.toast_animal_salvo_sucesso), Toast.LENGTH_SHORT).show();
 
-            val animalConvertido = Animal(animalResponseSalvo);
-            val animalFinal = animalConvertido.copy(
-                agendamentos = animalParaEdicao?.agendamentos
-            );
+            val activity = requireActivity();
 
-            sharedViewModel.atualizarAnimalLocalmente(animalFinal);
-            (activity as? ClienteHomeActivity)?.carregarDadosDoUsuario();
+            if (activity is ClienteHomeActivity) {
+
+                val animalObj = Animal(animalResponseSalvo).copy(agendamentos = animalParaEdicao?.agendamentos);
+                val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+
+                sharedVM.atualizarAnimalLocalmente(animalObj);
+                activity.carregarDadosDoUsuario();
+
+            } else if (activity is HomeActivity) {
+
+                activity.carregarDadosDoUsuario();
+
+            }
 
             viewModel.resetAnimalSalvo();
             findNavController().popBackStack();
         }
 
         viewModel.animalRemovidoComSucesso.observe(viewLifecycleOwner) { removido ->
+
             removido ?: return@observe;
 
             Toast.makeText(context, getString(R.string.toast_animal_removido_sucesso), Toast.LENGTH_SHORT).show();
 
-            animalParaEdicao?.id?.let {
-                sharedViewModel.removerAnimalLocalmente(it);
-            };
+            val activity = requireActivity();
 
-            (activity as? ClienteHomeActivity)?.carregarDadosDoUsuario();
+            if (activity is ClienteHomeActivity) {
+
+                val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+
+                animalParaEdicao?.id?.let { sharedVM.removerAnimalLocalmente(it) }
+                activity.carregarDadosDoUsuario();
+
+            } else if (activity is HomeActivity) {
+
+                activity.carregarDadosDoUsuario();
+
+            }
 
             viewModel.resetAnimalRemovido();
             findNavController().popBackStack();
@@ -411,28 +498,27 @@ class AnimalCadastroFragment : Fragment() {
             return;
         }
 
-        val dono = sharedViewModel.usuarioLogado.value;
-
-        if (dono == null) {
-            Toast.makeText(context, getString(R.string.toast_erro_usuario_nao_encontrado), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        viewModel.setIsLoading(true);
-
         try {
 
-            val animal = criarObjetoAnimal(dono, fotoUrlExistente);
+            viewModel.setIsLoading(true);
+
+            val animal = criarObjetoAnimal(usuarioLogado, fotoUrlExistente);
 
             val uriSelecionado = viewModel.fotoUriSelecionada.value;
 
             if (uriSelecionado != null) {
+
                 comprimirEUploadImagem(uriSelecionado) { downloadUrl ->
-                    val animalComFoto = criarObjetoAnimal(dono, downloadUrl);
+
+                    val animalComFoto = criarObjetoAnimal(usuarioLogado, downloadUrl);
                     viewModel.salvarAnimal(animalComFoto);
+
                 }
+
             } else {
+
                 viewModel.salvarAnimal(animal);
+
             }
 
 
@@ -507,17 +593,50 @@ class AnimalCadastroFragment : Fragment() {
             };
     }
 
-    private fun criarObjetoAnimal(dono: Usuario, urlDaFoto: String?): Animal {
+    private fun criarObjetoAnimal(donoLogado: Usuario?, urlDaFoto: String?): Animal {
+
+        val donoFinal: Usuario;
+
+        if (isRecepcionista) {
+
+            if (animalParaEdicao != null) {
+
+                donoFinal = animalParaEdicao!!.dono
+
+            } else {
+
+                val clienteId = viewModel.clienteSelecionadoId.value ?: throw Exception("Selecione um cliente.")
+                val clienteResponse = listaClientes.find { it.id == clienteId } ?: throw Exception("Cliente inválido.")
+
+                donoFinal = Usuario(
+                    id = clienteResponse.id,
+                    nome = clienteResponse.nome,
+                    email = clienteResponse.email,
+                    ""
+                )
+
+            }
+
+        } else {
+
+            donoFinal = donoLogado ?: throw Exception("Usuário não logado.")
+
+        }
+
         val dataNascimentoString = binding.editTextDataNascimento.text.toString();
+
         val dataNascimentoTimestamp = if (dataNascimentoString.isNotBlank()) {
+
             try {
+
                 formatadorDeData.parse(dataNascimentoString)?.time;
+
             } catch (e: Exception) { null }
+
         } else { null };
 
         val nome = binding.editTextNome.text.toString().trim();
         val descricao = binding.editTextDescricao.text.toString().trim();
-
 
         val nomeEspecieTraduzido = binding.autoCompleteEspecie.text.toString();
         val especie = viewModel.especies.value?.find { it.getNomeTraduzido(requireContext()) == nomeEspecieTraduzido }
@@ -549,7 +668,7 @@ class AnimalCadastroFragment : Fragment() {
         return Animal(
             id = animalParaEdicao?.id,
             nome = nome,
-            dono = dono,
+            dono = donoFinal,
             dataNascimento = dataNascimentoTimestamp,
             descricao = descricao,
             raca = raca,
@@ -563,6 +682,7 @@ class AnimalCadastroFragment : Fragment() {
     }
 
     private fun validarCampos(): Boolean {
+
         var camposValidos = true;
 
         binding.inputLayoutNome.error = null;
@@ -570,6 +690,7 @@ class AnimalCadastroFragment : Fragment() {
         binding.menuRaca.error = null;
         binding.inputLayoutPeso.error = null;
         binding.inputLayoutAltura.error = null;
+        binding.menuCliente.error = null;
 
         if (binding.editTextNome.text.isNullOrBlank()) {
             binding.inputLayoutNome.error = getString(R.string.erro_nome_obrigatorio);
@@ -584,6 +705,11 @@ class AnimalCadastroFragment : Fragment() {
         if (binding.menuRaca.isEnabled && binding.autoCompleteRaca.text.isNullOrBlank()) {
             binding.menuRaca.error = getString(R.string.erro_raca_obrigatoria);
             camposValidos = false;
+        }
+
+        if (isRecepcionista && animalParaEdicao == null && binding.autoCompleteCliente.text.isNullOrBlank()) {
+            binding.menuCliente.error = getString(R.string.erro_obrigatorio)
+            camposValidos = false
         }
 
         if (binding.toggleButtonGroupSexo.checkedButtonId == View.NO_ID) {

@@ -14,6 +14,8 @@ import br.com.caiorodri.agenpet.model.animal.AnimalResponse;
 import br.com.caiorodri.agenpet.model.animal.Especie;
 import br.com.caiorodri.agenpet.model.animal.Raca;
 import br.com.caiorodri.agenpet.model.animal.Sexo;
+import br.com.caiorodri.agenpet.model.enums.SexoAnimalEnum
+import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
 import kotlinx.coroutines.launch;
 import java.io.IOException;
 
@@ -53,14 +55,16 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
     val especieSelecionada = MutableLiveData<Especie?>(null);
     val racaSelecionada = MutableLiveData<Raca?>(null);
 
+    private val _clientes = MutableLiveData<List<UsuarioResponse>>();
+    val clientes: LiveData<List<UsuarioResponse>> = _clientes;
+
+    val clienteSelecionadoId = MutableLiveData<Long?>(null);
+
     init {
-
-        carregarDadosIniciais();
-        _sexos.value = listOf(Sexo(1, "Macho"), Sexo(2, "Fêmea"), Sexo(3, "Desconhecido"));
-
+        _sexos.value = listOf(Sexo(SexoAnimalEnum.MACHO.id, SexoAnimalEnum.MACHO.nome), Sexo(SexoAnimalEnum.FEMEA.id, SexoAnimalEnum.FEMEA.nome), Sexo(SexoAnimalEnum.DESCONHECIDO.id, SexoAnimalEnum.DESCONHECIDO.nome));
     }
 
-    private fun carregarDadosIniciais() {
+    fun carregarDadosIniciais(isRecepcionista: Boolean) {
 
         viewModelScope.launch {
 
@@ -69,10 +73,14 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
 
             try {
 
-                val data = animalRepository.getAnimalData();
+                val data = animalRepository.getAnimalData(isRecepcionista);
 
                 listaCompletaRacas = data.racas;
                 _especies.postValue(data.especies);
+
+                if (isRecepcionista && data.clientes != null) {
+                    _clientes.postValue(data.clientes!!);
+                }
 
             } catch (e: Exception) {
 
@@ -87,6 +95,10 @@ class AnimalCadastroViewModel(application: Application) : AndroidViewModel(appli
                 _isLoadingDadosIniciais.value = false;
             }
         }
+    }
+
+    fun setClienteSelecionado(cliente: UsuarioResponse?) {
+        clienteSelecionadoId.value = cliente?.id;
     }
 
     fun filtrarRacasPorEspecie(especieSelecionada: Especie?) {

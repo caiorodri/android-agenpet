@@ -44,6 +44,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.load.DataSource
+import com.google.android.material.navigation.NavigationBarView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -93,6 +94,7 @@ class HomeActivity : AppCompatActivity() {
                 findViewById<View>(R.id.fragment_container).setPadding(0, 0, 0, 0);
 
             } else {
+
                 val currentId = navController.currentDestination?.id;
 
                 val deveTerMenu = when (currentId) {
@@ -103,6 +105,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 if (deveTerMenu) {
+
                     bottomNavigationView.visibility = View.VISIBLE;
                     findViewById<View>(R.id.bottomAppBar).visibility = View.VISIBLE;
 
@@ -158,7 +161,7 @@ class HomeActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment;
         navController = navHostFragment.navController;
         val bottomAppBar = findViewById<View>(R.id.bottomAppBar);
-        val fragmentContainer = findViewById<View>(R.id.fragment_container)
+        val fragmentContainer = findViewById<View>(R.id.fragment_container);
 
         val paddingComMenu = (80 * resources.displayMetrics.density).toInt()
 
@@ -198,6 +201,7 @@ class HomeActivity : AppCompatActivity() {
                 bottomAppBar.visibility = View.VISIBLE;
 
                 fragmentContainer.setPadding(0, 0, 0, paddingComMenu);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
                 if (bottomNavigationView.menu.findItem(destination.id) != null) {
                     bottomNavigationView.menu.findItem(destination.id).isChecked = true;
@@ -207,7 +211,8 @@ class HomeActivity : AppCompatActivity() {
 
                 bottomNavigationView.visibility = View.GONE;
                 bottomAppBar.visibility = View.GONE;
-                fragmentContainer.setPadding(0, 0, 0, 0)
+                fragmentContainer.setPadding(0, 0, 0, 0);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
             }
 
@@ -236,6 +241,11 @@ class HomeActivity : AppCompatActivity() {
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_admin);
             navigationView.inflateMenu(R.menu.drawer_menu_admin);
 
+        } else if (perfil == PerfilEnum.RECEPCIONISTA.id){
+
+            bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_recepcionista);
+            navigationView.inflateMenu(R.menu.drawer_menu_recepcionista);
+
         } else {
 
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_veterinario);
@@ -249,6 +259,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun atualizarHeaderDrawer(usuario: Usuario) {
+
         val headerView = navigationView.getHeaderView(0);
         val userNameTextView = headerView.findViewById<TextView>(R.id.nav_header_name);
         val userEmailTextView = headerView.findViewById<TextView>(R.id.nav_header_email);
@@ -256,6 +267,8 @@ class HomeActivity : AppCompatActivity() {
 
         userNameTextView.text = usuario.nome;
         userEmailTextView.text = usuario.email;
+
+        headerImageView.clearColorFilter();
 
         Glide.with(this)
             .load(usuario.urlImagem)
@@ -346,8 +359,13 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun carregarImagemPerfilToolbar(url: String?) {
+
         toolbarProfileImageView?.let { imageView ->
+
+            imageView.clearColorFilter();
+
             toolbarProfileProgressBar?.visibility = View.VISIBLE;
+
             Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.ic_profile_white)

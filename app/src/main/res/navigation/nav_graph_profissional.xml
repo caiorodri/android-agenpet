@@ -70,6 +70,18 @@
     </fragment>
 
     <fragment
+        android:id="@+id/cadastroAnimalFragment"
+        android:name="br.com.caiorodri.agenpet.ui.animal.AnimalCadastroFragment"
+        android:label="@string/label_cadastro_pet"
+        tools:layout="@layout/fragment_animal_cadastro" >
+        <argument
+            android:name="animal"
+            app:argType="br.com.caiorodri.agenpet.model.animal.Animal"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
         android:id="@+id/funcionarioCadastroFragment"
         android:name="br.com.caiorodri.agenpet.ui.usuario.FuncionarioCadastroFragment"
         android:label="Funcionário"

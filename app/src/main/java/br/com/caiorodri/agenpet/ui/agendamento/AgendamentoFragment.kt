@@ -68,7 +68,7 @@ class AgendamentoFragment : Fragment() {
 
     private fun setupUI(){
 
-        if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id || usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.RECEPCIONISTA.id) {
+        if((usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id && !usuarioLogadoLiveData.value?.animais.isNullOrEmpty()) || usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.RECEPCIONISTA.id) {
 
             binding.fabAddAgendamento.isVisible = true;
 
@@ -164,12 +164,25 @@ class AgendamentoFragment : Fragment() {
             if (lista.isEmpty()) {
 
                 binding.recyclerViewAgendamentos.isVisible = false;
-                binding.layoutInfoSemAgendamentos.isVisible = true;
+
+                if(usuarioLogadoLiveData.value?.animais.isNullOrEmpty()){
+
+                    binding.layoutInfoSemAnimais.isVisible = true;
+                    binding.layoutInfoSemAgendamentos.isVisible = false;
+
+                } else {
+
+                    binding.layoutInfoSemAnimais.isVisible = false;
+                    binding.layoutInfoSemAgendamentos.isVisible = true;
+
+                }
+
 
             } else {
 
                 binding.recyclerViewAgendamentos.isVisible = true;
                 binding.layoutInfoSemAgendamentos.isVisible = false;
+                binding.layoutInfoSemAnimais.isVisible = false;
 
             }
 
