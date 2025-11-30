@@ -5,6 +5,7 @@ import br.com.caiorodri.agenpet.BuildConfig
 import br.com.caiorodri.agenpet.api.service.AgendamentoService
 import br.com.caiorodri.agenpet.api.service.AnimalService
 import br.com.caiorodri.agenpet.api.service.UsuarioService
+import br.com.caiorodri.agenpet.api.service.ViaCepService
 import br.com.caiorodri.agenpet.security.AuthInterceptor
 import br.com.caiorodri.agenpet.security.SessionManager
 import com.google.gson.GsonBuilder
@@ -29,6 +30,13 @@ object ApiClient {
             .build();
     }
 
+    private fun getViaCepRetrofitInstance(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://viacep.com.br/ws/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
     private fun getRetrofitInstance(context: Context): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL.plus(BuildConfig.API_NAME).plus("/"))
@@ -47,6 +55,10 @@ object ApiClient {
 
     fun getAnimalService(context: Context): AnimalService {
         return getRetrofitInstance(context).create(AnimalService::class.java);
+    }
+
+    fun getViaCepService(): ViaCepService {
+        return getViaCepRetrofitInstance().create(ViaCepService::class.java)
     }
 
 }

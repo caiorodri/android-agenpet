@@ -337,7 +337,6 @@ class AnimalCadastroFragment : Fragment() {
         viewModel.racasFiltradas.observe(viewLifecycleOwner) { racas ->
 
             val nomesDasRacas = racas.map { it.getNomeTraduzido(requireContext()) };
-
             val novoAdapterRaca = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nomesDasRacas);
             binding.autoCompleteRaca.setAdapter(novoAdapterRaca);
 
@@ -433,7 +432,7 @@ class AnimalCadastroFragment : Fragment() {
 
             if (activity is ClienteHomeActivity) {
 
-                val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+                val sharedVM = ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
 
                 animalParaEdicao?.id?.let { sharedVM.removerAnimalLocalmente(it) }
                 activity.carregarDadosDoUsuario();

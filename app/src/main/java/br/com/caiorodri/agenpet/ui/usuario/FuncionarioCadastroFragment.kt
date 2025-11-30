@@ -16,9 +16,11 @@ import androidx.core.view.isVisible;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.viewModels;
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController;
 import androidx.navigation.fragment.navArgs
 import br.com.caiorodri.agenpet.R;
+import br.com.caiorodri.agenpet.api.controller.ViaCepController
 import br.com.caiorodri.agenpet.databinding.FragmentFuncionarioCadastroBinding;
 import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher;
 import br.com.caiorodri.agenpet.model.enums.PerfilEnum
@@ -32,6 +34,7 @@ import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
 import br.com.caiorodri.agenpet.ui.usuario.FuncionarioViewModel
+import br.com.caiorodri.agenpet.utils.MaskTextWatcher
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -40,6 +43,9 @@ import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.ktx.Firebase;
 import com.google.firebase.storage.ktx.storage;
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,6 +57,7 @@ import kotlin.getValue
 
 class FuncionarioCadastroFragment : Fragment() {
 
+    private val viaCepController = ViaCepController();
     private var _binding: FragmentFuncionarioCadastroBinding? = null;
     private val binding get() = _binding!!;
 
@@ -124,11 +131,11 @@ class FuncionarioCadastroFragment : Fragment() {
         val cargos: List<String>
 
         if (perfilLogado == PerfilEnum.RECEPCIONISTA) {
-            cargos = listOf("Cliente")
+            cargos = listOf(getString(R.string.cargo_cliente));
         } else {
             cargos = listOf(
-                getString(R.string.cargo_veterinario),
-                getString(R.string.cargo_recepcionista)
+                getString(R.string.cargo_recepcionista),
+                getString(R.string.cargo_veterinario)
             )
         }
 
@@ -225,6 +232,57 @@ class FuncionarioCadastroFragment : Fragment() {
 
         binding.inputLayoutDataNascimento.setEndIconOnClickListener { mostrarDatePicker() }
         binding.editTextDataNascimento.setOnClickListener { mostrarDatePicker() }
+
+        binding.editTextTelefone.addTextChangedListener(MaskTextWatcher(binding.editTextTelefone, "(##) #####-####"));
+        binding.editTextCep.addTextChangedListener(MaskTextWatcher(binding.editTextCep, "#####-###"));
+        binding.editTextCpf.addTextChangedListener(MaskTextWatcher(binding.editTextCpf, "###.###.###-##"));
+
+        binding.editTextCep.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+
+            if (!hasFocus) {
+
+                val cep = MaskTextWatcher.unmask(binding.editTextCep.text.toString());
+
+                if (cep.length == 8) {
+                    buscarCep(cep);
+                }
+
+            }
+        }
+
+    }
+
+    private fun buscarCep(cep: String) {
+
+        binding.inputLayoutLogradouro.isEnabled = false;
+        binding.inputLayoutCidade.isEnabled = false;
+        binding.inputLayoutEstado.isEnabled = false;
+
+        lifecycleScope.launch {
+
+            val endereco = withContext(Dispatchers.IO) {
+                viaCepController.buscarCep(cep);
+            }
+
+            if (endereco != null) {
+
+                binding.editTextLogradouro.setText(endereco.logradouro);
+                binding.editTextCidade.setText(endereco.localidade);
+                binding.editTextComplemento.setText(endereco.complemento);
+                binding.autoCompleteEstado.setText(endereco.uf, false);
+                binding.editTextNumero.requestFocus();
+
+            } else {
+
+                Toast.makeText(context, "CEP não encontrado", Toast.LENGTH_SHORT).show();
+
+            }
+
+            binding.inputLayoutLogradouro.isEnabled = true;
+            binding.inputLayoutCidade.isEnabled = true;
+            binding.inputLayoutEstado.isEnabled = true;
+
+        }
     }
 
     private fun setupObservers() {
@@ -241,9 +299,31 @@ class FuncionarioCadastroFragment : Fragment() {
             if (sucesso) {
 
                 val msg = if (funcionarioParaEdicao != null) {
-                    getString(R.string.sucesso_funcionario_atualizado)
+
+                    if (perfilLogado == PerfilEnum.RECEPCIONISTA) {
+
+                        getString(R.string.sucesso_cliente_atualizado);
+
+                    } else {
+
+                        getString(R.string.sucesso_funcionario_atualizado);
+
+                    }
+
+
                 } else {
-                    getString(R.string.sucesso_funcionario_salvo)
+
+                    if (perfilLogado == PerfilEnum.RECEPCIONISTA) {
+
+                        getString(R.string.sucesso_cliente_salvo);
+
+                    } else {
+
+                        getString(R.string.sucesso_funcionario_salvo);
+
+                    }
+
+
                 }
 
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -281,12 +361,14 @@ class FuncionarioCadastroFragment : Fragment() {
 
         val nome = binding.editTextNome.text.toString();
         val email = binding.editTextEmail.text.toString();
-        val cpf = binding.editTextCpf.text.toString();
+        val cpf = MaskTextWatcher.unmask(binding.editTextCpf.text.toString());
         val senha = binding.editTextSenha.text.toString();
         val cargoSelecionado = binding.autoCompleteCargo.text.toString();
-        val telefone = binding.editTextTelefone.text.toString();
+
+        val telefone = MaskTextWatcher.unmask(binding.editTextTelefone.text.toString());
+        val cep = MaskTextWatcher.unmask(binding.editTextCep.text.toString());
+
         val dataNascStr = binding.editTextDataNascimento.text.toString();
-        val cep = binding.editTextCep.text.toString();
         val logradouro = binding.editTextLogradouro.text.toString();
         val numero = binding.editTextNumero.text.toString();
         val cidade = binding.editTextCidade.text.toString();

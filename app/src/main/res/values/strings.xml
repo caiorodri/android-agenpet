@@ -324,6 +324,7 @@
     <string name="hint_cargo_selecione">Selecione o cargo</string>
     <string name="cargo_veterinario">Veterinário</string>
     <string name="cargo_recepcionista">Recepcionista</string>
+    <string name="cargo_cliente">Cliente</string>
     <string name="botao_cadastrar_funcionario">Cadastrar Funcionário</string>
     <string name="erro_cargo_vazio">Selecione um cargo válido.</string>
     <string name="sucesso_funcionario_salvo">Funcionário salvo com sucesso!</string>
@@ -376,6 +377,7 @@
     <string name="titulo_cadastrar_cliente">Cadastrar Cliente</string>
     <string name="botao_cadastrar_cliente">Cadastrar Cliente</string>
     <string name="sucesso_cliente_salvo">Cliente salvo com sucesso!</string>
+    <string name="sucesso_cliente_atualizado">Cliente salvo com sucesso!</string>
     <string name="dados_cliente">Dados do Cliente</string>
     <string name="hint_selecione_cliente">Selecione o Cliente</string>
 

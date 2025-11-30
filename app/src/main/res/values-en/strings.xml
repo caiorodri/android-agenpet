@@ -304,6 +304,7 @@
     <string name="hint_cargo_selecione">Select role</string>
     <string name="cargo_veterinario">Veterinarian</string>
     <string name="cargo_recepcionista">Receptionist</string>
+    <string name="cargo_cliente">Client</string>
     <string name="botao_cadastrar_funcionario">Register Employee</string>
     <string name="erro_cargo_vazio">Please select a valid role.</string>
     <string name="sucesso_funcionario_salvo">Employee saved successfully!</string>
@@ -357,6 +358,7 @@
     <string name="titulo_cadastrar_cliente">Register Client</string>
     <string name="botao_cadastrar_cliente">Register Client</string>
     <string name="sucesso_cliente_salvo">Client saved successfully!</string>
+    <string name="sucesso_cliente_atualizado">Client updated successfully!</string>
     <string name="dados_cliente">Client Data</string>
     <string name="hint_selecione_cliente">Select client</string>
 

@@ -2,6 +2,7 @@ package br.com.caiorodri.agenpet.ui.inicio;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.lifecycleScope;
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.api.controller.UsuarioController;
+import br.com.caiorodri.agenpet.api.controller.ViaCepController
 import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher;
 import br.com.caiorodri.agenpet.model.enums.EstadoEnum
 import br.com.caiorodri.agenpet.model.enums.PerfilEnum
@@ -25,6 +27,7 @@ import br.com.caiorodri.agenpet.model.usuario.Perfil;
 import br.com.caiorodri.agenpet.model.usuario.Status;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
+import br.com.caiorodri.agenpet.utils.MaskTextWatcher
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -43,6 +46,7 @@ import java.util.TimeZone;
 class CadastroActivity : AppCompatActivity() {
 
     private lateinit var usuarioController: UsuarioController;
+    private val viaCepController = ViaCepController()
     private lateinit var frameLayoutLoading: FrameLayout;
     private lateinit var buttonCadastrar: Button;
     private lateinit var toolbar: MaterialToolbar;
@@ -153,6 +157,7 @@ class CadastroActivity : AppCompatActivity() {
     };
 
     fun setUpListeners() {
+
         toolbar.setNavigationOnClickListener {
             finish();
         };
@@ -197,6 +202,25 @@ class CadastroActivity : AppCompatActivity() {
             mostrarDatePicker();
         }
 
+        editTextTelefone.addTextChangedListener(
+            MaskTextWatcher(
+                editTextTelefone,
+                "(##) #####-####"
+            )
+        )
+        editTextCep.addTextChangedListener(MaskTextWatcher(editTextCep, "#####-###"));
+        editTextCpf.addTextChangedListener(MaskTextWatcher(editTextCpf, "###.###.###-##"));
+
+        editTextCep.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+
+            if (!hasFocus) {
+                val cep = MaskTextWatcher.unmask(editTextCep.text.toString());
+                if (cep.length == 8) {
+                    buscarCep(cep);
+                }
+            }
+        }
+
     }
 
     private fun carregarEstados() {
@@ -221,15 +245,53 @@ class CadastroActivity : AppCompatActivity() {
         }
     }
 
+    private fun buscarCep(cep: String) {
+
+        inputLayoutLogradouro.isEnabled = false;
+        inputLayoutCidade.isEnabled = false;
+        inputLayoutEstado.isEnabled = false;
+
+        lifecycleScope.launch {
+
+            val endereco = withContext(Dispatchers.IO) {
+                viaCepController.buscarCep(cep);
+            }
+
+            if (endereco != null) {
+                editTextLogradouro.setText(endereco.logradouro);
+                editTextCidade.setText(endereco.localidade);
+                editTextComplemento.setText(endereco.complemento);
+
+                autoCompleteEstado.setText(endereco.uf, false);
+
+                editTextNumero.requestFocus();
+
+            } else {
+
+                Toast.makeText(this@CadastroActivity, "CEP não encontrado", Toast.LENGTH_SHORT).show();
+
+            }
+
+            inputLayoutLogradouro.isEnabled = true;
+            inputLayoutCidade.isEnabled = true;
+            inputLayoutEstado.isEnabled = true;
+        }
+    }
+
     private suspend fun cadastrar(): UsuarioResponse? {
 
         val nome = editTextNome.text.toString();
         val email = editTextEmail.text.toString();
-        val cpf = editTextCpf.text.toString();
-        val telefone = editTextTelefone.text.toString();
+        val cpf = MaskTextWatcher.unmask(editTextCpf.text.toString());
+
+        val telefoneComMascara = editTextTelefone.text.toString();
+        val telefone = MaskTextWatcher.unmask(telefoneComMascara);
+
         val dataNascimentoStr = editTextDataNascimento.text.toString();
         val senha = editTextSenha.text.toString();
-        val cep = editTextCep.text.toString();
+
+        val cep = MaskTextWatcher.unmask(editTextCep.text.toString());
+
         val logradouro = editTextLogradouro.text.toString();
         val numero = editTextNumero.text.toString();
         val complemento = editTextComplemento.text.toString();

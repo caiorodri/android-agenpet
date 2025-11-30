@@ -105,8 +105,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:hint="@string/cpf"
-                            app:counterEnabled="true"
-                            app:counterMaxLength="11"
                             app:startIconDrawable="@drawable/ic_document"
                             app:layout_constraintTop_toBottomOf="@id/input_layout_email"
                             app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +113,7 @@
                                 android:id="@+id/edit_text_cpf"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:maxLength="11"/>
+                                android:inputType="number"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout

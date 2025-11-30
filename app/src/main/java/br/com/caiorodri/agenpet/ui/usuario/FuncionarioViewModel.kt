@@ -1,12 +1,16 @@
 package br.com.caiorodri.agenpet.ui.usuario;
 
 import android.app.Application;
+import android.util.Log.e
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.viewModelScope;
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.api.controller.UsuarioController;
+import br.com.caiorodri.agenpet.api.repository.AgendamentoRepository
+import br.com.caiorodri.agenpet.api.repository.AnimalRepository
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioRequest;
 import br.com.caiorodri.agenpet.model.usuario.UsuarioUpdateRequest;
@@ -15,6 +19,8 @@ import kotlinx.coroutines.launch;
 class FuncionarioViewModel(application: Application) : AndroidViewModel(application) {
 
     private val usuarioController = UsuarioController(application);
+    private val agendamentoRepository = AgendamentoRepository.getInstance(application);
+    private val animalRepository = AnimalRepository.getInstance(application);
 
     private var listaCompleta: List<Usuario> = emptyList();
 
@@ -84,7 +90,20 @@ class FuncionarioViewModel(application: Application) : AndroidViewModel(applicat
                 val resposta = usuarioController.salvar(usuario);
 
                 if (resposta != null) {
+
+                    if(resposta.perfil.id == PerfilEnum.CLIENTE.id){
+
+                        animalRepository.adicionarClienteAoCache(resposta);
+                        agendamentoRepository.adicionarClienteAoCache(resposta);
+
+                    } else if (resposta.perfil.id == PerfilEnum.VETERINARIO.id) {
+
+                        agendamentoRepository.adicionarVeterinarioAoCache(resposta);
+
+                    }
+
                     _sucessoCadastro.postValue(true);
+
                 } else {
                     _erro.postValue("Erro ao salvar funcionário.");
                 }

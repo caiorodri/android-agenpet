@@ -17,8 +17,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import br.com.caiorodri.agenpet.R
+import br.com.caiorodri.agenpet.api.controller.ViaCepController
 import br.com.caiorodri.agenpet.databinding.FragmentMeuPerfilBinding
 import br.com.caiorodri.agenpet.mask.DateMaskTextWatcher
 import br.com.caiorodri.agenpet.model.enums.EstadoEnum
@@ -31,6 +33,7 @@ import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
 import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel
 import br.com.caiorodri.agenpet.ui.home.HomeActivity
 import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
+import br.com.caiorodri.agenpet.utils.MaskTextWatcher
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -39,6 +42,9 @@ import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -49,6 +55,7 @@ import java.util.UUID
 
 class MeuPerfilFragment : Fragment() {
 
+    private val viaCepController = ViaCepController();
     private var _binding: FragmentMeuPerfilBinding? = null;
     private val binding get() = _binding!!;
 
@@ -183,6 +190,57 @@ class MeuPerfilFragment : Fragment() {
             AlterarSenhaBottomSheet().show(childFragmentManager, AlterarSenhaBottomSheet.TAG);
         }
 
+        binding.editTextTelefone.addTextChangedListener(MaskTextWatcher(binding.editTextTelefone, "(##) #####-####"));
+        binding.editTextCep.addTextChangedListener(MaskTextWatcher(binding.editTextCep, "#####-###"));
+        binding.editTextCpf.addTextChangedListener(MaskTextWatcher(binding.editTextCpf, "###.###.###-##"));
+
+        binding.editTextCep.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+
+            if (!hasFocus) {
+
+                val cep = MaskTextWatcher.unmask(binding.editTextCep.text.toString());
+
+                if (cep.length == 8) {
+                    buscarCep(cep);
+                }
+
+            }
+
+        }
+
+    }
+
+    private fun buscarCep(cep: String) {
+
+        binding.inputLayoutLogradouro.isEnabled = false;
+        binding.inputLayoutCidade.isEnabled = false;
+        binding.inputLayoutEstado.isEnabled = false;
+
+        lifecycleScope.launch {
+
+            val endereco = withContext(Dispatchers.IO) {
+                viaCepController.buscarCep(cep);
+            }
+
+            if (endereco != null) {
+
+                binding.editTextLogradouro.setText(endereco.logradouro);
+                binding.editTextCidade.setText(endereco.localidade);
+                binding.editTextComplemento.setText(endereco.complemento);
+                binding.autoCompleteEstado.setText(endereco.uf, false);
+                binding.editTextNumero.requestFocus();
+
+            } else {
+
+                Toast.makeText(context, "CEP não encontrado", Toast.LENGTH_SHORT).show();
+
+            }
+
+            binding.inputLayoutLogradouro.isEnabled = true;
+            binding.inputLayoutCidade.isEnabled = true;
+            binding.inputLayoutEstado.isEnabled = true;
+
+        }
     }
 
     private fun setupObservers() {
@@ -456,9 +514,11 @@ class MeuPerfilFragment : Fragment() {
 
         val nome = binding.editTextNome.text.toString();
         val email = binding.editTextEmail.text.toString();
-        val telefone = binding.editTextTelefone.text.toString();
+
+        val telefone = MaskTextWatcher.unmask(binding.editTextTelefone.text.toString());
+        val cep = MaskTextWatcher.unmask(binding.editTextCep.text.toString());
+
         val dataNascimentoStr = binding.editTextDataNascimento.text.toString();
-        val cep = binding.editTextCep.text.toString();
         val logradouro = binding.editTextLogradouro.text.toString();
         val numero = binding.editTextNumero.text.toString();
         val complemento = binding.editTextComplemento.text.toString().takeIf { it.isNotBlank() };
@@ -466,8 +526,10 @@ class MeuPerfilFragment : Fragment() {
         val estadoSigla = binding.autoCompleteEstado.text.toString();
 
         val dataNascimento: Date? = try {
+
             dateFormatter.isLenient = false;
             dateFormatter.parse(dataNascimentoStr);
+
         } catch (e: ParseException) {
             null;
         }

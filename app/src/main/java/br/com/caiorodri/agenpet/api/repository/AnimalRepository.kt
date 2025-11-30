@@ -67,12 +67,16 @@ class AnimalRepository private constructor(context: Context) {
                     val racas = racasJob.await();
                     val clientes = clientesJob?.await();
 
-                    especiesCache = especies;
-                    racasCache = racas;
+                    val clientesOrdenado = clientes?.sortedBy { it.nome }
+                    val racasOrdenadas = racas.sortedBy { it.nome }
+                    val especiesOrdenadas = especies.sortedBy { it.nome }
 
-                    if (isRecepcionista) clientesCache = clientes;
+                    especiesCache = especiesOrdenadas;
+                    racasCache = racasOrdenadas;
 
-                    AnimalData(especies, racas, clientes);
+                    if (isRecepcionista) clientesCache = clientesOrdenado;
+
+                    AnimalData(especiesOrdenadas, racasOrdenadas, clientesOrdenado);
 
                 }
 
@@ -106,6 +110,18 @@ class AnimalRepository private constructor(context: Context) {
 
         return;
 
+    }
+
+    fun adicionarClienteAoCache(novoCliente: UsuarioResponse) {
+
+        if (clientesCache == null) return;
+
+        val listaAtualizada = clientesCache!!.toMutableList();
+
+        listaAtualizada.add(novoCliente);
+        listaAtualizada.sortBy { it.nome }
+
+        clientesCache = listaAtualizada;
     }
 
     companion object {

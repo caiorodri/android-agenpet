@@ -78,14 +78,21 @@ class AgendamentoRepository private constructor(context: Context) {
                     val clientes = clientesJob?.await()
                     val animais = animaisJob?.await()
 
-                    tiposCache = tipos;
-                    statusCache = status;
-                    veterinariosCache = vets;
-                    recepcionistaCache = recepcionista;
-                    clientesCache = clientes;
-                    animaisCache = animais;
+                    val tiposOrdenados = tipos.sortedBy { it.nome }
+                    val statusOrdenados = status.sortedBy { it.nome }
+                    val vetsOrdenados = vets.sortedBy { it.nome }
+                    val clientesOrdenados = clientes?.sortedBy { it.nome }
+                    val animaisOrdenados = animais?.sortedBy { it.nome }
 
-                    AgendamentoData(tipos, status, vets, recepcionista, clientes, animais);
+
+                    tiposCache = tiposOrdenados;
+                    statusCache = statusOrdenados;
+                    veterinariosCache = vetsOrdenados;
+                    recepcionistaCache = recepcionista;
+                    clientesCache = clientesOrdenados;
+                    animaisCache = animaisOrdenados;
+
+                    AgendamentoData(tiposOrdenados, statusOrdenados, vetsOrdenados, recepcionista, clientesOrdenados, animaisOrdenados);
                 };
 
             } catch (e: Exception) {
@@ -110,6 +117,32 @@ class AgendamentoRepository private constructor(context: Context) {
     suspend fun listarHorariosDisponiveis(idVeterinario: Long, data: String, idTipo: Int): List<String> {
         Log.d("AgendamentoRepository", "Chamando controller para listar horários disponíveis.");
         return usuarioController.listarHorariosDisponiveis(idVeterinario, data, idTipo);
+    }
+
+    fun adicionarClienteAoCache(novoCliente: UsuarioResponse) {
+
+        if (clientesCache == null) return;
+
+        val listaAtualizada = clientesCache!!.toMutableList();
+
+        listaAtualizada.add(novoCliente);
+        listaAtualizada.sortBy { it.nome }
+
+        clientesCache = listaAtualizada;
+
+    }
+
+    fun adicionarVeterinarioAoCache(novoVeterinario: UsuarioResponse) {
+
+        if (veterinariosCache == null) return;
+
+        val lista = veterinariosCache!!.toMutableList();
+
+        lista.add(novoVeterinario);
+        lista.sortBy { it.nome }
+
+        veterinariosCache = lista;
+
     }
 
     companion object {
