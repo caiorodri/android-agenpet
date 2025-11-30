@@ -8,7 +8,7 @@ data class AnimalResponse(
     val castrado: Boolean,
     val dataNascimento: Date?,
     val descricao: String,
-    val dono: UsuarioResponse,
+    val dono: UsuarioResponse?,
     val id: Long?,
     val nome: String,
     val peso: Double,

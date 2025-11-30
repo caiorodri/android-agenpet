@@ -174,8 +174,6 @@ class ClienteHomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration);
         navigationView.setupWithNavController(navController);
 
-        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_SELECTED;
-
         bottomNavigationView.setOnItemSelectedListener { item ->
 
             try {

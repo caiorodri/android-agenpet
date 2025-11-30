@@ -62,8 +62,8 @@ class FuncionarioViewModel(application: Application) : AndroidViewModel(applicat
             val texto = query.lowercase().trim();
 
             val listaFiltrada = listaCompleta.filter { func ->
-                func.nome.lowercase().contains(texto) ||
-                        func.email.lowercase().contains(texto) ||
+                func.nome!!.lowercase().contains(texto) ||
+                        func.email!!.lowercase().contains(texto) ||
                         (func.perfil?.nome?.lowercase()?.contains(texto) == true)
             };
 

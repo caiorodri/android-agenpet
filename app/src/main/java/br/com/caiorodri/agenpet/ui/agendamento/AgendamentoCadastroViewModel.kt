@@ -194,8 +194,8 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
 
     fun filtrarAnimaisPorCliente(idCliente: Long) {
 
-        val animaisDoCliente = todosAnimais.filter { it.dono.id == idCliente }
-        _animaisFiltrados.value = animaisDoCliente
+        val animaisDoCliente = todosAnimais.filter { it.dono?.id == idCliente }
+        _animaisFiltrados.value = animaisDoCliente;
 
     }
 

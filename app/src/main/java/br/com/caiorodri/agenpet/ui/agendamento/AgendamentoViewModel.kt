@@ -129,7 +129,7 @@ class AgendamentoViewModel(application: Application) : AndroidViewModel(applicat
                 val dataFormatada = dataHoraLocal.format(dateFormatter)
 
                 agendamento.animal.nome.lowercase().contains(queryLowerCase) ||
-                        agendamento.veterinario.nome.lowercase().contains(queryLowerCase) ||
+                        agendamento.veterinario.nome?.lowercase()!!.contains(queryLowerCase) ||
                         agendamento.tipo.getNomeTraduzido(getApplication()).lowercase().contains(queryLowerCase) ||
                         agendamento.status.getNomeTraduzido(getApplication()).lowercase().contains(queryLowerCase) ||
                         dataFormatada.contains(queryLowerCase) ||

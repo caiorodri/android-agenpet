@@ -115,6 +115,7 @@ class ClienteHomeFragment : Fragment() {
     }
 
     private fun updateProximoAgendamentoCard(agendamento: Agendamento?) {
+
         val cardRoot = binding.includeItemUltimoAgendamento.root;
 
         cardRoot.isVisible = (agendamento != null);
@@ -125,6 +126,7 @@ class ClienteHomeFragment : Fragment() {
         if (agendamento != null) {
 
             with(binding.includeItemUltimoAgendamento) {
+
                 textViewUltimoVetNome.text = agendamento.veterinario.nome;
                 textViewUltimoAnimalNome.text = agendamento.animal.nome;
 

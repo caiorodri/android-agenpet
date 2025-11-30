@@ -344,6 +344,12 @@ class AgendamentoCadastroFragment : Fragment() {
 
             if (activity is ClienteHomeActivity) {
 
+                Log.d("AgendamentoCadastro", agendamentoSalvo.toString());
+
+                val agendamentoObj = Agendamento(agendamentoSalvo).copy();
+                val shareVM = ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+
+                shareVM.atualizarAgendamentoLocalmente(agendamentoObj);
                 activity.carregarDadosDoUsuario();
 
             } else if (activity is HomeActivity) {

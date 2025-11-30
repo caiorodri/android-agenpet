@@ -106,7 +106,7 @@ class LoadingActivity : AppCompatActivity() {
 
             if (finalUsuario != null) {
 
-                val partesDoNome = finalUsuario.nome.split(" ");
+                val partesDoNome = finalUsuario.nome!!.split(" ");
                 val primeiroNome = partesDoNome.firstOrNull() ?: "";
 
                 var welcomeMessage = getString(R.string.loading_bem_vindo, primeiroNome);

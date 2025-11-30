@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.viewModelScope;
 import br.com.caiorodri.agenpet.api.controller.AgendamentoController;
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento;
+import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
 import kotlinx.coroutines.launch;
 
 class ClienteHomeViewModel(application: Application) : AndroidViewModel(application) {
@@ -43,7 +44,7 @@ class ClienteHomeViewModel(application: Application) : AndroidViewModel(applicat
     private fun processarListaAgendamentos(listaCompleta: List<Agendamento>) {
         val agora = System.currentTimeMillis();
 
-        val agendamentosFuturos = listaCompleta.filter { it.dataAgendamentoInicio > agora };
+        val agendamentosFuturos = listaCompleta.filter { it.dataAgendamentoInicio > agora && it.status.id == StatusAgendamentoEnum.ABERTO.id };
 
         val agendamentosPassados = listaCompleta.filter { it.dataAgendamentoInicio <= agora };
 

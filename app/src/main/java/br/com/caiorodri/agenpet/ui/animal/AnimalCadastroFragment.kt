@@ -19,6 +19,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.caiorodri.agenpet.R
@@ -407,7 +408,7 @@ class AnimalCadastroFragment : Fragment() {
             if (activity is ClienteHomeActivity) {
 
                 val animalObj = Animal(animalResponseSalvo).copy(agendamentos = animalParaEdicao?.agendamentos);
-                val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+                val sharedVM = ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
 
                 sharedVM.atualizarAnimalLocalmente(animalObj);
                 activity.carregarDadosDoUsuario();
@@ -601,7 +602,7 @@ class AnimalCadastroFragment : Fragment() {
 
             if (animalParaEdicao != null) {
 
-                donoFinal = animalParaEdicao!!.dono
+                donoFinal = animalParaEdicao!!.dono!!
 
             } else {
 

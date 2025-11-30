@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
 
         sharedViewModel.usuarioLogado.observe(viewLifecycleOwner) { usuario ->
 
-            val partesDoNome = usuario.nome.split(" ");
+            val partesDoNome = usuario.nome!!.split(" ");
             val primeiroNome = partesDoNome.firstOrNull() ?: "";
 
             var saudacaoFinal = getString(R.string.saudacao_simples, primeiroNome);

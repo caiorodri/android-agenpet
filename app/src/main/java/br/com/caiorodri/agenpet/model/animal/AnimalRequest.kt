@@ -25,9 +25,9 @@ data class AnimalRequest(
         dataNascimento = Date(animal.dataNascimento!!),
         descricao = animal.descricao!!,
         dono = UsuarioCadastroComplementar(
-            id = animal.dono.id,
-            nome = animal.dono.nome,
-            email = animal.dono.email
+            id = animal.dono?.id,
+            nome = animal.dono?.nome,
+            email = animal.dono?.email
         ),
         id = animal.id,
         nome = animal.nome,

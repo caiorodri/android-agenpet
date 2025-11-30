@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoBinding
+import br.com.caiorodri.agenpet.model.agendamento.Agendamento
 import br.com.caiorodri.agenpet.model.enums.PerfilEnum
 import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
 import br.com.caiorodri.agenpet.model.usuario.Usuario
@@ -186,7 +187,10 @@ class AgendamentoFragment : Fragment() {
 
             }
 
-            val novaLista = lista.sortedByDescending { it.dataAgendamentoInicio }
+            val novaLista = lista.sortedWith(
+                compareByDescending<Agendamento> { it.dataAgendamentoInicio }
+                    .thenBy { it.status.id }
+            )
 
             agendamentoAdapter.submitList(novaLista);
 

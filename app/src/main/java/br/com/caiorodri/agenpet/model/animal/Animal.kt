@@ -12,7 +12,7 @@ data class Animal(
     val castrado: Boolean?,
     val dataNascimento: Long?,
     val descricao: String?,
-    val dono: Usuario,
+    val dono: Usuario?,
     val id: Long?,
     val nome: String,
     val peso: Double?,
