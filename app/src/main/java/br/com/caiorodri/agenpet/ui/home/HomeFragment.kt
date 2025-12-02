@@ -103,8 +103,17 @@ class HomeFragment : Fragment() {
 
                 if(perfil == PerfilEnum.VETERINARIO.id){
 
-                    val segundoNome = partesDoNome[1];
-                    saudacaoFinal = getString(R.string.saudacao_composta, primeiroNome, segundoNome);
+                    if(partesDoNome.size < 2) {
+
+                        saudacaoFinal = getString(R.string.saudacao_composta, "Dr.", primeiroNome);
+
+                    } else {
+
+                        val segundoNome = partesDoNome[1];
+                        saudacaoFinal = getString(R.string.saudacao_composta, primeiroNome, segundoNome);
+
+                    }
+
 
                 }
 

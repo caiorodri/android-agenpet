@@ -736,6 +736,7 @@ class AnimalCadastroFragment : Fragment() {
     }
 
     private fun mostrarDatePicker() {
+
         val constraintsBuilder = CalendarConstraints.Builder();
         val hojeEmUtc = MaterialDatePicker.todayInUtcMilliseconds();
         val validator = DateValidatorPointBackward.now();

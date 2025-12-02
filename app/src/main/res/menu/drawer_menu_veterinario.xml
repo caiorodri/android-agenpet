@@ -9,6 +9,10 @@
             android:id="@+id/agendamentoFragment"
             android:icon="@drawable/ic_calendar_dots"
             android:title="@string/agendamentos" />
+        <item
+            android:id="@+id/horarioFragment"
+            android:icon="@drawable/ic_time"
+            android:title="@string/meus_horarios"/>
     </group>
 
     <group android:id="@+id/group_settings" android:checkableBehavior="none">

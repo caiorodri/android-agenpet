@@ -877,4 +877,62 @@ class UsuarioController(private val context: Context) {
         return emptyList();
     }
 
+    suspend fun salvarHorario(horario: VeterinarioHorario): VeterinarioHorario? {
+
+        val endpoint = "salvarHorario";
+
+        Log.i(TAG, "[$endpoint] - Inicio");
+
+        try {
+
+            val response = usuarioService.criarHorario(horario);
+
+            if (response.isSuccessful) {
+
+                Log.i(TAG, "[$endpoint] - Sucesso.");
+                return response.body();
+
+            } else {
+
+                Log.e(TAG, "[$endpoint] - Erro: ${response.code()}");
+
+            }
+
+        } catch (e: Exception) {
+
+            Log.e(TAG, "[$endpoint] - Erro: ${e.message}", e);
+
+        }
+
+        return null;
+    }
+
+
+    suspend fun deletarHorario(id: Long): Boolean {
+
+        val endpoint = "deletarHorario";
+
+        Log.i(TAG, "[$endpoint] - Inicio (ID: $id)");
+
+        try {
+
+            val response = usuarioService.deletarHorario(id);
+
+            if (response.isSuccessful) {
+
+                Log.i(TAG, "[$endpoint] - Sucesso.");
+                return true;
+
+            }
+
+        } catch (e: Exception) {
+
+            Log.e(TAG, "[$endpoint] - Erro: ${e.message}", e);
+
+        }
+
+        return false;
+
+    }
+
 }

@@ -322,6 +322,7 @@
     <string name="titulo_funcionarios">Funcionários</string>
     <string name="label_cargo">Cargo</string>
     <string name="hint_cargo_selecione">Selecione o cargo</string>
+    <string name="administrador">Administrador</string>
     <string name="cargo_veterinario">Veterinário</string>
     <string name="cargo_recepcionista">Recepcionista</string>
     <string name="cargo_cliente">Cliente</string>
@@ -380,5 +381,34 @@
     <string name="sucesso_cliente_atualizado">Cliente salvo com sucesso!</string>
     <string name="dados_cliente">Dados do Cliente</string>
     <string name="hint_selecione_cliente">Selecione o Cliente</string>
+
+    <string name="horarios">Horários</string>
+    <string name="meus_horarios">Meus Horários</string>
+    <string name="title_novo_horario">Adicionar Novo Horário</string>
+    <string name="title_horarios_de">Horários de %1$s</string>
+    <string name="hint_dia_semana">Dia da Semana</string>
+    <string name="hint_inicio">Início</string>
+    <string name="hint_fim">Fim</string>
+    <string name="btn_adicionar_horario">Adicionar Horário</string>
+    <string name="label_horarios_cadastrados">Horários Cadastrados</string>
+    <string name="gerenciar_horarios">Gerenciar Horários</string>
+
+    <string name="picker_titulo_inicio">Horário de Início</string>
+    <string name="picker_titulo_fim">Horário de Fim</string>
+
+    <string name="erro_usuario_nao_identificado">Erro: Usuário não identificado</string>
+    <string name="erro_preencha_campos">Preencha todos os campos</string>
+    <string name="erro_dia_invalido">Dia inválido</string>
+    <string name="erro_carregar_horarios">Erro ao carregar horários</string>
+    <string name="erro_salvar_horario">Erro ao salvar horário</string>
+    <string name="erro_deletar_horario">Erro ao deletar</string>
+
+    <string name="dia_domingo">Domingo</string>
+    <string name="dia_segunda">Segunda-feira</string>
+    <string name="dia_terca">Terça-feira</string>
+    <string name="dia_quarta">Quarta-feira</string>
+    <string name="dia_quinta">Quinta-feira</string>
+    <string name="dia_sexta">Sexta-feira</string>
+    <string name="dia_sabado">Sábado</string>
 
 </resources>

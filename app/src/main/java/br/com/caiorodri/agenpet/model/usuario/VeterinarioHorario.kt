@@ -5,7 +5,8 @@ import kotlinx.parcelize.Parcelize;
 
 @Parcelize
 data class VeterinarioHorario(
-    val id: Long,
+    val id: Long?,
+    val idVeterinario: Long?,
     val idDiaSemana: Int,
     val horaInicio: String,
     val horaFim: String

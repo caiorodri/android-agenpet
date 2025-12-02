@@ -103,4 +103,10 @@ interface UsuarioService {
         @Query("idTipo") idTipo: Int
     ): Response<List<String>>;
 
+    @POST("usuarios/veterinarios/horarios")
+    suspend fun criarHorario(@Body horario: VeterinarioHorario): Response<VeterinarioHorario>
+
+    @DELETE("usuarios/veterinarios/horarios/{id}")
+    suspend fun deletarHorario(@Path("id") id: Long): Response<Void>
+
 }

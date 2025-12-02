@@ -1,5 +1,6 @@
 package br.com.caiorodri.agenpet.ui.agendamento;
 
+import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -166,7 +167,7 @@ class AgendamentoFragment : Fragment() {
 
                 binding.recyclerViewAgendamentos.isVisible = false;
 
-                if(usuarioLogadoLiveData.value?.animais.isNullOrEmpty()){
+                if(usuarioLogadoLiveData.value?.animais.isNullOrEmpty() && usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id){
 
                     binding.layoutInfoSemAnimais.isVisible = true;
                     binding.layoutInfoSemAgendamentos.isVisible = false;
@@ -175,6 +176,16 @@ class AgendamentoFragment : Fragment() {
 
                     binding.layoutInfoSemAnimais.isVisible = false;
                     binding.layoutInfoSemAgendamentos.isVisible = true;
+
+                    if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.VETERINARIO.id){
+
+                        binding.aperteMaisAgendar.visibility = View.GONE;
+
+                    } else {
+
+                        binding.aperteMaisAgendar.visibility = View.GONE;
+
+                    }
 
                 }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.caiorodri.agenpet.R;
 import br.com.caiorodri.agenpet.model.usuario.Usuario;
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -35,7 +36,7 @@ class FuncionarioAdapter(private val onClick: (Usuario) -> Unit) :
         fun bind(funcionario: Usuario) {
 
             txtNome.text = funcionario.nome;
-            txtCargo.text = funcionario.perfil?.nome ?: "N/A";
+            txtCargo.text = funcionario.perfil?.getNomeTraduzido(itemView.context) ?: "N/A";
 
             Glide.with(itemView.context)
                 .load(funcionario.urlImagem)

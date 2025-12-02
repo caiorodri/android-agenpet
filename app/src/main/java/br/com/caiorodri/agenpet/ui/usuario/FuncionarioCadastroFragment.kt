@@ -119,8 +119,8 @@ class FuncionarioCadastroFragment : Fragment() {
         funcionarioParaEdicao = args.funcionario;
 
         setupDropdowns();
-        setupUIBase(funcionarioParaEdicao);
         setupListeners();
+        setupUIBase(funcionarioParaEdicao);
         setupObservers();
 
         binding.editTextDataNascimento.addTextChangedListener(DateMaskTextWatcher(binding.editTextDataNascimento));
@@ -170,6 +170,18 @@ class FuncionarioCadastroFragment : Fragment() {
 
                 (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.botao_cadastrar_funcionario);
                 binding.buttonSalvar.text = getString(R.string.botao_cadastrar_funcionario);
+
+                binding.btnGerenciarHorarios.isVisible = false;
+
+            } else {
+
+                val isVeterinario = funcionario.perfil?.id == PerfilEnum.VETERINARIO.id
+
+                if (isVeterinario) {
+                    binding.btnGerenciarHorarios.isVisible = true
+                } else {
+                    binding.btnGerenciarHorarios.isVisible = false
+                }
 
             }
 
@@ -222,6 +234,7 @@ class FuncionarioCadastroFragment : Fragment() {
     }
 
     private fun setupListeners() {
+
         binding.buttonSalvar.setOnClickListener {
             validarESalvar();
         };
@@ -229,6 +242,19 @@ class FuncionarioCadastroFragment : Fragment() {
         binding.imageViewFoto.setOnClickListener {
             selecionarImagemLauncher.launch("image/*");
         }
+
+        binding.btnGerenciarHorarios.setOnClickListener {
+
+            funcionarioParaEdicao?.id?.let { idVet ->
+
+                val action = FuncionarioCadastroFragmentDirections
+                    .actionFuncionarioCadastroFragmentToHorarioFragment(funcionarioParaEdicao!!);
+
+                findNavController().navigate(action);
+
+            }
+        }
+
 
         binding.inputLayoutDataNascimento.setEndIconOnClickListener { mostrarDatePicker() }
         binding.editTextDataNascimento.setOnClickListener { mostrarDatePicker() }
@@ -341,8 +367,13 @@ class FuncionarioCadastroFragment : Fragment() {
     }
 
     private fun mostrarDatePicker() {
+
         val constraintsBuilder = CalendarConstraints.Builder();
-        constraintsBuilder.setValidator(DateValidatorPointBackward.now());
+        val hojeEmUtc = MaterialDatePicker.todayInUtcMilliseconds();
+        val validator = DateValidatorPointBackward.now();
+
+        constraintsBuilder.setEnd(hojeEmUtc);
+        constraintsBuilder.setValidator(validator);
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(getString(R.string.titulo_datepicker_data_nascimento))

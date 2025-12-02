@@ -302,6 +302,7 @@
     <string name="titulo_funcionarios">Empleados</string>
     <string name="label_cargo">Cargo</string>
     <string name="hint_cargo_selecione">Seleccione el cargo</string>
+    <string name="administrador">Administrador</string>
     <string name="cargo_veterinario">Veterinario</string>
     <string name="cargo_recepcionista">Recepcionista</string>
     <string name="cargo_cliente">Cliente</string>
@@ -361,5 +362,34 @@
     <string name="sucesso_cliente_atualizado">¡Cliente actualizado con éxito!</string>
     <string name="dados_cliente">Datos del Cliente</string>
     <string name="hint_selecione_cliente">Seleccione un cliente</string>
+
+    <string name="horarios">Horarios</string>
+    <string name="meus_horarios">Mis Horarios</string>
+    <string name="title_novo_horario">Agregar Nuevo Horario</string>
+    <string name="title_horarios_de">Horarios de %1$s</string>
+    <string name="hint_dia_semana">Día de la Semana</string>
+    <string name="hint_inicio">Inicio</string>
+    <string name="hint_fim">Fin</string>
+    <string name="btn_adicionar_horario">Agregar Horario</string>
+    <string name="label_horarios_cadastrados">Horarios Registrados</string>
+    <string name="gerenciar_horarios">Gestión de Horarios</string>
+
+    <string name="picker_titulo_inicio">Hora de Inicio</string>
+    <string name="picker_titulo_fim">Hora de Fin</string>
+
+    <string name="erro_usuario_nao_identificado">Error: Usuario no identificado</string>
+    <string name="erro_preencha_campos">Complete todos los campos</string>
+    <string name="erro_dia_invalido">Día inválido</string>
+    <string name="erro_carregar_horarios">Error al cargar horarios</string>
+    <string name="erro_salvar_horario">Error al guardar horario</string>
+    <string name="erro_deletar_horario">Error al eliminar</string>
+
+    <string name="dia_domingo">Domingo</string>
+    <string name="dia_segunda">Lunes</string>
+    <string name="dia_terca">Martes</string>
+    <string name="dia_quarta">Miércoles</string>
+    <string name="dia_quinta">Jueves</string>
+    <string name="dia_sexta">Viernes</string>
+    <string name="dia_sabado">Sábado</string>
 
 </resources>

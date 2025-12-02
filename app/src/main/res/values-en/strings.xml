@@ -302,6 +302,7 @@
     <string name="titulo_funcionarios">Employees</string>
     <string name="label_cargo">Role</string>
     <string name="hint_cargo_selecione">Select role</string>
+    <string name="administrador">Administrator</string>
     <string name="cargo_veterinario">Veterinarian</string>
     <string name="cargo_recepcionista">Receptionist</string>
     <string name="cargo_cliente">Client</string>
@@ -361,5 +362,34 @@
     <string name="sucesso_cliente_atualizado">Client updated successfully!</string>
     <string name="dados_cliente">Client Data</string>
     <string name="hint_selecione_cliente">Select client</string>
+
+    <string name="horarios">Schedules</string>
+    <string name="meus_horarios">My Schedules</string>
+    <string name="title_novo_horario">Add New Schedule</string>
+    <string name="title_horarios_de">Schedules of %1$s</string>
+    <string name="hint_dia_semana">Day of Week</string>
+    <string name="hint_inicio">Start</string>
+    <string name="hint_fim">End</string>
+    <string name="btn_adicionar_horario">Add Schedule</string>
+    <string name="label_horarios_cadastrados">Registered Schedules</string>
+    <string name="gerenciar_horarios">Manage Schedules</string>
+
+    <string name="picker_titulo_inicio">Start Time</string>
+    <string name="picker_titulo_fim">End Time</string>
+
+    <string name="erro_usuario_nao_identificado">Error: User not identified</string>
+    <string name="erro_preencha_campos">Please fill all fields</string>
+    <string name="erro_dia_invalido">Invalid day</string>
+    <string name="erro_carregar_horarios">Error loading schedules</string>
+    <string name="erro_salvar_horario">Error saving schedule</string>
+    <string name="erro_deletar_horario">Error deleting</string>
+
+    <string name="dia_domingo">Sunday</string>
+    <string name="dia_segunda">Monday</string>
+    <string name="dia_terca">Tuesday</string>
+    <string name="dia_quarta">Wednesday</string>
+    <string name="dia_quinta">Thursday</string>
+    <string name="dia_sexta">Friday</string>
+    <string name="dia_sabado">Saturday</string>
 
 </resources>

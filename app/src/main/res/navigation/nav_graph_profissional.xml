@@ -93,6 +93,11 @@
             app:argType="br.com.caiorodri.agenpet.model.usuario.Usuario"
             app:nullable="true" />
 
+        <action
+            android:id="@+id/action_funcionarioCadastroFragment_to_horarioFragment"
+            app:destination="@id/horarioFragment" />
+
+
     </fragment>
 
     <fragment
@@ -105,6 +110,20 @@
             android:name="animal"
             app:argType="br.com.caiorodri.agenpet.model.animal.Animal"
             app:nullable="false" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/horarioFragment"
+        android:name="br.com.caiorodri.agenpet.ui.usuario.HorarioFragment"
+        android:label="@string/meus_horarios"
+        tools:layout="@layout/fragment_horario">
+
+        <argument
+            android:name="veterinario"
+            android:defaultValue="@null"
+            app:argType="br.com.caiorodri.agenpet.model.usuario.Usuario"
+            app:nullable="true" />
 
     </fragment>
 

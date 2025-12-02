@@ -7,6 +7,9 @@ import br.com.caiorodri.agenpet.model.agendamento.Tipo;
 import br.com.caiorodri.agenpet.model.animal.Especie
 import br.com.caiorodri.agenpet.model.animal.Raca
 import br.com.caiorodri.agenpet.model.animal.Sexo;
+import br.com.caiorodri.agenpet.model.enums.DiaSemanaEnum
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum
+import br.com.caiorodri.agenpet.model.usuario.Perfil
 
 
 fun Status.getNomeTraduzido(context: Context): String {
@@ -121,4 +124,34 @@ fun Sexo.getNomeTraduzido(context: Context): String {
     }
 
     return context.getString(stringId);
+}
+
+fun DiaSemanaEnum.getNomeTraduzido(context: Context): String {
+
+    val stringId = when (this) {
+        DiaSemanaEnum.DOMINGO -> R.string.dia_domingo;
+        DiaSemanaEnum.SEGUNDA -> R.string.dia_segunda;
+        DiaSemanaEnum.TERCA -> R.string.dia_terca;
+        DiaSemanaEnum.QUARTA -> R.string.dia_quarta;
+        DiaSemanaEnum.QUINTA -> R.string.dia_quinta;
+        DiaSemanaEnum.SEXTA -> R.string.dia_sexta;
+        DiaSemanaEnum.SABADO -> R.string.dia_sabado;
+    }
+
+    return context.getString(stringId);
+}
+
+fun Perfil.getNomeTraduzido(context: Context): String {
+
+    val stringId = when (this.id) {
+        PerfilEnum.CLIENTE.id -> R.string.cargo_cliente;
+        PerfilEnum.RECEPCIONISTA.id -> R.string.cargo_recepcionista;
+        PerfilEnum.VETERINARIO.id -> R.string.cargo_veterinario;
+        PerfilEnum.ADMINISTRADOR.id -> R.string.administrador;
+        else -> R.string.cargo_cliente;
+
+    }
+
+    return context.getString(stringId);
+
 }

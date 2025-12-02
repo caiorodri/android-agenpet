@@ -1,13 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/agendamentoFragment"
+        android:icon="@drawable/ic_calendar_dots"
+        android:title="@string/agendamentos"/>
+
+    <item
         android:id="@+id/homeProfissionalFragment"
         android:icon="@drawable/ic_home"
         android:title="@string/home"/>
 
     <item
-        android:id="@+id/agendamentoFragment"
-        android:icon="@drawable/ic_calendar_dots"
-        android:title="@string/agendamentos"/>
+        android:id="@+id/horarioFragment"
+        android:icon="@drawable/ic_time"
+        android:title="@string/horarios"/>
+
 
 </menu>
