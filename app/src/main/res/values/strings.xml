@@ -411,4 +411,18 @@
     <string name="dia_sexta">Sexta-feira</string>
     <string name="dia_sabado">Sábado</string>
 
+    <string name="sobre_nos">Sobre Nós</string>
+    <string name="sobre_descricao_app">O AgenPet facilita o agendamento de consultas veterinárias, conectando tutores e clínicas de forma rápida e segura.</string>
+    <string name="sobre_versao">Versão %1$s</string>
+    <string name="sobre_github">Visitar GitHub</string>
+    <string name="sobre_politica_privacidade">Política de Privacidade</string>
+    <string name="sobre_contato">Entre em Contato</string>
+    <string name="sobre_copyright">© 2025 AgenPet. Todos os direitos reservados.</string>
+
+    <string name="erro_abrir_link">Não foi possível abrir o link.</string>
+    <string name="erro_app_email_nao_encontrado">Nenhum aplicativo de e-mail encontrado.</string>
+    <string name="email_assunto_contato">Contato via App AgenPet</string>
+    <string name="sobre_desenvolvedores">Desenvolvedores</string>
+    <string name="titulo_desenvolvedores">Time de Desenvolvimento</string>
+
 </resources>

@@ -138,4 +138,22 @@
         android:label="@string/configuracao"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/sobreNosFragment"
+        android:name="br.com.caiorodri.agenpet.ui.sobre.SobreNosFragment"
+        android:label="@string/sobre_nos"
+        tools:layout="@layout/fragment_sobre_nos" >
+
+        <action
+            android:id="@+id/action_sobreFragment_to_desenvolvedorFragment"
+            app:destination="@id/desenvolvedorFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/desenvolvedorFragment"
+        android:name="br.com.caiorodri.agenpet.ui.sobre.DesenvolvedorFragment"
+        android:label="@string/sobre_desenvolvedores"
+        tools:layout="@layout/fragment_desenvolvedor" />
+
 </navigation>

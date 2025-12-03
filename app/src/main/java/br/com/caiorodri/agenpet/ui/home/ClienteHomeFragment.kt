@@ -1,6 +1,8 @@
 package br.com.caiorodri.agenpet.ui.home;
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +21,7 @@ import androidx.viewpager2.widget.ViewPager2
 import br.com.caiorodri.agenpet.R
 import br.com.caiorodri.agenpet.databinding.FragmentHomeClienteBinding
 import br.com.caiorodri.agenpet.model.agendamento.Agendamento
+import br.com.caiorodri.agenpet.model.propaganda.Propaganda
 import br.com.caiorodri.agenpet.ui.adapter.AgendamentoAdapter
 import br.com.caiorodri.agenpet.ui.adapter.PropagandaAdapter
 import com.bumptech.glide.Glide
@@ -29,6 +32,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.core.net.toUri
 
 class ClienteHomeFragment : Fragment() {
 
@@ -39,10 +43,11 @@ class ClienteHomeFragment : Fragment() {
     private lateinit var agendamentoAdapter: AgendamentoAdapter;
     private lateinit var propagandaAdapter: PropagandaAdapter;
     private val listaPropagandas = listOf(
-        R.drawable.pg_cobasi,
-        R.drawable.pg_petz,
-        R.drawable.pg_petlove
+        Propaganda(R.drawable.pg_cobasi, "https://www.cobasi.com.br"),
+        Propaganda(R.drawable.pg_petz, "https://www.petz.com.br"),
+        Propaganda(R.drawable.pg_petlove, "https://www.petlove.com.br")
     );
+
     private val autoScrollHandler = Handler(Looper.getMainLooper());
     private var autoScrollRunnable: Runnable? = null;
 
@@ -170,7 +175,22 @@ class ClienteHomeFragment : Fragment() {
 
     private fun setupViewPagerPropaganda() {
 
-        propagandaAdapter = PropagandaAdapter(listaPropagandas);
+        propagandaAdapter = PropagandaAdapter(listaPropagandas) { url ->
+
+            try {
+
+                val intent = Intent(Intent.ACTION_VIEW, url.toUri());
+                startActivity(intent);
+
+            } catch (e: Exception) {
+
+                Toast.makeText(context, "Não foi possível abrir o link", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+
+            }
+
+        }
+
         binding.viewPagerPropaganda.adapter = propagandaAdapter;
 
         val tabLayout = binding.tabLayoutIndicador;
@@ -219,6 +239,7 @@ class ClienteHomeFragment : Fragment() {
     private fun startAutoScroll() {
 
         stopAutoScroll();
+
         autoScrollRunnable = Runnable {
             var currentItem = binding.viewPagerPropaganda.currentItem;
             currentItem++;
@@ -228,10 +249,10 @@ class ClienteHomeFragment : Fragment() {
             }
             binding.viewPagerPropaganda.setCurrentItem(currentItem, true);
 
-            autoScrollHandler.postDelayed(autoScrollRunnable!!, 5000);
+            autoScrollHandler.postDelayed(autoScrollRunnable!!, 3500);
         }
 
-        autoScrollHandler.postDelayed(autoScrollRunnable!!, 5000);
+        autoScrollHandler.postDelayed(autoScrollRunnable!!, 3500);
     }
 
     private fun stopAutoScroll() {

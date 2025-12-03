@@ -17,4 +17,12 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/configuracao" />
     </group>
+    <group android:id="@+id/group_sobre" android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/sobreNosFragment"
+            android:icon="@drawable/ic_info"
+            android:title="@string/sobre_nos" />
+
+    </group>
 </menu>

@@ -392,4 +392,18 @@
     <string name="dia_sexta">Viernes</string>
     <string name="dia_sabado">Sábado</string>
 
+    <string name="sobre_nos">Sobre Nosotros</string>
+    <string name="sobre_descricao_app">AgenPet facilita la programación de citas veterinarias, conectando a dueños y clínicas de manera rápida y segura.</string>
+    <string name="sobre_versao">Versión %1$s</string>
+    <string name="sobre_github">Visitar GitHub</string>
+    <string name="sobre_politica_privacidade">Política de Privacidad</string>
+    <string name="sobre_contato">Contáctenos</string>
+    <string name="sobre_copyright">© 2025 AgenPet. Todos los derechos reservados.</string>
+
+    <string name="erro_abrir_link">No se pudo abrir el enlace.</string>
+    <string name="erro_app_email_nao_encontrado">No se encontró aplicación de correo.</string>
+    <string name="email_assunto_contato">Contacto vía App AgenPet</string>
+    <string name="sobre_desenvolvedores">Desarrolladores</string>
+    <string name="titulo_desenvolvedores">Equipo de Desarrollo</string>
+
 </resources>

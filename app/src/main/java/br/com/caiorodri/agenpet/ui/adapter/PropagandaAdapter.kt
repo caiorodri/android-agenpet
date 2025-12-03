@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.caiorodri.agenpet.R
+import br.com.caiorodri.agenpet.model.propaganda.Propaganda
 
-class PropagandaAdapter(private val imagens: List<Int>) :
+class PropagandaAdapter(private val itens: List<Propaganda>, private val onItemClick: (String) -> Unit) :
     RecyclerView.Adapter<PropagandaAdapter.PropagandaViewHolder>() {
 
     inner class PropagandaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -20,10 +21,15 @@ class PropagandaAdapter(private val imagens: List<Int>) :
         return PropagandaViewHolder(view)
     }
 
-    override fun getItemCount(): Int = imagens.size
+    override fun getItemCount(): Int = itens.size;
 
     override fun onBindViewHolder(holder: PropagandaViewHolder, position: Int) {
-        val imagemResId = imagens[position]
-        holder.imageView.setImageResource(imagemResId)
+        val item = itens[position]
+
+        holder.imageView.setImageResource(item.imagemResId);
+
+        holder.itemView.setOnClickListener {
+            onItemClick(item.url);
+        }
     }
 }
