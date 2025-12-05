@@ -1,0 +1,464 @@
+<resources>
+    <string name="app_name">Agen Pet</string>
+    <string name="app_email">agenpet@gmail.com</string>
+    <string name="email">电子邮箱</string>
+    <string name="senha">密码</string>
+    <string name="esqueci_senha">忘记密码</string>
+    <string name="realizar_cadastro">注册</string>
+    <string name="logar">登录</string>
+    <string name="cadastrar">注册</string>
+    <string name="nome">姓名</string>
+    <string name="cpf">身份证号</string> <string name="cadastro">注册</string>
+    <string name="login">登录</string>
+    <string name="data_nascimento">出生日期</string>
+    <string name="telefone">电话</string>
+    <string name="confirmar_senha">确认密码</string>
+    <string name="logradouro">地址</string>
+    <string name="numero">门牌号</string>
+    <string name="bairro">区/街道</string>
+    <string name="cep">邮政编码</string>
+    <string name="cidade">城市</string>
+    <string name="estado">省/州</string>
+    <string name="complemento">补充地址 (楼层/房间号)</string>
+    <string name="home">主页</string>
+    <string name="agendamentos">预约</string>
+    <string name="pets">宠物</string>
+    <string name="configuracao">设置</string>
+    <string name="cadastrar_novo_agendamento">新建预约</string>
+    <string name="cadastrar_novo_pet">添加新宠物</string>
+    <string name="navigation_drawer_open">打开导航菜单</string>
+    <string name="navigation_drawer_close">关闭导航菜单</string>
+
+    <string name="title_login">登录</string>
+    <string name="cd_logo_app">应用Logo</string>
+    <string name="label_acesso_conta">访问您的帐户</string>
+
+    <string name="title_cadastro_usuario">用户注册</string>
+    <string name="label_dados_pessoais">个人资料</string>
+    <string name="hint_nome_completo">全名</string>
+    <string name="hint_data_nascimento_formato">出生日期 (日/月/年)</string>
+    <string name="label_endereco">地址</string>
+    <string name="label_seguranca">安全</string>
+    <string name="hint_senha_min_chars">密码 (至少8个字符)</string>
+    <string name="label_identificacao_pet">宠物身份</string>
+    <string name="label_especie">物种</string>
+    <string name="label_raca">品种</string>
+    <string name="label_caracteristicas_fisicas">身体特征</string>
+    <string name="label_sexo">性别</string>
+    <string name="option_macho">公</string>
+    <string name="option_femea">母</string>
+    <string name="option_desconhecido">不详</string>
+    <string name="label_info_adicional_animal">信息 (注册后不可更改)</string>
+    <string name="hint_peso_kg">体重 (kg)</string>
+    <string name="hint_altura_cm">身高 (cm)</string>
+    <string name="label_castrado">已绝育?</string>
+    <string name="option_sim">是</string>
+    <string name="option_nao">否</string>
+    <string name="hint_descricao_observacoes">备注</string>
+    <string name="cd_icone_descricao">描述图标</string>
+    <string name="button_salvar">保存</string>
+    <string name="placeholder_id_animal">ID: %1$d</string>
+    <string name="titulo_editar_animal">编辑宠物</string>
+    <string name="titulo_editar_agendamento">编辑预约</string>
+    <string name="titulo_novo_animal">新宠物</string>
+    <string name="button_atualizar">更新</string>
+    <string name="cd_carregando_racas">正在加载品种</string>
+    <string name="toast_animal_salvo_sucesso">宠物保存成功！</string>
+    <string name="toast_preencher_campos_obrigatorios">请填写所有必填字段。</string>
+    <string name="toast_erro_usuario_nao_encontrado">错误：未找到用户。请重试。</string>
+    <string name="toast_informar_castrado">请告知宠物是否已绝育</string>
+    <string name="titulo_datepicker_data_nascimento">选择出生日期</string>
+
+    <string name="titulo_proximo_agendamento">下次预约</string>
+    <string name="titulo_recentes">最近</string>
+
+    <string name="label_animal">宠物:</string>
+    <string name="label_veterinario">兽医:</string>
+    <string name="label_data">日期:</string>
+    <string name="label_horario">时间:</string>
+
+    <string name="cd_icone_pet">宠物图标</string>
+    <string name="label_pet_item">宠物:</string>
+    <string name="label_servico">服务:</string>
+    <string name="label_hora_item">时间:</string>
+    <string name="label_status">状态:</string>
+
+    <string name="meu_perfil">我的个人资料</string>
+    <string name="sair">退出</string>
+
+    <string name="cd_ver_detalhes">查看详情</string>
+    <string name="cd_imagem_perfil">头像</string>
+    <string name="cd_acessar_perfil">访问用户资料</string>
+
+    <string name="placeholder_nome_usuario">用户名</string>
+    <string name="placeholder_email_usuario">user.email@email.com</string>
+
+    <string name="title_perfil">个人资料</string>
+
+    <string name="cd_remover_animal">删除宠物</string>
+
+    <string name="toast_animal_removido_sucesso">宠物已成功删除！</string>
+    <string name="dialog_title_remover_animal">删除宠物</string>
+    <string name="dialog_message_remover_animal">您确定要删除 %1$s 吗？此操作无法撤消。</string>
+    <string name="dialog_button_remover">删除</string>
+    <string name="dialog_button_cancelar">取消</string>
+
+    <string name="title_meu_perfil">我的个人资料</string>
+    <string name="button_salvar_alteracoes">保存更改</string>
+    <string name="toast_perfil_atualizado_sucesso">个人资料更新成功！</string>
+
+    <string name="cd_propaganda">广告</string>
+
+    <string name="label_aparencia">外观</string>
+    <string name="label_modo_escuro">主题</string>
+    <string name="desc_icon_dark_mode">深色模式图标</string>
+    <string name="theme_light">浅色</string>
+    <string name="theme_dark">深色</string>
+    <string name="theme_system">跟随系统</string>
+
+    <string name="label_idioma">语言</string>
+    <string name="label_idioma_titulo">选择语言</string>
+    <string name="desc_icon_idioma">语言图标</string>
+    <string name="lang_portuguese">葡萄牙语</string>
+    <string name="lang_english">英语</string>
+    <string name="lang_spanish">西班牙语</string>
+    <string name="lang_french">法语</string>
+    <string name="lang_italian">意大利语</string>
+    <string name="lang_german">德语</string>
+    <string name="lang_japanese">日语</string>
+    <string name="lang_chinese">中文</string>
+
+    <string name="label_notificacoes">通知</string>
+    <string name="label_receber_notificacoes">接收通知</string>
+    <string name="desc_icon_notificacoes">通知图标</string>
+
+    <string name="label_inicio">首页</string>
+    <string name="label_cadastro_pet">宠物注册</string>
+    <string name="label_meus_agendamentos">我的预约</string>
+    <string name="label_meus_pets">我的宠物</string>
+
+    <string name="label_dados_agendamento">预约数据</string>
+    <string name="hint_tipo_agendamento">预约类型</string>
+    <string name="hint_selecione_pet">选择宠物</string>
+    <string name="hint_selecione_veterinario">选择兽医</string>
+    <string name="label_data_e_hora">日期和时间</string>
+    <string name="hint_data">日期</string>
+    <string name="hint_horario">时间</string>
+    <string name="cd_icone_observacoes">备注图标</string>
+    <string name="hint_descricao_agendamento_opcional">描述 / 备注 (可选)</string>
+
+    <string name="buscar_pets">按名称或品种搜索...</string>
+    <string name="buscar_agendamentos">按宠物、兽医搜索...</string>
+
+    <string name="status_aberto">待处理</string>
+    <string name="status_cancelado">已取消</string>
+    <string name="status_concluido">已完成</string>
+    <string name="status_perdido">爽约</string>
+    <string name="status_desconhecido">状态未知</string>
+
+    <string name="tipo_consulta">问诊</string>
+    <string name="tipo_cirurgia">手术</string>
+    <string name="tipo_vacina">疫苗</string>
+    <string name="tipo_outro">其他</string>
+
+    <string name="especie_cachorro">狗</string>
+    <string name="especie_gato">猫</string>
+    <string name="especie_ave">鸟</string>
+    <string name="especie_coelho">兔子</string>
+    <string name="especie_tartaruga">乌龟</string>
+    <string name="especie_peixe">鱼</string>
+    <string name="especie_cavalo">马</string>
+    <string name="especie_porquinho_da_india">豚鼠</string>
+    <string name="especie_reptil">爬行动物</string>
+    <string name="especie_rato">老鼠</string>
+    <string name="especie_furao">雪貂</string>
+    <string name="especie_hamster">仓鼠</string>
+    <string name="especie_outros">其他</string>
+
+    <string name="raca_desconhecido">未知</string>
+    <string name="raca_vira_lata">混种 (串串)</string>
+
+    <string name="raca_pastor_alemao">德国牧羊犬</string>
+    <string name="raca_poodle">贵宾犬</string>
+    <string name="raca_labrador_retriever">拉布拉多</string>
+    <string name="raca_bulldog_frances">法国斗牛犬</string>
+    <string name="raca_golden_retriever">金毛寻回犬</string>
+    <string name="raca_chihuahua">吉娃娃</string>
+    <string name="raca_beagle">比格犬</string>
+    <string name="raca_shih_tzu">西施犬</string>
+    <string name="raca_dachshund">腊肠犬</string>
+    <string name="raca_boxer">拳师犬</string>
+    <string name="raca_rottweiler">罗威纳犬</string>
+
+    <string name="raca_siames">暹罗猫</string>
+    <string name="raca_persa">波斯猫</string>
+    <string name="raca_maine_coon">缅因猫</string>
+    <string name="raca_angora">安哥拉猫</string>
+    <string name="raca_sphynx">斯芬克斯猫 (无毛猫)</string>
+    <string name="raca_british_shorthair">英国短毛猫</string>
+    <string name="raca_bengal">孟加拉豹猫</string>
+    <string name="raca_ragdoll">布偶猫</string>
+
+    <string name="raca_periquito">长尾小鹦鹉</string>
+    <string name="raca_calopsita">玄凤鹦鹉</string>
+    <string name="raca_papagaio">鹦鹉</string>
+    <string name="raca_canario">金丝雀</string>
+    <string name="raca_arara">金刚鹦鹉</string>
+
+    <string name="raca_mini_lop">迷你垂耳兔</string>
+    <string name="raca_lionhead">狮头兔</string>
+    <string name="raca_rex">雷克斯兔</string>
+    <string name="raca_angora_ingles">安哥拉兔</string>
+
+    <string name="raca_betta">斗鱼</string>
+    <string name="raca_goldfish">金鱼</string>
+    <string name="raca_tetra_neon">霓虹脂鲤</string>
+
+    <string name="raca_mangalarga_marchador">曼加拉加马</string>
+    <string name="raca_puro_sangue_arabe">阿拉伯马</string>
+
+    <string name="raca_hamster_sirio">金仓鼠 (叙利亚仓鼠)</string>
+    <string name="raca_hamster_anao_russo">侏儒仓鼠</string>
+
+    <string name="erro_obrigatorio">必填</string>
+    <string name="erro_nome_obrigatorio">姓名为必填项</string>
+    <string name="erro_especie_obrigatoria">物种为必填项</string>
+    <string name="erro_raca_obrigatoria">品种为必填项</string>
+    <string name="erro_animal_invalido">请选择有效的宠物</string>
+    <string name="erro_veterinario_invalido">请选择有效的兽医</string>
+    <string name="erro_tipo_invalido">请选择有效的类型</string>
+    <string name="erro_status_nao_encontrado">未找到状态 \'待处理\' (ID 1)。</string>
+
+    <string name="erro_corrija_formulario">请更正表格中的错误。</string>
+    <string name="erro_obter_dados_usuario">获取用户数据时出错。</string>
+    <string name="erro_data_invalida">无效日期</string>
+    <string name="erro_data_vazia">日期不能为空</string>
+    <string name="erro_nome_vazio">姓名不能为空</string>
+    <string name="erro_email_invalido">邮箱必须有效</string>
+    <string name="erro_telefone_vazio">电话不能为空</string>
+    <string name="erro_data_formato">日期格式必须为 DD/MM/AAAA</string>
+    <string name="erro_cep_vazio">邮政编码不能为空</string>
+    <string name="erro_logradouro_vazio">地址不能为空</string>
+    <string name="erro_numero_vazio">门牌号不能为空</string>
+    <string name="erro_cidade_vazia">城市不能为空</string>
+    <string name="erro_selecionar_estado">请选择省/州</string>
+    <string name="erro_senha_minima">密码必须至少包含8个字符</string>
+    <string name="erro_senhas_nao_conferem">密码不匹配</string>
+    <string name="erro_cpf_formato">身份证号必须为11位</string>
+    <string name="erro_carregar_lista">加载列表时出错</string>
+
+    <string name="erro_imagem_muito_grande">图片太大。限制为 %1$dMB。</string>
+    <string name="erro_selecionar_imagem">无法选择此图片。</string>
+    <string name="erro_processar_imagem">处理图片时出错。</string>
+    <string name="erro_obter_url">获取URL时出错: %1$s</string>
+    <string name="erro_upload_imagem">上传错误: %1$s</string>
+    <string name="erro_salvar_alteracoes">无法保存更改。</string>
+    <string name="erro_conexao_geral">连接错误。请检查您的网络。</string>
+    <string name="erro_desconhecido">发生未知错误。</string>
+    <string name="erro_falha_cadastro">注册失败。</string>
+    <string name="erro_formato_data_invalido">日期格式无效。请使用 DD/MM/AAAA。</string>
+
+    <string name="sucesso_cadastro_usuario">用户 %1$s 已注册</string>
+    <string name="info_perfil_nao_carregado">无法加载个人资料数据。</string>
+
+    <string name="erro_imagem_muito_grande_animal">图片太大。限制为 %1$dMB。</string>
+    <string name="erro_selecionar_imagem_animal">无法选择此图片。</string>
+    <string name="erro_processar_imagem_animal">处理图片时出错。</string>
+    <string name="erro_obter_url_animal">获取URL时出错: %1$s</string>
+    <string name="erro_upload_imagem_animal">上传错误: %1$s</string>
+    <string name="erro_criar_objeto_animal">创建宠物对象时出错</string>
+    <string name="erro_validar_dados_animal">验证数据时出错。</string>
+    <string name="erro_carregar_especies_racas">无法加载物种或品种。</string>
+    <string name="erro_salvar_animal_rede">连接错误。请检查您的网络。</string>
+    <string name="erro_salvar_animal_generico">发生未知错误。</string>
+    <string name="erro_remover_animal_rede">连接错误。请检查您的网络。</string>
+    <string name="erro_remover_animal_generico">无法删除宠物。</string>
+    <string name="toast_selecionar_sexo">性别为必选项</string>
+
+    <string name="erro_recepcionista_nao_encontrado">系统配置错误。请联系支持。</string>
+    <string name="erro_carregar_dados_agendamento">无法加载必要数据。</string>
+    <string name="erro_salvar_agendamento_rede">连接错误。请检查您的网络。</string>
+    <string name="erro_salvar_agendamento_generico">发生未知错误。</string>
+    <string name="erro_agendamento_salvo_nulo">保存时服务器返回空响应。</string>
+    <string name="erro_agendamento_atualizado_nulo">更新时服务器返回空响应。</string>
+
+    <string name="sucesso_agendamento_salvo">预约保存成功！</string>
+
+    <string name="info_sem_proximo_agendamento">没有预约</string>
+    <string name="info_sem_agendamentos_recentes">最近几天没有预约</string>
+
+    <string name="info_sem_animais">未注册宠物</string>
+    <string name="info_clique_para_adicionar">点击 + 按钮添加您的第一只宠物</string>
+
+    <string name="info_sem_agendamentos_lista">未找到预约</string>
+    <string name="info_clique_para_adicionar_agendamento">点击 + 按钮进行预约</string>
+
+    <string name="dialog_button_ok">确定</string>
+
+    <string name="toast_agendamento_cancelado_sucesso">预约取消成功！</string>
+    <string name="dialog_title_cancelar_agendamento">取消预约</string>
+    <string name="dialog_message_cancelar_agendamento">您确定要取消此预约吗？</string>
+    <string name="dialog_button_cancelar_agendamento">是</string>
+    <string name="dialog_button_voltar">返回</string>
+
+    <string name="dialog_title_erro_animal">保存宠物时出错</string>
+    <string name="dialog_message_erro_animal">无法保存宠物数据。请稍后再试。</string>
+
+    <string name="dialog_title_erro_agendamento">保存预约时出错</string>
+    <string name="dialog_message_erro_agendamento">无法保存预约数据。请稍后再试。</string>
+
+    <string name="erro_sem_horarios_disponiveis">此日期没有可用时间</string>
+    <string name="titulo_datepicker_data_agendamento">选择预约日期</string>
+
+    <string name="button_alterar_senha">修改密码</string>
+    <string name="hint_senha_antiga">旧密码</string>
+    <string name="hint_nova_senha">新密码</string>
+    <string name="hint_confirmar_nova_senha">确认新密码</string>
+    <string name="button_salvar_nova_senha">保存新密码</string>
+    <string name="sucesso_alterar_senha">密码修改成功！</string>
+    <string name="erro_senha_nova_igual_antiga">新密码不能与旧密码相同。</string>
+    <string name="erro_alterar_senha_falha">无法修改密码。请检查旧密码并重试。</string>
+
+    <string name="erro_carregar_usuario">加载用户数据时出错。请检查您的连接。</string>
+
+    <string name="titulo_funcionarios">员工</string>
+    <string name="label_cargo">职位</string>
+    <string name="hint_cargo_selecione">选择职位</string>
+    <string name="administrador">管理员</string>
+    <string name="cargo_veterinario">兽医</string>
+    <string name="cargo_recepcionista">接待员</string>
+    <string name="cargo_cliente">客户</string>
+    <string name="botao_cadastrar_funcionario">注册员工</string>
+    <string name="erro_cargo_vazio">请选择有效的职位。</string>
+    <string name="sucesso_funcionario_salvo">员工保存成功！</string>
+    <string name="erro_carregar_funcionarios">加载员工列表时出错。</string>
+    <string name="info_sem_funcionarios">未找到员工。</string>
+    <string name="hint_senha_inicial">初始密码</string>
+    <string name="titulo_editar_funcionario">编辑员工</string>
+    <string name="botao_atualizar_funcionario">更新员工</string>
+    <string name="hint_senha_opcional">新密码 (可选)</string>
+    <string name="sucesso_funcionario_atualizado">员工更新成功！</string>
+    <string name="erro_atualizar_funcionario">更新员工时出错。</string>
+    <string name="dados_funcionario">员工数据</string>
+    <string name="buscar_funcionarios">搜索员工</string>
+
+    <string name="loading_conectando">> 正在连接服务器...</string>
+    <string name="loading_autenticacao">> 认证成功...</string>
+    <string name="loading_carregando_perfil">> 正在加载您的个人资料...</string>
+    <string name="loading_buscando_pets">> 正在搜索您的宠物...</string>
+    <string name="loading_organizando_agenda">> 正在整理您的日程...</string>
+    <string name="loading_quase_la">> 即将完成...</string>
+    <string name="loading_bem_vindo">> 欢迎，%s！</string>
+    <string name="loading_bem_vindo_composta">> 欢迎，%s %s！</string>
+
+    <string name="saudacao_simples">您好，%s</string>
+    <string name="saudacao_composta">您好，%s %s</string>
+
+    <string name="welcome_profissional_placeholder">您好，专业人士</string>
+    <string name="titulo_painel_admin">管理面板</string>
+    <string name="card_cadastrar_funcionarios">注册员工</string>
+    <string name="titulo_agenda_hoje">您今天的日程</string>
+    <string name="info_agenda_vazia">今天没有预约。</string>
+
+    <string name="title_dados_clinicos">宠物临床数据</string>
+    <string name="label_nome_pet_placeholder">宠物姓名</string>
+    <string name="label_raca_especie_placeholder">品种 / 物种</string>
+    <string name="label_animal_castrado">宠物已绝育?</string>
+    <string name="button_atualizar_dados_clinicos">更新临床数据</string>
+    <string name="label_dados_animal">宠物数据</string>
+    <string name="info_cadastre_pet">注册您的第一只宠物以进行预约</string>
+    <string name="button_dados_clinicos">临床数据</string>
+
+    <string name="erro_animal_nao_encontrado">未找到宠物</string>
+    <string name="erro_carregar_dados_animal">无法加载宠物数据。</string>
+    <string name="sucesso_dados_clinicos_atualizados">临床数据已更新！</string>
+
+    <string name="label_receber_emails">我同意接收电子邮件</string>
+    <string name="label_lembrar_de_mim">记住我</string>
+
+    <string name="titulo_clientes">客户</string>
+    <string name="titulo_cadastrar_cliente">注册客户</string>
+    <string name="botao_cadastrar_cliente">注册客户</string>
+    <string name="sucesso_cliente_salvo">客户保存成功！</string>
+    <string name="sucesso_cliente_atualizado">客户更新成功！</string>
+    <string name="dados_cliente">客户数据</string>
+    <string name="hint_selecione_cliente">选择客户</string>
+
+    <string name="horarios">时间表</string>
+    <string name="meus_horarios">我的时间表</string>
+    <string name="title_novo_horario">添加新时间</string>
+    <string name="title_horarios_de">%1$s 的时间</string>
+    <string name="hint_dia_semana">星期几</string>
+    <string name="hint_inicio">开始</string>
+    <string name="hint_fim">结束</string>
+    <string name="btn_adicionar_horario">添加时间</string>
+    <string name="label_horarios_cadastrados">已注册时间</string>
+    <string name="gerenciar_horarios">管理时间</string>
+
+    <string name="picker_titulo_inicio">开始时间</string>
+    <string name="picker_titulo_fim">结束时间</string>
+
+    <string name="erro_usuario_nao_identificado">错误：用户未识别</string>
+    <string name="erro_preencha_campos">请填写所有字段</string>
+    <string name="erro_dia_invalido">无效的日期</string>
+    <string name="erro_carregar_horarios">加载时间出错</string>
+    <string name="erro_salvar_horario">保存时间出错</string>
+    <string name="erro_deletar_horario">删除出错</string>
+
+    <string name="dia_domingo">星期日</string>
+    <string name="dia_segunda">星期一</string>
+    <string name="dia_terca">星期二</string>
+    <string name="dia_quarta">星期三</string>
+    <string name="dia_quinta">星期四</string>
+    <string name="dia_sexta">星期五</string>
+    <string name="dia_sabado">星期六</string>
+
+    <string name="sobre_nos">关于我们</string>
+    <string name="sobre_descricao_app">AgenPet 旨在促进兽医预约，快速安全地连接宠物主人和诊所。</string>
+    <string name="sobre_versao">版本 %1$s</string>
+    <string name="sobre_github">访问 GitHub</string>
+    <string name="sobre_politica_privacidade">隐私政策</string>
+    <string name="sobre_contato">联系我们</string>
+    <string name="sobre_copyright">© 2025 AgenPet. 保留所有权利。</string>
+
+    <string name="erro_abrir_link">无法打开链接。</string>
+    <string name="erro_app_email_nao_encontrado">未找到电子邮件应用。</string>
+    <string name="email_assunto_contato">通过 AgenPet 应用联系</string>
+    <string name="sobre_desenvolvedores">开发者</string>
+    <string name="titulo_desenvolvedores">开发团队</string>
+
+    <string name="button_diagnostico">诊断</string>
+    <string name="titulo_pos_consulta">问诊详情</string>
+    <string name="label_diagnostico">诊断</string>
+    <string name="label_prescricao">医疗处方</string>
+    <string name="label_nenhuma_prescricao">此次问诊未登记处方。</string>
+    <string name="btn_baixar_pdf">下载处方 (PDF)</string>
+    <string name="msg_resultado_indisponivel">结果尚不可用。</string>
+    <string name="msg_erro_buscar_dados">获取数据时出错。</string>
+    <string name="msg_pdf_em_breve">PDF功能即将推出！</string>
+    <string name="label_carregando">加载中...</string>
+    <string name="label_aguardando_dados">尚不可用</string>
+    <string name="titulo_finalizar_consulta">临床记录</string>
+    <string name="hint_diagnostico_principal">主要诊断 (必填)</string>
+    <string name="hint_observacoes_medicas">临床观察 / 身体检查</string>
+    <string name="btn_add">添加</string>
+    <string name="btn_finalizar_consulta">完成问诊</string>
+    <string name="label_sem_remedios_adicionados">未添加药物。</string>
+    <string name="dialog_add_remedio_titulo">添加药物</string>
+    <string name="hint_nome_remedio">药物名称</string>
+    <string name="hint_dosagem">剂量 (例如: 10mg, 5ml)</string>
+    <string name="hint_instrucoes">使用说明</string>
+    <string name="btn_cancelar">取消</string>
+    <string name="btn_salvar">保存</string>
+    <string name="sucesso_consulta_finalizada">问诊成功完成！</string>
+    <string name="button_visualizar_prontuario">查看病历</string>
+    <string name="button_realizar_atendimento">进行问诊</string>
+    <string name="button_ver_receita_diagnostico">查看处方 / 诊断</string>
+    <string name="erro_recepcionista_invalido">错误：未识别接待员。</string>
+    <string name="erro_campos_medicamento_obrigatorios">名称和剂量为必填项</string>
+    <string name="erro_diagnostico_obrigatorio">诊断为必填项。</string>
+    <string name="erro_salvar_resultado_conexao">保存结果时出错。请检查您的连接。</string>
+
+    <string name="hint_status_agendamento">预约状态</string>
+
+</resources>

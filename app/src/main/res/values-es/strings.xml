@@ -54,7 +54,7 @@
     <string name="label_castrado">¿Castrado?</string>
     <string name="option_sim">Sí</string>
     <string name="option_nao">No</string>
-    <string name="hint_descricao_observacoes">Descripción / Observaciones</string>
+    <string name="hint_descricao_observacoes">Observaciones</string>
     <string name="cd_icone_descricao">Icono de descripción</string>
     <string name="button_salvar">Guardar</string>
     <string name="placeholder_id_animal">ID: %1$d</string>
@@ -106,9 +106,14 @@
     <string name="label_idioma">Idioma</string>
     <string name="label_idioma_titulo">Seleccionar Idioma</string>
     <string name="desc_icon_idioma">Icono de idioma</string>
-    <string name="lang_portuguese">Português</string>
-    <string name="lang_english">English</string>
+    <string name="lang_portuguese">Portugués</string>
+    <string name="lang_english">Inglés</string>
     <string name="lang_spanish">Español</string>
+    <string name="lang_french">Francés</string>
+    <string name="lang_italian">Italiano</string>
+    <string name="lang_german">Alemán</string>
+    <string name="lang_japanese">Japonés</string>
+    <string name="lang_chinese">Chino</string>
     <string name="label_notificacoes">Notificaciones</string>
     <string name="label_receber_notificacoes">Recibir notificaciones</string>
     <string name="desc_icon_notificacoes">Icono de notificaciones</string>
@@ -405,5 +410,41 @@
     <string name="email_assunto_contato">Contacto vía App AgenPet</string>
     <string name="sobre_desenvolvedores">Desarrolladores</string>
     <string name="titulo_desenvolvedores">Equipo de Desarrollo</string>
+
+    <string name="button_diagnostico">Diagnóstico</string>
+    <string name="titulo_pos_consulta">Detalles de la Cita</string>
+    <string name="label_diagnostico">Diagnóstico</string>
+    <string name="label_prescricao">Receta Médica</string>
+    <string name="label_nenhuma_prescricao">No hay recetas registradas para esta cita.</string>
+    <string name="btn_baixar_pdf">Descargar Receta (PDF)</string>
+    <string name="msg_resultado_indisponivel">Resultado aún no disponible.</string>
+    <string name="msg_erro_buscar_dados">Error al buscar datos.</string>
+    <string name="msg_pdf_em_breve">¡Función PDF pronto!</string>
+    <string name="label_carregando">Cargando...</string>
+    <string name="label_aguardando_dados">Aún no disponible</string>
+
+    <string name="titulo_finalizar_consulta">Registro Clínico</string>
+    <string name="hint_diagnostico_principal">Diagnóstico Principal (Obligatorio)</string>
+    <string name="hint_observacoes_medicas">Notas Clínicas / Examen Físico</string>
+    <string name="btn_add">Agregar</string>
+    <string name="btn_finalizar_consulta">Finalizar Consulta</string>
+    <string name="label_sem_remedios_adicionados">Ningún medicamento agregado.</string>
+
+    <string name="dialog_add_remedio_titulo">Agregar Medicamento</string>
+    <string name="hint_nome_remedio">Nombre del Medicamento</string>
+    <string name="hint_dosagem">Dosis (ej: 10mg, 5ml)</string>
+    <string name="hint_instrucoes">Instrucciones de Uso</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_salvar">Guardar</string>
+    <string name="sucesso_consulta_finalizada">¡Consulta finalizada con éxito!</string>
+    <string name="button_visualizar_prontuario">Ver Prontuario</string>
+    <string name="button_realizar_atendimento">Realizar Atendimento</string>
+    <string name="button_ver_receita_diagnostico">Ver Receta / Diagnóstico</string>
+    <string name="erro_recepcionista_invalido">Error de configuración del sistema. Contacte con soporte.</string>
+    <string name="erro_campos_medicamento_obrigatorios">El nombre y la dosis son obligatorios</string>
+    <string name="erro_diagnostico_obrigatorio">El diagnóstico es obligatorio.</string>
+    <string name="erro_salvar_resultado_conexao">Error al guardar el resultado. Verifique su conexión.</string>
+
+    <string name="hint_status_agendamento">Estado de la Cita</string>
 
 </resources>

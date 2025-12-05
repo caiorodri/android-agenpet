@@ -1,0 +1,464 @@
+<resources>
+    <string name="app_name">Agen Pet</string>
+    <string name="app_email">agenpet@gmail.com</string>
+    <string name="email">メールアドレス</string>
+    <string name="senha">パスワード</string>
+    <string name="esqueci_senha">パスワードを忘れた場合</string>
+    <string name="realizar_cadastro">登録する</string>
+    <string name="logar">ログイン</string>
+    <string name="cadastrar">新規登録</string>
+    <string name="nome">氏名</string>
+    <string name="cpf">納税者番号 (CPF)</string> <string name="cadastro">登録</string>
+    <string name="login">ログイン</string>
+    <string name="data_nascimento">生年月日</string>
+    <string name="telefone">電話番号</string>
+    <string name="confirmar_senha">パスワード（確認）</string>
+    <string name="logradouro">住所（町名・番地）</string>
+    <string name="numero">番号</string>
+    <string name="bairro">地区/近隣</string>
+    <string name="cep">郵便番号</string>
+    <string name="cidade">市区町村</string>
+    <string name="estado">都道府県</string>
+    <string name="complemento">建物名・部屋番号</string>
+    <string name="home">ホーム</string>
+    <string name="agendamentos">予約</string>
+    <string name="pets">ペット</string>
+    <string name="configuracao">設定</string>
+    <string name="cadastrar_novo_agendamento">新規予約の登録</string>
+    <string name="cadastrar_novo_pet">新しいペットを登録</string>
+    <string name="navigation_drawer_open">ナビゲーションメニューを開く</string>
+    <string name="navigation_drawer_close">ナビゲーションメニューを閉じる</string>
+
+    <string name="title_login">ログイン</string>
+    <string name="cd_logo_app">アプリのロゴ</string>
+    <string name="label_acesso_conta">アカウントにアクセス</string>
+
+    <string name="title_cadastro_usuario">ユーザー登録</string>
+    <string name="label_dados_pessoais">個人情報</string>
+    <string name="hint_nome_completo">氏名（フルネーム）</string>
+    <string name="hint_data_nascimento_formato">生年月日 (日/月/年)</string>
+    <string name="label_endereco">住所</string>
+    <string name="label_seguranca">セキュリティ</string>
+    <string name="hint_senha_min_chars">パスワード (8文字以上)</string>
+    <string name="label_identificacao_pet">ペット情報</string>
+    <string name="label_especie">種類</string>
+    <string name="label_raca">品種</string>
+    <string name="label_caracteristicas_fisicas">身体的特徴</string>
+    <string name="label_sexo">性別</string>
+    <string name="option_macho">オス</string>
+    <string name="option_femea">メス</string>
+    <string name="option_desconhecido">不明</string>
+    <string name="label_info_adicional_animal">情報 (登録後の変更不可)</string>
+    <string name="hint_peso_kg">体重 (kg)</string>
+    <string name="hint_altura_cm">体高 (cm)</string>
+    <string name="label_castrado">去勢・避妊済み?</string>
+    <string name="option_sim">はい</string>
+    <string name="option_nao">いいえ</string>
+    <string name="hint_descricao_observacoes">備考</string>
+    <string name="cd_icone_descricao">説明アイコン</string>
+    <string name="button_salvar">保存</string>
+    <string name="placeholder_id_animal">ID: %1$d</string>
+    <string name="titulo_editar_animal">ペット情報の編集</string>
+    <string name="titulo_editar_agendamento">予約の編集</string>
+    <string name="titulo_novo_animal">新しいペット</string>
+    <string name="button_atualizar">更新</string>
+    <string name="cd_carregando_racas">品種を読み込み中</string>
+    <string name="toast_animal_salvo_sucesso">ペットが正常に保存されました！</string>
+    <string name="toast_preencher_campos_obrigatorios">必須項目をすべて入力してください。</string>
+    <string name="toast_erro_usuario_nao_encontrado">エラー：ユーザーが見つかりません。再試行してください。</string>
+    <string name="toast_informar_castrado">去勢・避妊の有無を選択してください</string>
+    <string name="titulo_datepicker_data_nascimento">生年月日を選択</string>
+
+    <string name="titulo_proximo_agendamento">次回の予約</string>
+    <string name="titulo_recentes">最近</string>
+
+    <string name="label_animal">ペット:</string>
+    <string name="label_veterinario">獣医師:</string>
+    <string name="label_data">日付:</string>
+    <string name="label_horario">時間:</string>
+
+    <string name="cd_icone_pet">ペットのアイコン</string>
+    <string name="label_pet_item">ペット:</string>
+    <string name="label_servico">サービス:</string>
+    <string name="label_hora_item">時間:</string>
+    <string name="label_status">ステータス:</string>
+
+    <string name="meu_perfil">マイプロフィール</string>
+    <string name="sair">ログアウト</string>
+
+    <string name="cd_ver_detalhes">詳細を見る</string>
+    <string name="cd_imagem_perfil">プロフィール画像</string>
+    <string name="cd_acessar_perfil">ユーザープロフィールにアクセス</string>
+
+    <string name="placeholder_nome_usuario">ユーザー名</string>
+    <string name="placeholder_email_usuario">user.email@email.com</string>
+
+    <string name="title_perfil">プロフィール</string>
+
+    <string name="cd_remover_animal">ペットを削除</string>
+
+    <string name="toast_animal_removido_sucesso">ペットが正常に削除されました！</string>
+    <string name="dialog_title_remover_animal">ペットの削除</string>
+    <string name="dialog_message_remover_animal">本当に %1$s を削除してもよろしいですか？この操作は取り消せません。</string>
+    <string name="dialog_button_remover">削除</string>
+    <string name="dialog_button_cancelar">キャンセル</string>
+
+    <string name="title_meu_perfil">マイプロフィール</string>
+    <string name="button_salvar_alteracoes">変更を保存</string>
+    <string name="toast_perfil_atualizado_sucesso">プロフィールが正常に更新されました！</string>
+
+    <string name="cd_propaganda">広告</string>
+
+    <string name="label_aparencia">外観</string>
+    <string name="label_modo_escuro">テーマ</string>
+    <string name="desc_icon_dark_mode">ダークモードアイコン</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
+    <string name="theme_system">システム設定に従う</string>
+
+    <string name="label_idioma">言語</string>
+    <string name="label_idioma_titulo">言語を選択</string>
+    <string name="desc_icon_idioma">言語アイコン</string>
+    <string name="lang_portuguese">ポルトガル語</string>
+    <string name="lang_english">英語</string>
+    <string name="lang_spanish">スペイン語</string>
+    <string name="lang_french">フランス語</string>
+    <string name="lang_italian">イタリア語</string>
+    <string name="lang_german">ドイツ語</string>
+    <string name="lang_japanese">日本語</string>
+    <string name="lang_chinese">中国語</string>
+
+    <string name="label_notificacoes">通知</string>
+    <string name="label_receber_notificacoes">通知を受け取る</string>
+    <string name="desc_icon_notificacoes">通知アイコン</string>
+
+    <string name="label_inicio">ホーム</string>
+    <string name="label_cadastro_pet">ペット登録</string>
+    <string name="label_meus_agendamentos">予約一覧</string>
+    <string name="label_meus_pets">ペット一覧</string>
+
+    <string name="label_dados_agendamento">予約データ</string>
+    <string name="hint_tipo_agendamento">予約の種類</string>
+    <string name="hint_selecione_pet">ペットを選択</string>
+    <string name="hint_selecione_veterinario">獣医師を選択</string>
+    <string name="label_data_e_hora">日時</string>
+    <string name="hint_data">日付</string>
+    <string name="hint_horario">時間</string>
+    <string name="cd_icone_observacoes">備考アイコン</string>
+    <string name="hint_descricao_agendamento_opcional">説明 / 備考 (任意)</string>
+
+    <string name="buscar_pets">名前や品種で検索...</string>
+    <string name="buscar_agendamentos">ペットや獣医師で検索...</string>
+
+    <string name="status_aberto">受付中</string>
+    <string name="status_cancelado">キャンセル済み</string>
+    <string name="status_concluido">完了</string>
+    <string name="status_perdido">来院なし</string>
+    <string name="status_desconhecido">ステータス不明</string>
+
+    <string name="tipo_consulta">診察</string>
+    <string name="tipo_cirurgia">手術</string>
+    <string name="tipo_vacina">ワクチン</string>
+    <string name="tipo_outro">その他</string>
+
+    <string name="especie_cachorro">犬</string>
+    <string name="especie_gato">猫</string>
+    <string name="especie_ave">鳥</string>
+    <string name="especie_coelho">ウサギ</string>
+    <string name="especie_tartaruga">カメ</string>
+    <string name="especie_peixe">魚</string>
+    <string name="especie_cavalo">馬</string>
+    <string name="especie_porquinho_da_india">モルモット</string>
+    <string name="especie_reptil">爬虫類</string>
+    <string name="especie_rato">ネズミ</string>
+    <string name="especie_furao">フェレット</string>
+    <string name="especie_hamster">ハムスター</string>
+    <string name="especie_outros">その他</string>
+
+    <string name="raca_desconhecido">不明</string>
+    <string name="raca_vira_lata">ミックス (雑種)</string>
+
+    <string name="raca_pastor_alemao">ジャーマン・シェパード</string>
+    <string name="raca_poodle">プードル</string>
+    <string name="raca_labrador_retriever">ラブラドール・レトリバー</string>
+    <string name="raca_bulldog_frances">フレンチ・ブルドッグ</string>
+    <string name="raca_golden_retriever">ゴールデン・レトリバー</string>
+    <string name="raca_chihuahua">チワワ</string>
+    <string name="raca_beagle">ビーグル</string>
+    <string name="raca_shih_tzu">シー・ズー</string>
+    <string name="raca_dachshund">ダックスフンド</string>
+    <string name="raca_boxer">ボクサー</string>
+    <string name="raca_rottweiler">ロットワイラー</string>
+
+    <string name="raca_siames">シャム</string>
+    <string name="raca_persa">ペルシャ</string>
+    <string name="raca_maine_coon">メインクーン</string>
+    <string name="raca_angora">アンゴラ</string>
+    <string name="raca_sphynx">スフィンクス</string>
+    <string name="raca_british_shorthair">ブリティッシュ・ショートヘア</string>
+    <string name="raca_bengal">ベンガル</string>
+    <string name="raca_ragdoll">ラグドール</string>
+
+    <string name="raca_periquito">セキセイインコ</string>
+    <string name="raca_calopsita">オカメインコ</string>
+    <string name="raca_papagaio">オウム</string>
+    <string name="raca_canario">カナリア</string>
+    <string name="raca_arara">コンゴウインコ</string>
+
+    <string name="raca_mini_lop">ミニロップ</string>
+    <string name="raca_lionhead">ライオンヘッド</string>
+    <string name="raca_rex">レッキス</string>
+    <string name="raca_angora_ingles">イングリッシュ・アンゴラ</string>
+
+    <string name="raca_betta">ベタ</string>
+    <string name="raca_goldfish">金魚</string>
+    <string name="raca_tetra_neon">ネオンテトラ</string>
+
+    <string name="raca_mangalarga_marchador">マンガラルガ・マルシャドール</string>
+    <string name="raca_puro_sangue_arabe">アラブ種</string>
+
+    <string name="raca_hamster_sirio">ゴールデンハムスター</string>
+    <string name="raca_hamster_anao_russo">ジャンガリアンハムスター</string>
+
+    <string name="erro_obrigatorio">必須</string>
+    <string name="erro_nome_obrigatorio">名前は必須です</string>
+    <string name="erro_especie_obrigatoria">種類は必須です</string>
+    <string name="erro_raca_obrigatoria">品種は必須です</string>
+    <string name="erro_animal_invalido">有効なペットを選択してください</string>
+    <string name="erro_veterinario_invalido">有効な獣医師を選択してください</string>
+    <string name="erro_tipo_invalido">有効なタイプを選択してください</string>
+    <string name="erro_status_nao_encontrado">ステータス \'受付中\' (ID 1) が見つかりません。</string>
+
+    <string name="erro_corrija_formulario">フォームのエラーを修正してください。</string>
+    <string name="erro_obter_dados_usuario">ユーザーデータの取得中にエラーが発生しました。</string>
+    <string name="erro_data_invalida">無効な日付です</string>
+    <string name="erro_data_vazia">日付を入力してください</string>
+    <string name="erro_nome_vazio">名前を入力してください</string>
+    <string name="erro_email_invalido">有効なメールアドレスを入力してください</string>
+    <string name="erro_telefone_vazio">電話番号を入力してください</string>
+    <string name="erro_data_formato">日付は DD/MM/AAAA 形式で入力してください</string>
+    <string name="erro_cep_vazio">郵便番号を入力してください</string>
+    <string name="erro_logradouro_vazio">住所を入力してください</string>
+    <string name="erro_numero_vazio">番号を入力してください</string>
+    <string name="erro_cidade_vazia">市区町村を入力してください</string>
+    <string name="erro_selecionar_estado">都道府県を選択してください</string>
+    <string name="erro_senha_minima">パスワードは8文字以上である必要があります</string>
+    <string name="erro_senhas_nao_conferem">パスワードが一致しません</string>
+    <string name="erro_cpf_formato">CPFは11桁である必要があります</string>
+    <string name="erro_carregar_lista">リストの読み込みエラー</string>
+
+    <string name="erro_imagem_muito_grande">画像が大きすぎます。制限は %1$dMB です。</string>
+    <string name="erro_selecionar_imagem">この画像を選択できませんでした。</string>
+    <string name="erro_processar_imagem">画像の処理中にエラーが発生しました。</string>
+    <string name="erro_obter_url">URL取得エラー: %1$s</string>
+    <string name="erro_upload_imagem">アップロードエラー: %1$s</string>
+    <string name="erro_salvar_alteracoes">変更を保存できませんでした。</string>
+    <string name="erro_conexao_geral">接続エラー。インターネット接続を確認してください。</string>
+    <string name="erro_desconhecido">不明なエラーが発生しました。</string>
+    <string name="erro_falha_cadastro">登録に失敗しました。</string>
+    <string name="erro_formato_data_invalido">日付の形式が無効です。DD/MM/AAAA を使用してください。</string>
+
+    <string name="sucesso_cadastro_usuario">ユーザー %1$s が登録されました</string>
+    <string name="info_perfil_nao_carregado">プロフィールデータを読み込めませんでした。</string>
+
+    <string name="erro_imagem_muito_grande_animal">画像が大きすぎます。制限は %1$dMB です。</string>
+    <string name="erro_selecionar_imagem_animal">この画像を選択できませんでした。</string>
+    <string name="erro_processar_imagem_animal">画像の処理中にエラーが発生しました。</string>
+    <string name="erro_obter_url_animal">URL取得エラー: %1$s</string>
+    <string name="erro_upload_imagem_animal">アップロードエラー: %1$s</string>
+    <string name="erro_criar_objeto_animal">ペットオブジェクトの作成エラー</string>
+    <string name="erro_validar_dados_animal">データの検証エラー。</string>
+    <string name="erro_carregar_especies_racas">種類や品種を読み込めませんでした。</string>
+    <string name="erro_salvar_animal_rede">接続エラー。インターネット接続を確認してください。</string>
+    <string name="erro_salvar_animal_generico">不明なエラーが発生しました。</string>
+    <string name="erro_remover_animal_rede">接続エラー。インターネット接続を確認してください。</string>
+    <string name="erro_remover_animal_generico">ペットを削除できませんでした。</string>
+    <string name="toast_selecionar_sexo">性別は必須です</string>
+
+    <string name="erro_recepcionista_nao_encontrado">システム設定エラー。サポートに連絡してください。</string>
+    <string name="erro_carregar_dados_agendamento">必要なデータを読み込めませんでした。</string>
+    <string name="erro_salvar_agendamento_rede">接続エラー。インターネット接続を確認してください。</string>
+    <string name="erro_salvar_agendamento_generico">不明なエラーが発生しました。</string>
+    <string name="erro_agendamento_salvo_nulo">保存時にサーバーから空の応答がありました。</string>
+    <string name="erro_agendamento_atualizado_nulo">更新時にサーバーから空の応答がありました。</string>
+
+    <string name="sucesso_agendamento_salvo">予約が正常に保存されました！</string>
+
+    <string name="info_sem_proximo_agendamento">次回の予約はありません</string>
+    <string name="info_sem_agendamentos_recentes">数日以内の予約はありません</string>
+
+    <string name="info_sem_animais">ペットが登録されていません</string>
+    <string name="info_clique_para_adicionar">+ ボタンをクリックして最初のペットを追加してください</string>
+
+    <string name="info_sem_agendamentos_lista">予約が見つかりません</string>
+    <string name="info_clique_para_adicionar_agendamento">+ ボタンをクリックして予約してください</string>
+
+    <string name="dialog_button_ok">OK</string>
+
+    <string name="toast_agendamento_cancelado_sucesso">予約が正常にキャンセルされました！</string>
+    <string name="dialog_title_cancelar_agendamento">予約のキャンセル</string>
+    <string name="dialog_message_cancelar_agendamento">本当にこの予約をキャンセルしてもよろしいですか？</string>
+    <string name="dialog_button_cancelar_agendamento">はい</string>
+    <string name="dialog_button_voltar">戻る</string>
+
+    <string name="dialog_title_erro_animal">ペット保存エラー</string>
+    <string name="dialog_message_erro_animal">ペットのデータを保存できませんでした。後でもう一度お試しください。</string>
+
+    <string name="dialog_title_erro_agendamento">予約保存エラー</string>
+    <string name="dialog_message_erro_agendamento">予約データを保存できませんでした。後でもう一度お試しください。</string>
+
+    <string name="erro_sem_horarios_disponiveis">この日付に利用可能な時間がありません</string>
+    <string name="titulo_datepicker_data_agendamento">予約日を選択</string>
+
+    <string name="button_alterar_senha">パスワード変更</string>
+    <string name="hint_senha_antiga">現在のパスワード</string>
+    <string name="hint_nova_senha">新しいパスワード</string>
+    <string name="hint_confirmar_nova_senha">新しいパスワード（確認）</string>
+    <string name="button_salvar_nova_senha">新しいパスワードを保存</string>
+    <string name="sucesso_alterar_senha">パスワードが変更されました！</string>
+    <string name="erro_senha_nova_igual_antiga">新しいパスワードは現在のパスワードと同じにできません。</string>
+    <string name="erro_alterar_senha_falha">パスワードを変更できませんでした。現在のパスワードを確認して再試行してください。</string>
+
+    <string name="erro_carregar_usuario">ユーザーデータの読み込みエラー。接続を確認してください。</string>
+
+    <string name="titulo_funcionarios">スタッフ</string>
+    <string name="label_cargo">役職</string>
+    <string name="hint_cargo_selecione">役職を選択</string>
+    <string name="administrador">管理者</string>
+    <string name="cargo_veterinario">獣医師</string>
+    <string name="cargo_recepcionista">受付</string>
+    <string name="cargo_cliente">顧客</string>
+    <string name="botao_cadastrar_funcionario">スタッフ登録</string>
+    <string name="erro_cargo_vazio">有効な役職を選択してください。</string>
+    <string name="sucesso_funcionario_salvo">スタッフが正常に保存されました！</string>
+    <string name="erro_carregar_funcionarios">スタッフリストの読み込みエラー。</string>
+    <string name="info_sem_funcionarios">スタッフが見つかりません。</string>
+    <string name="hint_senha_inicial">初期パスワード</string>
+    <string name="titulo_editar_funcionario">スタッフ編集</string>
+    <string name="botao_atualizar_funcionario">スタッフ更新</string>
+    <string name="hint_senha_opcional">新しいパスワード (任意)</string>
+    <string name="sucesso_funcionario_atualizado">スタッフが正常に更新されました！</string>
+    <string name="erro_atualizar_funcionario">スタッフの更新エラー。</string>
+    <string name="dados_funcionario">スタッフデータ</string>
+    <string name="buscar_funcionarios">スタッフを検索</string>
+
+    <string name="loading_conectando">> サーバーに接続中...</string>
+    <string name="loading_autenticacao">> 認証成功...</string>
+    <string name="loading_carregando_perfil">> プロフィールを読み込み中...</string>
+    <string name="loading_buscando_pets">> ペットを検索中...</string>
+    <string name="loading_organizando_agenda">> カレンダーを整理中...</string>
+    <string name="loading_quase_la">> もうすぐ完了します...</string>
+    <string name="loading_bem_vindo">> ようこそ、%s さん！</string>
+    <string name="loading_bem_vindo_composta">> ようこそ、%s %s さん！</string>
+
+    <string name="saudacao_simples">こんにちは、%s さん</string>
+    <string name="saudacao_composta">こんにちは、%s %s さん</string>
+
+    <string name="welcome_profissional_placeholder">こんにちは、専門家さん</string>
+    <string name="titulo_painel_admin">管理パネル</string>
+    <string name="card_cadastrar_funcionarios">スタッフ登録</string>
+    <string name="titulo_agenda_hoje">本日のスケジュール</string>
+    <string name="info_agenda_vazia">本日の予約はありません。</string>
+
+    <string name="title_dados_clinicos">ペットの臨床データ</string>
+    <string name="label_nome_pet_placeholder">ペットの名前</string>
+    <string name="label_raca_especie_placeholder">品種 / 種類</string>
+    <string name="label_animal_castrado">去勢・避妊済み?</string>
+    <string name="button_atualizar_dados_clinicos">臨床データを更新</string>
+    <string name="label_dados_animal">ペットデータ</string>
+    <string name="info_cadastre_pet">予約を行うには最初のペットを登録してください</string>
+    <string name="button_dados_clinicos">臨床データ</string>
+
+    <string name="erro_animal_nao_encontrado">ペットが見つかりません</string>
+    <string name="erro_carregar_dados_animal">ペットのデータを読み込めませんでした。</string>
+    <string name="sucesso_dados_clinicos_atualizados">臨床データが更新されました！</string>
+
+    <string name="label_receber_emails">メールの受信に同意します</string>
+    <string name="label_lembrar_de_mim">ログイン情報を記憶する</string>
+
+    <string name="titulo_clientes">顧客</string>
+    <string name="titulo_cadastrar_cliente">顧客登録</string>
+    <string name="botao_cadastrar_cliente">顧客登録</string>
+    <string name="sucesso_cliente_salvo">顧客が正常に保存されました！</string>
+    <string name="sucesso_cliente_atualizado">顧客が正常に更新されました！</string>
+    <string name="dados_cliente">顧客データ</string>
+    <string name="hint_selecione_cliente">顧客を選択</string>
+
+    <string name="horarios">営業時間</string>
+    <string name="meus_horarios">マイシフト</string>
+    <string name="title_novo_horario">新しい時間を追加</string>
+    <string name="title_horarios_de">%1$s の時間</string>
+    <string name="hint_dia_semana">曜日</string>
+    <string name="hint_inicio">開始</string>
+    <string name="hint_fim">終了</string>
+    <string name="btn_adicionar_horario">時間を追加</string>
+    <string name="label_horarios_cadastrados">登録済みの時間</string>
+    <string name="gerenciar_horarios">時間の管理</string>
+
+    <string name="picker_titulo_inicio">開始時間</string>
+    <string name="picker_titulo_fim">終了時間</string>
+
+    <string name="erro_usuario_nao_identificado">エラー：ユーザーが特定できません</string>
+    <string name="erro_preencha_campos">すべてのフィールドを入力してください</string>
+    <string name="erro_dia_invalido">無効な曜日です</string>
+    <string name="erro_carregar_horarios">時間の読み込みエラー</string>
+    <string name="erro_salvar_horario">時間の保存エラー</string>
+    <string name="erro_deletar_horario">削除エラー</string>
+
+    <string name="dia_domingo">日曜日</string>
+    <string name="dia_segunda">月曜日</string>
+    <string name="dia_terca">火曜日</string>
+    <string name="dia_quarta">水曜日</string>
+    <string name="dia_quinta">木曜日</string>
+    <string name="dia_sexta">金曜日</string>
+    <string name="dia_sabado">土曜日</string>
+
+    <string name="sobre_nos">会社概要</string>
+    <string name="sobre_descricao_app">AgenPetは、飼い主と動物病院を迅速かつ安全につなぎ、診療予約を簡単にします。</string>
+    <string name="sobre_versao">バージョン %1$s</string>
+    <string name="sobre_github">GitHubへ</string>
+    <string name="sobre_politica_privacidade">プライバシーポリシー</string>
+    <string name="sobre_contato">お問い合わせ</string>
+    <string name="sobre_copyright">© 2025 AgenPet. All rights reserved.</string>
+
+    <string name="erro_abrir_link">リンクを開けませんでした。</string>
+    <string name="erro_app_email_nao_encontrado">メールアプリが見つかりません。</string>
+    <string name="email_assunto_contato">AgenPetアプリからのお問い合わせ</string>
+    <string name="sobre_desenvolvedores">開発者</string>
+    <string name="titulo_desenvolvedores">開発チーム</string>
+
+    <string name="button_diagnostico">診断</string>
+    <string name="titulo_pos_consulta">診察詳細</string>
+    <string name="label_diagnostico">診断内容</string>
+    <string name="label_prescricao">処方箋</string>
+    <string name="label_nenhuma_prescricao">この診察には処方箋が登録されていません。</string>
+    <string name="btn_baixar_pdf">処方箋をダウンロード (PDF)</string>
+    <string name="msg_resultado_indisponivel">結果はまだ利用できません。</string>
+    <string name="msg_erro_buscar_dados">データ検索エラー。</string>
+    <string name="msg_pdf_em_breve">PDF機能は近日公開予定！</string>
+    <string name="label_carregando">読み込み中...</string>
+    <string name="label_aguardando_dados">まだ利用できません</string>
+    <string name="titulo_finalizar_consulta">診療記録</string>
+    <string name="hint_diagnostico_principal">主な診断 (必須)</string>
+    <string name="hint_observacoes_medicas">臨床観察 / 身体検査</string>
+    <string name="btn_add">追加</string>
+    <string name="btn_finalizar_consulta">診察終了</string>
+    <string name="label_sem_remedios_adicionados">薬が追加されていません。</string>
+    <string name="dialog_add_remedio_titulo">薬の追加</string>
+    <string name="hint_nome_remedio">薬名</string>
+    <string name="hint_dosagem">用量 (例: 10mg, 5ml)</string>
+    <string name="hint_instrucoes">使用方法</string>
+    <string name="btn_cancelar">キャンセル</string>
+    <string name="btn_salvar">保存</string>
+    <string name="sucesso_consulta_finalizada">診察が正常に終了しました！</string>
+    <string name="button_visualizar_prontuario">カルテを見る</string>
+    <string name="button_realizar_atendimento">診察を行う</string>
+    <string name="button_ver_receita_diagnostico">処方箋 / 診断を見る</string>
+    <string name="erro_recepcionista_invalido">エラー：受付担当者が特定できません。</string>
+    <string name="erro_campos_medicamento_obrigatorios">名前と用量は必須です</string>
+    <string name="erro_diagnostico_obrigatorio">診断は必須です。</string>
+    <string name="erro_salvar_resultado_conexao">結果の保存エラー。接続を確認してください。</string>
+
+    <string name="hint_status_agendamento">予約状況</string>
+
+</resources>

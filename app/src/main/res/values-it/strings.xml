@@ -1,0 +1,463 @@
+<resources>
+    <string name="app_name">Agen Pet</string>
+    <string name="app_email">agenpet@gmail.com</string>
+    <string name="email">E-mail</string>
+    <string name="senha">Password</string>
+    <string name="esqueci_senha">Password dimenticata</string>
+    <string name="realizar_cadastro">Registrati</string>
+    <string name="logar">Accedi</string>
+    <string name="cadastrar">Registrati</string>
+    <string name="nome">Nome</string>
+    <string name="cpf">Codice Fiscale</string> <string name="cadastro">Registrazione</string>
+    <string name="login">Login</string>
+    <string name="data_nascimento">Data di Nascita</string>
+    <string name="telefone">Telefono</string>
+    <string name="confirmar_senha">Conferma Password</string>
+    <string name="logradouro">Indirizzo</string>
+    <string name="numero">Numero</string>
+    <string name="bairro">Quartiere</string>
+    <string name="cep">CAP</string> <string name="cidade">Città</string>
+    <string name="estado">Provincia/Regione</string>
+    <string name="complemento">Interno/Scala</string>
+    <string name="home">Home</string>
+    <string name="agendamentos">Appuntamenti</string>
+    <string name="pets">Animali</string>
+    <string name="configuracao">Impostazioni</string>
+    <string name="cadastrar_novo_agendamento">Nuovo Appuntamento</string>
+    <string name="cadastrar_novo_pet">Aggiungi Nuovo Animale</string>
+    <string name="navigation_drawer_open">Apri menu di navigazione</string>
+    <string name="navigation_drawer_close">Chiudi menu di navigazione</string>
+
+    <string name="title_login">Accedi</string>
+    <string name="cd_logo_app">Logo dell\'app</string>
+    <string name="label_acesso_conta">Accedi al tuo account</string>
+
+    <string name="title_cadastro_usuario">Registrazione Utente</string>
+    <string name="label_dados_pessoais">Dati Personali</string>
+    <string name="hint_nome_completo">Nome Completo</string>
+    <string name="hint_data_nascimento_formato">Data di Nascita (GG/MM/AAAA)</string>
+    <string name="label_endereco">Indirizzo</string>
+    <string name="label_seguranca">Sicurezza</string>
+    <string name="hint_senha_min_chars">Password (min. 8 caratteri)</string>
+    <string name="label_identificacao_pet">Identificazione dell\'Animale</string>
+    <string name="label_especie">Specie</string>
+    <string name="label_raca">Razza</string>
+    <string name="label_caracteristicas_fisicas">Caratteristiche Fisiche</string>
+    <string name="label_sexo">Sesso</string>
+    <string name="option_macho">Maschio</string>
+    <string name="option_femea">Femmina</string>
+    <string name="option_desconhecido">Non lo so</string>
+    <string name="label_info_adicional_animal">Informazioni (non modificabili dopo la registrazione)</string>
+    <string name="hint_peso_kg">Peso (kg)</string>
+    <string name="hint_altura_cm">Altezza (cm)</string>
+    <string name="label_castrado">Sterilizzato?</string>
+    <string name="option_sim">Sì</string>
+    <string name="option_nao">No</string>
+    <string name="hint_descricao_observacoes">Osservazioni</string>
+    <string name="cd_icone_descricao">Icona descrizione</string>
+    <string name="button_salvar">Salva</string>
+    <string name="placeholder_id_animal">ID: %1$d</string>
+    <string name="titulo_editar_animal">Modifica Animale</string>
+    <string name="titulo_editar_agendamento">Modifica Appuntamento</string>
+    <string name="titulo_novo_animal">Nuovo Animale</string>
+    <string name="button_atualizar">Aggiorna</string>
+    <string name="cd_carregando_racas">Caricamento razze</string>
+    <string name="toast_animal_salvo_sucesso">Animale salvato con successo!</string>
+    <string name="toast_preencher_campos_obrigatorios">Compila tutti i campi obbligatori.</string>
+    <string name="toast_erro_usuario_nao_encontrado">Errore: utente non trovato. Riprova.</string>
+    <string name="toast_informar_castrado">Indica se l\'animale è sterilizzato</string>
+    <string name="titulo_datepicker_data_nascimento">Seleziona la data di nascita</string>
+
+    <string name="titulo_proximo_agendamento">Prossimo appuntamento</string>
+    <string name="titulo_recentes">Recenti</string>
+
+    <string name="label_animal">Animale:</string>
+    <string name="label_veterinario">Veterinario:</string>
+    <string name="label_data">Data:</string>
+    <string name="label_horario">Orario:</string>
+
+    <string name="cd_icone_pet">Icona dell\'animale</string>
+    <string name="label_pet_item">Animale:</string>
+    <string name="label_servico">Servizio:</string>
+    <string name="label_hora_item">Ora:</string>
+    <string name="label_status">Stato:</string>
+
+    <string name="meu_perfil">Il mio Profilo</string>
+    <string name="sair">Esci</string>
+
+    <string name="cd_ver_detalhes">Vedi Dettagli</string>
+    <string name="cd_imagem_perfil">Immagine del profilo</string>
+    <string name="cd_acessar_perfil">Accedi al profilo utente</string>
+
+    <string name="placeholder_nome_usuario">Nome Utente</string>
+    <string name="placeholder_email_usuario">email.utente@email.com</string>
+
+    <string name="title_perfil">Profilo</string>
+
+    <string name="cd_remover_animal">Rimuovi animale</string>
+
+    <string name="toast_animal_removido_sucesso">Animale rimosso con successo!</string>
+    <string name="dialog_title_remover_animal">Rimuovi Animale</string>
+    <string name="dialog_message_remover_animal">Sei sicuro di voler rimuovere %1$s? Questa azione non può essere annullata.</string>
+    <string name="dialog_button_remover">Rimuovi</string>
+    <string name="dialog_button_cancelar">Annulla</string>
+
+    <string name="title_meu_perfil">Il mio Profilo</string>
+    <string name="button_salvar_alteracoes">Salva Modifiche</string>
+    <string name="toast_perfil_atualizado_sucesso">Profilo aggiornato con successo!</string>
+
+    <string name="cd_propaganda">Pubblicità</string>
+
+    <string name="label_aparencia">Aspetto</string>
+    <string name="label_modo_escuro">Tema</string>
+    <string name="desc_icon_dark_mode">Icona tema scuro</string>
+    <string name="theme_light">Chiaro</string>
+    <string name="theme_dark">Scuro</string>
+    <string name="theme_system">Predefinito di Sistema</string>
+
+    <string name="label_idioma">Lingua</string>
+    <string name="label_idioma_titulo">Seleziona Lingua</string>
+    <string name="desc_icon_idioma">Icona lingua</string>
+    <string name="lang_portuguese">Portoghese</string>
+    <string name="lang_english">Inglese</string>
+    <string name="lang_spanish">Spagnolo</string>
+    <string name="lang_french">Francese</string>
+    <string name="lang_italian">Italiano</string>
+    <string name="lang_german">Tedesco</string>
+    <string name="lang_japanese">Giapponese</string>
+    <string name="lang_chinese">Cinese</string>
+
+    <string name="label_notificacoes">Notifiche</string>
+    <string name="label_receber_notificacoes">Ricevi notifiche</string>
+    <string name="desc_icon_notificacoes">Icona notifiche</string>
+
+    <string name="label_inicio">Inizio</string>
+    <string name="label_cadastro_pet">Registra Animale</string>
+    <string name="label_meus_agendamentos">I miei Appuntamenti</string>
+    <string name="label_meus_pets">I miei Animali</string>
+
+    <string name="label_dados_agendamento">Dati dell\'Appuntamento</string>
+    <string name="hint_tipo_agendamento">Tipo di Appuntamento</string>
+    <string name="hint_selecione_pet">Seleziona l\'Animale</string>
+    <string name="hint_selecione_veterinario">Seleziona il Veterinario</string>
+    <string name="label_data_e_hora">Data e Ora</string>
+    <string name="hint_data">Data</string>
+    <string name="hint_horario">Orario</string>
+    <string name="cd_icone_observacoes">Icona Osservazioni</string>
+    <string name="hint_descricao_agendamento_opcional">Descrizione / Note (Opzionale)</string>
+
+    <string name="buscar_pets">Cerca per nome o razza...</string>
+    <string name="buscar_agendamentos">Cerca per animale, veterinario...</string>
+
+    <string name="status_aberto">Aperto</string>
+    <string name="status_cancelado">Cancellato</string>
+    <string name="status_concluido">Concluso</string>
+    <string name="status_perdido">Perso</string>
+    <string name="status_desconhecido">Stato Sconosciuto</string>
+
+    <string name="tipo_consulta">Visita</string>
+    <string name="tipo_cirurgia">Chirurgia</string>
+    <string name="tipo_vacina">Vaccino</string>
+    <string name="tipo_outro">Altro</string>
+
+    <string name="especie_cachorro">Cane</string>
+    <string name="especie_gato">Gatto</string>
+    <string name="especie_ave">Uccello</string>
+    <string name="especie_coelho">Coniglio</string>
+    <string name="especie_tartaruga">Tartaruga</string>
+    <string name="especie_peixe">Pesce</string>
+    <string name="especie_cavalo">Cavallo</string>
+    <string name="especie_porquinho_da_india">Porcellino d\'India</string>
+    <string name="especie_reptil">Rettile</string>
+    <string name="especie_rato">Ratto</string>
+    <string name="especie_furao">Furetto</string>
+    <string name="especie_hamster">Criceto</string>
+    <string name="especie_outros">Altri</string>
+
+    <string name="raca_desconhecido">Sconosciuto</string>
+    <string name="raca_vira_lata">Meticcio</string>
+
+    <string name="raca_pastor_alemao">Pastore Tedesco</string>
+    <string name="raca_poodle">Barboncino</string>
+    <string name="raca_labrador_retriever">Labrador Retriever</string>
+    <string name="raca_bulldog_frances">Bulldog Francese</string>
+    <string name="raca_golden_retriever">Golden Retriever</string>
+    <string name="raca_chihuahua">Chihuahua</string>
+    <string name="raca_beagle">Beagle</string>
+    <string name="raca_shih_tzu">Shih Tzu</string>
+    <string name="raca_dachshund">Bassotto</string>
+    <string name="raca_boxer">Boxer</string>
+    <string name="raca_rottweiler">Rottweiler</string>
+
+    <string name="raca_siames">Siamese</string>
+    <string name="raca_persa">Persiano</string>
+    <string name="raca_maine_coon">Maine Coon</string>
+    <string name="raca_angora">D\'Angora</string>
+    <string name="raca_sphynx">Sphynx</string>
+    <string name="raca_british_shorthair">British Shorthair</string>
+    <string name="raca_bengal">Bengala</string>
+    <string name="raca_ragdoll">Ragdoll</string>
+
+    <string name="raca_periquito">Parrocchetto</string>
+    <string name="raca_calopsita">Calopsitta</string>
+    <string name="raca_papagaio">Pappagallo</string>
+    <string name="raca_canario">Canarino</string>
+    <string name="raca_arara">Ara</string>
+
+    <string name="raca_mini_lop">Ariete Nano</string>
+    <string name="raca_lionhead">Testa di Leone</string>
+    <string name="raca_rex">Rex</string>
+    <string name="raca_angora_ingles">D\'Angora Inglese</string>
+
+    <string name="raca_betta">Betta</string>
+    <string name="raca_goldfish">Pesce Rosso</string>
+    <string name="raca_tetra_neon">Tetra Neon</string>
+
+    <string name="raca_mangalarga_marchador">Mangalarga Marchador</string>
+    <string name="raca_puro_sangue_arabe">Purosangue Arabo</string>
+
+    <string name="raca_hamster_sirio">Criceto Siriano</string>
+    <string name="raca_hamster_anao_russo">Criceto Nano Russo</string>
+
+    <string name="erro_obrigatorio">Obbligatorio</string>
+    <string name="erro_nome_obrigatorio">Il nome è obbligatorio</string>
+    <string name="erro_especie_obrigatoria">La specie è obbligatoria</string>
+    <string name="erro_raca_obrigatoria">La razza è obbligatoria</string>
+    <string name="erro_animal_invalido">Seleziona un animale valido</string>
+    <string name="erro_veterinario_invalido">Seleziona un veterinario valido</string>
+    <string name="erro_tipo_invalido">Seleziona un tipo valido</string>
+    <string name="erro_status_nao_encontrado">Stato \'Aperto\' (ID 1) non trovato.</string>
+
+    <string name="erro_corrija_formulario">Correggi gli errori nel modulo.</string>
+    <string name="erro_obter_dados_usuario">Errore nel recupero dei dati utente.</string>
+    <string name="erro_data_invalida">Data non valida</string>
+    <string name="erro_data_vazia">La data non può essere vuota</string>
+    <string name="erro_nome_vazio">Il nome non può essere vuoto</string>
+    <string name="erro_email_invalido">L\'email deve essere valida</string>
+    <string name="erro_telefone_vazio">Il telefono non può essere vuoto</string>
+    <string name="erro_data_formato">La data deve essere nel formato GG/MM/AAAA</string>
+    <string name="erro_cep_vazio">Il CAP non può essere vuoto</string>
+    <string name="erro_logradouro_vazio">L\'indirizzo non può essere vuoto</string>
+    <string name="erro_numero_vazio">Il numero non può essere vuoto</string>
+    <string name="erro_cidade_vazia">La città non può essere vuota</string>
+    <string name="erro_selecionar_estado">Seleziona una regione</string>
+    <string name="erro_senha_minima">La password deve avere almeno 8 caratteri</string>
+    <string name="erro_senhas_nao_conferem">Le password non corrispondono</string>
+    <string name="erro_cpf_formato">Il CF deve avere 11 cifre</string>
+    <string name="erro_carregar_lista">Errore nel caricamento della lista</string>
+
+    <string name="erro_imagem_muito_grande">Immagine troppo grande. Il limite è di %1$dMB.</string>
+    <string name="erro_selecionar_imagem">Impossibile selezionare questa immagine.</string>
+    <string name="erro_processar_imagem">Errore durante l\'elaborazione dell\'immagine.</string>
+    <string name="erro_obter_url">Errore nel recupero dell\'URL: %1$s</string>
+    <string name="erro_upload_imagem">Errore di caricamento: %1$s</string>
+    <string name="erro_salvar_alteracoes">Impossibile salvare le modifiche.</string>
+    <string name="erro_conexao_geral">Errore di connessione. Controlla internet.</string>
+    <string name="erro_desconhecido">Si è verificato un errore sconosciuto.</string>
+    <string name="erro_falha_cadastro">Registrazione fallita.</string>
+    <string name="erro_formato_data_invalido">Formato data non valido. Usa GG/MM/AAAA.</string>
+
+    <string name="sucesso_cadastro_usuario">Utente %1$s registrato</string>
+    <string name="info_perfil_nao_carregado">Impossibile caricare i dati del profilo.</string>
+
+    <string name="erro_imagem_muito_grande_animal">Immagine troppo grande. Il limite è di %1$dMB.</string>
+    <string name="erro_selecionar_imagem_animal">Impossibile selezionare questa immagine.</string>
+    <string name="erro_processar_imagem_animal">Errore durante l\'elaborazione dell\'immagine.</string>
+    <string name="erro_obter_url_animal">Errore nel recupero dell\'URL: %1$s</string>
+    <string name="erro_upload_imagem_animal">Errore di caricamento: %1$s</string>
+    <string name="erro_criar_objeto_animal">Errore nella creazione dell\'oggetto animale</string>
+    <string name="erro_validar_dados_animal">Errore nella convalida dei dati.</string>
+    <string name="erro_carregar_especies_racas">Impossibile caricare specie o razze.</string>
+    <string name="erro_salvar_animal_rede">Errore di connessione. Controlla internet.</string>
+    <string name="erro_salvar_animal_generico">Si è verificato un errore sconosciuto.</string>
+    <string name="erro_remover_animal_rede">Errore di connessione. Controlla internet.</string>
+    <string name="erro_remover_animal_generico">Impossibile rimuovere l\'animale.</string>
+    <string name="toast_selecionar_sexo">Il sesso è obbligatorio</string>
+
+    <string name="erro_recepcionista_nao_encontrado">Errore di configurazione del sistema. Contatta il supporto.</string>
+    <string name="erro_carregar_dados_agendamento">Impossibile caricare i dati necessari.</string>
+    <string name="erro_salvar_agendamento_rede">Errore di connessione. Controlla internet.</string>
+    <string name="erro_salvar_agendamento_generico">Si è verificato un errore sconosciuto.</string>
+    <string name="erro_agendamento_salvo_nulo">Risposta nulla dal server durante il salvataggio.</string>
+    <string name="erro_agendamento_atualizado_nulo">Risposta nulla dal server durante l\'aggiornamento.</string>
+
+    <string name="sucesso_agendamento_salvo">Appuntamento salvato con successo!</string>
+
+    <string name="info_sem_proximo_agendamento">Nessuna visita programmata</string>
+    <string name="info_sem_agendamentos_recentes">Nessun appuntamento recente</string>
+
+    <string name="info_sem_animais">Nessun animale registrato</string>
+    <string name="info_clique_para_adicionar">Clicca sul pulsante + per aggiungere il tuo primo animale</string>
+
+    <string name="info_sem_agendamentos_lista">Nessun appuntamento trovato</string>
+    <string name="info_clique_para_adicionar_agendamento">Clicca sul pulsante + per prenotare</string>
+
+    <string name="dialog_button_ok">OK</string>
+
+    <string name="toast_agendamento_cancelado_sucesso">Appuntamento cancellato con successo!</string>
+    <string name="dialog_title_cancelar_agendamento">Annulla Appuntamento</string>
+    <string name="dialog_message_cancelar_agendamento">Sei sicuro di voler annullare questo appuntamento?</string>
+    <string name="dialog_button_cancelar_agendamento">Sì</string>
+    <string name="dialog_button_voltar">Indietro</string>
+
+    <string name="dialog_title_erro_animal">Errore Salvataggio Animale</string>
+    <string name="dialog_message_erro_animal">Impossibile salvare i dati dell\'animale. Riprova più tardi.</string>
+
+    <string name="dialog_title_erro_agendamento">Errore Salvataggio Appuntamento</string>
+    <string name="dialog_message_erro_agendamento">Impossibile salvare i dati dell\'appuntamento. Riprova più tardi.</string>
+
+    <string name="erro_sem_horarios_disponiveis">Nessun orario disponibile per questa data</string>
+    <string name="titulo_datepicker_data_agendamento">Seleziona la Data dell\'Appuntamento</string>
+
+    <string name="button_alterar_senha">Cambia Password</string>
+    <string name="hint_senha_antiga">Vecchia Password</string>
+    <string name="hint_nova_senha">Nuova Password</string>
+    <string name="hint_confirmar_nova_senha">Conferma Nuova Password</string>
+    <string name="button_salvar_nova_senha">Salva Nuova Password</string>
+    <string name="sucesso_alterar_senha">Password cambiata con successo!</string>
+    <string name="erro_senha_nova_igual_antiga">La nuova password non può essere uguale a quella vecchia.</string>
+    <string name="erro_alterar_senha_falha">Impossibile cambiare la password. Controlla la vecchia password e riprova.</string>
+
+    <string name="erro_carregar_usuario">Errore nel caricamento dei dati utente. Controlla la connessione.</string>
+
+    <string name="titulo_funcionarios">Dipendenti</string>
+    <string name="label_cargo">Ruolo</string>
+    <string name="hint_cargo_selecione">Seleziona il ruolo</string>
+    <string name="administrador">Amministratore</string>
+    <string name="cargo_veterinario">Veterinario</string>
+    <string name="cargo_recepcionista">Receptionist</string>
+    <string name="cargo_cliente">Cliente</string>
+    <string name="botao_cadastrar_funcionario">Registra Dipendente</string>
+    <string name="erro_cargo_vazio">Seleziona un ruolo valido.</string>
+    <string name="sucesso_funcionario_salvo">Dipendente salvato con successo!</string>
+    <string name="erro_carregar_funcionarios">Errore nel caricamento della lista dipendenti.</string>
+    <string name="info_sem_funcionarios">Nessun dipendente trovato.</string>
+    <string name="hint_senha_inicial">Password Iniziale</string>
+    <string name="titulo_editar_funcionario">Modifica Dipendente</string>
+    <string name="botao_atualizar_funcionario">Aggiorna Dipendente</string>
+    <string name="hint_senha_opcional">Nuova Password (Opzionale)</string>
+    <string name="sucesso_funcionario_atualizado">Dipendente aggiornato con successo!</string>
+    <string name="erro_atualizar_funcionario">Errore nell\'aggiornamento del dipendente.</string>
+    <string name="dados_funcionario">Dati del Dipendente</string>
+    <string name="buscar_funcionarios">Cerca dipendenti</string>
+
+    <string name="loading_conectando">> Connessione al server...</string>
+    <string name="loading_autenticacao">> Autenticazione riuscita...</string>
+    <string name="loading_carregando_perfil">> Caricamento del tuo profilo...</string>
+    <string name="loading_buscando_pets">> Ricerca dei tuoi animali...</string>
+    <string name="loading_organizando_agenda">> Organizzazione della tua agenda...</string>
+    <string name="loading_quase_la">> Ci siamo quasi...</string>
+    <string name="loading_bem_vindo">> Benvenuto(a), %s!</string>
+    <string name="loading_bem_vindo_composta">> Benvenuto(a), %s %s!</string>
+
+    <string name="saudacao_simples">Ciao, %s</string>
+    <string name="saudacao_composta">Ciao, %s %s</string>
+
+    <string name="welcome_profissional_placeholder">Ciao, Professionista</string>
+    <string name="titulo_painel_admin">Pannello Amministrativo</string>
+    <string name="card_cadastrar_funcionarios">Registra Dipendenti</string>
+    <string name="titulo_agenda_hoje">La tua Agenda di Oggi</string>
+    <string name="info_agenda_vazia">Nessun appuntamento per oggi.</string>
+
+    <string name="title_dados_clinicos">Dati Clinici dell\'Animale</string>
+    <string name="label_nome_pet_placeholder">Nome dell\'Animale</string>
+    <string name="label_raca_especie_placeholder">Razza / Specie</string>
+    <string name="label_animal_castrado">Animale Sterilizzato?</string>
+    <string name="button_atualizar_dados_clinicos">Aggiorna Dati Clinici</string>
+    <string name="label_dados_animal">Dati dell\'Animale</string>
+    <string name="info_cadastre_pet">Registra il tuo primo animale per poter prenotare visite</string>
+    <string name="button_dados_clinicos">Dati Clinici</string>
+
+    <string name="erro_animal_nao_encontrado">Animale non trovato</string>
+    <string name="erro_carregar_dados_animal">Impossibile caricare i dati dell\'animale.</string>
+    <string name="sucesso_dados_clinicos_atualizados">Dati clinici aggiornati!</string>
+
+    <string name="label_receber_emails">Accetto di ricevere e-mail</string>
+    <string name="label_lembrar_de_mim">Ricordami</string>
+
+    <string name="titulo_clientes">Clienti</string>
+    <string name="titulo_cadastrar_cliente">Registra Cliente</string>
+    <string name="botao_cadastrar_cliente">Registra Cliente</string>
+    <string name="sucesso_cliente_salvo">Cliente salvato con successo!</string>
+    <string name="sucesso_cliente_atualizado">Cliente aggiornato con successo!</string>
+    <string name="dados_cliente">Dati del Cliente</string>
+    <string name="hint_selecione_cliente">Seleziona il Cliente</string>
+
+    <string name="horarios">Orari</string>
+    <string name="meus_horarios">I miei Orari</string>
+    <string name="title_novo_horario">Aggiungi Nuovo Orario</string>
+    <string name="title_horarios_de">Orari di %1$s</string>
+    <string name="hint_dia_semana">Giorno della Settimana</string>
+    <string name="hint_inicio">Inizio</string>
+    <string name="hint_fim">Fine</string>
+    <string name="btn_adicionar_horario">Aggiungi Orario</string>
+    <string name="label_horarios_cadastrados">Orari Registrati</string>
+    <string name="gerenciar_horarios">Gestisci Orari</string>
+
+    <string name="picker_titulo_inicio">Orario di Inizio</string>
+    <string name="picker_titulo_fim">Orario di Fine</string>
+
+    <string name="erro_usuario_nao_identificado">Errore: Utente non identificato</string>
+    <string name="erro_preencha_campos">Compila tutti i campi</string>
+    <string name="erro_dia_invalido">Giorno non valido</string>
+    <string name="erro_carregar_horarios">Errore nel caricamento degli orari</string>
+    <string name="erro_salvar_horario">Errore nel salvataggio dell\'orario</string>
+    <string name="erro_deletar_horario">Errore nella cancellazione</string>
+
+    <string name="dia_domingo">Domenica</string>
+    <string name="dia_segunda">Lunedì</string>
+    <string name="dia_terca">Martedì</string>
+    <string name="dia_quarta">Mercoledì</string>
+    <string name="dia_quinta">Giovedì</string>
+    <string name="dia_sexta">Venerdì</string>
+    <string name="dia_sabado">Sabato</string>
+
+    <string name="sobre_nos">Chi Siamo</string>
+    <string name="sobre_descricao_app">AgenPet facilita la prenotazione di visite veterinarie, collegando proprietari e cliniche in modo rapido e sicuro.</string>
+    <string name="sobre_versao">Versione %1$s</string>
+    <string name="sobre_github">Visita GitHub</string>
+    <string name="sobre_politica_privacidade">Informativa sulla Privacy</string>
+    <string name="sobre_contato">Contattaci</string>
+    <string name="sobre_copyright">© 2025 AgenPet. Tutti i diritti riservati.</string>
+
+    <string name="erro_abrir_link">Impossibile aprire il link.</string>
+    <string name="erro_app_email_nao_encontrado">Nessuna app di posta trovata.</string>
+    <string name="email_assunto_contato">Contatto via App AgenPet</string>
+    <string name="sobre_desenvolvedores">Sviluppatori</string>
+    <string name="titulo_desenvolvedores">Team di Sviluppo</string>
+
+    <string name="button_diagnostico">Diagnosi</string>
+    <string name="titulo_pos_consulta">Dettagli della Visita</string>
+    <string name="label_diagnostico">Diagnosi</string>
+    <string name="label_prescricao">Ricetta Medica</string>
+    <string name="label_nenhuma_prescricao">Nessuna prescrizione registrata per questa visita.</string>
+    <string name="btn_baixar_pdf">Scarica Ricetta (PDF)</string>
+    <string name="msg_resultado_indisponivel">Risultato non ancora disponibile.</string>
+    <string name="msg_erro_buscar_dados">Errore nel recupero dei dati.</string>
+    <string name="msg_pdf_em_breve">Funzionalità PDF in arrivo!</string>
+    <string name="label_carregando">Caricamento...</string>
+    <string name="label_aguardando_dados">Non ancora disponibile</string>
+    <string name="titulo_finalizar_consulta">Cartella Clinica</string>
+    <string name="hint_diagnostico_principal">Diagnosi Principale (Obbligatorio)</string>
+    <string name="hint_observacoes_medicas">Osservazioni Cliniche / Esame Fisico</string>
+    <string name="btn_add">Aggiungi</string>
+    <string name="btn_finalizar_consulta">Termina Visita</string>
+    <string name="label_sem_remedios_adicionados">Nessun farmaco aggiunto.</string>
+    <string name="dialog_add_remedio_titulo">Aggiungi Farmaco</string>
+    <string name="hint_nome_remedio">Nome del Farmaco</string>
+    <string name="hint_dosagem">Dosaggio (es: 10mg, 5ml)</string>
+    <string name="hint_instrucoes">Istruzioni per l\'uso</string>
+    <string name="btn_cancelar">Annulla</string>
+    <string name="btn_salvar">Salva</string>
+    <string name="sucesso_consulta_finalizada">Visita terminata con successo!</string>
+    <string name="button_visualizar_prontuario">Visualizza Cartella Clinica</string>
+    <string name="button_realizar_atendimento">Esegui Visita</string>
+    <string name="button_ver_receita_diagnostico">Vedi Ricetta / Diagnosi</string>
+    <string name="erro_recepcionista_invalido">Errore: Receptionist non identificato.</string>
+    <string name="erro_campos_medicamento_obrigatorios">Nome e dosaggio sono obbligatori</string>
+    <string name="erro_diagnostico_obrigatorio">La diagnosi è obbligatoria.</string>
+    <string name="erro_salvar_resultado_conexao">Errore nel salvataggio del risultato. Controlla la connessione.</string>
+
+    <string name="hint_status_agendamento">Stato dell\'Appuntamento</string>
+
+</resources>
