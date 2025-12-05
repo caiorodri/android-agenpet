@@ -26,7 +26,9 @@ class SplashActivity : AppCompatActivity() {
 
     private var isLoading = true;
 
-    private var proximaIntent: Intent? = null
+    private var proximaIntent: Intent? = null;
+
+    private val THREE_DAYS_IN_MILLIS = 3 * 24 * 60 * 60 * 1000L;
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -42,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
 
             definirProximaTela();
 
-            isLoading = false
+            isLoading = false;
 
         }
 
@@ -85,27 +87,32 @@ class SplashActivity : AppCompatActivity() {
 
     private suspend fun definirProximaTela() {
 
-        val sessionManager = SessionManager(applicationContext)
-        val token = sessionManager.fetchAuthToken()
+        val sessionManager = SessionManager(applicationContext);
+        val token = sessionManager.fetchAuthToken();
+
+        val lastSessionTime = sessionManager.fetchLastSessionTime();
+        val currentTime = System.currentTimeMillis();
+        val isSessionValidTime = (currentTime - lastSessionTime) < THREE_DAYS_IN_MILLIS;
 
         withContext(Dispatchers.IO) {
             delay(1200)
         }
 
-        proximaIntent = if (!token.isNullOrBlank() && sessionManager.fetchRememberMe()) {
+        if (!token.isNullOrBlank() && sessionManager.fetchRememberMe() && isSessionValidTime) {
 
-            Intent(this, LoadingActivity::class.java).apply {
+            sessionManager.updateLastSessionTime()
+
+            proximaIntent = Intent(this, LoadingActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
 
         } else {
 
-            sessionManager.clearAuthToken();
+            sessionManager.clearAuthToken()
 
-            Intent(this, LoginActivity::class.java).apply {
+            proximaIntent = Intent(this, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
-
         }
 
     }

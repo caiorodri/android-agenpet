@@ -30,7 +30,12 @@ class SettingsFragment : Fragment() {
         mapOf(
             "pt" to getString(R.string.lang_portuguese),
             "en" to getString(R.string.lang_english),
-            "es" to getString(R.string.lang_spanish)
+            "es" to getString(R.string.lang_spanish),
+            "de" to getString(R.string.lang_german),
+            "fr" to getString(R.string.lang_french),
+            "it" to getString(R.string.lang_italian),
+            "ja" to getString(R.string.lang_japanese),
+            "zh" to getString(R.string.lang_chinese)
         )
     }
 

@@ -1,50 +1,49 @@
 package br.com.caiorodri.agenpet.ui.agendamento;
 
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import br.com.caiorodri.agenpet.R
-import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoCadastroBinding
-import br.com.caiorodri.agenpet.model.agendamento.Agendamento
-import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest
-import br.com.caiorodri.agenpet.model.agendamento.Status
-import br.com.caiorodri.agenpet.model.agendamento.Tipo
-import br.com.caiorodri.agenpet.model.animal.Animal
-import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar
-import br.com.caiorodri.agenpet.model.enums.PerfilEnum
-import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum
-import br.com.caiorodri.agenpet.model.usuario.Usuario
-import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar
-import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse
-import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity
-import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel
-import br.com.caiorodri.agenpet.ui.home.HomeActivity
-import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel
-import br.com.caiorodri.agenpet.ui.usuario.FuncionarioViewModel
-import br.com.caiorodri.agenpet.utils.getNomeTraduzido
-import com.google.android.material.datepicker.CalendarConstraints
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContentProviderCompat.requireContext;
+import androidx.core.view.isVisible;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.activityViewModels;
+import androidx.fragment.app.viewModels;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.findNavController;
+import androidx.navigation.fragment.navArgs;
+import br.com.caiorodri.agenpet.R;
+import br.com.caiorodri.agenpet.databinding.FragmentAgendamentoCadastroBinding;
+import br.com.caiorodri.agenpet.model.agendamento.Agendamento;
+import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest;
+import br.com.caiorodri.agenpet.model.agendamento.Status;
+import br.com.caiorodri.agenpet.model.agendamento.Tipo;
+import br.com.caiorodri.agenpet.model.animal.Animal;
+import br.com.caiorodri.agenpet.model.animal.AnimalCadastroComplementar;
+import br.com.caiorodri.agenpet.model.enums.PerfilEnum;
+import br.com.caiorodri.agenpet.model.enums.StatusAgendamentoEnum;
+import br.com.caiorodri.agenpet.model.usuario.Usuario;
+import br.com.caiorodri.agenpet.model.usuario.UsuarioCadastroComplementar;
+import br.com.caiorodri.agenpet.model.usuario.UsuarioResponse;
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeActivity;
+import br.com.caiorodri.agenpet.ui.home.ClienteHomeSharedViewModel;
+import br.com.caiorodri.agenpet.ui.home.HomeActivity;
+import br.com.caiorodri.agenpet.ui.home.HomeSharedViewModel;
+import br.com.caiorodri.agenpet.utils.getNomeTraduzido;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 class AgendamentoCadastroFragment : Fragment() {
 
@@ -53,7 +52,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
     private val viewModel: AgendamentoCadastroViewModel by viewModels();
     private lateinit var usuarioLogadoLiveData: LiveData<Usuario>;
-    private var usuarioAtual: Usuario? = null
+    private var usuarioAtual: Usuario? = null;
 
     private val formatadorDeDataUI = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
         timeZone = TimeZone.getTimeZone("UTC");
@@ -93,19 +92,13 @@ class AgendamentoCadastroFragment : Fragment() {
         val activity = requireActivity();
 
         if (activity is ClienteHomeActivity) {
-
             val sharedVM = ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
             usuarioLogadoLiveData = sharedVM.usuarioLogado;
-
         } else if (activity is HomeActivity) {
-
             val sharedVM = ViewModelProvider(activity)[HomeSharedViewModel::class.java];
             usuarioLogadoLiveData = sharedVM.usuarioLogado;
-
         } else {
-
-            throw IllegalStateException("AgendamentoCadastroFragment em Activity desconhecida")
-
+            throw IllegalStateException("AgendamentoCadastroFragment em Activity desconhecida");
         }
 
         isRecepcionista = usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.RECEPCIONISTA.id;
@@ -115,19 +108,25 @@ class AgendamentoCadastroFragment : Fragment() {
         setupUIBase(agendamentoParaEdicao);
         setupListeners();
         setupObservers();
+
+        parentFragmentManager.setFragmentResultListener("agendamento_request", viewLifecycleOwner) { key, bundle ->
+            val deveAtualizar = bundle.getBoolean("should_refresh");
+
+            if (deveAtualizar && agendamentoParaEdicao?.id != null) {
+                viewModel.recarregarAgendamento(agendamentoParaEdicao!!.id);
+            }
+        };
+
+        setupBotaoDiagnostico(agendamentoParaEdicao, usuarioLogadoLiveData);
     }
 
     private fun setupUIBase(agendamento: Agendamento?) {
 
         if (isRecepcionista) {
-
             binding.menuCliente.visibility = View.VISIBLE;
             binding.menuAnimal.isEnabled = false;
-
         } else {
-
             binding.menuCliente.visibility = View.GONE;
-
         }
 
         if (agendamento != null) {
@@ -167,43 +166,13 @@ class AgendamentoCadastroFragment : Fragment() {
                 desabilitarFormularioCompleto();
             }
 
-            val usuarioLogado = usuarioLogadoLiveData.value;
-            val isVeterinario = usuarioLogado?.perfil?.id == PerfilEnum.VETERINARIO.id;
-
-            if (isVeterinario) {
-
-                binding.cardAnimal.visibility = View.VISIBLE
-
-                binding.buttonSalvarDadosClinicos.setOnClickListener {
-
-                    val bundle = Bundle().apply {
-                        putParcelable("animal", agendamento.animal)
-                    }
-
-                    try {
-                        findNavController().navigate(
-                            R.id.action_agendamentoCadastroFragment_to_animalVeterinarioEditarFragment,
-                            bundle
-                        )
-                    } catch (e: Exception) {
-                        Log.e("Navegacao", "Erro ao navegar: ${e.message}")
-                    }
-                }
-
-
-            } else {
-
-                binding.cardAnimal.visibility = View.GONE;
-
-            }
-
-
         } else {
 
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.cadastrar_novo_agendamento);
             binding.buttonSalvar.text = getString(R.string.button_salvar);
 
             binding.menuStatus.visibility = View.GONE;
+            binding.cardAnimal.visibility = View.GONE;
 
             binding.autoCompleteHorario.setAdapter(
                 ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, emptyList<String>())
@@ -216,9 +185,74 @@ class AgendamentoCadastroFragment : Fragment() {
             viewModel.dataSelecionadaTimestamp.value?.let {
                 binding.editTextData.setText(formatadorDeDataUI.format(Date(it)));
             }
+        }
+    }
 
+    private fun setupBotaoDiagnostico(agendamento: Agendamento?, usuarioLiveData: LiveData<Usuario>) {
+
+        val usuarioLogado = usuarioLiveData.value ?: return;
+
+        if (agendamento == null ||
+            agendamento.status.id == StatusAgendamentoEnum.CANCELADO.id ||
+            agendamento.status.id == StatusAgendamentoEnum.PERDIDO.id
+        ) {
+            binding.cardAnimal.visibility = View.GONE;
+            return;
         }
 
+        val isVeterinario = usuarioLogado.perfil?.id == PerfilEnum.VETERINARIO.id;
+        val isConcluido = agendamento.status.id == StatusAgendamentoEnum.CONCLUIDO.id;
+        val isAberto = agendamento.status.id == StatusAgendamentoEnum.ABERTO.id;
+
+        if (isVeterinario) {
+            binding.cardAnimal.visibility = View.VISIBLE;
+            binding.dadosClinicos.visibility = View.VISIBLE;
+            binding.resultado.visibility = View.VISIBLE;
+            binding.dividerClinico.visibility = View.VISIBLE;
+
+            binding.buttonSalvarDadosClinicos.setOnClickListener {
+                val bundle = Bundle().apply { putParcelable("animal", agendamento.animal) };
+                try {
+                    findNavController().navigate(R.id.action_agendamentoCadastroFragment_to_animalVeterinarioEditarFragment, bundle);
+                } catch (e: Exception) {
+                    Log.e("Navegacao", "Erro ao navegar: ${e.message}");
+                }
+            };
+
+            if (isConcluido) {
+                binding.buttonSalvarDiagnostico.text = getString(R.string.button_visualizar_prontuario);
+                binding.buttonSalvarDiagnostico.setOnClickListener {
+                    val bundle = Bundle().apply { putParcelable("agendamento", agendamento) };
+                    findNavController().navigate(R.id.action_agendamentoCadastroFragment_to_posConsultaFragment, bundle);
+                };
+            } else if (isAberto) {
+                binding.buttonSalvarDiagnostico.text = getString(R.string.button_realizar_atendimento);
+                binding.buttonSalvarDiagnostico.setOnClickListener {
+                    val bundle = Bundle().apply { putParcelable("agendamento", agendamento) };
+                    findNavController().navigate(R.id.action_agendamentoCadastroFragment_to_posConsultaCadastroFragment, bundle);
+                };
+            }
+
+        } else {
+
+            binding.dadosClinicos.visibility = View.GONE;
+            binding.dividerClinico.visibility = View.GONE;
+
+            if (isConcluido) {
+
+                binding.cardAnimal.visibility = View.VISIBLE;
+                binding.resultado.visibility = View.VISIBLE;
+                binding.buttonSalvarDiagnostico.text = getString(R.string.button_diagnostico);
+
+                binding.buttonSalvarDiagnostico.setOnClickListener {
+                    val bundle = Bundle().apply { putParcelable("agendamento", agendamento) };
+                    findNavController().navigate(R.id.action_agendamentoCadastroFragment_to_posConsultaFragment, bundle);
+                }
+
+            } else {
+                binding.cardAnimal.visibility = View.GONE;
+            }
+        }
     }
 
     private fun desabilitarFormularioCompleto() {
@@ -234,7 +268,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
     private fun setupListeners() {
 
-        if(agendamentoParaEdicao == null){
+        if (agendamentoParaEdicao == null) {
 
             binding.autoCompleteTipo.setOnItemClickListener { parent, _, position, _ ->
                 val nomeTraduzido = parent.getItemAtPosition(position) as String;
@@ -283,9 +317,9 @@ class AgendamentoCadastroFragment : Fragment() {
 
             if (agendamentoParaEdicao != null) {
 
-                val cancelarAgendamento: Status? = listaStatus.find { it.getNomeTraduzido(requireContext()) == binding.autoCompleteStatus.text.toString()}
+                val cancelarAgendamento: Status? = listaStatus.find { it.getNomeTraduzido(requireContext()) == binding.autoCompleteStatus.text.toString() }
 
-                if(cancelarAgendamento?.id == StatusAgendamentoEnum.CANCELADO.id){
+                if (cancelarAgendamento?.id == StatusAgendamentoEnum.CANCELADO.id) {
 
                     mostrarDialogoCancelamento();
                     return@setOnClickListener;
@@ -367,7 +401,7 @@ class AgendamentoCadastroFragment : Fragment() {
 
             if (agendamentoParaEdicao != null) {
 
-                if(usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id){
+                if (usuarioLogadoLiveData.value?.perfil?.id == PerfilEnum.CLIENTE.id) {
 
                     if (agendamentoParaEdicao?.status?.id == StatusAgendamentoEnum.ABERTO.id) {
 
@@ -384,7 +418,6 @@ class AgendamentoCadastroFragment : Fragment() {
                     listaStatus = statusList;
 
                 }
-
 
 
             } else {
@@ -555,7 +588,7 @@ class AgendamentoCadastroFragment : Fragment() {
             viewModel.setDataSelecionada(dataTimestampUtc, dataApi);
 
             binding.editTextData.setText(formatadorDeDataUI.format(Date(dataTimestampUtc)));
-            
+
             binding.autoCompleteHorario.setText("", false);
             binding.menuHorario.error = null;
 
@@ -579,7 +612,7 @@ class AgendamentoCadastroFragment : Fragment() {
         }
     }
 
-    private fun mostrarDialogoCancelamento(){
+    private fun mostrarDialogoCancelamento() {
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.dialog_title_cancelar_agendamento))
@@ -683,7 +716,7 @@ class AgendamentoCadastroFragment : Fragment() {
         val emailRecepcionistaFinal = if (isRecepcionista) usuarioLogado?.email else recepcionistaAutoAtendimento?.email ?: ""
 
         if (idRecepcionistaFinal == null) {
-            Toast.makeText(requireContext(), "Erro no Recepcionista", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), R.string.erro_recepcionista_invalido, Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -741,7 +774,8 @@ class AgendamentoCadastroFragment : Fragment() {
             cliente = UsuarioCadastroComplementar(
                 id = clienteId,
                 nome = clienteNome!!,
-                email = clienteEmail!!),
+                email = clienteEmail!!
+            ),
             recepcionista = UsuarioCadastroComplementar(
                 id = idRecepcionistaFinal,
                 nome = nomeRecepcionistaFinal!!,
@@ -749,15 +783,18 @@ class AgendamentoCadastroFragment : Fragment() {
             ),
             animal = AnimalCadastroComplementar(
                 id = animalId,
-                nome = animalNome!!),
+                nome = animalNome!!
+            ),
             veterinario = UsuarioCadastroComplementar(
                 id = vetSelecionado.id,
                 nome = vetSelecionado.nome,
-                email = vetSelecionado.email),
+                email = vetSelecionado.email
+            ),
             tipo = Tipo(
                 id = tipoSelecionado.id,
                 nome = tipoSelecionado.nome,
-                duracaoMinutos = tipoSelecionado.duracaoMinutos),
+                duracaoMinutos = tipoSelecionado.duracaoMinutos
+            ),
             dataAgendamentoInicio = dataInicio,
             dataAgendamentoFinal = dataFim,
             descricao = binding.editTextDescricao.text.toString().trim(),

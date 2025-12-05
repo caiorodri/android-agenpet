@@ -57,6 +57,44 @@ class UsuarioController(private val context: Context) {
         return null;
     }
 
+    suspend fun getMeuPerfilWithToken(): LoginResponse? {
+
+        val endpoint = "getMeuPerfilWithToken";
+
+        Log.i(TAG, "[$endpoint] - Inicio");
+
+        try {
+
+            val response = usuarioService.getMeuPerfilWithToken();
+
+            if (response.isSuccessful) {
+
+                Log.i(TAG, "[$endpoint] - Sucesso.");
+                Log.i(TAG, "[$endpoint] - Fim");
+
+                return response.body();
+
+            } else {
+
+                Log.e(TAG, "[$endpoint] - Erro na resposta: ${response.code()} - ${response.message()}");
+
+            }
+
+        } catch (e: IOException) {
+
+            Log.e(TAG, "[$endpoint] - Falha de rede ou IO: ${e.message}", e);
+
+        } catch (e: Exception) {
+
+            Log.e(TAG, "[$endpoint] - Erro inesperado: ${e.message}", e);
+
+        }
+
+        Log.i(TAG, "[$endpoint] - Fim");
+
+        return null;
+    }
+
     suspend fun getMeuPerfil(): UsuarioResponse? {
 
         val endpoint = "getMeuPerfil";

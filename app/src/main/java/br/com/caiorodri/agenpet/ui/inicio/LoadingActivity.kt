@@ -86,9 +86,13 @@ class LoadingActivity : AppCompatActivity() {
             val finalUsuario: Usuario?;
 
             if (usuarioLogado != null) {
+
                 val animationJob = launch { runAnimation(loadingMessagesReduzida) }
+
                 animationJob.join();
                 finalUsuario = usuarioLogado;
+
+                sessionManager.updateLastSessionTime();
 
             } else {
 
@@ -200,10 +204,14 @@ class LoadingActivity : AppCompatActivity() {
 
         return withContext(Dispatchers.IO) {
 
-            val usuarioResponse = usuarioController.getMeuPerfil();
+            val usuarioResponse = usuarioController.getMeuPerfilWithToken();
 
             if (usuarioResponse != null) {
-                Usuario(usuarioResponse);
+
+                sessionManager.saveAuthToken(usuarioResponse.token);
+
+                Usuario(usuarioResponse.usuario);
+
             } else {
                 sessionManager.clearAuthToken();
                 null;

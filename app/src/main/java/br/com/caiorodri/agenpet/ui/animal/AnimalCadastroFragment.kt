@@ -114,16 +114,18 @@ class AnimalCadastroFragment : Fragment() {
 
         animalParaEdicao = args.animal;
 
+        Log.d("AnimalCadastroFragment", "Quantidade de agendamentos: ${animalParaEdicao?.agendamentos?.size}");
+
         val activity = requireActivity();
 
         if (activity is ClienteHomeActivity) {
 
-            val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
+            val sharedVM = ViewModelProvider(activity)[ClienteHomeSharedViewModel::class.java];
             usuarioLogado = sharedVM.usuarioLogado.value;
 
         } else if (activity is HomeActivity) {
 
-            val sharedVM = androidx.lifecycle.ViewModelProvider(activity)[HomeSharedViewModel::class.java];
+            val sharedVM = ViewModelProvider(activity)[HomeSharedViewModel::class.java];
             usuarioLogado = sharedVM.usuarioLogado.value;
 
         }

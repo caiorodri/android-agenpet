@@ -55,6 +55,14 @@
             android:id="@+id/action_agendamentoCadastroFragment_to_animalVeterinarioEditarFragment"
             app:destination="@id/animalVeterinarioEditarFragment" />
 
+        <action
+            android:id="@+id/action_agendamentoCadastroFragment_to_posConsultaCadastroFragment"
+            app:destination="@id/posConsultaCadastroFragment" />
+
+        <action
+            android:id="@+id/action_agendamentoCadastroFragment_to_posConsultaFragment"
+            app:destination="@id/posConsultaFragment" />
+
     </fragment>
 
     <fragment
@@ -147,6 +155,25 @@
         <action
             android:id="@+id/action_sobreFragment_to_desenvolvedorFragment"
             app:destination="@id/desenvolvedorFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/posConsultaCadastroFragment"
+        android:name="br.com.caiorodri.agenpet.ui.agendamento.PosConsultaCadastroFragment"
+        android:label="@string/titulo_pos_consulta"
+        tools:layout="@layout/fragment_pos_consulta_cadastro" />
+
+    <fragment
+        android:id="@+id/posConsultaFragment"
+        android:name="br.com.caiorodri.agenpet.ui.agendamento.PosConsultaFragment"
+        android:label="@string/titulo_pos_consulta"
+        tools:layout="@layout/fragment_pos_consulta">
+
+        <argument
+            android:name="agendamento"
+            app:nullable="false"
+            app:argType="br.com.caiorodri.agenpet.model.agendamento.Agendamento" />
 
     </fragment>
 

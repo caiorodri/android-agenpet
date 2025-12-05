@@ -3,6 +3,9 @@ package br.com.caiorodri.agenpet.api.service
 import br.com.caiorodri.agenpet.api.model.PageResponse
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoResponse
+import br.com.caiorodri.agenpet.model.agendamento.ResultadoConsulta
+import br.com.caiorodri.agenpet.model.agendamento.ResultadoConsultaRequest
+import br.com.caiorodri.agenpet.model.agendamento.ResultadoConsultaResponse
 import br.com.caiorodri.agenpet.model.agendamento.Status
 import br.com.caiorodri.agenpet.model.agendamento.Tipo
 import retrofit2.Response
@@ -77,5 +80,15 @@ interface AgendamentoService {
 
     @GET("agendamentos/tipos")
     suspend fun listarTipos(): Response<List<Tipo>>
+
+    @POST("agendamentos/resultado")
+    suspend fun salvarResultado(
+        @Body resultado: ResultadoConsultaRequest
+    ): Response<ResultadoConsultaResponse>
+
+    @GET("agendamentos/{idAgendamento}/resultado")
+    suspend fun recuperarResultado(
+        @Path("idAgendamento") idAgendamento: Long
+    ): Response<ResultadoConsultaResponse?>
 
 }

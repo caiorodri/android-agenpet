@@ -27,6 +27,9 @@ interface UsuarioService {
     @GET("usuarios/me")
     suspend fun getMeuPerfil(): Response<UsuarioResponse>
 
+    @GET("usuarios/me/token")
+    suspend fun getMeuPerfilWithToken(): Response<LoginResponse>
+
     @GET("usuarios")
     suspend fun listar(
         @Query("pagina") pagina: Int,

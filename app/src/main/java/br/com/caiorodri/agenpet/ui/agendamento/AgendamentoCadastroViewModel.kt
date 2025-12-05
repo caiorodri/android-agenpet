@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.viewModelScope;
 import br.com.caiorodri.agenpet.R;
+import br.com.caiorodri.agenpet.api.controller.AgendamentoController
 import br.com.caiorodri.agenpet.api.repository.AgendamentoRepository
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest;
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoResponse;
@@ -20,6 +21,7 @@ import java.io.IOException;
 class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(application) {
 
     private val agendamentoRepository = AgendamentoRepository.getInstance(application);
+    private val agendamentoController = AgendamentoController(application);
     private val _tipos = MutableLiveData<List<Tipo>>();
     val tipos: LiveData<List<Tipo>> = _tipos;
 
@@ -197,6 +199,28 @@ class AgendamentoCadastroViewModel(application: Application) : AndroidViewModel(
         val animaisDoCliente = todosAnimais.filter { it.dono?.id == idCliente }
         _animaisFiltrados.value = animaisDoCliente;
 
+    }
+
+    fun recarregarAgendamento(id: Long) {
+
+        viewModelScope.launch {
+
+            _isLoading.value = true;
+
+            try {
+
+                val agendamentoAtualizadoResponse = agendamentoController.recuperarAgendamento(id);
+
+                if (agendamentoAtualizadoResponse != null) {
+
+                    _agendamentoSalvo.value = agendamentoAtualizadoResponse;
+                }
+            } catch (e: Exception) {
+                _error.value = "Erro ao recarregar: ${e.message}";
+            } finally {
+                _isLoading.value = false;
+            }
+        }
     }
 
     fun resetAgendamentoSalvo() {

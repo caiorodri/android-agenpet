@@ -5,6 +5,9 @@ import android.util.Log;
 import br.com.caiorodri.agenpet.api.client.ApiClient;
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoRequest;
 import br.com.caiorodri.agenpet.model.agendamento.AgendamentoResponse;
+import br.com.caiorodri.agenpet.model.agendamento.ResultadoConsulta
+import br.com.caiorodri.agenpet.model.agendamento.ResultadoConsultaRequest
+import br.com.caiorodri.agenpet.model.agendamento.ResultadoConsultaResponse
 import br.com.caiorodri.agenpet.model.agendamento.Status;
 import br.com.caiorodri.agenpet.model.agendamento.Tipo;
 import java.io.IOException;
@@ -433,4 +436,77 @@ class AgendamentoController(private val context: Context) {
 
         return emptyList();
     }
+
+    suspend fun salvarResultadoConsulta(resultado: ResultadoConsultaRequest): ResultadoConsultaResponse? {
+
+        val endpoint = "salvarResultadoConsulta";
+
+        Log.i(TAG, "[$endpoint] - Inicio (AgendamentoID: ${resultado.agendamento?.id})");
+
+        try {
+
+            val response = agendamentoService.salvarResultado(resultado);
+
+            if (response.isSuccessful) {
+
+                Log.i(TAG, "[$endpoint] - Sucesso. Resultado salvo.");
+                return response.body();
+
+            } else {
+                Log.e(TAG, "[$endpoint] - Erro: ${response.code()} - ${response.message()}");
+            }
+
+        } catch (e: Exception) {
+            Log.e(TAG, "[$endpoint] - Erro: ${e.message}", e);
+        }
+        return null;
+    }
+
+    suspend fun recuperarResultadoConsulta(idAgendamento: Long): ResultadoConsultaResponse? {
+
+        val endpoint = "recuperarResultadoConsulta";
+
+        Log.i(TAG, "[$endpoint] - Inicio (AgendamentoID: $idAgendamento)");
+
+        try {
+
+            val response = agendamentoService.recuperarResultado(idAgendamento);
+
+            if (response.isSuccessful) {
+
+                val responseBody = response.body();
+
+                if (responseBody != null) {
+                    Log.i(TAG, "[$endpoint] - Sucesso. Mapeando resposta...");
+                    return responseBody;
+                } else {
+                    Log.w(TAG, "[$endpoint] - Resposta vazia");
+                    return null;
+                }
+
+            } else {
+
+                if(response.code() == 404) {
+                    Log.w(TAG, "[$endpoint] - Resultado não encontrado.");
+                } else {
+                    Log.e(TAG, "[$endpoint] - Erro: ${response.code()} - ${response.message()}");
+                }
+
+            }
+
+        } catch (e: java.io.EOFException) {
+
+            Log.w(TAG, "[$endpoint] - Fim de arquivo. Nenhum resultado encontrado.");
+            return null;
+
+        } catch (e: Exception) {
+
+            Log.e(TAG, "[$endpoint] - Erro: ${e.message}", e);
+
+        }
+
+        return null;
+
+    }
+
 }
